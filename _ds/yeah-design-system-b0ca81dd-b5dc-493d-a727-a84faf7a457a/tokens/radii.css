@@ -1,0 +1,17 @@
+:root{
+  /* The mark is built from hard cuts and true half-circles: blocks are square,
+     interactive things are fully round. Mid radii are used sparingly. */
+  --radius-none:0px;
+  --radius-xs:4px;
+  --radius-sm:6px;
+  --radius-md:10px;
+  --radius-lg:16px;
+  --radius-pill:999px;
+  --radius-circle:50%;
+
+  --radius-card:var(--radius-none);
+  --radius-button:var(--radius-pill);
+  --radius-input:var(--radius-sm);
+  --radius-badge:var(--radius-pill);
+  --radius-media:var(--radius-none);
+}

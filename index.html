@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YEAH Landing — Mobile &amp; Desktop frames</title>
+<link rel="stylesheet" href="_ds/yeah-design-system-b0ca81dd-b5dc-493d-a727-a84faf7a457a/tokens/fonts.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#ECECEC;font-family:'Poppins',system-ui,sans-serif;color:#242424;min-height:100vh;padding:34px 30px 60px}
+a{color:#FE0074}a:hover{color:#C90058}
+.head{display:flex;align-items:center;gap:16px;margin-bottom:8px}
+.head img{height:30px;width:auto}
+.head h1{font-family:'Kanit',sans-serif;font-size:20px;font-weight:600;letter-spacing:-.02em}
+.head p{font-size:12px;color:#5A5A5A}
+.hint{font-size:12px;color:#5A5A5A;margin:0 0 26px 0}
+.frames{display:flex;flex-wrap:wrap;gap:44px;align-items:flex-start}
+.frame h2{font-family:'Chakra Petch','Kanit',sans-serif;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#5A5A5A;margin-bottom:12px}
+.frame h2 b{background:linear-gradient(135deg,#FED732,#FE0074);-webkit-background-clip:text;background-clip:text;color:transparent}
+.phone{background:#fff;border-radius:44px;padding:12px;box-shadow:0 30px 60px -25px rgba(1,1,1,.35)}
+.phone iframe{width:390px;height:800px;border:none;border-radius:34px;background:#fff;display:block}
+.desktop{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 30px 60px -25px rgba(1,1,1,.35)}
+.bar{height:40px;display:flex;align-items:center;gap:8px;padding:0 16px;background:#F8F8F8;border-bottom:1px solid #DEDEDE}
+.bar i{width:11px;height:11px;border-radius:50%;display:block}
+.bar i:nth-child(1){background:#FE0074}.bar i:nth-child(2){background:#FED732}.bar i:nth-child(3){background:#DEDEDE}
+.bar span{margin-left:10px;flex:1;max-width:340px;background:#fff;border:1px solid #DEDEDE;border-radius:999px;font-size:11px;color:#9A9A9A;padding:5px 14px}
+.vp{width:936px;height:585px;overflow:hidden}
+.vp iframe{width:1440px;height:900px;border:none;transform:scale(.65);transform-origin:0 0;display:block;background:#fff}
+</style>
+</head>
+<body>
+<div class="head">
+ <img src="uploads/logo_yeah_black_label_asso.png" alt="YEAH Association">
+ <div>
+  <h1>One-page landing — 2 frames</h1>
+  <p>Grey areas = photo placeholders · lorem ipsum = copy placeholders · scroll inside each frame to trigger the section animations</p>
+ </div>
+</div>
+<p class="hint">Sections: 01 Hero · 02 Our 5 Pillars (selection wheel) · 03 Activities carousel (click card → pop-up) · 04 Tiers rocket bar · 05 Journey · 06 Join CTA · Footer — language toggle TH/EN in the navbar (TH default)</p>
+<div class="frames">
+ <div class="frame" data-screen-label="Mobile frame">
+  <h2><b>Mobile</b> · 390 × 800</h2>
+  <div class="phone"><iframe src="YEAH%20Landing%20v3.html" title="YEAH landing — mobile"></iframe></div>
+ </div>
+ <div class="frame" data-screen-label="Desktop frame">
+  <h2><b>Desktop</b> · 1440 × 900 · shown at 65%</h2>
+  <div class="desktop">
+   <div class="bar"><i></i><i></i><i></i><span>yeah.or.th</span></div>
+   <div class="vp"><iframe src="YEAH%20Landing%20v3.html" title="YEAH landing — desktop"></iframe></div>
+  </div>
+ </div>
+</div>
+</body>
+</html>

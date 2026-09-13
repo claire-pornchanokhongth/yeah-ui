@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="th" data-lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YEAH — Young Entrepreneur Assembly Hub</title>
+<link rel="stylesheet" href="_ds/yeah-design-system-b0ca81dd-b5dc-493d-a727-a84faf7a457a/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/yeah-design-system-b0ca81dd-b5dc-493d-a727-a84faf7a457a/tokens/colors.css">
+<link rel="stylesheet" href="_ds/yeah-design-system-b0ca81dd-b5dc-493d-a727-a84faf7a457a/tokens/typography.css">
+<style>
+:root{--grad:linear-gradient(135deg,var(--yeah-yellow) 0%,#FF7A3C 45%,var(--yeah-pink) 100%);--glass:rgba(255,255,255,.12);--glass-brd:rgba(255,255,255,.3);--nav-h:64px;--ease:cubic-bezier(.2,.8,.2,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins','Noto Sans Thai',var(--font-body,sans-serif);color:var(--text-body);background:var(--yeah-white);font-size:16px;line-height:var(--leading-normal);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2{font-family:var(--font-display);color:var(--text-heading);letter-spacing:var(--tracking-display);line-height:var(--leading-tight)}
+a{color:var(--yeah-pink);text-decoration:none}
+a:hover{color:var(--yeah-pink-700)}
+img{display:block}
+button{font-family:inherit}
+section{scroll-margin-top:var(--nav-h)}
+.wrap{width:min(1160px,100% - 40px);margin-inline:auto}
+.ic{display:inline-flex;width:20px;height:20px;flex:none}
+.ic svg{width:100%;height:100%}
+.eyebrow{font-family:var(--font-display-alt);font-size:12px;font-weight:700;letter-spacing:var(--tracking-caps);text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block}
+.sec-head{max-width:640px;margin-bottom:34px}
+.sec-head h2{font-size:clamp(28px,4.6vw,44px);font-weight:600;margin:8px 0 10px}
+.sec-head p{color:var(--text-muted);font-size:15px}
+html[data-lang="th"] .eyebrow,html[data-lang="th"] .join-kicker,html[data-lang="th"] .nav-join,html[data-lang="th"] .hero-cta{letter-spacing:.02em}
+html[data-lang="th"] p{line-height:1.7}
+[data-rv]{opacity:0;transform:translateY(30px);transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:var(--d,0s)}
+[data-rv].in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){[data-rv]{transition:none;opacity:1;transform:none}.blob,.htrack{animation:none!important}}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.4;pointer-events:none;animation:drift 14s var(--ease) infinite alternate}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(34px,-30px) scale(1.12)}}
+/* ---------- nav ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;height:var(--nav-h);background:rgba(5,4,7,.82);backdrop-filter:blur(18px) saturate(1.5);-webkit-backdrop-filter:blur(18px) saturate(1.5);border-bottom:1px solid rgba(255,255,255,.12)}
+.nav .wrap{display:flex;align-items:center;gap:12px;position:relative;height:100%}
+.nav-logo{height:32px;width:auto}
+.nav-logo-link{position:absolute;left:50%;transform:translateX(-50%);display:inline-flex}
+.burger{width:44px;height:44px;border:none;background:none;color:#fff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .14s var(--ease)}
+.burger .ic{width:26px;height:26px}
+.tabs{display:none}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.nav-join{display:none}
+@media (min-width:960px){
+ .burger{display:none}
+ .nav-logo-link{position:static;transform:none}
+ .nav-logo{height:34px}
+ .tabs{display:flex;gap:2px;align-items:center;position:absolute;left:50%;transform:translateX(-50%)}
+ .tabs a{font-size:13.5px;font-weight:500;color:rgba(255,255,255,.85);padding:9px 15px;border-radius:999px;transition:background .14s var(--ease),color .14s var(--ease)}
+ .tabs a:hover{background:rgba(255,255,255,.12);color:#fff}
+ .nav-join{display:inline-flex;background:var(--grad);color:#151515;font-family:var(--font-display-alt);font-weight:700;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;padding:12px 24px;border-radius:999px;box-shadow:0 8px 18px -8px rgba(254,0,116,.6);transition:transform .14s var(--ease)}
+ .nav-join:hover{color:#151515;transform:translateY(-2px)}
+}
+/* lang toggle */
+.lang{position:relative}
+.lang-btn{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 10px 0 6px;border-radius:999px;border:none;background:rgba(255,255,255,.24);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);cursor:pointer;transition:background .14s var(--ease)}
+.lang-btn:hover{background:rgba(255,255,255,.32)}
+.flag{width:22px;height:22px;border-radius:50%;flex:none;box-shadow:inset 0 0 0 1px rgba(1,1,1,.15)}
+.flag-th{background:linear-gradient(180deg,#A51931 0 16.7%,#F4F5F8 16.7% 33.4%,#2D2A4A 33.4% 66.7%,#F4F5F8 66.7% 83.4%,#A51931 83.4%)}
+.flag-en{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Crect width='60' height='60' fill='%23012169'/%3E%3Cpath d='M0 0 60 60M60 0 0 60' stroke='%23fff' stroke-width='12'/%3E%3Cpath d='M0 0 60 60M60 0 0 60' stroke='%23C8102E' stroke-width='6'/%3E%3Cpath d='M30 0V60M0 30H60' stroke='%23fff' stroke-width='20'/%3E%3Cpath d='M30 0V60M0 30H60' stroke='%23C8102E' stroke-width='12'/%3E%3C/svg%3E") center/cover}
+.lang-btn .chev{width:14px;height:14px;color:var(--yeah-yellow);transition:transform .18s var(--ease)}
+.lang-btn .chev svg{stroke-width:3.2px}
+.lang.open .lang-btn .chev{transform:rotate(180deg)}
+.lang-menu{display:none;position:absolute;right:0;top:calc(100% + 8px);min-width:132px;background:rgba(18,14,22,.92);border:1px solid rgba(255,255,255,.2);border-radius:14px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:5px;box-shadow:0 20px 50px -18px rgba(1,1,1,.8);z-index:70}
+.lang.open .lang-menu{display:block}
+.lang-menu button{display:flex;align-items:center;justify-content:flex-start;gap:8px;width:100%;border:none;background:none;color:rgba(255,255,255,.85);font-size:12.5px;font-weight:500;padding:7px 10px 7px 7px;border-radius:9px;cursor:pointer}
+.lang-menu .flag{width:18px;height:18px}
+.lang-menu button:hover{background:rgba(255,255,255,.1);color:#fff}
+.lang-menu button.on{background:var(--grad);color:#151515;font-weight:600}
+/* mobile menu */
+.menu{position:fixed;inset:0;z-index:60;background:rgba(1,1,1,.55);backdrop-filter:blur(22px) saturate(1.4);-webkit-backdrop-filter:blur(22px) saturate(1.4);display:flex;flex-direction:column;padding:22px;opacity:0;pointer-events:none;transition:opacity .22s var(--ease)}
+.menu.open{opacity:1;pointer-events:auto}
+.menu-close{align-self:flex-start;width:44px;height:44px;border-radius:999px;border:1px solid var(--glass-brd);background:var(--glass);color:#fff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.menu nav{margin:auto 0;display:flex;flex-direction:column;gap:8px}
+.menu nav a{font-family:var(--font-display);font-size:28px;font-weight:600;color:#fff;padding:12px 20px;border-radius:999px;border:1px solid transparent;transition:all .18s var(--ease)}
+.menu nav a:hover{background:var(--glass);border-color:var(--glass-brd);color:var(--yeah-yellow)}
+.menu nav a small{display:block;font-family:var(--font-display-alt);font-size:11px;font-weight:600;letter-spacing:var(--tracking-caps);background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:calc(var(--nav-h) + 44px) 0 70px;overflow:hidden;background:linear-gradient(180deg,#010101 0%,#1F1225 100%)}
+.hero-grid{position:absolute;inset:0;display:flex;flex-direction:column;gap:20px;overflow:hidden}
+.hrow{flex:1;overflow:hidden;display:flex}
+.htrack{display:flex;gap:20px;height:100%;flex:none;padding-right:20px;animation:marq-rtl 46s linear infinite;will-change:transform}
+.hrow.ltr .htrack{animation-name:marq-ltr;animation-duration:52s}
+.hrow:last-child .htrack{animation-delay:-18s}
+.htrack div{flex:none;width:clamp(150px,26vw,380px);height:100%;background:#D6D6D6;border-radius:18px}
+.htrack div:nth-child(2n){background:#C7C7C7}
+.htrack div:nth-child(3n){background:#E2E2E2}
+@keyframes marq-rtl{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes marq-ltr{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+.hero-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(1,1,1,.68),rgba(18,10,22,.72))}
+.hero .blob{z-index:1}
+.hero .blob.b1{width:430px;height:430px;background:radial-gradient(circle at 32% 32%,var(--yeah-yellow),#FF7A3C 70%);top:2%;right:-110px}
+.hero .blob.b2{width:470px;height:470px;background:radial-gradient(circle at 35% 35%,var(--yeah-pink),#B8005B 75%);bottom:-8%;left:-130px;animation-delay:-7s}
+.hero-inner{position:relative;z-index:2;text-align:center;width:min(780px,100% - 40px)}
+.hero-inner h1{font-size:clamp(32px,5.8vw,62px);font-weight:700;color:#fff;margin-bottom:18px}
+.hero-inner p{color:rgba(255,255,255,.82);font-size:15px;max-width:560px;margin:0 auto 30px}
+.hero-cta{display:inline-flex;align-items:center;gap:10px;background:var(--grad);color:#151515;font-family:var(--font-display-alt);font-weight:700;font-size:12.5px;letter-spacing:.13em;text-transform:uppercase;padding:17px 34px;border-radius:999px;box-shadow:0 14px 30px -10px rgba(254,0,116,.65);transition:transform .14s var(--ease),box-shadow .14s var(--ease)}
+.hero-cta:hover{color:#151515;transform:translateY(-3px);box-shadow:0 20px 40px -12px rgba(254,0,116,.75)}
+/* ---------- pillars ---------- */
+.pillars{position:relative;padding:96px 0 90px;background:#010101;overflow:hidden}
+.pillars .sec-head h2{color:#fff}
+.pillars .sec-head p{color:rgba(255,255,255,.6)}
+.pil-grid{display:grid;gap:44px;align-items:center}
+.orbit{position:relative;width:min(420px,90vw);aspect-ratio:1;margin:26px auto 0}
+.wheel-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.wslice{fill:rgba(255,255,255,.06);stroke:rgba(255,255,255,.2);stroke-width:1;cursor:pointer;transition:fill .2s var(--ease)}
+.wslice:hover{fill:rgba(255,255,255,.15)}
+.wslice.on{fill:url(#wheelGrad);stroke:none;filter:drop-shadow(0 0 20px rgba(254,0,116,.55))}
+.core{position:absolute;inset:26.5%;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 0 90px rgba(255,255,255,.38),0 0 34px rgba(254,215,50,.28),0 26px 60px -18px rgba(1,1,1,.85);pointer-events:none}
+.core svg{width:78%;height:auto;overflow:visible}
+.pnode{position:absolute;transform:translate(-50%,-50%);font-family:var(--font-display-alt);font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(20,15,24,.75);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:9px 15px;cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:background .16s var(--ease),color .16s,box-shadow .16s,border-color .16s;white-space:nowrap;z-index:3}
+.pnode:hover{border-color:var(--yeah-yellow)}
+.pnode.on{background:var(--yeah-yellow);color:#151515;border-color:transparent;box-shadow:0 10px 28px -6px rgba(254,215,50,.55)}
+.pnode.n1{left:50%;top:2.5%}
+.pnode.n2{left:88%;top:37%}
+.pnode.n3{left:74%;top:82%}
+.pnode.n4{left:26%;top:82%}
+.pnode.n5{left:12%;top:37%}
+.pil-left{position:relative}
+.pil-pop{background:rgba(16,12,20,.94);border:1px solid rgba(255,255,255,.25);border-radius:22px;backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);padding:20px 22px;box-shadow:0 30px 70px -20px rgba(1,1,1,.9),0 0 40px rgba(254,0,116,.18);margin-top:22px}
+.pil-pop .pp-idx{font-family:var(--font-display-alt);font-size:11px;font-weight:700;letter-spacing:var(--tracking-caps);background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pil-pop h3{font-family:var(--font-display);font-size:24px;font-weight:600;color:#fff;margin:4px 0 8px}
+.pil-pop p{color:rgba(255,255,255,.75);font-size:13.5px}
+@media (min-width:960px){
+ .pil-pop{position:absolute;width:250px;margin:0;z-index:6;opacity:0;visibility:hidden;transition:opacity .18s var(--ease),visibility .18s}
+ .pil-pop.open{opacity:1;visibility:visible}
+ .pil-pop.side-r{transform:translateY(-50%)}
+ .pil-pop.side-l{transform:translate(-100%,-50%)}
+}
+.mv-col{display:flex;flex-direction:column;gap:18px}
+.mv-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:24px;backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);padding:24px 26px}
+.mv-card h3{font-family:var(--font-display);font-size:21px;font-weight:600;color:#fff;margin:6px 0 8px}
+.mv-card p{color:rgba(255,255,255,.7);font-size:13.5px}
+@media (min-width:960px){.pil-grid{grid-template-columns:1.05fr .95fr}.orbit{width:min(480px,42vw);margin-top:0}.pnode{font-size:11.5px;padding:11px 18px}.pnode.n2{left:91%}.pnode.n5{left:9%}}
+.partners{margin-top:76px}
+.partners h3{font-family:var(--font-display);font-size:clamp(22px,3vw,30px);font-weight:600;color:#fff;margin-bottom:20px}
+.partners .row{display:flex;flex-wrap:wrap;gap:14px}
+.partners .row i{width:98px;height:46px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);display:inline-flex;align-items:center;justify-content:center;font-style:normal;font-family:var(--font-display-alt);font-size:10px;letter-spacing:.1em;color:rgba(255,255,255,.45)}
+/* ---------- activities ---------- */
+.activities{padding:84px 0;position:relative;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#FFF6F9 100%)}
+.activities .blob.b3{width:260px;height:260px;background:radial-gradient(circle at 35% 35%,rgba(254,215,50,.55),rgba(254,0,116,.4) 75%);top:-60px;right:-80px}
+.car-track{display:grid;grid-auto-flow:column;grid-auto-columns:80vw;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;width:100vw;margin-left:calc(50% - 50vw);padding:10px 20px 34px;scroll-padding-inline:20px;scrollbar-width:none}
+.car-track::-webkit-scrollbar{display:none}
+@media (min-width:960px){.car-track{grid-auto-columns:calc((100vw - 330px)/2);padding-inline:155px;scroll-padding-inline:155px}}
+.act-card{scroll-snap-align:start;background:#fff;border-radius:26px;overflow:hidden;box-shadow:0 20px 45px -20px rgba(1,1,1,.28);transition:transform .22s var(--ease),box-shadow .22s var(--ease);cursor:pointer}
+@media (hover:hover){.act-card:hover{transform:translateY(-10px);box-shadow:0 34px 60px -22px rgba(254,0,116,.35)}}
+.act-cover{aspect-ratio:1/1;background:#D9D9D9;display:flex;align-items:center;justify-content:center;color:#B5B5B5;position:relative}
+.act-cover .ic{width:34px;height:34px}
+.act-cover::after{content:"";position:absolute;inset:auto 0 0 0;height:4px;background:var(--grad)}
+.act-body{padding:20px 22px 24px}
+.act-body h4{font-family:var(--font-display);font-size:19px;font-weight:600;color:var(--text-heading);margin-bottom:6px}
+.act-body p{font-size:13.5px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.car-dots{display:none;justify-content:center;align-items:center;gap:14px;margin-top:10px}
+.cdot{width:13px;height:13px;border-radius:50%;border:2px solid rgba(254,0,116,.32);background:transparent;padding:0;cursor:pointer;transition:background .18s var(--ease),border-color .18s,transform .18s}
+.cdot:hover{border-color:var(--yeah-pink)}
+.cdot.on{background:var(--yeah-pink);border-color:var(--yeah-pink);transform:scale(1.2);box-shadow:0 0 12px rgba(254,0,116,.5)}
+.car-wrap{position:relative}
+.car-btn{width:46px;height:46px;border-radius:999px;border:none;background:var(--grad);color:#fff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 10px 22px -8px rgba(254,0,116,.55);transition:transform .14s var(--ease),opacity .14s}
+.car-btn:hover{transform:translateY(-3px)}
+.car-btn:active{transform:scale(.93)}
+.car-btn[disabled]{opacity:.35;pointer-events:none}
+@media (min-width:960px){.act-cover{aspect-ratio:16/9}.car-dots{display:flex}}
+/* event modal */
+.amodal{position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(1,1,1,.6);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);opacity:0;visibility:hidden;transition:opacity .22s var(--ease),visibility .22s}
+.amodal.open{opacity:1;visibility:visible}
+.am-card{position:relative;width:min(560px,100%);max-height:86vh;overflow:auto;background:rgba(22,17,26,.95);border:1px solid rgba(255,255,255,.22);border-radius:28px;backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);box-shadow:0 40px 90px -30px rgba(1,1,1,.9);transform:translateY(16px) scale(.97);transition:transform .25s var(--ease)}
+.amodal.open .am-card{transform:none}
+.am-cover{aspect-ratio:16/9;background:#D9D9D9;display:flex;align-items:center;justify-content:center;color:#B5B5B5;position:relative}
+.am-cover .ic{width:40px;height:40px}
+.am-cover::after{content:"";position:absolute;inset:auto 0 0 0;height:4px;background:var(--grad)}
+.am-close{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:rgba(1,1,1,.45);color:#fff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:2}
+.am-close:hover{background:rgba(1,1,1,.65)}
+.am-body{padding:24px 26px 28px}
+.am-date{display:inline-flex;align-items:center;gap:7px;font-family:var(--font-display-alt);font-size:11px;font-weight:600;letter-spacing:.08em;color:#fff;background:var(--grad);border-radius:999px;padding:6px 13px;margin-bottom:12px}
+.am-date .ic{width:13px;height:13px}
+.am-body h3{font-family:var(--font-display);font-size:26px;font-weight:600;color:#fff;margin-bottom:8px}
+.am-sum{color:rgba(255,255,255,.85);font-size:14px;margin-bottom:10px}
+.am-txt{color:rgba(255,255,255,.6);font-size:13px;margin-bottom:22px}
+.am-links{display:flex;flex-wrap:wrap;gap:12px}
+.am-fb{display:inline-flex;align-items:center;gap:9px;background:var(--grad);color:#151515;font-family:var(--font-display-alt);font-weight:700;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;padding:13px 22px;border-radius:999px;box-shadow:0 10px 24px -8px rgba(254,0,116,.55);transition:transform .14s var(--ease)}
+.am-fb:hover{color:#151515;transform:translateY(-2px)}
+.am-ph{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.3);color:#fff;font-family:var(--font-display-alt);font-weight:700;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;padding:13px 22px;border-radius:999px;transition:background .14s var(--ease)}
+.am-ph:hover{color:#fff;background:rgba(255,255,255,.16)}
+.am-fb .ic,.am-ph .ic{width:16px;height:16px}
+/* ---------- tiers ---------- */
+.tiers{padding:88px 0 96px;background:var(--yeah-black);position:relative;overflow:hidden}
+.tiers .sec-head h2{color:#fff}
+.tiers .sec-head p{color:rgba(255,255,255,.65)}
+.tiers .blob.b4{width:320px;height:320px;background:radial-gradient(circle at 35% 35%,rgba(254,0,116,.5),rgba(254,215,50,.28) 80%);bottom:-110px;right:-90px}
+.rocketbar{margin-top:84px}
+.rb-road{position:relative;height:16px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);margin-inline:14px}
+.rb-fill{position:absolute;inset:0;right:auto;width:0%;border-radius:999px;background:var(--grad);box-shadow:0 0 22px rgba(254,0,116,.55);transition:width .6s var(--ease)}
+.rb-rocket{position:absolute;top:-56px;left:0%;transform:translateX(-50%);width:46px;height:46px;border-radius:999px;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 28px -8px rgba(254,0,116,.7);transition:left .6s var(--ease)}
+.rb-rocket .ic{width:22px;height:22px;transform:rotate(45deg)}
+.rb-rocket::after{content:"";position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);width:3px;height:12px;border-radius:99px;background:var(--grad);opacity:.7}
+.rb-stop{position:absolute;top:50%;left:calc(var(--p)*1%);transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;border:1.5px solid rgba(255,255,255,.3);background:rgba(30,26,32,.9);color:rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s var(--ease),color .2s,box-shadow .2s,transform .2s}
+.rb-stop .ic{width:21px;height:21px}
+.rb-stop:hover{border-color:var(--yeah-yellow);color:#fff}
+.rb-stop.done{background:var(--grad);color:#fff;border-color:transparent}
+.rb-stop.on{background:var(--grad);color:#fff;border-color:transparent;transform:translate(-50%,-50%) scale(1.14);box-shadow:0 0 0 7px rgba(254,0,116,.22),0 10px 26px -6px rgba(254,0,116,.6)}
+.rb-stop span{position:absolute;top:62px;left:50%;transform:translateX(-50%);font-family:var(--font-display-alt);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);white-space:nowrap;transition:color .2s}
+.rb-stop.on span{color:#fff}
+.rb-stop:first-child span{left:-4px;transform:none}
+.rb-stop:last-child span{left:auto;right:-4px;transform:none}
+.rb-details{margin-top:96px;display:grid}
+.rb-panel{grid-area:1/1;visibility:hidden;opacity:0;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.22);border-radius:26px;backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);padding:28px 28px 32px}
+.rb-panel.on{visibility:visible;opacity:1;animation:pdIn .45s var(--ease)}
+@keyframes pdIn{from{opacity:0;transform:translateY(12px)}}
+.rb-panel .step-lv{font-family:var(--font-display-alt);font-size:12px;font-weight:700;letter-spacing:var(--tracking-caps);background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.rb-panel .step-name{font-family:var(--font-display);font-size:25px;font-weight:600;color:#fff;margin:2px 0 22px}
+.bene-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.bene{text-align:center}
+.bic{width:64px;height:64px;margin:0 auto 12px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px -12px rgba(254,0,116,.45)}
+.bic .ic{width:27px;height:27px}
+.bic svg{stroke:url(#icoGrad)}
+.bene b{display:block;font-family:var(--font-display);font-size:14px;font-weight:600;color:#fff;margin-bottom:4px}
+.bene small{display:block;font-size:11.5px;color:rgba(255,255,255,.55);line-height:1.5}
+@media (min-width:960px){.rb-details{margin-top:104px}.bene-row{gap:26px}.rb-panel{padding:30px 34px 36px}}
+/* ---------- journey ---------- */
+.journey{padding:88px 0;background:#fff;position:relative;overflow:hidden}
+.jline{display:flex;flex-direction:column;position:relative}
+.jnode{position:relative;display:flex;gap:18px;padding:0 0 36px 0}
+.jnode::before{content:"";position:absolute;left:19px;top:50px;bottom:6px;width:3px;border-radius:99px;background:var(--grad);opacity:.35}
+.jnode:last-child::before{display:none}
+.jdot{width:40px;height:40px;flex:none;display:inline-flex;align-items:center;justify-content:center}
+.jdot .ic{width:34px;height:34px}
+.jdot svg{stroke:url(#icoGrad);stroke-width:1.7}
+.jday{font-family:var(--font-display-alt);font-size:12px;font-weight:700;letter-spacing:var(--tracking-caps);background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.jbody h4{font-family:var(--font-display);font-size:19px;font-weight:600;margin:2px 0 5px}
+.jbody p{font-size:13.5px;color:var(--text-muted);max-width:440px}
+.jtier{display:inline-block;margin-top:9px;font-family:var(--font-display-alt);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:4px 12px}
+.jtier.t1{background:var(--yeah-yellow);color:var(--yeah-black)}
+.jtier.t2{background:var(--grad);color:#fff}
+.jtier.t3{background:var(--yeah-pink);color:#fff}
+.jtier.t4{background:var(--yeah-black);color:var(--yeah-yellow);border:1px solid var(--yeah-yellow)}
+@media (min-width:960px){
+ .jline{flex-direction:row;gap:22px;padding-top:8px}
+ .jnode{flex:1;flex-direction:column;padding:0}
+ .jnode::before{left:54px;right:-22px;top:19px;bottom:auto;width:auto;height:3px}
+ .jnode:last-child::before{display:none}
+ .jbody{padding-top:16px}
+}
+/* ---------- join ---------- */
+.join{position:relative;padding:110px 0;overflow:hidden;text-align:center}
+.join-photo{position:absolute;inset:0;background:#C9C9C9;display:flex;align-items:center;justify-content:center;color:#ADADAD}
+.join-photo .ic{width:64px;height:64px}
+.join-scrim{position:absolute;inset:0;background:rgba(1,1,1,.5)}
+.join-card{position:relative;z-index:2;width:min(720px,100% - 40px);margin-inline:auto;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.35);border-radius:34px;backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);padding:52px 26px;box-shadow:0 30px 70px -28px rgba(1,1,1,.6)}
+.join-kicker{font-family:var(--font-display-alt);font-size:12px;font-weight:700;letter-spacing:var(--tracking-caps);text-transform:uppercase;color:rgba(255,255,255,.8)}
+.join-card h2{font-size:clamp(32px,5.4vw,54px);font-weight:700;color:#fff;text-shadow:0 4px 24px rgba(1,1,1,.4);margin:10px 0 8px}
+.join-card p{color:rgba(255,255,255,.88);font-size:15px;max-width:430px;margin:0 auto 30px}
+.join-btn{display:inline-flex;align-items:center;gap:12px;background:var(--yeah-black);color:#fff;font-family:var(--font-display);font-weight:700;font-size:clamp(19px,2.4vw,24px);padding:22px 46px;border-radius:999px;box-shadow:0 22px 50px -14px rgba(1,1,1,.7);transition:transform .16s var(--ease),box-shadow .16s var(--ease)}
+.join-btn em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.join-btn .ic{width:24px;height:24px;color:var(--yeah-yellow)}
+.join-btn:hover{color:#fff;transform:translateY(-4px) scale(1.02);box-shadow:0 30px 60px -16px rgba(1,1,1,.75)}
+/* ---------- footer ---------- */
+.footer{background:var(--yeah-black);color:rgba(255,255,255,.75);padding:60px 0 30px}
+.foot-top{display:flex;flex-direction:column;gap:26px;align-items:flex-start}
+.foot-logo{height:44px;width:auto}
+.foot-note{font-size:12.5px;line-height:1.65;color:rgba(255,255,255,.55);max-width:520px}
+.socials{display:flex;gap:12px;flex-wrap:wrap}
+.soc{width:44px;height:44px;border-radius:999px;background:var(--grad);color:#fff;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 10px 22px -8px rgba(254,0,116,.5);transition:transform .14s var(--ease)}
+.soc:hover{color:#fff;transform:translateY(-4px)}
+.soc .ic{width:19px;height:19px}
+.foot-bottom{margin-top:36px;padding-top:20px;border-top:1px solid rgba(255,255,255,.14);display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.5)}
+.foot-bottom a{color:rgba(255,255,255,.7);font-size:12px}
+.foot-bottom a:hover{color:var(--yeah-yellow)}
+@media (min-width:960px){.foot-top{flex-direction:row;justify-content:space-between;align-items:center}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="icoGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FED732"></stop><stop offset=".55" stop-color="#FF7A3C"></stop><stop offset="1" stop-color="#FE0074"></stop></linearGradient></defs></svg>
+<header class="nav">
+ <div class="wrap">
+  <button class="burger" id="burger" aria-label="Open menu"><i class="ic" data-lucide="menu"></i></button>
+  <a class="nav-logo-link" href="#about" aria-label="YEAH home"><img class="nav-logo" src="uploads/logo_yeah_white_label_asso.png" alt="YEAH Association"></a>
+  <nav class="tabs" aria-label="Sections">
+   <a href="#about" data-en="About" data-th="เกี่ยวกับเรา">เกี่ยวกับเรา</a>
+   <a href="#activities" data-en="Activities" data-th="กิจกรรม">กิจกรรม</a>
+   <a href="#tiers" data-en="Membership Tiers" data-th="ระดับสมาชิก">ระดับสมาชิก</a>
+   <a href="#journey" data-en="Member Journey" data-th="เส้นทางสมาชิก">เส้นทางสมาชิก</a>
+   <a href="#join" data-en="Join YEAH" data-th="ร่วมกับ YEAH">ร่วมกับ YEAH</a>
+  </nav>
+  <div class="nav-right">
+   <a class="nav-join" href="#join"><span data-en="Join us" data-th="ร่วมกับเรา">ร่วมกับเรา</span></a>
+   <div class="lang" id="lang">
+    <button class="lang-btn" id="langBtn" aria-label="Language"><span class="flag flag-th" id="flagCur"></span><i class="ic chev" data-lucide="chevron-down"></i></button>
+    <div class="lang-menu" id="langMenu">
+     <button data-setlang="th" class="on"><span class="flag flag-th"></span>ไทย (TH)</button>
+     <button data-setlang="en"><span class="flag flag-en"></span>English (EN)</button>
+    </div>
+   </div>
+  </div>
+ </div>
+</header>
+<div class="menu" id="menu">
+ <button class="menu-close" id="menuClose" aria-label="Close menu"><i class="ic" data-lucide="x"></i></button>
+ <nav>
+  <a href="#about"><small>01</small><span data-en="About" data-th="เกี่ยวกับเรา">เกี่ยวกับเรา</span></a>
+  <a href="#activities"><small>02</small><span data-en="Activities" data-th="กิจกรรม">กิจกรรม</span></a>
+  <a href="#tiers"><small>03</small><span data-en="Membership Tiers" data-th="ระดับสมาชิก">ระดับสมาชิก</span></a>
+  <a href="#journey"><small>04</small><span data-en="Member Journey" data-th="เส้นทางสมาชิก">เส้นทางสมาชิก</span></a>
+  <a href="#join"><small>05</small><span data-en="Join YEAH" data-th="ร่วมกับ YEAH">ร่วมกับ YEAH</span></a>
+ </nav>
+</div>
+
+<section class="hero" id="about" data-screen-label="01 Hero">
+ <div class="hero-grid">
+  <div class="hrow"><div class="htrack"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+  <div class="hrow ltr"><div class="htrack"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+  <div class="hrow"><div class="htrack"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+ </div>
+ <div class="hero-scrim"></div>
+ <span class="blob b1"></span><span class="blob b2"></span>
+ <div class="hero-inner" data-rv>
+  <h1>Young Entrepreneur Assembly Hub (YEAH)</h1>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, ut enim ad minim veniam quis nostrud exercitation ullamco laboris.</p>
+  <a class="hero-cta" href="#activities"><span data-en="Explore core activities" data-th="สำรวจกิจกรรมหลัก">สำรวจกิจกรรมหลัก</span> <i class="ic" data-lucide="arrow-right"></i></a>
+ </div>
+</section>
+
+<section class="pillars" id="pillars" data-screen-label="02 Our 5 Pillars">
+ <div class="wrap">
+  <div class="sec-head" data-rv>
+   <span class="eyebrow" data-en="What drives us" data-th="สิ่งที่ขับเคลื่อนเรา">สิ่งที่ขับเคลื่อนเรา</span>
+   <h2 data-en="Our 5 Pillars" data-th="5 เสาหลักของเรา">5 เสาหลักของเรา</h2>
+   <p data-en="Click a pillar on the wheel to see what it means." data-th="คลิกแต่ละเสาหลักบนวงล้อเพื่อดูความหมาย">คลิกแต่ละเสาหลักบนวงล้อเพื่อดูความหมาย</p>
+  </div>
+  <div class="pil-grid">
+   <div class="pil-left" data-rv>
+   <div class="orbit">
+    <svg class="wheel-svg" viewBox="0 0 400 400" id="wheelSvg"><defs><linearGradient id="wheelGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FED732"></stop><stop offset=".5" stop-color="#FF7A3C"></stop><stop offset="1" stop-color="#FE0074"></stop></linearGradient></defs></svg>
+    <div class="core">
+     <svg viewBox="0 0 660 200" aria-label="YEAH logo">
+      <g fill="none" stroke="#FE0074" stroke-width="34">
+       <path d="M37,12 V56 a28,28 0 0 0 56,0 V12"></path>
+       <line x1="65" y1="84" x2="65" y2="188"></line>
+       <path d="M352,188 V110 a42,42 0 0 1 84,0 V188"></path>
+      </g>
+      <g fill="#FE0074">
+       <rect x="488" y="14" width="34" height="118"></rect>
+       <rect x="488" y="150" width="34" height="38"></rect>
+       <rect x="552" y="40" width="34" height="148"></rect>
+      </g>
+      <circle cx="394" cy="118" r="15" fill="#fff"></circle>
+      <g fill="#FED732">
+       <circle cx="210" cy="118" r="58"></circle>
+       <rect x="210" y="103" width="420" height="30"></rect>
+      </g>
+     </svg>
+    </div>
+    <button class="pnode n1 on" data-p="0">Discover</button>
+    <button class="pnode n2" data-p="1">Develop</button>
+    <button class="pnode n3" data-p="2">Validate</button>
+    <button class="pnode n4" data-p="3">Connect</button>
+    <button class="pnode n5" data-p="4">Multiply</button>
+   </div>
+    <div class="pil-pop" id="pilPop">
+     <span class="pp-idx" id="ppIdx">PILLAR 01</span>
+     <h3 id="ppName">Discover</h3>
+     <p id="ppDesc">Find your known and hidden potential.</p>
+    </div>
+   </div>
+   <div class="mv-col" data-rv style="--d:.15s">
+    <div class="mv-card">
+     <span class="eyebrow" data-en="Mission" data-th="พันธกิจ">พันธกิจ</span>
+     <h3 data-en="Empower every founder" data-th="เสริมพลังให้ผู้ก่อตั้งทุกคน">เสริมพลังให้ผู้ก่อตั้งทุกคน</h3>
+     <p data-en="We create a supportive space where young entrepreneurs can validate ideas, build prototypes, and launch with confidence—backed by mentorship, resources, and a community that understands the journey." data-th="เราสร้างพื้นที่ที่ผู้ประกอบการรุ่นใหม่ได้ทดสอบไอเดีย สร้างต้นแบบ และเปิดตัวอย่างมั่นใจ พร้อมเมนเทอร์ ทรัพยากร และคอมมูนิตี้ที่เข้าใจเส้นทางนี้">เราสร้างพื้นที่ที่ผู้ประกอบการรุ่นใหม่ได้ทดสอบไอเดีย สร้างต้นแบบ และเปิดตัวอย่างมั่นใจ พร้อมเมนเทอร์ ทรัพยากร และคอมมูนิตี้ที่เข้าใจเส้นทางนี้</p>
+    </div>
+    <div class="mv-card">
+     <span class="eyebrow" data-en="Vision" data-th="วิสัยทัศน์">วิสัยทัศน์</span>
+     <h3 data-en="Build the next generation" data-th="สร้างคนรุ่นถัดไป">สร้างคนรุ่นถัดไป</h3>
+     <p data-en="Our vision is a hub where diverse talent meets opportunity: a place where ideas become products, teams form, and founders grow into leaders who shape their communities and industries." data-th="เรามองเห็นฮับที่คนเก่งหลากหลายได้พบโอกาส ที่ที่ไอเดียกลายเป็นผลิตภัณฑ์ ทีมก่อตัวขึ้น และผู้ก่อตั้งเติบโตเป็นผู้นำที่ขับเคลื่อนคอมมูนิตี้และอุตสาหกรรมของตนเอง">เรามองเห็นฮับที่คนเก่งหลากหลายได้พบโอกาส ที่ที่ไอเดียกลายเป็นผลิตภัณฑ์ ทีมก่อตัวขึ้น และผู้ก่อตั้งเติบโตเป็นผู้นำที่ขับเคลื่อนคอมมูนิตี้และอุตสาหกรรมของตนเอง</p>
+    </div>
+   </div>
+  </div>
+  <div class="partners" data-rv>
+   <h3 data-en="Our Partner" data-th="พาร์ตเนอร์ของเรา">พาร์ตเนอร์ของเรา</h3>
+   <div class="row"><i>LOGO</i><i>LOGO</i><i>LOGO</i><i>LOGO</i><i>LOGO</i><i>LOGO</i><i>LOGO</i><i>LOGO</i></div>
+  </div>
+ </div>
+</section>
+
+<section class="activities" id="activities" data-screen-label="03 Past activities">
+ <span class="blob b3"></span>
+ <div class="wrap">
+  <div class="sec-head" data-rv>
+   <span class="eyebrow" data-en="Past activities" data-th="กิจกรรมที่ผ่านมา">กิจกรรมที่ผ่านมา</span>
+   <h2 data-en="What we have been up to" data-th="เราไปทำอะไรกันมาบ้าง">เราไปทำอะไรกันมาบ้าง</h2>
+   <p data-en="Click a card to see the event details." data-th="คลิกการ์ดเพื่อดูรายละเอียดกิจกรรม">คลิกการ์ดเพื่อดูรายละเอียดกิจกรรม</p>
+  </div>
+ </div>
+ <div class="car-wrap" data-rv style="--d:.12s">
+  <div class="car-track" id="carTrack">
+   <article class="act-card" data-ev="0" tabindex="0"><div class="act-cover"><i class="ic" data-lucide="image"></i></div><div class="act-body"><h4>Lorem Ipsum Pitch Night</h4><p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p></div></article>
+   <article class="act-card" data-ev="1" tabindex="0"><div class="act-cover"><i class="ic" data-lucide="image"></i></div><div class="act-body"><h4>Dolor Sit Workshop</h4><p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut.</p></div></article>
+   <article class="act-card" data-ev="2" tabindex="0"><div class="act-cover"><i class="ic" data-lucide="image"></i></div><div class="act-body"><h4>Consectetur Founders Meetup</h4><p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet.</p></div></article>
+   <article class="act-card" data-ev="3" tabindex="0"><div class="act-cover"><i class="ic" data-lucide="image"></i></div><div class="act-body"><h4>Adipiscing Demo Day</h4><p>Ut enim ad minima veniam, quis nostrum exercitationem ullam.</p></div></article>
+   <article class="act-card" data-ev="4" tabindex="0"><div class="act-cover"><i class="ic" data-lucide="image"></i></div><div class="act-body"><h4>Eiusmod Bootcamp</h4><p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit.</p></div></article>
+   <article class="act-card" data-ev="5" tabindex="0"><div class="act-cover"><i class="ic" data-lucide="image"></i></div><div class="act-body"><h4>Tempor Networking Social</h4><p>At vero eos et accusamus et iusto odio dignissimos ducimus qui.</p></div></article>
+  </div>
+  <div class="wrap">
+   <div class="car-dots" id="carDots">
+    <button class="cdot on" data-i="0" aria-label="Card 1"></button>
+    <button class="cdot" data-i="1" aria-label="Card 2"></button>
+    <button class="cdot" data-i="2" aria-label="Card 3"></button>
+    <button class="cdot" data-i="3" aria-label="Card 4"></button>
+    <button class="cdot" data-i="4" aria-label="Card 5"></button>
+    <button class="cdot" data-i="5" aria-label="Card 6"></button>
+   </div>
+  </div>
+ </div>
+</section>
+<div class="amodal" id="amodal">
+ <div class="am-card" role="dialog" aria-modal="true">
+  <button class="am-close" id="amClose" aria-label="Close"><i class="ic" data-lucide="x"></i></button>
+  <div class="am-cover"><i class="ic" data-lucide="image"></i></div>
+  <div class="am-body">
+   <span class="am-date"><i class="ic" data-lucide="calendar"></i><span id="amDate"></span></span>
+   <h3 id="amTitle"></h3>
+   <p class="am-sum" id="amSum"></p>
+   <p class="am-txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+   <div class="am-links">
+    <a class="am-fb" href="#" target="_blank"><i class="ic" data-lucide="facebook"></i><span data-en="View Facebook post" data-th="ดูโพสต์ Facebook">ดูโพสต์ Facebook</span><i class="ic" data-lucide="external-link"></i></a>
+    <a class="am-ph" href="#" target="_blank"><i class="ic" data-lucide="image"></i><span data-en="Event photos" data-th="รูปภาพกิจกรรม">รูปภาพกิจกรรม</span></a>
+   </div>
+  </div>
+ </div>
+</div>
+
+<section class="tiers" id="tiers" data-screen-label="04 Member tiers">
+ <span class="blob b4"></span>
+ <div class="wrap">
+  <div class="sec-head" data-rv>
+   <span class="eyebrow" data-en="Member tiers" data-th="ระดับสมาชิก">ระดับสมาชิก</span>
+   <h2 data-en="Level up, step by step" data-th="เลเวลอัปทีละขั้น">เลเวลอัปทีละขั้น</h2>
+   <p data-en="Click each stop to see the level and its benefits." data-th="คลิกแต่ละจุดเพื่อดูระดับและสิทธิประโยชน์">คลิกแต่ละจุดเพื่อดูระดับและสิทธิประโยชน์</p>
+  </div>
+  <div class="rocketbar" data-rv>
+   <div class="rb-road">
+    <div class="rb-fill" id="rbFill"></div>
+    <div class="rb-rocket" id="rbRocket"><i class="ic" data-lucide="rocket"></i></div>
+    <button class="rb-stop on" style="--p:0" data-t="0" aria-label="Starter"><i class="ic" data-lucide="sprout"></i><span>Starter</span></button>
+    <button class="rb-stop" style="--p:33.33" data-t="1" aria-label="Builder"><i class="ic" data-lucide="hammer"></i><span>Builder</span></button>
+    <button class="rb-stop" style="--p:66.66" data-t="2" aria-label="Founder"><i class="ic" data-lucide="flag"></i><span>Founder</span></button>
+    <button class="rb-stop" style="--p:100" data-t="3" aria-label="Mentor"><i class="ic" data-lucide="award"></i><span>Mentor</span></button>
+   </div>
+   <div class="rb-details">
+    <div class="rb-panel on"><span class="step-lv">LEVEL 01</span><div class="step-name">Starter</div><div class="bene-row">
+     <div class="bene"><span class="bic"><i class="ic" data-lucide="user-plus"></i></span><b data-en="Join the community" data-th="เข้าร่วมคอมมูนิตี้">เข้าร่วมคอมมูนิตี้</b><small>Lorem ipsum dolor sit amet elit.</small></div>
+     <div class="bene"><span class="bic"><i class="ic" data-lucide="calendar-days"></i></span><b data-en="Monthly events" data-th="อีเวนต์รายเดือน">อีเวนต์รายเดือน</b><small>Consectetur adipiscing sed do.</small></div>
+     <div class="bene"><span class="bic"><i class="ic" data-lucide="users"></i></span><b data-en="Member directory" data-th="ทำเนียบสมาชิก">ทำเนียบสมาชิก</b><small>Eiusmod tempor incididunt ut.</small></div>
+    </div></div>
+    <div class="rb-panel"><span class="step-lv">LEVEL 02</span><div class="step-name">Builder</div><div class="bene-row">
+     <div class="bene"><span class="bic"><i class="ic" data-lucide="lightbulb"></i></span><b data-en="Skill workshops" data-th="เวิร์กช็อปทักษะ">เวิร์กช็อปทักษะ</b><small>Labore et dolore magna aliqua.</small></div>
+     <div class="bene"><span class="bic"><i class="ic" data-lucide="handshake"></i></span><b data-en="Team matching" data-th="จับคู่ทีม">จับคู่ทีม</b><small>Ut enim ad minim veniam quis.</small></div>
+     <div class="bene"><span class="bic"><i class="ic" data-lucide="hammer"></i></span><b data-en="Project sprints" data-th="สปรินต์โปรเจกต์">สปรินต์โปรเจกต์</b><small>Nostrud exercitation ullamco.</small></div>
+    </div></div>
+    <div class="rb-panel"><span class="step-lv">LEVEL 03</span><div class="step-name">Founder</div><div class="bene-row">
+     <div class="bene"><span class="bic"><i class="ic" data-lucide="presentation"></i></span><b data-en="Pitch nights" data-th="เวทีพิตช์">เวทีพิตช์</b><small>Laboris nisi ut aliquip ex ea.</small></div>
+     <div class="bene"><span class="bic"><i class="ic" data-lucide="network"></i></span><b data-en="Mentor access" data-th="เข้าถึงเมนเทอร์">เข้าถึงเมนเทอร์</b><small>Commodo consequat duis aute.</small></div>
+     <div class="bene"><span class="bic"><i class="ic" data-lucide="flag"></i></span><b data-en="Demo day slot" data-th="สิทธิ์ Demo Day">สิทธิ์ Demo Day</b><small>Irure dolor in reprehenderit.</small></div>
+    </div></div>
+    <div class="rb-panel"><span class="step-lv">LEVEL 04</span><div class="step-name">Mentor</div><div class="bene-row">
+     <div class="bene"><span class="bic"><i class="ic" data-lucide="megaphone"></i></span><b data-en="Lead events" data-th="นำอีเวนต์">นำอีเวนต์</b><small>Voluptate velit esse cillum.</small></div>
+     <div class="bene"><span class="bic"><i class="ic" data-lucide="award"></i></span><b data-en="Mentor badge" data-th="แบดจ์เมนเทอร์">แบดจ์เมนเทอร์</b><small>Dolore eu fugiat nulla pariatur.</small></div>
+     <div class="bene"><span class="bic"><i class="ic" data-lucide="graduation-cap"></i></span><b data-en="Alumni network" data-th="เครือข่ายศิษย์เก่า">เครือข่ายศิษย์เก่า</b><small>Excepteur sint occaecat cupidatat.</small></div>
+    </div></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="journey" id="journey" data-screen-label="05 Member journey">
+ <div class="wrap">
+  <div class="sec-head" data-rv>
+   <span class="eyebrow" data-en="Member journey" data-th="เส้นทางสมาชิก">เส้นทางสมาชิก</span>
+   <h2 data-en="From day 1 to day n" data-th="จากวันแรกถึงวันที่ n">จากวันแรกถึงวันที่ n</h2>
+   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.</p>
+  </div>
+  <div class="jline">
+   <div class="jnode" data-rv><span class="jdot"><i class="ic" data-lucide="rocket"></i></span><div class="jbody"><span class="jday" data-en="Day 1" data-th="วันที่ 1">วันที่ 1</span><h4 data-en="Welcome onboard" data-th="ยินดีต้อนรับ">ยินดีต้อนรับ</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do.</p><span class="jtier t1">Starter</span></div></div>
+   <div class="jnode" data-rv="" data-d="1"><span class="jdot"><i class="ic" data-lucide="calendar-days"></i></span><div class="jbody"><span class="jday" data-en="Day 14" data-th="วันที่ 14">วันที่ 14</span><h4 data-en="First event" data-th="อีเวนต์แรก">อีเวนต์แรก</h4><p>Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p><span class="jtier t1">Starter</span></div></div>
+   <div class="jnode" data-rv="" data-d="2"><span class="jdot"><i class="ic" data-lucide="users"></i></span><div class="jbody"><span class="jday" data-en="Day 45" data-th="วันที่ 45">วันที่ 45</span><h4 data-en="Find your team" data-th="หาทีมของคุณ">หาทีมของคุณ</h4><p>Duis aute irure dolor in reprehenderit in voluptate velit esse.</p><span class="jtier t2">Builder</span></div></div>
+   <div class="jnode" data-rv="" data-d="3"><span class="jdot"><i class="ic" data-lucide="presentation"></i></span><div class="jbody"><span class="jday" data-en="Day 90" data-th="วันที่ 90">วันที่ 90</span><h4 data-en="Pitch your idea" data-th="พิตช์ไอเดียของคุณ">พิตช์ไอเดียของคุณ</h4><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa.</p><span class="jtier t3">Founder</span></div></div>
+   <div class="jnode" data-rv="" data-d="4"><span class="jdot"><i class="ic" data-lucide="award"></i></span><div class="jbody"><span class="jday" data-en="Day 180+" data-th="วันที่ 180+">วันที่ 180+</span><h4 data-en="Lead &amp; mentor" data-th="นำทีมและเป็นเมนเทอร์">นำทีมและเป็นเมนเทอร์</h4><p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p><span class="jtier t4">Mentor</span></div></div>
+  </div>
+ </div>
+</section>
+
+<section class="join" id="join" data-screen-label="06 Join CTA">
+ <div class="join-photo"><i class="ic" data-lucide="image"></i></div>
+ <div class="join-scrim"></div>
+ <div class="join-card" data-rv>
+  <span class="join-kicker" data-en="Ready when you are" data-th="พร้อมเมื่อคุณพร้อม">พร้อมเมื่อคุณพร้อม</span>
+  <h2>Clickstart Your Passion</h2>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
+  <a class="join-btn" href="#join">Join <em>YEAH</em> <i class="ic" data-lucide="arrow-right"></i></a>
+ </div>
+</section>
+
+<footer class="footer" data-screen-label="07 Footer">
+ <div class="wrap">
+  <div class="foot-top" data-rv>
+   <div>
+    <img class="foot-logo" src="uploads/logo_yeah_white_label_asso.png" alt="YEAH Association">
+    <p class="foot-note" style="margin-top:16px">YEAH Association — Young Entrepreneur Assembly Hub. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Registered non-profit no. 00-0000-0000.</p>
+   </div>
+   <div class="socials">
+    <a class="soc" href="#" aria-label="Instagram"><i class="ic" data-lucide="instagram"></i></a>
+    <a class="soc" href="#" aria-label="Facebook"><i class="ic" data-lucide="facebook"></i></a>
+    <a class="soc" href="#" aria-label="X"><i class="ic" data-lucide="twitter"></i></a>
+    <a class="soc" href="#" aria-label="YouTube"><i class="ic" data-lucide="youtube"></i></a>
+    <a class="soc" href="#" aria-label="Email"><i class="ic" data-lucide="mail"></i></a>
+   </div>
+  </div>
+  <div class="foot-bottom">
+   <span>© 2026 YEAH Association. Lorem ipsum dolor sit amet.</span>
+   <span><a href="#" data-en="Privacy" data-th="ความเป็นส่วนตัว">ความเป็นส่วนตัว</a> · <a href="#" data-en="Terms" data-th="ข้อกำหนด">ข้อกำหนด</a> · <a href="#" data-en="Contact" data-th="ติดต่อเรา">ติดต่อเรา</a></span>
+  </div>
+ </div>
+</footer>
+
+<script>
+(function(){
+var cache={};
+document.querySelectorAll('[data-lucide]').forEach(function(el){
+ var n=el.getAttribute('data-lucide');
+ cache[n]=cache[n]||fetch('https://cdn.jsdelivr.net/npm/lucide-static@0.460.0/icons/'+n+'.svg').then(function(r){return r.text()});
+ cache[n].then(function(t){el.innerHTML=t;var s=el.querySelector('svg');if(s){s.setAttribute('width','100%');s.setAttribute('height','100%');}}).catch(function(){});
+});
+document.querySelectorAll('[data-d]').forEach(function(el){el.style.setProperty('--d',(+el.getAttribute('data-d'))*0.12+'s')});
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15,rootMargin:'0px 0px -6% 0px'});
+document.querySelectorAll('[data-rv]').forEach(function(el){io.observe(el)});
+/* ----- language ----- */
+var LANG=localStorage.getItem('yeah-lang')||'th';
+var PIL=[['Discover','Find your known and hidden potential.','ค้นหาศักยภาพทั้งที่รู้และที่ซ่อนอยู่ของคุณ'],['Develop','Build capability that holds up outside a classroom.','สร้างความสามารถที่ใช้ได้จริงนอกห้องเรียน'],['Validate','Create evidence to say what you can do.','สร้างหลักฐานยืนยันว่าคุณทำอะไรได้'],['Connect','Create the opportunity from your learnings.','ต่อยอดสิ่งที่เรียนรู้ให้กลายเป็นโอกาส'],['Multiply','Spread your capability to the next ones.','ส่งต่อความสามารถของคุณสู่รุ่นถัดไป']];
+var EV=[['Lorem Ipsum Pitch Night','Thu 12 Sep · 18:00','พฤ 12 ก.ย. · 18:00','Sed ut perspiciatis unde omnis iste natus error sit voluptatem.'],['Dolor Sit Workshop','Sat 26 Oct · 10:00','ส 26 ต.ค. · 10:00','Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut.'],['Consectetur Founders Meetup','Fri 14 Nov · 17:30','ศ 14 พ.ย. · 17:30','Neque porro quisquam est qui dolorem ipsum quia dolor sit amet.'],['Adipiscing Demo Day','Wed 03 Dec · 13:00','พ 03 ธ.ค. · 13:00','Ut enim ad minima veniam, quis nostrum exercitationem ullam.'],['Eiusmod Bootcamp','Sun 18 Jan · 09:30','อา 18 ม.ค. · 09:30','Quis autem vel eum iure reprehenderit qui in ea voluptate velit.'],['Tempor Networking Social','Sat 21 Feb · 18:00','ส 21 ก.พ. · 18:00','At vero eos et accusamus et iusto odio dignissimos ducimus qui.']];
+var curPil=0,curEv=-1;
+var ppIdx=document.getElementById('ppIdx'),ppName=document.getElementById('ppName'),ppDesc=document.getElementById('ppDesc'),pop=document.getElementById('pilPop');
+function fillPop(){ppIdx.textContent=LANG==='th'?'เสาหลักที่ '+(curPil+1):'PILLAR 0'+(curPil+1);ppName.textContent=PIL[curPil][0];ppDesc.textContent=PIL[curPil][LANG==='th'?2:1]}
+var amDate=document.getElementById('amDate'),amTitle=document.getElementById('amTitle'),amSum=document.getElementById('amSum');
+function fillEv(){if(curEv<0)return;amTitle.textContent=EV[curEv][0];amDate.textContent=EV[curEv][LANG==='th'?2:1];amSum.textContent=EV[curEv][3]}
+function applyLang(){
+ document.documentElement.setAttribute('lang',LANG);document.documentElement.setAttribute('data-lang',LANG);
+ document.querySelectorAll('[data-en]').forEach(function(el){var v=el.getAttribute(LANG==='en'?'data-en':'data-th');if(v!==null)el.textContent=v});
+ document.getElementById('flagCur').className='flag flag-'+LANG;
+ document.querySelectorAll('#langMenu button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-setlang')===LANG)});
+ fillPop();fillEv();
+ try{localStorage.setItem('yeah-lang',LANG)}catch(e){}
+}
+var lang=document.getElementById('lang');
+document.getElementById('langBtn').addEventListener('click',function(e){e.stopPropagation();lang.classList.toggle('open')});
+document.querySelectorAll('#langMenu button').forEach(function(b){b.addEventListener('click',function(e){e.stopPropagation();LANG=b.getAttribute('data-setlang');applyLang();lang.classList.remove('open')})});
+/* ----- mobile menu ----- */
+var menu=document.getElementById('menu');
+document.getElementById('burger').addEventListener('click',function(){menu.classList.add('open')});
+document.getElementById('menuClose').addEventListener('click',function(){menu.classList.remove('open')});
+menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){menu.classList.remove('open')})});
+/* ----- pillar wheel ----- */
+var wsvg=document.getElementById('wheelSvg'),slices=[];
+function pol(r,a){a=a*Math.PI/180;return (200+r*Math.cos(a)).toFixed(2)+' '+(200+r*Math.sin(a)).toFixed(2)}
+for(var i=0;i<5;i++){(function(i){
+ var c=-90+72*i,a0=c-33.5,a1=c+33.5;
+ var d='M'+pol(192,a0)+' A192 192 0 0 1 '+pol(192,a1)+' L'+pol(122,a1)+' A122 122 0 0 0 '+pol(122,a0)+' Z';
+ var p=document.createElementNS('http://www.w3.org/2000/svg','path');
+ p.setAttribute('d',d);p.setAttribute('class','wslice'+(i===0?' on':''));
+ wsvg.appendChild(p);slices.push(p);
+ bindPil(p,i);
+})(i)}
+var pnodes=document.querySelectorAll('.pnode'),pilLeft=document.querySelector('.pil-left'),deskMQ=window.matchMedia('(min-width:960px)'),hideT;
+function setPil(i){curPil=i;
+ slices.forEach(function(s,j){s.classList.toggle('on',j===i)});
+ pnodes.forEach(function(n,j){n.classList.toggle('on',j===i)});
+ fillPop();
+}
+function placePop(i){var n=pnodes[i],lr=pilLeft.getBoundingClientRect(),nr=n.getBoundingClientRect(),cx=nr.left+nr.width/2-lr.left,cy=nr.top+nr.height/2-lr.top;
+ pop.classList.remove('side-l','side-r');
+ if(i===3||i===4){pop.classList.add('side-l');var lx=cx-nr.width/2-12;var minL=250-lr.left;if(lx<minL)lx=minL;pop.style.left=lx+'px'}
+ else{pop.classList.add('side-r');pop.style.left=(cx+nr.width/2+12)+'px'}
+ pop.style.top=cy+'px';
+}
+function showPop(i){if(!deskMQ.matches)return;clearTimeout(hideT);placePop(i);pop.classList.add('open')}
+function hidePop(){clearTimeout(hideT);hideT=setTimeout(function(){pop.classList.remove('open')},150)}
+function bindPil(el,i){
+ el.addEventListener('mouseenter',function(){if(deskMQ.matches){setPil(i);showPop(i)}});
+ el.addEventListener('mouseleave',function(){if(deskMQ.matches)hidePop()});
+ el.addEventListener('click',function(e){e.stopPropagation();setPil(i);showPop(i)});
+}
+pnodes.forEach(function(n){bindPil(n,+n.getAttribute('data-p'))});
+pop.addEventListener('mouseenter',function(){clearTimeout(hideT)});
+pop.addEventListener('mouseleave',function(){if(deskMQ.matches)hidePop()});
+document.addEventListener('click',function(e){if(!e.target.closest('.orbit')&&deskMQ.matches)pop.classList.remove('open')});
+/* ----- carousel + event modal ----- */
+var track=document.getElementById('carTrack'),dots=document.querySelectorAll('.cdot'),cards=track.querySelectorAll('.act-card');
+function goCard(i){var padL=parseFloat(getComputedStyle(track).paddingLeft)||0;track.scrollTo({left:cards[i].offsetLeft-padL,behavior:'smooth'})}
+dots.forEach(function(d){d.addEventListener('click',function(){goCard(+d.getAttribute('data-i'))})});
+function updDots(){var step=cards[0].offsetWidth+20,i=Math.min(cards.length-1,Math.max(0,Math.round(track.scrollLeft/step)));dots.forEach(function(d,j){d.classList.toggle('on',j===i)})}
+track.addEventListener('scroll',updDots);window.addEventListener('resize',updDots);updDots();
+var amodal=document.getElementById('amodal');
+function openEv(i){curEv=i;fillEv();amodal.classList.add('open');document.body.style.overflow='hidden'}
+function closeEv(){amodal.classList.remove('open');document.body.style.overflow=''}
+document.querySelectorAll('.act-card').forEach(function(c){
+ c.addEventListener('click',function(){openEv(+c.getAttribute('data-ev'))});
+ c.addEventListener('keydown',function(e){if(e.key==='Enter')openEv(+c.getAttribute('data-ev'))});
+});
+document.getElementById('amClose').addEventListener('click',closeEv);
+amodal.addEventListener('click',function(e){if(e.target===amodal)closeEv()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeEv();pop.classList.remove('open');lang.classList.remove('open')}});
+document.addEventListener('click',function(e){if(!e.target.closest('.lang'))lang.classList.remove('open')});
+/* ----- tiers rocket ----- */
+var stops=document.querySelectorAll('.rb-stop'),panels=document.querySelectorAll('.rb-panel'),fill=document.getElementById('rbFill'),rocket=document.getElementById('rbRocket');
+function setTier(i){var p=i/3*100;fill.style.width=p+'%';rocket.style.left=p+'%';stops.forEach(function(s,j){s.classList.toggle('on',j===i);s.classList.toggle('done',j<i)});panels.forEach(function(pl,j){pl.classList.toggle('on',j===i)})}
+stops.forEach(function(s){s.addEventListener('click',function(){setTier(+s.getAttribute('data-t'))})});
+applyLang();
+})();
+</script>
+</body>
+</html>

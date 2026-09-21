@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YEAH Portal — Login, Register &amp; Member Hub frames</title>
+<link rel="stylesheet" href="_ds/yeah-design-system-b0ca81dd-b5dc-493d-a727-a84faf7a457a/tokens/fonts.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#ECECEC;font-family:'Poppins',system-ui,sans-serif;color:#242424;min-height:100vh;padding:34px 30px 60px}
+a{color:#FE0074}a:hover{color:#C90058}
+.head{display:flex;align-items:center;gap:16px;margin-bottom:8px}
+.head img{height:30px;width:auto}
+.head h1{font-family:'Kanit',sans-serif;font-size:20px;font-weight:600;letter-spacing:-.02em}
+.head p{font-size:12px;color:#5A5A5A}
+.hint{font-size:12px;color:#5A5A5A;margin:0 0 20px 0;max-width:900px;line-height:1.6}
+.tabs{display:flex;gap:8px;margin-bottom:26px;flex-wrap:wrap}
+.tabs button{font-family:'Chakra Petch','Kanit',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:11px 20px;border-radius:999px;border:1.5px solid #DEDEDE;background:#fff;cursor:pointer;transition:all .14s cubic-bezier(.2,.8,.2,1)}
+.tabs button:hover{border-color:#FE0074;color:#FE0074}
+.tabs button.on{background:linear-gradient(135deg,#FED732,#FF7A3C 45%,#FE0074);border-color:transparent;color:#151515}
+.frames{display:flex;flex-wrap:wrap;gap:44px;align-items:flex-start}
+.frame{max-width:100%}
+.frame.m{width:414px}
+.frame h2{line-height:1.5;font-family:'Chakra Petch','Kanit',sans-serif;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#5A5A5A;margin-bottom:12px}
+.frame h2 b{background:linear-gradient(135deg,#FED732,#FE0074);-webkit-background-clip:text;background-clip:text;color:transparent}
+.phone{background:#fff;border-radius:44px;padding:12px;box-shadow:0 30px 60px -25px rgba(1,1,1,.35)}
+.phone iframe{width:390px;height:800px;border:none;border-radius:34px;background:#fff;display:block}
+.desktop{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 30px 60px -25px rgba(1,1,1,.35)}
+.bar{height:40px;display:flex;align-items:center;gap:8px;padding:0 16px;background:#F8F8F8;border-bottom:1px solid #DEDEDE}
+.bar i{width:11px;height:11px;border-radius:50%;display:block}
+.bar i:nth-child(1){background:#FE0074}.bar i:nth-child(2){background:#FED732}.bar i:nth-child(3){background:#DEDEDE}
+.bar span{margin-left:10px;flex:1;max-width:400px;background:#fff;border:1px solid #DEDEDE;border-radius:999px;font-size:11px;color:#9A9A9A;padding:5px 14px}
+.vp{width:936px;height:585px;overflow:hidden}
+.vp iframe{width:1440px;height:900px;border:none;transform:scale(.65);transform-origin:0 0;display:block;background:#fff}
+.notes{margin-top:34px;max-width:900px;font-size:12.5px;color:#5A5A5A;line-height:1.7;border-top:1px solid #DEDEDE;padding-top:18px}
+.notes b{color:#242424}
+.notes code{background:#fff;border:1px solid #DEDEDE;border-radius:5px;padding:1px 6px;font-size:11.5px}
+</style>
+</head>
+<body>
+<div class="head">
+ <img src="uploads/logo_yeah_black_label_asso.png" alt="YEAH Association">
+ <div>
+  <h1>Member portal — login, registration, member hub</h1>
+  <p>Grey areas = photo placeholders · TH/EN toggle in the header (TH default) · the portal reuses the landing page's palette, type and chrome</p>
+ </div>
+</div>
+<p class="hint">Desktop and mobile are two separate files, as the PRD requires. Mobile uses a five-step wizard with bottom sheets for every long option list and a section menu under the profile block; desktop uses one dense form and a sticky side rail. Use the tabs above to jump between the three screens; the Google button on login goes to registration, and finishing registration lands on the member hub.</p>
+
+<div class="tabs" id="tabs">
+ <button data-screen="login" class="on">01 Login</button>
+ <button data-screen="register">02 Registration</button>
+ <button data-screen="hub">03 Member hub</button>
+</div>
+
+<div class="frames">
+ <div class="frame m" data-screen-label="Mobile frame">
+  <h2><b>Mobile</b> · 390 × 800<br>bottom sheets + progressive disclosure</h2>
+  <div class="phone"><iframe id="fMobile" src="YEAH%20Portal%20Mobile.html?screen=login" title="YEAH portal — mobile"></iframe></div>
+ </div>
+ <div class="frame" data-screen-label="Desktop frame">
+  <h2><b>Desktop</b> · 1440 × 900 · shown at 65%</h2>
+  <div class="desktop">
+   <div class="bar"><i></i><i></i><i></i><span>yeah.or.th/member</span></div>
+   <div class="vp"><iframe id="fDesktop" src="YEAH%20Portal%20Desktop.html?screen=login" title="YEAH portal — desktop"></iframe></div>
+  </div>
+ </div>
+</div>
+
+<div class="notes">
+ <p><b>Data contract.</b> Every input carries the field name the backend receives, and every rendered record carries its id — <code>data-program-id</code>, <code>data-application-id</code>, <code>data-participation-id</code>, <code>data-field</code> — so the same data can be read out of the markup without any of it being visible on screen. Full field list, enums and endpoints: <a href="YEAH%20Portal%20Data%20Contract.md">YEAH Portal Data Contract.md</a>.</p>
+ <p style="margin-top:10px"><b>Deep links.</b> Both files accept <code>?screen=login|register|hub</code>; mobile also takes <code>&amp;tab=status|programs|history|profile</code> and <code>&amp;step=1–5</code>.</p>
+</div>
+
+<script>
+document.querySelectorAll('#tabs button').forEach(function(b){
+ b.addEventListener('click',function(){
+  document.querySelectorAll('#tabs button').forEach(function(x){x.classList.toggle('on',x===b)});
+  var s=b.getAttribute('data-screen');
+  document.getElementById('fMobile').src='YEAH%20Portal%20Mobile.html?screen='+s;
+  document.getElementById('fDesktop').src='YEAH%20Portal%20Desktop.html?screen='+s;
+ });
+});
+</script>
+</body>
+</html>

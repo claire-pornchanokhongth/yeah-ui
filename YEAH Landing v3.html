@@ -208,7 +208,8 @@ html[data-lang="th"] p{line-height:1.7}
 .rb-panel.on{visibility:visible;opacity:1;animation:pdIn .45s var(--ease)}
 @keyframes pdIn{from{opacity:0;transform:translateY(12px)}}
 .rb-panel .step-lv{font-family:var(--font-display-alt);font-size:12px;font-weight:700;letter-spacing:var(--tracking-caps);background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.rb-panel .step-name{font-family:var(--font-display);font-size:25px;font-weight:600;color:#fff;margin:2px 0 22px}
+.rb-panel .step-name{font-family:var(--font-display);font-size:25px;font-weight:600;color:#fff;margin:2px 0 8px}
+.rb-panel .step-desc{color:rgba(255,255,255,.7);font-size:13.5px;max-width:58ch;margin:0 0 22px}
 .bene-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .bene{text-align:center}
 .bic{width:64px;height:64px;margin:0 auto 12px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px -12px rgba(254,0,116,.45)}
@@ -441,31 +442,39 @@ html[data-lang="th"] p{line-height:1.7}
    <div class="rb-road">
     <div class="rb-fill" id="rbFill"></div>
     <div class="rb-rocket" id="rbRocket"><i class="ic" data-lucide="rocket"></i></div>
-    <button class="rb-stop on" style="--p:0" data-t="0" aria-label="Starter"><i class="ic" data-lucide="sprout"></i><span>Starter</span></button>
+    <button class="rb-stop on" style="--p:0" data-t="0" aria-label="Explorer"><i class="ic" data-lucide="compass"></i><span>Explorer</span></button>
     <button class="rb-stop" style="--p:33.33" data-t="1" aria-label="Builder"><i class="ic" data-lucide="hammer"></i><span>Builder</span></button>
-    <button class="rb-stop" style="--p:66.66" data-t="2" aria-label="Founder"><i class="ic" data-lucide="flag"></i><span>Founder</span></button>
-    <button class="rb-stop" style="--p:100" data-t="3" aria-label="Mentor"><i class="ic" data-lucide="award"></i><span>Mentor</span></button>
+    <button class="rb-stop" style="--p:66.66" data-t="2" aria-label="Leader"><i class="ic" data-lucide="flag"></i><span>Leader</span></button>
+    <button class="rb-stop" style="--p:100" data-t="3" aria-label="Catalyst"><i class="ic" data-lucide="zap"></i><span>Catalyst</span></button>
    </div>
    <div class="rb-details">
-    <div class="rb-panel on"><span class="step-lv">LEVEL 01</span><div class="step-name">Starter</div><div class="bene-row">
-     <div class="bene"><span class="bic"><i class="ic" data-lucide="user-plus"></i></span><b data-en="Join the community" data-th="เข้าร่วมคอมมูนิตี้">เข้าร่วมคอมมูนิตี้</b><small>Lorem ipsum dolor sit amet elit.</small></div>
-     <div class="bene"><span class="bic"><i class="ic" data-lucide="calendar-days"></i></span><b data-en="Monthly events" data-th="อีเวนต์รายเดือน">อีเวนต์รายเดือน</b><small>Consectetur adipiscing sed do.</small></div>
-     <div class="bene"><span class="bic"><i class="ic" data-lucide="users"></i></span><b data-en="Member directory" data-th="ทำเนียบสมาชิก">ทำเนียบสมาชิก</b><small>Eiusmod tempor incididunt ut.</small></div>
+    <div class="rb-panel on"><span class="step-lv">LEVEL 01</span><div class="step-name">Explorer</div>
+     <p class="step-desc" data-en="The first tier for members who have entered a project and are exploring where their skills fit." data-th="ระดับเริ่มต้นสำหรับสมาชิกที่เข้าร่วมโครงการแรกและกำลังสำรวจว่าทักษะของตัวเองเหมาะกับอะไร">ระดับเริ่มต้นสำหรับสมาชิกที่เข้าร่วมโครงการแรกและกำลังสำรวจว่าทักษะของตัวเองเหมาะกับอะไร</p>
+     <div class="bene-row">
+     <div class="bene"><span class="bic"><i class="ic" data-lucide="user-plus"></i></span><b data-en="Your first project" data-th="โครงการแรกของคุณ">โครงการแรกของคุณ</b><small data-en="Get in and start doing the work." data-th="ได้ลงมือทำจริงตั้งแต่โครงการแรก">ได้ลงมือทำจริงตั้งแต่โครงการแรก</small></div>
+     <div class="bene"><span class="bic"><i class="ic" data-lucide="calendar-days"></i></span><b data-en="Monthly events" data-th="อีเวนต์รายเดือน">อีเวนต์รายเดือน</b><small data-en="Every event is open to you." data-th="เข้าร่วมได้ทุกอีเวนต์">เข้าร่วมได้ทุกอีเวนต์</small></div>
+     <div class="bene"><span class="bic"><i class="ic" data-lucide="users"></i></span><b data-en="Member directory" data-th="ทำเนียบสมาชิก">ทำเนียบสมาชิก</b><small data-en="Find people working on what you work on." data-th="หาคนที่ทำเรื่องเดียวกับคุณ">หาคนที่ทำเรื่องเดียวกับคุณ</small></div>
     </div></div>
-    <div class="rb-panel"><span class="step-lv">LEVEL 02</span><div class="step-name">Builder</div><div class="bene-row">
-     <div class="bene"><span class="bic"><i class="ic" data-lucide="lightbulb"></i></span><b data-en="Skill workshops" data-th="เวิร์กช็อปทักษะ">เวิร์กช็อปทักษะ</b><small>Labore et dolore magna aliqua.</small></div>
-     <div class="bene"><span class="bic"><i class="ic" data-lucide="handshake"></i></span><b data-en="Team matching" data-th="จับคู่ทีม">จับคู่ทีม</b><small>Ut enim ad minim veniam quis.</small></div>
-     <div class="bene"><span class="bic"><i class="ic" data-lucide="hammer"></i></span><b data-en="Project sprints" data-th="สปรินต์โปรเจกต์">สปรินต์โปรเจกต์</b><small>Nostrud exercitation ullamco.</small></div>
+    <div class="rb-panel"><span class="step-lv">LEVEL 02</span><div class="step-name">Builder</div>
+     <p class="step-desc" data-en="For members actively executing projects and building up evidence of how they grow." data-th="สำหรับสมาชิกที่กำลังลงมือทำโครงการจริงและสะสมหลักฐานการเติบโตของตัวเอง">สำหรับสมาชิกที่กำลังลงมือทำโครงการจริงและสะสมหลักฐานการเติบโตของตัวเอง</p>
+     <div class="bene-row">
+     <div class="bene"><span class="bic"><i class="ic" data-lucide="hammer"></i></span><b data-en="Partner projects" data-th="โปรเจกต์กับพาร์ตเนอร์">โปรเจกต์กับพาร์ตเนอร์</b><small data-en="Real briefs, teams of four." data-th="โจทย์จริงจากพาร์ตเนอร์ ทีมละ 4 คน">โจทย์จริงจากพาร์ตเนอร์ ทีมละ 4 คน</small></div>
+     <div class="bene"><span class="bic"><i class="ic" data-lucide="handshake"></i></span><b data-en="Team matching" data-th="จับคู่ทีม">จับคู่ทีม</b><small data-en="Find a team, or a co-founder." data-th="หาทีมหรือหา co-founder">หาทีมหรือหา co-founder</small></div>
+     <div class="bene"><span class="bic"><i class="ic" data-lucide="lightbulb"></i></span><b data-en="Skill workshops" data-th="เวิร์กช็อปทักษะ">เวิร์กช็อปทักษะ</b><small data-en="Sessions run by people doing the job." data-th="เวิร์กช็อปจากคนที่ทำงานสายนั้นจริง">เวิร์กช็อปจากคนที่ทำงานสายนั้นจริง</small></div>
     </div></div>
-    <div class="rb-panel"><span class="step-lv">LEVEL 03</span><div class="step-name">Founder</div><div class="bene-row">
-     <div class="bene"><span class="bic"><i class="ic" data-lucide="presentation"></i></span><b data-en="Pitch nights" data-th="เวทีพิตช์">เวทีพิตช์</b><small>Laboris nisi ut aliquip ex ea.</small></div>
-     <div class="bene"><span class="bic"><i class="ic" data-lucide="network"></i></span><b data-en="Mentor access" data-th="เข้าถึงเมนเทอร์">เข้าถึงเมนเทอร์</b><small>Commodo consequat duis aute.</small></div>
-     <div class="bene"><span class="bic"><i class="ic" data-lucide="flag"></i></span><b data-en="Demo day slot" data-th="สิทธิ์ Demo Day">สิทธิ์ Demo Day</b><small>Irure dolor in reprehenderit.</small></div>
+    <div class="rb-panel"><span class="step-lv">LEVEL 03</span><div class="step-name">Leader</div>
+     <p class="step-desc" data-en="For advanced members taking on leadership roles inside YEAH initiatives." data-th="สำหรับสมาชิกระดับสูงที่รับบทบาทผู้นำในโครงการของ YEAH">สำหรับสมาชิกระดับสูงที่รับบทบาทผู้นำในโครงการของ YEAH</p>
+     <div class="bene-row">
+     <div class="bene"><span class="bic"><i class="ic" data-lucide="flag"></i></span><b data-en="Lead a project team" data-th="นำทีมในโครงการ">นำทีมในโครงการ</b><small data-en="Own a brief and the people on it." data-th="ดูแลโจทย์และทีมของตัวเอง">ดูแลโจทย์และทีมของตัวเอง</small></div>
+     <div class="bene"><span class="bic"><i class="ic" data-lucide="network"></i></span><b data-en="Mentor access" data-th="เข้าถึงเมนเทอร์">เข้าถึงเมนเทอร์</b><small data-en="A mentor assigned to you." data-th="มีเมนเทอร์ประจำตัว">มีเมนเทอร์ประจำตัว</small></div>
+     <div class="bene"><span class="bic"><i class="ic" data-lucide="presentation"></i></span><b data-en="Pitch nights and demo day" data-th="เวทีพิตช์และ Demo Day">เวทีพิตช์และ Demo Day</b><small data-en="A slot on the main stage." data-th="ได้สิทธิ์ขึ้นเวทีหลัก">ได้สิทธิ์ขึ้นเวทีหลัก</small></div>
     </div></div>
-    <div class="rb-panel"><span class="step-lv">LEVEL 04</span><div class="step-name">Mentor</div><div class="bene-row">
-     <div class="bene"><span class="bic"><i class="ic" data-lucide="megaphone"></i></span><b data-en="Lead events" data-th="นำอีเวนต์">นำอีเวนต์</b><small>Voluptate velit esse cillum.</small></div>
-     <div class="bene"><span class="bic"><i class="ic" data-lucide="award"></i></span><b data-en="Mentor badge" data-th="แบดจ์เมนเทอร์">แบดจ์เมนเทอร์</b><small>Dolore eu fugiat nulla pariatur.</small></div>
-     <div class="bene"><span class="bic"><i class="ic" data-lucide="graduation-cap"></i></span><b data-en="Alumni network" data-th="เครือข่ายศิษย์เก่า">เครือข่ายศิษย์เก่า</b><small>Excepteur sint occaecat cupidatat.</small></div>
+    <div class="rb-panel"><span class="step-lv">LEVEL 04</span><div class="step-name">Catalyst</div>
+     <p class="step-desc" data-en="The highest tier: members driving high impact and building the next generation." data-th="ระดับสูงสุด สำหรับสมาชิกที่สร้างผลกระทบสูงและปั้นคนรุ่นถัดไป">ระดับสูงสุด สำหรับสมาชิกที่สร้างผลกระทบสูงและปั้นคนรุ่นถัดไป</p>
+     <div class="bene-row">
+     <div class="bene"><span class="bic"><i class="ic" data-lucide="megaphone"></i></span><b data-en="Run your own events" data-th="จัดกิจกรรมของตัวเอง">จัดกิจกรรมของตัวเอง</b><small data-en="Design it, we back it." data-th="ออกแบบเอง แล้วเราสนับสนุน">ออกแบบเอง แล้วเราสนับสนุน</small></div>
+     <div class="bene"><span class="bic"><i class="ic" data-lucide="badge-check"></i></span><b data-en="Verify the next cohort" data-th="ตรวจผลงานรุ่นถัดไป">ตรวจผลงานรุ่นถัดไป</b><small data-en="Confirm what juniors have built." data-th="ยืนยันผลงานที่รุ่นน้องทำจริง">ยืนยันผลงานที่รุ่นน้องทำจริง</small></div>
+     <div class="bene"><span class="bic"><i class="ic" data-lucide="graduation-cap"></i></span><b data-en="Alumni and partner network" data-th="เครือข่ายศิษย์เก่าและพาร์ตเนอร์">เครือข่ายศิษย์เก่าและพาร์ตเนอร์</b><small data-en="Direct introductions." data-th="แนะนำถึงตัวโดยตรง">แนะนำถึงตัวโดยตรง</small></div>
     </div></div>
    </div>
   </div>
@@ -480,11 +489,11 @@ html[data-lang="th"] p{line-height:1.7}
    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.</p>
   </div>
   <div class="jline">
-   <div class="jnode" data-rv><span class="jdot"><i class="ic" data-lucide="rocket"></i></span><div class="jbody"><span class="jday" data-en="Day 1" data-th="วันที่ 1">วันที่ 1</span><h4 data-en="Welcome onboard" data-th="ยินดีต้อนรับ">ยินดีต้อนรับ</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do.</p><span class="jtier t1">Starter</span></div></div>
-   <div class="jnode" data-rv="" data-d="1"><span class="jdot"><i class="ic" data-lucide="calendar-days"></i></span><div class="jbody"><span class="jday" data-en="Day 14" data-th="วันที่ 14">วันที่ 14</span><h4 data-en="First event" data-th="อีเวนต์แรก">อีเวนต์แรก</h4><p>Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p><span class="jtier t1">Starter</span></div></div>
+   <div class="jnode" data-rv><span class="jdot"><i class="ic" data-lucide="rocket"></i></span><div class="jbody"><span class="jday" data-en="Day 1" data-th="วันที่ 1">วันที่ 1</span><h4 data-en="Welcome onboard" data-th="ยินดีต้อนรับ">ยินดีต้อนรับ</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do.</p><span class="jtier t1">Explorer</span></div></div>
+   <div class="jnode" data-rv="" data-d="1"><span class="jdot"><i class="ic" data-lucide="calendar-days"></i></span><div class="jbody"><span class="jday" data-en="Day 14" data-th="วันที่ 14">วันที่ 14</span><h4 data-en="First event" data-th="อีเวนต์แรก">อีเวนต์แรก</h4><p>Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p><span class="jtier t1">Explorer</span></div></div>
    <div class="jnode" data-rv="" data-d="2"><span class="jdot"><i class="ic" data-lucide="users"></i></span><div class="jbody"><span class="jday" data-en="Day 45" data-th="วันที่ 45">วันที่ 45</span><h4 data-en="Find your team" data-th="หาทีมของคุณ">หาทีมของคุณ</h4><p>Duis aute irure dolor in reprehenderit in voluptate velit esse.</p><span class="jtier t2">Builder</span></div></div>
-   <div class="jnode" data-rv="" data-d="3"><span class="jdot"><i class="ic" data-lucide="presentation"></i></span><div class="jbody"><span class="jday" data-en="Day 90" data-th="วันที่ 90">วันที่ 90</span><h4 data-en="Pitch your idea" data-th="พิตช์ไอเดียของคุณ">พิตช์ไอเดียของคุณ</h4><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa.</p><span class="jtier t3">Founder</span></div></div>
-   <div class="jnode" data-rv="" data-d="4"><span class="jdot"><i class="ic" data-lucide="award"></i></span><div class="jbody"><span class="jday" data-en="Day 180+" data-th="วันที่ 180+">วันที่ 180+</span><h4 data-en="Lead &amp; mentor" data-th="นำทีมและเป็นเมนเทอร์">นำทีมและเป็นเมนเทอร์</h4><p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p><span class="jtier t4">Mentor</span></div></div>
+   <div class="jnode" data-rv="" data-d="3"><span class="jdot"><i class="ic" data-lucide="presentation"></i></span><div class="jbody"><span class="jday" data-en="Day 90" data-th="วันที่ 90">วันที่ 90</span><h4 data-en="Pitch your idea" data-th="พิตช์ไอเดียของคุณ">พิตช์ไอเดียของคุณ</h4><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa.</p><span class="jtier t3">Leader</span></div></div>
+   <div class="jnode" data-rv="" data-d="4"><span class="jdot"><i class="ic" data-lucide="award"></i></span><div class="jbody"><span class="jday" data-en="Day 180+" data-th="วันที่ 180+">วันที่ 180+</span><h4 data-en="Lead &amp; mentor" data-th="นำทีมและเป็นเมนเทอร์">นำทีมและเป็นเมนเทอร์</h4><p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p><span class="jtier t4">Catalyst</span></div></div>
   </div>
  </div>
 </section>

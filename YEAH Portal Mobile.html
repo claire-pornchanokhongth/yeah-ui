@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="th" data-lang="th" data-screen="login">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>YEAH Portal — Login · Register · Member Hub (Mobile)</title>
+<link rel="stylesheet" href="_ds/yeah-design-system-b0ca81dd-b5dc-493d-a727-a84faf7a457a/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/yeah-design-system-b0ca81dd-b5dc-493d-a727-a84faf7a457a/tokens/colors.css">
+<link rel="stylesheet" href="_ds/yeah-design-system-b0ca81dd-b5dc-493d-a727-a84faf7a457a/tokens/typography.css">
+<style>
+:root{
+ --grad:linear-gradient(135deg,var(--yeah-yellow) 0%,#FF7A3C 45%,var(--yeah-pink) 100%);
+ --ease:cubic-bezier(.2,.8,.2,1);--line:#E8E8E8;--ink:#141414;--muted:#6A6A6A;--ok:#00A46B;
+ --tap:48px;--pad:18px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:rgba(254,0,116,.12)}
+body{font-family:'Poppins','Noto Sans Thai',var(--font-body,sans-serif);color:var(--ink);background:#F6F6F7;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;overscroll-behavior-y:none}
+h1,h2,h3,h4{font-family:var(--font-display);letter-spacing:-.02em;line-height:1.14;color:var(--ink)}
+a{color:var(--yeah-pink);text-decoration:none}
+img{display:block}button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+html[data-lang="th"] p,html[data-lang="th"] label{line-height:1.7}
+.ic{display:inline-flex;width:20px;height:20px;flex:none}.ic svg{width:100%;height:100%}
+.eyebrow{font-family:var(--font-display-alt);font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block}
+.lbl{font-family:var(--font-display-alt);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#4A4A4A}
+html[data-lang="th"] .lbl{letter-spacing:.04em}
+.muted{color:var(--muted)}.hint{font-size:12px;color:var(--muted)}
+.hint.err{color:var(--yeah-pink);font-weight:500}
+.hint.warn{color:#8A6D00;background:var(--yeah-yellow-100);border:1px solid var(--yeah-yellow-300);border-radius:10px;padding:10px 12px}
+.req{color:var(--yeah-pink)}
+.screen{display:none}
+html[data-screen="login"] #s-login,html[data-screen="register"] #s-register,html[data-screen="hub"] #s-hub{display:block}
+/* ===== buttons ===== */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:var(--tap);padding:0 22px;border-radius:999px;border:none;font-family:var(--font-display-alt);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:transform .14s var(--ease),opacity .14s}
+.btn .ic{width:17px;height:17px}
+.btn:active{transform:scale(.97)}
+.btn-grad{background:var(--grad);color:#151515;box-shadow:0 10px 22px -12px rgba(254,0,116,.8)}
+.btn-dark{background:var(--yeah-black);color:#fff}
+.btn-ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+.btn[disabled]{opacity:.42;pointer-events:none;box-shadow:none}
+.btn-full{width:100%}
+.btn-sm{min-height:44px;font-size:10.5px;padding:0 16px}
+.btn-google{background:#fff;color:#1F1F1F;border:1.5px solid #DADADA;min-height:56px;font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;letter-spacing:0;text-transform:none}
+.btn-google svg{width:22px;height:22px}
+/* ===== fields ===== */
+.card{background:#fff;border-radius:20px;border:1px solid var(--line)}
+.field{display:flex;flex-direction:column;gap:7px;margin-bottom:18px}
+.field>label{font-family:var(--font-display-alt);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#4A4A4A}
+html[data-lang="th"] .field>label{letter-spacing:.04em}
+.inp,textarea.inp{width:100%;min-height:52px;border:1.5px solid var(--line);border-radius:13px;background:#fff;padding:14px;font-size:16px}
+textarea.inp{min-height:96px;resize:vertical}
+.inp:focus{outline:none;border-color:var(--yeah-pink);box-shadow:0 0 0 3px rgba(254,215,50,.55)}
+.inp.bad{border-color:var(--yeah-pink);background:#FFF5F9}
+.picker{display:flex;align-items:center;gap:10px;width:100%;min-height:52px;border:1.5px solid var(--line);border-radius:13px;background:#fff;padding:14px;text-align:left;font-size:16px;cursor:pointer}
+.picker .ic{margin-left:auto;color:var(--muted);width:18px;height:18px}
+.picker.filled{border-color:#C9C9C9}
+.picker .ph{color:#B4B4B4}
+.opt{display:grid;gap:10px}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt label{display:flex;align-items:center;gap:12px;min-height:60px;padding:0 18px;border:1.5px solid var(--line);border-radius:15px;background:#fff;cursor:pointer;font-weight:500}
+.opt label .ic{width:20px;height:20px;color:var(--muted)}
+.opt input:checked+label{background:var(--yeah-black);color:#fff;border-color:transparent}
+.opt input:checked+label .ic{color:var(--yeah-yellow)}
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chips input{position:absolute;opacity:0;pointer-events:none}
+.chips label{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 15px;border:1.5px solid var(--line);border-radius:999px;background:#fff;font-size:14px;cursor:pointer}
+.chips label .ic{width:16px;height:16px;color:var(--muted)}
+.chips input:checked+label{background:var(--grad);border-color:transparent;color:#151515;font-weight:600}
+.cbx{position:relative;flex:none;width:28px;height:28px}
+.cbx input{position:absolute;inset:0;opacity:0;width:100%;height:100%}
+.cbx span{position:absolute;inset:0;border:2px solid #B8B8B8;border-radius:8px;background:#fff;pointer-events:none}
+.cbx input:checked+span{background:var(--grad);border-color:transparent}
+.cbx input:checked+span::after{content:"";position:absolute;left:9px;top:4px;width:6px;height:13px;border:2.6px solid #151515;border-top:0;border-left:0;transform:rotate(42deg)}
+/* ===== top bar ===== */
+.top{position:sticky;top:0;z-index:40;height:60px;display:flex;align-items:center;gap:10px;padding:0 var(--pad);background:rgba(5,4,7,.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.12)}
+.top img.logo{height:26px;width:auto}
+.top .sp{margin-left:auto}
+.iconbtn{width:44px;height:44px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);color:#fff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;position:relative}
+.iconbtn .dot{position:absolute;top:9px;right:10px;width:8px;height:8px;border-radius:50%;background:var(--yeah-pink);border:1.5px solid #0B0A0D}
+.langbtn{display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 12px 0 8px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.12);color:#fff;font-size:12px;cursor:pointer}
+.flag{width:22px;height:22px;border-radius:50%;flex:none}
+.flag-th{background:linear-gradient(180deg,#A51931 0 16.7%,#F4F5F8 16.7% 33.4%,#2D2A4A 33.4% 66.7%,#F4F5F8 66.7% 83.4%,#A51931 83.4%)}
+.flag-en{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Crect width='60' height='60' fill='%23012169'/%3E%3Cpath d='M0 0 60 60M60 0 0 60' stroke='%23fff' stroke-width='12'/%3E%3Cpath d='M0 0 60 60M60 0 0 60' stroke='%23C8102E' stroke-width='6'/%3E%3Cpath d='M30 0V60M0 30H60' stroke='%23fff' stroke-width='20'/%3E%3Cpath d='M30 0V60M0 30H60' stroke='%23C8102E' stroke-width='12'/%3E%3C/svg%3E") center/cover}
+/* ===== 01 login ===== */
+.login{min-height:100vh;background:linear-gradient(180deg,#010101 0%,#1F1225 62%,#2A0F22 100%);color:#fff;display:flex;flex-direction:column;padding:0 var(--pad) 34px;position:relative;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.45;pointer-events:none}
+.login .b1{width:300px;height:300px;background:radial-gradient(circle at 32% 32%,var(--yeah-yellow),#FF7A3C 70%);top:-90px;right:-110px}
+.login .b2{width:320px;height:320px;background:radial-gradient(circle at 35% 35%,var(--yeah-pink),#B8005B 75%);bottom:120px;left:-140px}
+.login>*:not(.blob){position:relative;z-index:2}
+.login-hero{padding:38px 0 26px}
+.login-hero h1{font-size:30px;font-weight:700;color:#fff;margin:12px 0 12px}
+.login-hero p{color:rgba(255,255,255,.78);font-size:14px}
+.bignums{display:flex;flex-direction:column;align-items:flex-start;gap:20px;text-align:left;padding:12px 0 0;margin-bottom:30px}
+.bignums b{display:block;font-family:var(--font-display-alt);font-size:clamp(76px,26vw,104px);font-weight:700;line-height:.86;letter-spacing:-.03em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+.bignums small{display:block;margin-top:8px;font-family:var(--font-display-alt);font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.66)}
+html[data-lang="th"] .bignums small{letter-spacing:.02em}
+.sheet-card{margin-top:auto;background:#fff;border-radius:26px;padding:24px 20px 22px;color:var(--ink);box-shadow:0 -10px 40px -20px rgba(1,1,1,.8)}
+.sheet-card h2{font-size:22px;font-weight:600;margin:6px 0 6px}
+.sheet-card>p{font-size:13px;color:var(--muted);margin-bottom:20px}
+.or{display:flex;align-items:center;gap:12px;margin:16px 0;color:#A5A5A5;font-size:11px;font-family:var(--font-display-alt);letter-spacing:.12em;text-transform:uppercase}
+.or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
+/* ===== 02 register (wizard) ===== */
+.reg{padding-bottom:104px;background:#F6F6F7;min-height:100vh}
+.wiz-top{position:sticky;top:60px;z-index:30;background:#fff;border-bottom:1px solid var(--line);padding:14px var(--pad) 12px}
+.wiz-bar{height:6px;border-radius:99px;background:#EDEDED;overflow:hidden;margin-bottom:10px}
+.wiz-bar i{display:block;height:100%;width:20%;background:var(--grad);border-radius:99px;transition:width .35s var(--ease)}
+.wiz-meta{display:flex;justify-content:space-between;align-items:baseline}
+.wiz-meta b{font-family:var(--font-display);font-size:16px;font-weight:600}
+.wiz-meta small{font-family:var(--font-display-alt);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.step{display:none;padding:22px var(--pad) 10px;animation:slideIn .28s var(--ease)}
+.step.on{display:block}
+@keyframes slideIn{from{opacity:0;transform:translateX(14px)}}
+.step>p.intro{font-size:13.5px;color:var(--muted);margin-bottom:20px}
+.step h2{font-size:23px;font-weight:600;margin:6px 0 6px}
+.cond{display:none}.cond.on{display:block;animation:slideIn .26s var(--ease)}
+.auto{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-display-alt);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--yeah-yellow);color:#151515;border-radius:999px;padding:3px 8px;margin-left:6px;vertical-align:middle}
+.wiz-foot{position:fixed;left:0;right:0;bottom:0;z-index:35;display:flex;gap:10px;padding:12px var(--pad) calc(12px + env(safe-area-inset-bottom));background:rgba(255,255,255,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line)}
+.wiz-foot .btn{flex:1}
+.wiz-foot .btn.back{flex:0 0 56px;padding:0}
+.consent-box{display:flex;gap:13px;padding:18px;border:1.5px solid var(--line);border-radius:16px;background:#fff;margin-bottom:14px}
+.consent-box b{display:block;font-size:14px;font-weight:600;margin-bottom:5px;font-family:'Poppins',sans-serif}
+.summary{border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff}
+.summary div{display:flex;justify-content:space-between;gap:14px;padding:12px 15px;border-bottom:1px solid var(--line);font-size:13px}
+.summary div:last-child{border-bottom:none}
+.summary span{color:var(--muted);flex:none}
+.summary b{font-weight:500;text-align:right;word-break:break-word}
+/* ===== 03 hub ===== */
+.hub{padding-bottom:40px;min-height:100vh}
+.phead{background:linear-gradient(135deg,#010101 0%,#20141F 60%,#2A0F22 100%);color:#fff;padding:22px var(--pad) 26px;position:relative;overflow:hidden}
+.phead .blob{width:260px;height:260px;background:radial-gradient(circle at 35% 35%,rgba(254,0,116,.6),rgba(254,215,50,.3) 80%);top:-120px;right:-80px;opacity:.5}
+.phead-row{position:relative;z-index:2;display:flex;gap:14px;align-items:center}
+.avatar{width:62px;height:62px;border-radius:50%;flex:none;padding:2.5px;background:var(--grad)}
+.avatar b{width:100%;height:100%;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:22px;font-weight:600;color:var(--ink)}
+.phead h1{font-size:21px;font-weight:600;color:#fff;margin-bottom:5px}
+.lvl-badge{display:inline-flex;align-items:center;gap:7px;font-family:var(--font-display-alt);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:5px 12px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.34);color:#fff}
+.lvl-badge .ic{width:13px;height:13px;color:var(--yeah-yellow)}
+.phead .pid{position:relative;z-index:2;display:block;margin-top:14px;font-family:var(--font-mono,monospace);font-size:10.5px;color:rgba(255,255,255,.45)}
+.tab{display:none;padding:18px var(--pad) 0}
+.tab.on{display:block}
+.sec-head{margin-bottom:14px}
+.sec-head h2{font-size:20px;font-weight:600;margin:4px 0 4px}
+.sec-head p{font-size:12.5px;color:var(--muted)}
+/* level rail */
+.rail{display:flex;gap:8px;overflow-x:auto;padding:4px 0 10px;scrollbar-width:none;margin:0 calc(var(--pad)*-1);padding-inline:var(--pad);scroll-snap-type:x mandatory}
+.rail::-webkit-scrollbar{display:none}
+.rstop{flex:none;width:120px;scroll-snap-align:start;border:1.5px solid var(--line);border-radius:16px;background:#fff;padding:14px 12px;text-align:left;cursor:pointer}
+.rstop .ic{width:20px;height:20px;color:#B6B6B6;margin-bottom:8px}
+.rstop small{display:block;font-family:var(--font-display-alt);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#A8A8A8}
+.rstop b{display:block;font-family:var(--font-display);font-size:15px;font-weight:600;margin-top:2px}
+.rstop.now{background:var(--yeah-black);border-color:transparent}
+.rstop.now b{color:#fff}.rstop.now small{color:var(--yeah-yellow)}.rstop.now .ic{color:var(--yeah-yellow)}
+.rstop.done{border-color:var(--ok)}.rstop.done .ic{color:var(--ok)}
+.rstop.sel{outline:3px solid rgba(254,215,50,.85);outline-offset:2px}
+.meter{height:9px;border-radius:99px;background:#EDEDED;overflow:hidden;margin:10px 0 8px}
+.meter i{display:block;height:100%;background:var(--grad);border-radius:99px}
+.locked-note{display:flex;gap:12px;padding:16px;border-radius:16px;background:var(--yeah-yellow-100);border:1px solid var(--yeah-yellow-300);margin-top:14px}
+.locked-note .ic{width:20px;height:20px;color:#8A6D00;flex:none}
+.locked-note b{display:block;font-family:var(--font-display);font-size:14px;margin-bottom:4px}
+.locked-note p{font-size:12.5px;color:#6E5A12}
+.bene{display:flex;gap:12px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}
+.bene:last-child{border-bottom:none}
+.bene .bic{width:42px;height:42px;flex:none;border-radius:50%;background:#FAFAFA;border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+.bene .bic .ic{width:19px;height:19px;color:var(--yeah-pink)}
+.bene b{display:block;font-family:var(--font-display);font-size:14px}
+.bene small{font-size:11.5px;color:var(--muted)}
+.skills{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.skill{border:1px solid var(--line);border-radius:14px;padding:13px;background:#fff}
+.skill b{display:block;font-family:var(--font-display-alt);font-size:22px;font-weight:700;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.skill span{display:block;font-size:11.5px;color:var(--muted);line-height:1.35}
+.skill .bar{height:4px;border-radius:99px;background:#EFEFEF;margin-top:8px;overflow:hidden}
+.skill .bar i{display:block;height:100%;background:var(--grad)}
+/* accordions */
+.acc{border:1px solid var(--line);border-radius:18px;background:#fff;margin-bottom:12px;overflow:hidden}
+.acc>button{width:100%;display:flex;align-items:center;gap:12px;min-height:58px;padding:0 16px;background:none;border:none;cursor:pointer;text-align:left}
+.acc>button .ic:first-child{width:19px;height:19px;color:var(--yeah-pink)}
+.acc>button b{flex:1;font-family:var(--font-display);font-size:15px;font-weight:600}
+.acc>button .chev{width:18px;height:18px;color:var(--muted);transition:transform .2s var(--ease)}
+.acc.open>button .chev{transform:rotate(180deg)}
+.acc .body{display:none;padding:2px 16px 18px;border-top:1px solid var(--line)}
+.acc.open .body{display:block}
+/* program cards */
+.prog{border:1px solid var(--line);border-radius:20px;background:#fff;overflow:hidden;margin-bottom:16px}
+.prog-cover{position:relative;aspect-ratio:16/8;background:#D9D9D9;display:flex;align-items:center;justify-content:center;color:#B0B0B0}
+.prog-cover::after{content:"";position:absolute;inset:auto 0 0 0;height:4px;background:var(--grad)}
+.ptype{position:absolute;top:10px;left:10px;font-family:var(--font-display-alt);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--yeah-black);color:#fff;border-radius:999px;padding:5px 10px}
+.countdown{position:absolute;top:10px;right:10px;display:flex;align-items:center;gap:6px;background:var(--grad);color:#151515;border-radius:999px;padding:6px 11px;font-family:var(--font-display-alt);font-size:12px;font-weight:700}
+.countdown .ic{width:12px;height:12px}
+.countdown.warn{background:var(--yeah-black);color:var(--yeah-yellow)}
+.countdown.closed{background:#E4E4E4;color:#7A7A7A}
+.prog-body{padding:16px}
+.prog-body h4{font-size:17px;font-weight:600;margin-bottom:7px}
+.prog-body .desc{font-size:13px;color:var(--muted);margin-bottom:12px}
+.pmeta{display:flex;flex-direction:column;gap:7px;font-size:12.5px;color:var(--muted);margin-bottom:12px}
+.pmeta span{display:flex;align-items:center;gap:8px}
+.pmeta .ic{width:15px;height:15px;color:var(--yeah-pink)}
+.seats{height:6px;border-radius:99px;background:#EFEFEF;overflow:hidden;margin-top:5px}
+.seats i{display:block;height:100%;background:var(--grad)}
+.elig{border-top:1px dashed var(--line);margin-top:12px;padding-top:12px}
+.elig-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.lv{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-display-alt);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:1.5px solid var(--line);border-radius:8px;padding:6px 9px;color:#A8A8A8;background:#fff}
+.lv i{width:13px;height:13px;border:1.5px solid #CFCFCF;border-radius:4px;position:relative;flex:none}
+.lv.yes{color:var(--ink);border-color:#C9C9C9}
+.lv.yes i{background:var(--yeah-black);border-color:var(--yeah-black)}
+.lv.yes i::after{content:"";position:absolute;left:3.6px;top:.6px;width:3.4px;height:7px;border:1.6px solid #fff;border-top:0;border-left:0;transform:rotate(42deg)}
+.lv.me{background:var(--yeah-yellow);border-color:var(--yeah-black);color:#151515}
+/* list rows */
+.row{display:flex;gap:13px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:none}
+.dblock{width:54px;height:54px;border-radius:13px;background:var(--yeah-black);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none}
+.dblock b{font-family:var(--font-display-alt);font-size:18px;font-weight:700;line-height:1;color:#fff}
+.dblock small{font-family:var(--font-display-alt);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--yeah-yellow);margin-top:3px}
+.row h4{font-size:14.5px;font-weight:600;margin-bottom:3px}
+.row .role{font-size:11.5px;color:var(--muted)}
+.st{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-display-alt);font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:5px 10px;margin-top:6px}
+.st .ic{width:12px;height:12px}
+.st-review{background:var(--yeah-yellow);color:#151515}
+.st-wait{background:#F1F1F1;color:#5A5A5A}
+.st-ok,.st-verified{background:#E2F7EF;color:#00734B}
+.st-pending{background:var(--yeah-yellow-100);color:#8A6D00}
+.dims{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.dim{font-family:var(--font-display-alt);font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:#F4F4F5;border:1px solid var(--line);border-radius:6px;padding:3px 7px;color:#4A4A4A}
+.dim b{color:var(--yeah-pink)}
+.track{display:flex;gap:4px;margin-top:8px}
+.track i{flex:1;height:5px;border-radius:99px;background:#EDEDED}
+.track i.on{background:var(--grad)}
+.cred{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-display-alt);font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:5px 10px;background:var(--yeah-black);color:var(--yeah-yellow);margin-top:6px}
+.cred .ic{width:12px;height:12px}
+.pd{display:flex;justify-content:space-between;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);font-size:13px}
+.pd:last-child{border-bottom:none}
+.pd span{color:var(--muted);font-family:var(--font-mono,monospace);font-size:11px;flex:none}
+.pd b{font-weight:500;text-align:right;word-break:break-word}
+.notif{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}
+.notif:last-child{border-bottom:none}
+.notif .nic{width:36px;height:36px;flex:none;border-radius:50%;background:#F4F4F5;display:flex;align-items:center;justify-content:center}
+.notif .nic .ic{width:17px;height:17px;color:var(--yeah-pink)}
+.notif b{font-size:13px;font-family:var(--font-display);font-weight:600}
+.notif p{font-size:12px;color:var(--muted)}
+.notif time{font-size:10.5px;color:#A8A8A8;margin-left:auto;flex:none}
+.pf-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pf{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+.pf .th{aspect-ratio:4/3;background:#D9D9D9;display:flex;align-items:center;justify-content:center;color:#B0B0B0}
+.pf .bd{padding:10px 11px}
+.pf b{display:block;font-size:12px;font-family:var(--font-display);font-weight:600;margin-bottom:3px}
+.pf small{font-size:10px;color:var(--muted)}
+/* section menu — sits under the profile block, like a website nav */
+.mtabs{position:sticky;top:60px;z-index:34;display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;background:#fff;border-bottom:1px solid var(--line);padding:10px var(--pad)}
+.mtabs::-webkit-scrollbar{display:none}
+html:not([data-screen="hub"]) .mtabs{display:none}
+.mtabs button{flex:none;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 15px;border-radius:999px;border:1.5px solid var(--line);background:#fff;color:var(--ink);font-size:13.5px;font-weight:500;cursor:pointer;white-space:nowrap}
+.mtabs button .ic{width:16px;height:16px;color:var(--muted)}
+.mtabs button.on{background:var(--yeah-black);border-color:transparent;color:#fff}
+.mtabs button.on .ic{color:var(--yeah-yellow)}
+.mtabs .cnt{min-width:19px;height:19px;border-radius:999px;background:var(--yeah-pink);color:#fff;font-family:var(--font-display-alt);font-size:10px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;padding:0 5px}
+/* ===== bottom sheet ===== */
+.scrim{position:fixed;inset:0;z-index:60;background:rgba(1,1,1,.55);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:opacity .24s var(--ease),visibility .24s}
+.scrim.on{opacity:1;visibility:visible}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:65;background:#fff;border-radius:26px 26px 0 0;transform:translateY(100%);transition:transform .3s var(--ease);max-height:88vh;display:flex;flex-direction:column;padding-bottom:env(safe-area-inset-bottom)}
+.sheet.on{transform:none}
+.sheet .grab{width:44px;height:5px;border-radius:99px;background:#DCDCDC;margin:10px auto 4px;flex:none}
+.sheet header{padding:8px var(--pad) 12px;border-bottom:1px solid var(--line);flex:none}
+.sheet header h3{font-size:18px;font-weight:600}
+.sheet header p{font-size:12px;color:var(--muted);margin-top:3px}
+.sheet .search{padding:12px var(--pad);flex:none;border-bottom:1px solid var(--line)}
+.sheet .list{overflow:auto;-webkit-overflow-scrolling:touch;padding:6px 0 14px}
+.sheet .list button{width:100%;min-height:54px;display:flex;align-items:center;gap:12px;padding:0 var(--pad);border:none;background:none;text-align:left;font-size:15px;cursor:pointer;border-bottom:1px solid #F3F3F3}
+.sheet .list button:active{background:#FAFAFA}
+.sheet .list button.sel{background:#FFF6FA;color:var(--yeah-pink);font-weight:600}
+.sheet .list button .ic{margin-left:auto;width:18px;height:18px;color:var(--yeah-pink);opacity:0}
+.sheet .list button.sel .ic{opacity:1}
+.sheet .body{overflow:auto;padding:16px var(--pad) 20px}
+.sheet footer{padding:12px var(--pad) 16px;border-top:1px solid var(--line);display:flex;gap:10px;flex:none}
+.sheet footer .btn{flex:1}
+.toast{position:fixed;left:var(--pad);right:var(--pad);bottom:18px;z-index:80;background:var(--yeah-black);color:#fff;border-radius:16px;padding:14px 18px;display:flex;align-items:center;gap:11px;font-size:13.5px;opacity:0;visibility:hidden;transform:translateY(12px);transition:all .24s var(--ease)}
+.toast.on{opacity:1;visibility:visible;transform:none}
+.toast .ic{width:18px;height:18px;color:var(--yeah-yellow);flex:none}
+</style>
+</head>
+<body>
+
+<header class="top">
+ <img class="logo" src="uploads/logo_yeah_white_label_asso.png" alt="YEAH">
+ <span class="sp"></span>
+ <button class="langbtn" id="langBtn"><span class="flag flag-th" id="flagCur"></span><span id="langTxt">TH</span></button>
+ <button class="iconbtn" id="notifBtn" aria-label="Notifications" style="display:none"><i class="ic" data-lucide="bell"></i><span class="dot"></span></button>
+</header>
+
+<!-- ============ 01 LOGIN ============ -->
+<main class="screen" id="s-login">
+ <div class="login">
+  <span class="blob b1"></span><span class="blob b2"></span>
+  <div class="login-hero">
+   <div class="bignums">
+    <div><b class="cnt" data-to="100" data-suffix="+">0</b><small data-en="activities run" data-th="กิจกรรมที่จัดไปแล้ว">กิจกรรมที่จัดไปแล้ว</small></div>
+    <div><b class="cnt" data-to="500" data-suffix="+">0</b><small data-en="people joined" data-th="ผู้เข้าร่วมที่ผ่านมา">ผู้เข้าร่วมที่ผ่านมา</small></div>
+   </div>
+   <span class="eyebrow">YEAH Future Talent</span>
+   <h1 data-en="From potential to proof of work." data-th="เปลี่ยนศักยภาพให้เป็นผลงานที่พิสูจน์ได้">เปลี่ยนศักยภาพให้เป็นผลงานที่พิสูจน์ได้</h1>
+   <p data-en="One account for every YEAH program. Apply, collect verified evidence, and carry a credential anyone can check." data-th="บัญชีเดียวใช้ได้กับทุกโครงการของ YEAH สมัคร เก็บหลักฐานที่ผ่านการตรวจสอบ และถือ Credential ที่ใคร ๆ ก็ตรวจสอบได้">บัญชีเดียวใช้ได้กับทุกโครงการของ YEAH สมัคร เก็บหลักฐานที่ผ่านการตรวจสอบ และถือ Credential ที่ใคร ๆ ก็ตรวจสอบได้</p>
+  </div>
+  <div class="sheet-card">
+   <span class="eyebrow" data-en="Member login" data-th="เข้าสู่ระบบสมาชิก">เข้าสู่ระบบสมาชิก</span>
+   <h2 data-en="Welcome to YEAH" data-th="ยินดีต้อนรับสู่ YEAH">ยินดีต้อนรับสู่ YEAH</h2>
+   <p data-en="We match you by Google ID, not by email address." data-th="ระบบจับคู่คุณด้วย Google ID ไม่ใช่อีเมล">ระบบจับคู่คุณด้วย Google ID ไม่ใช่อีเมล</p>
+   <button class="btn btn-google btn-full" id="googleBtn">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8c-.5 2.8-2 5.1-4.4 6.7v5.6h7.1c4.2-3.8 6.6-9.5 6.6-16.3z"/><path fill="#34A853" d="M24 46c6 0 11-2 14.6-5.2l-7.1-5.6c-2 1.3-4.5 2.1-7.5 2.1-5.8 0-10.6-3.9-12.4-9.1H4.3v5.7C7.9 41.1 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.6 28.2c-.4-1.3-.7-2.7-.7-4.2s.3-2.9.7-4.2v-5.7H4.3C2.8 17 2 20.4 2 24s.8 7 2.3 9.9l7.3-5.7z"/><path fill="#EA4335" d="M24 10.7c3.3 0 6.2 1.1 8.5 3.3l6.3-6.3C35 4.1 30 2 24 2 15.4 2 7.9 6.9 4.3 14.1l7.3 5.7c1.8-5.2 6.6-9.1 12.4-9.1z"/></svg>
+    <span data-en="Continue with Google" data-th="ดำเนินการต่อด้วย Google">ดำเนินการต่อด้วย Google</span>
+   </button>
+   <div class="or"><span data-en="or" data-th="หรือ">หรือ</span></div>
+   <button class="btn btn-ghost btn-full" id="emailBtn"><i class="ic" data-lucide="mail"></i><span data-en="Sign in with email link" data-th="เข้าสู่ระบบด้วยลิงก์ทางอีเมล">เข้าสู่ระบบด้วยลิงก์ทางอีเมล</span></button>
+  </div>
+ </div>
+</main>
+
+<!-- ============ 02 REGISTRATION (progressive disclosure) ============ -->
+<main class="screen" id="s-register">
+ <div class="reg">
+  <div class="wiz-top">
+   <div class="wiz-bar"><i id="wizBar"></i></div>
+   <div class="wiz-meta">
+    <b id="wizTitle">ข้อมูลส่วนตัว</b>
+    <small><span data-en="Step" data-th="ขั้นที่">ขั้นที่</span> <span id="wizNum">1</span>/5</small>
+   </div>
+  </div>
+
+  <form id="regForm" novalidate>
+   <input type="hidden" name="google_sub" id="google_sub" value="108214477390215540912">
+   <input type="hidden" name="google_email_login" id="google_email_login" value="nicha.sri@gmail.com">
+   <input type="hidden" name="auth_provider" value="google">
+   <input type="hidden" name="locale" id="f_locale" value="th">
+   <input type="hidden" name="consent_version" value="pdpa-2026-09-v1">
+   <input type="hidden" name="signup_source" value="landing_join_cta">
+   <input type="hidden" name="province" id="province">
+   <input type="hidden" name="university" id="university">
+   <input type="hidden" name="education_level" id="education_level">
+   <input type="hidden" name="employment_type" id="employment_type">
+   <input type="hidden" name="track_interest" id="track_interest">
+
+   <!-- step 1 -->
+   <section class="step on" data-step="1">
+    <span class="eyebrow" data-en="Identity" data-th="ข้อมูลส่วนตัว">ข้อมูลส่วนตัว</span>
+    <h2 data-en="Who are you?" data-th="คุณคือใคร">คุณคือใคร</h2>
+    <p class="intro" data-en="Name comes from your Google account. Change it if your university record says something else." data-th="ชื่อดึงมาจากบัญชี Google เปลี่ยนได้หากต่างจากทะเบียนมหาวิทยาลัย">ชื่อดึงมาจากบัญชี Google เปลี่ยนได้หากต่างจากทะเบียนมหาวิทยาลัย</p>
+    <div class="field"><label for="first_name"><span data-en="First name" data-th="ชื่อจริง">ชื่อจริง</span> <span class="req">*</span><span class="auto">Google</span></label><input class="inp" id="first_name" name="first_name" value="ณิชา" autocomplete="given-name"></div>
+    <div class="field"><label for="last_name"><span data-en="Surname" data-th="นามสกุล">นามสกุล</span> <span class="req">*</span><span class="auto">Google</span></label><input class="inp" id="last_name" name="last_name" value="ศรีวัฒน์" autocomplete="family-name"></div>
+    <div class="field"><label for="birthdate"><span data-en="Birthday" data-th="วันเกิด">วันเกิด</span> <span class="req">*</span></label><input class="inp" type="date" id="birthdate" name="birthdate" max="2014-01-01"><span class="hint" data-en="Used for age-banded program eligibility only." data-th="ใช้ดูเกณฑ์อายุของโครงการเท่านั้น">ใช้ดูเกณฑ์อายุของโครงการเท่านั้น</span></div>
+   </section>
+
+   <!-- step 2 -->
+   <section class="step" data-step="2">
+    <span class="eyebrow" data-en="Contact" data-th="ช่องทางติดต่อ">ช่องทางติดต่อ</span>
+    <h2 data-en="How do we reach you?" data-th="เราติดต่อคุณได้ทางไหน">เราติดต่อคุณได้ทางไหน</h2>
+    <p class="intro" data-en="Program mail and interview slots go here." data-th="อีเมลเกี่ยวกับโครงการและรอบสัมภาษณ์จะส่งมาที่นี่">อีเมลเกี่ยวกับโครงการและรอบสัมภาษณ์จะส่งมาที่นี่</p>
+    <div class="field"><label for="email"><span data-en="Contact email" data-th="อีเมลสำหรับติดต่อ">อีเมลสำหรับติดต่อ</span> <span class="req">*</span><span class="auto">Google</span></label>
+     <input class="inp" type="email" id="email" name="email" value="nicha.sri@gmail.com" inputmode="email" autocomplete="email">
+     <span class="hint warn" id="emailWarn" style="display:none" data-en="Noted. Program mail goes here, but you still sign in with nicha.sri@gmail.com." data-th="รับทราบ อีเมลโครงการจะส่งมาที่นี่ แต่การเข้าสู่ระบบยังใช้ nicha.sri@gmail.com เสมอ">รับทราบ อีเมลโครงการจะส่งมาที่นี่ แต่การเข้าสู่ระบบยังใช้ nicha.sri@gmail.com เสมอ</span>
+    </div>
+    <div class="field"><label for="phone"><span data-en="Mobile" data-th="เบอร์มือถือ">เบอร์มือถือ</span> <span class="req">*</span></label>
+     <input class="inp" type="tel" id="phone" name="phone" inputmode="tel" placeholder="08x-xxx-xxxx" autocomplete="tel">
+     <span class="hint" id="phoneHint" data-en="Thai mobile: 08x-xxx-xxxx or +66 8x xxx xxxx." data-th="เบอร์ไทย: 08x-xxx-xxxx หรือ +66 8x xxx xxxx">เบอร์ไทย: 08x-xxx-xxxx หรือ +66 8x xxx xxxx</span>
+    </div>
+   </section>
+
+   <!-- step 3 -->
+   <section class="step" data-step="3">
+    <span class="eyebrow" data-en="Study or work" data-th="การศึกษาหรือการทำงาน">การศึกษาหรือการทำงาน</span>
+    <h2 data-en="What are you doing now?" data-th="ตอนนี้คุณทำอะไรอยู่">ตอนนี้คุณทำอะไรอยู่</h2>
+    <p class="intro" data-en="The next questions change to match your answer." data-th="คำถามถัดไปจะเปลี่ยนตามคำตอบของคุณ">คำถามถัดไปจะเปลี่ยนตามคำตอบของคุณ</p>
+    <div class="opt" style="margin-bottom:20px">
+     <input type="radio" name="occupation_status" id="os_student" value="student">
+     <label for="os_student"><i class="ic" data-lucide="graduation-cap"></i><span data-en="Student" data-th="นักเรียน / นักศึกษา">นักเรียน / นักศึกษา</span></label>
+     <input type="radio" name="occupation_status" id="os_pro" value="professional">
+     <label for="os_pro"><i class="ic" data-lucide="briefcase"></i><span data-en="Working professional" data-th="คนทำงาน">คนทำงาน</span></label>
+    </div>
+
+    <div class="cond" id="blockStudent">
+     <div class="field"><label><span data-en="University / school" data-th="มหาวิทยาลัย / สถานศึกษา">มหาวิทยาลัย / สถานศึกษา</span> <span class="req">*</span></label>
+      <button type="button" class="picker" data-sheet="pick" data-target="university" data-src="unis" data-title="เลือกสถานศึกษา"><span class="ph" data-en="Select" data-th="เลือก">เลือก</span><i class="ic" data-lucide="chevron-down"></i></button></div>
+     <div class="field"><label for="faculty"><span data-en="Faculty / field" data-th="คณะ / สาขา">คณะ / สาขา</span> <span class="req">*</span></label><input class="inp" id="faculty" name="faculty" placeholder="เช่น วิศวกรรมคอมพิวเตอร์"></div>
+     <div class="field"><label><span data-en="Year of study" data-th="ชั้นปี">ชั้นปี</span> <span class="req">*</span></label>
+      <div class="chips">
+       <input type="radio" name="year_of_study" id="y1" value="1"><label for="y1">ปี 1</label>
+       <input type="radio" name="year_of_study" id="y2" value="2"><label for="y2">ปี 2</label>
+       <input type="radio" name="year_of_study" id="y3" value="3"><label for="y3">ปี 3</label>
+       <input type="radio" name="year_of_study" id="y4" value="4"><label for="y4">ปี 4</label>
+       <input type="radio" name="year_of_study" id="y5" value="graduated"><label for="y5"><span data-en="Graduated" data-th="จบแล้ว">จบแล้ว</span></label>
+      </div>
+     </div>
+     <div class="field"><label><span data-en="Education level" data-th="ระดับการศึกษา">ระดับการศึกษา</span> <span class="req">*</span></label>
+      <button type="button" class="picker" data-sheet="pick" data-target="education_level" data-src="edu" data-title="ระดับการศึกษา"><span class="ph" data-en="Select" data-th="เลือก">เลือก</span><i class="ic" data-lucide="chevron-down"></i></button></div>
+    </div>
+
+    <div class="cond" id="blockPro">
+     <div class="field"><label><span data-en="Employment type" data-th="ประเภทการทำงาน">ประเภทการทำงาน</span> <span class="req">*</span></label>
+      <button type="button" class="picker" data-sheet="pick" data-target="employment_type" data-src="emp" data-title="ประเภทการทำงาน"><span class="ph" data-en="Select" data-th="เลือก">เลือก</span><i class="ic" data-lucide="chevron-down"></i></button></div>
+     <div class="field"><label for="department_field"><span data-en="Department / field" data-th="แผนก / สายงาน">แผนก / สายงาน</span> <span class="req">*</span></label><input class="inp" id="department_field" name="department_field" placeholder="เช่น Product, Marketing, Data"></div>
+     <div class="field"><label for="organisation"><span data-en="Organisation" data-th="องค์กร">องค์กร</span></label><input class="inp" id="organisation" name="organisation" placeholder="ไม่บังคับ"></div>
+    </div>
+   </section>
+
+   <!-- step 4 -->
+   <section class="step" data-step="4">
+    <span class="eyebrow" data-en="About you" data-th="ข้อมูลเพิ่มเติม">ข้อมูลเพิ่มเติม</span>
+    <h2 data-en="Where are you, and how did you find us?" data-th="คุณอยู่ที่ไหน และรู้จักเราได้อย่างไร">คุณอยู่ที่ไหน และรู้จักเราได้อย่างไร</h2>
+    <p class="intro" data-en="Referral is required — it is how we decide where to run the next event." data-th="ช่องทางที่รู้จักเราเป็นข้อมูลจำเป็น เพราะเราใช้ตัดสินใจว่าจะจัดกิจกรรมครั้งหน้าที่ไหน">ช่องทางที่รู้จักเราเป็นข้อมูลจำเป็น เพราะเราใช้ตัดสินใจว่าจะจัดกิจกรรมครั้งหน้าที่ไหน</p>
+    <div class="field"><label><span data-en="Province of residence" data-th="จังหวัดที่พักอาศัย">จังหวัดที่พักอาศัย</span> <span class="req">*</span></label>
+     <button type="button" class="picker" data-sheet="pick" data-target="province" data-src="provinces" data-title="เลือกจังหวัด" data-search="1"><span class="ph" data-en="Select" data-th="เลือก">เลือก</span><i class="ic" data-lucide="chevron-down"></i></button></div>
+    <div class="field"><label><span data-en="Track you are curious about" data-th="สายที่คุณสนใจ">สายที่คุณสนใจ</span></label>
+     <button type="button" class="picker" data-sheet="pick" data-target="track_interest" data-src="tracks" data-title="สายที่สนใจ"><span class="ph" data-en="Not sure yet" data-th="ยังไม่แน่ใจ">ยังไม่แน่ใจ</span><i class="ic" data-lucide="chevron-down"></i></button></div>
+    <div class="field"><label><span data-en="How did you hear about YEAH?" data-th="คุณรู้จัก YEAH จากช่องทางไหน">คุณรู้จัก YEAH จากช่องทางไหน</span> <span class="req">*</span></label>
+     <div class="chips">
+      <input type="radio" name="referral_source" id="r1" value="tiktok"><label for="r1">TikTok</label>
+      <input type="radio" name="referral_source" id="r2" value="facebook"><label for="r2">Facebook</label>
+      <input type="radio" name="referral_source" id="r3" value="instagram"><label for="r3">Instagram</label>
+      <input type="radio" name="referral_source" id="r4" value="friend"><label for="r4"><span data-en="A friend" data-th="เพื่อนแนะนำ">เพื่อนแนะนำ</span></label>
+      <input type="radio" name="referral_source" id="r5" value="event"><label for="r5"><span data-en="At an event" data-th="เจอในงานอีเวนต์">เจอในงานอีเวนต์</span></label>
+      <input type="radio" name="referral_source" id="r6" value="university"><label for="r6"><span data-en="University" data-th="มหาวิทยาลัย">มหาวิทยาลัย</span></label>
+      <input type="radio" name="referral_source" id="r7" value="other"><label for="r7"><span data-en="Other" data-th="อื่น ๆ">อื่น ๆ</span></label>
+     </div>
+     <div class="cond" id="refOther" style="margin-top:12px"><input class="inp" id="referral_detail" name="referral_detail" placeholder="เจอ YEAH จากที่ไหน"></div>
+    </div>
+    <div class="field"><label for="goal"><span data-en="What do you want out of YEAH?" data-th="คุณอยากได้อะไรจาก YEAH">คุณอยากได้อะไรจาก YEAH</span></label>
+     <textarea class="inp" id="goal" name="growth_goal" maxlength="300" placeholder="เช่น อยากมีผลงานจริงในพอร์ตก่อนจบปี 4"></textarea>
+     <span class="hint"><span data-en="Optional. Becomes your Growth Goal." data-th="ไม่บังคับ จะกลายเป็น Growth Goal ของคุณ">ไม่บังคับ จะกลายเป็น Growth Goal ของคุณ</span> <b id="goalCount">0</b>/300</span></div>
+   </section>
+
+   <!-- step 5 -->
+   <section class="step" data-step="5">
+    <span class="eyebrow" data-en="Review and consent" data-th="ตรวจทานและให้ความยินยอม">ตรวจทานและให้ความยินยอม</span>
+    <h2 data-en="Check before you send" data-th="ตรวจทานก่อนส่ง">ตรวจทานก่อนส่ง</h2>
+    <p class="intro" data-en="Everything here can be edited later from your profile." data-th="ทุกอย่างแก้ไขภายหลังได้จากหน้าโปรไฟล์">ทุกอย่างแก้ไขภายหลังได้จากหน้าโปรไฟล์</p>
+    <div class="summary" id="summary"></div>
+    <div class="consent-box" style="margin-top:18px">
+     <span class="cbx"><input type="checkbox" id="pdpa_consent" name="pdpa_consent"><span></span></span>
+     <div>
+      <b data-en="I allow YEAH to collect and use this data to run its programs." data-th="ข้าพเจ้ายินยอมให้ YEAH เก็บและใช้ข้อมูลนี้เพื่อดำเนินโครงการ">ข้าพเจ้ายินยอมให้ YEAH เก็บและใช้ข้อมูลนี้เพื่อดำเนินโครงการ</b>
+      <p class="hint"><span data-en="Required." data-th="จำเป็นต้องยินยอม">จำเป็นต้องยินยอม</span> <a href="#" data-sheet="terms" data-en="Read the full terms and PDPA notice" data-th="อ่านข้อกำหนดและประกาศ PDPA ฉบับเต็ม">อ่านข้อกำหนดและประกาศ PDPA ฉบับเต็ม</a></p>
+     </div>
+    </div>
+    <div class="consent-box">
+     <span class="cbx"><input type="checkbox" id="marketing_opt_in" name="marketing_opt_in"><span></span></span>
+     <div><b data-en="Send me event announcements." data-th="ส่งข่าวกิจกรรมให้ฉันด้วย">ส่งข่าวกิจกรรมให้ฉันด้วย</b><p class="hint" data-en="Optional." data-th="ไม่บังคับ">ไม่บังคับ</p></div>
+    </div>
+    <p class="hint" id="submitHint" data-en="Tick the consent box to enable the button." data-th="ติ๊กช่องความยินยอมเพื่อเปิดใช้งานปุ่ม">ติ๊กช่องความยินยอมเพื่อเปิดใช้งานปุ่ม</p>
+   </section>
+  </form>
+
+  <div class="wiz-foot">
+   <button class="btn btn-ghost back" id="wizBack" aria-label="Back"><i class="ic" data-lucide="arrow-left"></i></button>
+   <button class="btn btn-grad" id="wizNext"><span data-en="Continue" data-th="ถัดไป">ถัดไป</span><i class="ic" data-lucide="arrow-right"></i></button>
+   <button class="btn btn-grad" id="wizSubmit" style="display:none" disabled><span data-en="Create my membership" data-th="สร้างบัญชีสมาชิก">สร้างบัญชีสมาชิก</span></button>
+  </div>
+ </div>
+</main>
+
+<!-- ============ 03 MEMBER HUB ============ -->
+<main class="screen" id="s-hub">
+ <div class="hub">
+  <div class="phead">
+   <span class="blob"></span>
+   <div class="phead-row">
+    <span class="avatar" data-field="member.avatar_url"><b>ณศ</b></span>
+    <div>
+     <span class="lvl-badge" data-field="member.membership_level"><i class="ic" data-lucide="lock"></i><span data-en="General Member" data-th="สมาชิกทั่วไป (General)">สมาชิกทั่วไป (General)</span></span>
+     <h1 data-field="member.full_name" style="margin-top:7px">ณิชา ศรีวัฒน์</h1>
+     <p style="font-size:12px;color:rgba(255,255,255,.7)" data-field="member.university">จุฬาฯ · วิศวกรรมคอมพิวเตอร์ · ปี 3</p>
+    </div>
+   </div>
+   <span class="pid">participant_id: YEAH-M-004182</span>
+  </div>
+
+  <nav class="mtabs" id="mtabs">
+   <button data-tab="status" class="on"><i class="ic" data-lucide="gauge"></i><span data-en="Member status" data-th="สถานะสมาชิก">สถานะสมาชิก</span></button>
+   <button data-tab="programs"><i class="ic" data-lucide="rocket"></i><span data-en="Programs" data-th="โครงการที่เปิดรับ">โครงการที่เปิดรับ</span><span class="cnt">4</span></button>
+   <button data-tab="history"><i class="ic" data-lucide="history"></i><span data-en="Applications and history" data-th="ใบสมัครและประวัติ">ใบสมัครและประวัติ</span><span class="cnt">3</span></button>
+   <button data-tab="profile"><i class="ic" data-lucide="user"></i><span data-en="Profile" data-th="โปรไฟล์">โปรไฟล์</span></button>
+  </nav>
+
+  <!-- tab: status -->
+  <section class="tab on" data-tab="status">
+   <div class="sec-head">
+    <span class="eyebrow" data-en="Member status" data-th="สถานะสมาชิก">สถานะสมาชิก</span>
+    <h2 data-en="You are a General Member" data-th="คุณเป็นสมาชิกทั่วไป">คุณเป็นสมาชิกทั่วไป</h2>
+    <p data-en="Levels move on verified evidence, not on time spent." data-th="ระดับขยับตามหลักฐานที่ผ่านการตรวจสอบ ไม่ใช่ตามเวลา">ระดับขยับตามหลักฐานที่ผ่านการตรวจสอบ ไม่ใช่ตามเวลา</p>
+   </div>
+   <div class="rail" id="tierRail"></div>
+   <div class="card" style="padding:16px;margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;font-size:12.5px"><b id="tierName">สมาชิกทั่วไป (General Member)</b><span class="muted" id="tierEyebrow">Level 00</span></div>
+    <p class="hint" id="tierDesc" style="margin-top:6px">ระดับตั้งต้นที่ทุกคนได้รับทันทีที่ลงทะเบียนเสร็จ เมื่อใบสมัครแรกได้รับการตอบรับ ระดับของคุณจะขยับเป็น Level 1 Explorer</p>
+    <div class="meter"><i style="width:8%"></i></div>
+    <div id="beneList" style="margin-top:6px"></div>
+    <div class="locked-note" id="lockedNote">
+     <i class="ic" data-lucide="lock"></i>
+     <div>
+      <b data-en="Level 1 · Explorer is locked" data-th="Level 1 · Explorer ยังล็อกอยู่">Level 1 · Explorer ยังล็อกอยู่</b>
+      <p data-en="Apply to any open program and get accepted. Nothing else is required." data-th="สมัครโครงการที่เปิดรับและได้รับการตอบรับ เพียงเท่านี้">สมัครโครงการที่เปิดรับและได้รับการตอบรับ เพียงเท่านี้</p>
+      <div class="track"><i class="on"></i><i></i><i></i></div>
+     </div>
+    </div>
+    <button class="btn btn-grad btn-full" style="margin-top:14px" data-goto="programs"><span data-en="See open programs" data-th="ดูโครงการที่เปิดรับ">ดูโครงการที่เปิดรับ</span></button>
+   </div>
+
+   <div class="acc open">
+    <button type="button"><i class="ic" data-lucide="sparkles"></i><b data-en="Skill snapshot" data-th="ภาพรวมทักษะ">ภาพรวมทักษะ</b><i class="ic chev" data-lucide="chevron-down"></i></button>
+    <div class="body">
+     <p class="hint" style="margin:12px 0" data-en="+1 is added only after a mentor or partner verifies your evidence." data-th="คะแนน +1 เพิ่มหลัง mentor หรือพาร์ตเนอร์ตรวจสอบหลักฐานแล้วเท่านั้น">คะแนน +1 เพิ่มหลัง mentor หรือพาร์ตเนอร์ตรวจสอบหลักฐานแล้วเท่านั้น</p>
+     <div class="skills" data-field="member.skill_dimensions">
+      <div class="skill" data-dim="hard_skill"><b>+2</b><span data-en="Hard skill" data-th="ทักษะเฉพาะทาง">ทักษะเฉพาะทาง</span><div class="bar"><i style="width:25%"></i></div></div>
+      <div class="skill" data-dim="ownership_execution"><b>+3</b><span data-en="Ownership &amp; execution" data-th="ความรับผิดชอบและลงมือทำ">ความรับผิดชอบและลงมือทำ</span><div class="bar"><i style="width:38%"></i></div></div>
+      <div class="skill" data-dim="collaboration_communication"><b>+4</b><span data-en="Collaboration" data-th="การทำงานร่วมและสื่อสาร">การทำงานร่วมและสื่อสาร</span><div class="bar"><i style="width:50%"></i></div></div>
+      <div class="skill" data-dim="adaptability"><b>+1</b><span data-en="Adaptability" data-th="การปรับตัวและเรียนรู้">การปรับตัวและเรียนรู้</span><div class="bar"><i style="width:13%"></i></div></div>
+      <div class="skill" data-dim="multiplier_potential" style="grid-column:1/-1"><b>+0</b><span data-en="Multiplier potential" data-th="การส่งต่อให้รุ่นถัดไป">การส่งต่อให้รุ่นถัดไป</span><div class="bar"><i style="width:2%"></i></div></div>
+     </div>
+     <button class="btn btn-ghost btn-full btn-sm" style="margin-top:14px" data-sheet="evidence"><i class="ic" data-lucide="upload"></i><span data-en="Submit evidence" data-th="ส่งหลักฐาน">ส่งหลักฐาน</span></button>
+    </div>
+   </div>
+
+
+   <div class="acc">
+    <button type="button"><i class="ic" data-lucide="bell"></i><b data-en="Notifications" data-th="การแจ้งเตือน">การแจ้งเตือน</b><i class="ic chev" data-lucide="chevron-down"></i></button>
+    <div class="body" data-field="notifications[]">
+     <div class="notif"><span class="nic"><i class="ic" data-lucide="search"></i></span><div><b data-en="Application moved to Screening" data-th="ใบสมัครเข้าสู่ขั้นคัดกรอง">ใบสมัครเข้าสู่ขั้นคัดกรอง</b><p data-en="Interview slot within 5 days." data-th="ยืนยันรอบสัมภาษณ์ภายใน 5 วัน">ยืนยันรอบสัมภาษณ์ภายใน 5 วัน</p></div><time>2 ชม.</time></div>
+     <div class="notif"><span class="nic"><i class="ic" data-lucide="badge-check"></i></span><div><b data-en="Creative Media Clinic verified — Collaboration +1" data-th="Creative Media Clinic ผ่านการตรวจสอบ — Collaboration +1">Creative Media Clinic ผ่านการตรวจสอบ — Collaboration +1</b><p data-en="Verified by ครูเอ๋" data-th="ตรวจสอบโดย ครูเอ๋">ตรวจสอบโดย ครูเอ๋</p></div><time>1 ว.</time></div>
+     <div class="notif"><span class="nic"><i class="ic" data-lucide="clock"></i></span><div><b data-en="Pitch Night #12 closes in 3 days" data-th="Pitch Night #12 ปิดรับใน 3 วัน">Pitch Night #12 ปิดรับใน 3 วัน</b><p data-en="You are number 4 on the waitlist." data-th="คุณอยู่ลำดับสำรองที่ 4">คุณอยู่ลำดับสำรองที่ 4</p></div><time>3 ว.</time></div>
+    </div>
+   </div>
+  </section>
+
+  <!-- tab: programs -->
+  <section class="tab" data-tab="programs">
+   <div class="sec-head">
+    <span class="eyebrow" data-en="Open now" data-th="เปิดรับอยู่ตอนนี้">เปิดรับอยู่ตอนนี้</span>
+    <h2 data-en="Programs you can apply to" data-th="โครงการที่คุณสมัครได้">โครงการที่คุณสมัครได้</h2>
+   </div>
+   <div class="chips" id="progFilter" style="margin-bottom:16px">
+    <input type="radio" name="pf" id="pf_all" value="all" checked><label for="pf_all"><span data-en="All" data-th="ทั้งหมด">ทั้งหมด</span></label>
+    <input type="radio" name="pf" id="pf_ev" value="event"><label for="pf_ev"><span data-en="Events" data-th="อีเวนต์">อีเวนต์</span></label>
+    <input type="radio" name="pf" id="pf_bc" value="bootcamp"><label for="pf_bc">Bootcamp</label>
+    <input type="radio" name="pf" id="pf_pj" value="project"><label for="pf_pj"><span data-en="Projects" data-th="โปรเจกต์">โปรเจกต์</span></label>
+   </div>
+   <div id="progList"></div>
+  </section>
+
+  <!-- tab: history -->
+  <section class="tab" data-tab="history">
+   <div class="sec-head">
+    <span class="eyebrow" data-en="My applications" data-th="ใบสมัครของฉัน">ใบสมัครของฉัน</span>
+    <h2 data-en="Applications in progress" data-th="ใบสมัครที่กำลังดำเนินการ">ใบสมัครที่กำลังดำเนินการ</h2>
+   </div>
+   <div class="card" style="padding:0 16px;margin-bottom:22px" data-field="applications[]">
+    <div class="row" data-application-id="APP-2026-0311" data-sheet="appdetail" style="cursor:pointer">
+     <div style="flex:1"><h4>YEAH Future Talent · AI Product</h4><p class="role">bootcamp · <span data-en="applied 14 Sep" data-th="ส่งเมื่อ 14 ก.ย.">ส่งเมื่อ 14 ก.ย.</span></p>
+      <span class="st st-review"><i class="ic" data-lucide="search"></i>Reviewing</span>
+      <div class="track"><i class="on"></i><i class="on"></i><i></i><i></i></div></div>
+     <i class="ic" data-lucide="chevron-right" style="color:#C4C4C4"></i>
+    </div>
+    <div class="row" data-application-id="APP-2026-0298" data-sheet="appdetail" style="cursor:pointer">
+     <div style="flex:1"><h4>Pitch Night #12</h4><p class="role">event · <span data-en="applied 2 Sep" data-th="ส่งเมื่อ 2 ก.ย.">ส่งเมื่อ 2 ก.ย.</span></p>
+      <span class="st st-wait"><i class="ic" data-lucide="clock"></i>Waitlist · 4</span>
+      <div class="track"><i class="on"></i><i class="on"></i><i></i><i></i></div></div>
+     <i class="ic" data-lucide="chevron-right" style="color:#C4C4C4"></i>
+    </div>
+    <div class="row" data-application-id="APP-2026-0255" data-sheet="appdetail" style="cursor:pointer">
+     <div style="flex:1"><h4>Creative Media Clinic</h4><p class="role">clinic · <span data-en="applied 18 Aug" data-th="ส่งเมื่อ 18 ส.ค.">ส่งเมื่อ 18 ส.ค.</span></p>
+      <span class="st st-ok"><i class="ic" data-lucide="check"></i>Accepted</span>
+      <div class="track"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
+     <i class="ic" data-lucide="chevron-right" style="color:#C4C4C4"></i>
+    </div>
+   </div>
+
+   <div class="sec-head">
+    <span class="eyebrow" data-en="Activity history" data-th="ประวัติการเข้าร่วม">ประวัติการเข้าร่วม</span>
+    <h2 data-en="Programs you took part in" data-th="โครงการที่คุณเคยเข้าร่วม">โครงการที่คุณเคยเข้าร่วม</h2>
+    <p data-en="Verified items add +1 and can be attached to a credential." data-th="รายการที่ผ่านการตรวจสอบจะเพิ่ม +1 และแนบกับ Credential ได้">รายการที่ผ่านการตรวจสอบจะเพิ่ม +1 และแนบกับ Credential ได้</p>
+   </div>
+   <div class="card" style="padding:0 16px" data-field="participations[]">
+    <div class="row" data-participation-id="PT-2026-0442">
+     <span class="dblock"><b>30</b><small>ส.ค.</small></span>
+     <div style="flex:1"><h4>Creative Media Clinic</h4><p class="role">clinic · <span data-en="Participant · 1 day" data-th="ผู้เข้าร่วม · 1 วัน">ผู้เข้าร่วม · 1 วัน</span></p>
+      <div class="dims"><span class="dim">Collab <b>+1</b></span><span class="dim">Adapt <b>+1</b></span></div>
+      <span class="st st-verified"><i class="ic" data-lucide="badge-check"></i>Verified</span>
+      <span class="cred"><i class="ic" data-lucide="award"></i>Level 01</span></div>
+    </div>
+    <div class="row" data-participation-id="PT-2026-0391">
+     <span class="dblock"><b>12</b><small>ส.ค.</small></span>
+     <div style="flex:1"><h4>Founders Meetup · August</h4><p class="role">event · <span data-en="Participant · 3 hours" data-th="ผู้เข้าร่วม · 3 ชั่วโมง">ผู้เข้าร่วม · 3 ชั่วโมง</span></p>
+      <div class="dims"><span class="dim">Collab <b>+1</b></span></div>
+      <span class="st st-verified"><i class="ic" data-lucide="badge-check"></i>Verified</span></div>
+    </div>
+    <div class="row" data-participation-id="PT-2026-0377">
+     <span class="dblock"><b>26</b><small>ก.ค.</small></span>
+     <div style="flex:1"><h4>AI Prototyping Bootcamp · C2</h4><p class="role">bootcamp · <span data-en="Team member · 6 weeks" data-th="สมาชิกทีม · 6 สัปดาห์">สมาชิกทีม · 6 สัปดาห์</span></p>
+      <div class="dims"><span class="dim">Hard <b>+2</b></span><span class="dim">Exec <b>+2</b></span><span class="dim">Collab <b>+1</b></span></div>
+      <span class="st st-verified"><i class="ic" data-lucide="badge-check"></i>Verified</span>
+      <span class="cred"><i class="ic" data-lucide="award"></i>Level 02</span></div>
+    </div>
+    <div class="row" data-participation-id="PT-2026-0344">
+     <span class="dblock"><b>08</b><small>ก.ค.</small></span>
+     <div style="flex:1"><h4>Talent Clinic · Bangkok</h4><p class="role">clinic · <span data-en="Participant · 1 day" data-th="ผู้เข้าร่วม · 1 วัน">ผู้เข้าร่วม · 1 วัน</span></p>
+      <div class="dims"><span class="dim">Exec <b>+1</b></span></div>
+      <span class="st st-pending"><i class="ic" data-lucide="clock"></i>Pending verify</span></div>
+    </div>
+   </div>
+  </section>
+
+  <!-- tab: profile -->
+  <section class="tab" data-tab="profile">
+   <div class="sec-head">
+    <span class="eyebrow" data-en="Profile details" data-th="ข้อมูลโปรไฟล์">ข้อมูลโปรไฟล์</span>
+    <h2 data-en="Everything on your record" data-th="ข้อมูลทั้งหมดในระเบียนของคุณ">ข้อมูลทั้งหมดในระเบียนของคุณ</h2>
+   </div>
+   <div class="card" style="padding:14px 16px;margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lbl" data-en="Profile completeness" data-th="ความครบถ้วนของโปรไฟล์">ความครบถ้วนของโปรไฟล์</span><b style="font-family:var(--font-display-alt);font-size:20px">78%</b></div>
+    <div class="meter"><i style="width:78%"></i></div>
+    <span class="hint" data-en="Add a portfolio link and a photo to reach 100%." data-th="เพิ่มลิงก์ผลงานและรูปโปรไฟล์เพื่อให้ครบ 100%">เพิ่มลิงก์ผลงานและรูปโปรไฟล์เพื่อให้ครบ 100%</span>
+   </div>
+
+   <div class="acc open">
+    <button type="button"><i class="ic" data-lucide="user"></i><b data-en="Identity and contact" data-th="ข้อมูลส่วนตัวและการติดต่อ">ข้อมูลส่วนตัวและการติดต่อ</b><i class="ic chev" data-lucide="chevron-down"></i></button>
+    <div class="body">
+     <div class="pd"><span>first_name</span><b>ณิชา</b></div>
+     <div class="pd"><span>last_name</span><b>ศรีวัฒน์</b></div>
+     <div class="pd"><span>birthdate</span><b>14 มี.ค. 2548</b></div>
+     <div class="pd"><span>email</span><b>nicha.sri@gmail.com</b></div>
+     <div class="pd"><span>phone</span><b>+66812345678</b></div>
+     <div class="pd"><span>google_sub</span><b style="font-family:var(--font-mono,monospace);font-size:11px">1082144773…40912</b></div>
+    </div>
+   </div>
+   <div class="acc">
+    <button type="button"><i class="ic" data-lucide="graduation-cap"></i><b data-en="Study or work" data-th="การศึกษาหรือการทำงาน">การศึกษาหรือการทำงาน</b><i class="ic chev" data-lucide="chevron-down"></i></button>
+    <div class="body">
+     <div class="pd"><span>occupation_status</span><b>student</b></div>
+     <div class="pd"><span>university</span><b>จุฬาลงกรณ์มหาวิทยาลัย</b></div>
+     <div class="pd"><span>faculty</span><b>วิศวกรรมคอมพิวเตอร์</b></div>
+     <div class="pd"><span>year_of_study</span><b>3</b></div>
+     <div class="pd"><span>education_level</span><b>bachelor</b></div>
+    </div>
+   </div>
+   <div class="acc">
+    <button type="button"><i class="ic" data-lucide="map-pin"></i><b data-en="Location, referral and goal" data-th="ที่อยู่ ช่องทางที่รู้จัก และเป้าหมาย">ที่อยู่ ช่องทางที่รู้จัก และเป้าหมาย</b><i class="ic chev" data-lucide="chevron-down"></i></button>
+    <div class="body">
+     <div class="pd"><span>province</span><b>กรุงเทพมหานคร</b></div>
+     <div class="pd"><span>referral_source</span><b>tiktok</b></div>
+     <div class="pd"><span>track_interest</span><b>ai_product</b></div>
+     <div class="pd"><span>growth_goal</span><b>อยากมีผลงานจริงในพอร์ตก่อนจบปี 4</b></div>
+    </div>
+   </div>
+   <div class="acc">
+    <button type="button"><i class="ic" data-lucide="shield-check"></i><b data-en="Consent and privacy" data-th="ความยินยอมและความเป็นส่วนตัว">ความยินยอมและความเป็นส่วนตัว</b><i class="ic chev" data-lucide="chevron-down"></i></button>
+    <div class="body">
+     <div class="pd"><span>pdpa_consent</span><b>true · pdpa-2026-09-v1</b></div>
+     <div class="pd"><span>consented_at</span><b>21 ก.ย. 2026</b></div>
+     <div class="pd"><span>marketing_opt_in</span><b>true</b></div>
+     <button class="btn btn-ghost btn-full btn-sm" style="margin-top:14px" data-sheet="terms"><span data-en="Read the notice" data-th="อ่านประกาศ">อ่านประกาศ</span></button>
+    </div>
+   </div>
+   <div class="acc">
+    <button type="button"><i class="ic" data-lucide="folder-open"></i><b data-en="Portfolio preview" data-th="ตัวอย่างผลงาน">ตัวอย่างผลงาน</b><i class="ic chev" data-lucide="chevron-down"></i></button>
+    <div class="body" data-field="evidence[]">
+     <div class="pf-grid" style="margin-top:12px">
+      <div class="pf"><div class="th"><i class="ic" data-lucide="image"></i></div><div class="bd"><b>Prototype v2 — ThaiFarm AI</b><small>project_output · public</small></div></div>
+      <div class="pf"><div class="th"><i class="ic" data-lucide="file-text"></i></div><div class="bd"><b>Milestone 1 report</b><small>document · link only</small></div></div>
+      <div class="pf"><div class="th"><i class="ic" data-lucide="presentation"></i></div><div class="bd"><b>Demo day deck</b><small>slides · public</small></div></div>
+      <div class="pf"><div class="th"><i class="ic" data-lucide="video"></i></div><div class="bd"><b>Pitch recording</b><small>video · private</small></div></div>
+     </div>
+    </div>
+   </div>
+
+   <div style="display:flex;flex-direction:column;gap:10px;margin:18px 0 8px">
+    <button class="btn btn-dark btn-full" data-sheet="edit"><i class="ic" data-lucide="pencil"></i><span data-en="Edit profile" data-th="แก้ไขโปรไฟล์">แก้ไขโปรไฟล์</span></button>
+    <button class="btn btn-ghost btn-full" data-sheet="share"><i class="ic" data-lucide="share-2"></i><span data-en="Share public profile" data-th="แชร์โปรไฟล์สาธารณะ">แชร์โปรไฟล์สาธารณะ</span></button>
+    <button class="btn btn-ghost btn-full" id="signOut"><i class="ic" data-lucide="log-out"></i><span data-en="Sign out" data-th="ออกจากระบบ">ออกจากระบบ</span></button>
+   </div>
+  </section>
+ </div>
+</main>
+
+
+<!-- ============ BOTTOM SHEETS ============ -->
+<div class="scrim" id="scrim"></div>
+
+<div class="sheet" id="sheet-pick">
+ <span class="grab"></span>
+ <header><h3 id="pickTitle">เลือก</h3></header>
+ <div class="search" id="pickSearchWrap" style="display:none"><input class="inp" id="pickSearch" placeholder="ค้นหา" autocomplete="off"></div>
+ <div class="list" id="pickList"></div>
+</div>
+
+<div class="sheet" id="sheet-terms">
+ <span class="grab"></span>
+ <header><h3 data-en="Terms and privacy notice" data-th="ข้อกำหนดและประกาศความเป็นส่วนตัว">ข้อกำหนดและประกาศความเป็นส่วนตัว</h3><p>PDPA · pdpa-2026-09-v1</p></header>
+ <div class="body">
+  <h4 style="font-size:15px;margin-bottom:6px" data-en="What we collect" data-th="ข้อมูลที่เราเก็บ">ข้อมูลที่เราเก็บ</h4>
+  <p style="font-size:13.5px;margin-bottom:14px" data-en="Your name, birthday, contact details, study or work information, province, and how you heard about us. Your Google ID is stored as the key to your record." data-th="ชื่อ วันเกิด ข้อมูลติดต่อ ข้อมูลการศึกษาหรือการทำงาน จังหวัด และช่องทางที่คุณรู้จักเรา ระบบเก็บ Google ID เป็นกุญแจของระเบียนข้อมูลคุณ">ชื่อ วันเกิด ข้อมูลติดต่อ ข้อมูลการศึกษาหรือการทำงาน จังหวัด และช่องทางที่คุณรู้จักเรา ระบบเก็บ Google ID เป็นกุญแจของระเบียนข้อมูลคุณ</p>
+  <h4 style="font-size:15px;margin-bottom:6px" data-en="Why we use it" data-th="เราใช้ข้อมูลเพื่ออะไร">เราใช้ข้อมูลเพื่ออะไร</h4>
+  <p style="font-size:13.5px;margin-bottom:14px" data-en="To run selection and programs, to keep the record of your verified evidence and credentials, and to see which channels bring members in." data-th="เพื่อดำเนินการคัดเลือกและจัดโครงการ เก็บบันทึกหลักฐานที่ผ่านการตรวจสอบและ Credential และดูว่าช่องทางใดพาสมาชิกเข้ามา">เพื่อดำเนินการคัดเลือกและจัดโครงการ เก็บบันทึกหลักฐานที่ผ่านการตรวจสอบและ Credential และดูว่าช่องทางใดพาสมาชิกเข้ามา</p>
+  <h4 style="font-size:15px;margin-bottom:6px" data-en="What you control" data-th="สิ่งที่คุณควบคุมได้">สิ่งที่คุณควบคุมได้</h4>
+  <p style="font-size:13.5px" data-en="Your evidence is private until you share it. You choose per item: private, link only, or public metadata. You can withdraw consent at any time from your profile." data-th="หลักฐานของคุณเป็นส่วนตัวจนกว่าคุณจะแชร์ เลือกได้รายชิ้น: ส่วนตัว แชร์ด้วยลิงก์ หรือเปิด metadata สาธารณะ และถอนความยินยอมได้ทุกเมื่อจากหน้าโปรไฟล์">หลักฐานของคุณเป็นส่วนตัวจนกว่าคุณจะแชร์ เลือกได้รายชิ้น: ส่วนตัว แชร์ด้วยลิงก์ หรือเปิด metadata สาธารณะ และถอนความยินยอมได้ทุกเมื่อจากหน้าโปรไฟล์</p>
+  <p style="font-size:13px;margin-top:14px" class="muted">privacy@yeah.or.th · YEAH Association</p>
+ </div>
+ <footer><button class="btn btn-ghost" data-close><span data-en="Close" data-th="ปิด">ปิด</span></button><button class="btn btn-grad" id="acceptTerms"><span data-en="Accept" data-th="ยอมรับ">ยอมรับ</span></button></footer>
+</div>
+
+<div class="sheet" id="sheet-apply">
+ <span class="grab"></span>
+ <header><h3 id="ap_title">—</h3><p id="ap_dates"></p></header>
+ <div class="body">
+  <div style="aspect-ratio:16/7;background:#D9D9D9;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#B0B0B0;margin-bottom:14px"><i class="ic" data-lucide="image"></i></div>
+  <p id="ap_desc" style="font-size:13.5px;margin-bottom:14px"></p>
+  <div class="card" style="padding:0 14px;margin-bottom:16px">
+   <div class="pd"><span data-en="Intake" data-th="จำนวนที่รับ">จำนวนที่รับ</span><b id="ap_intake"></b></div>
+   <div class="pd"><span data-en="Duration" data-th="ระยะเวลา">ระยะเวลา</span><b id="ap_dur"></b></div>
+   <div class="pd"><span data-en="Closes in" data-th="ปิดรับใน">ปิดรับใน</span><b id="ap_cd">--:--:--</b></div>
+  </div>
+  <span class="lbl" data-en="Evidence you must attach" data-th="หลักฐานที่ต้องแนบ">หลักฐานที่ต้องแนบ</span>
+  <ul id="ap_req" style="margin:8px 0 16px 18px;font-size:13.5px"></ul>
+  <span class="lbl" data-en="Levels that can apply" data-th="ระดับที่สมัครได้">ระดับที่สมัครได้</span>
+  <div class="elig-row" id="ap_levels" style="margin-bottom:18px"></div>
+  <form id="applyForm">
+   <input type="hidden" name="program_id" id="ap_pid">
+   <input type="hidden" name="participant_id" value="YEAH-M-004182">
+   <div class="field"><label for="ap_motivation"><span data-en="Why do you want in?" data-th="ทำไมคุณอยากเข้าร่วม">ทำไมคุณอยากเข้าร่วม</span> <span class="req">*</span></label><textarea class="inp" id="ap_motivation" name="motivation" maxlength="500" required placeholder="สองถึงสามประโยคก็พอ"></textarea></div>
+   <div class="field"><label for="ap_link"><span data-en="Evidence link" data-th="ลิงก์หลักฐาน">ลิงก์หลักฐาน</span> <span class="req">*</span></label><input class="inp" type="url" id="ap_link" name="evidence_url" required placeholder="https://"></div>
+   <div class="field"><label><span data-en="Visibility" data-th="การเปิดเผย">การเปิดเผย</span></label>
+    <div class="chips">
+     <input type="radio" name="visibility" id="v1" value="private" checked><label for="v1"><span data-en="Private" data-th="ส่วนตัว">ส่วนตัว</span></label>
+     <input type="radio" name="visibility" id="v2" value="link"><label for="v2"><span data-en="Link only" data-th="แชร์ด้วยลิงก์">แชร์ด้วยลิงก์</span></label>
+     <input type="radio" name="visibility" id="v3" value="public_metadata"><label for="v3"><span data-en="Public metadata" data-th="metadata สาธารณะ">metadata สาธารณะ</span></label>
+    </div>
+   </div>
+  </form>
+ </div>
+ <footer><button class="btn btn-ghost" data-close><span data-en="Cancel" data-th="ยกเลิก">ยกเลิก</span></button><button class="btn btn-grad" id="applySubmit"><span data-en="Send" data-th="ส่งใบสมัคร">ส่งใบสมัคร</span></button></footer>
+</div>
+
+<div class="sheet" id="sheet-evidence">
+ <span class="grab"></span>
+ <header><h3 data-en="Submit evidence" data-th="ส่งหลักฐาน">ส่งหลักฐาน</h3><p data-en="Points are added after a mentor verifies." data-th="คะแนนจะเพิ่มหลัง mentor ตรวจสอบแล้ว">คะแนนจะเพิ่มหลัง mentor ตรวจสอบแล้ว</p></header>
+ <div class="body">
+  <form id="evForm">
+   <div class="field"><label><span data-en="Type" data-th="ประเภท">ประเภท</span></label>
+    <div class="chips">
+     <input type="radio" name="evidence_type" id="et1" value="yeah_activity" checked><label for="et1"><span data-en="YEAH activity" data-th="กิจกรรมของ YEAH">กิจกรรมของ YEAH</span></label>
+     <input type="radio" name="evidence_type" id="et2" value="project_output"><label for="et2"><span data-en="Project output" data-th="ผลงานโปรเจกต์">ผลงานโปรเจกต์</span></label>
+     <input type="radio" name="evidence_type" id="et3" value="employment_outcome"><label for="et3"><span data-en="Job outcome" data-th="ผลลัพธ์ด้านงาน">ผลลัพธ์ด้านงาน</span></label>
+    </div>
+   </div>
+   <input type="hidden" name="activity_id" id="ev_activity">
+   <input type="hidden" name="skill_dimension" id="ev_dim">
+   <div class="field"><label><span data-en="Activity" data-th="กิจกรรม">กิจกรรม</span> <span class="req">*</span></label>
+    <button type="button" class="picker" data-sheet="pick" data-target="ev_activity" data-src="acts" data-title="เลือกกิจกรรม"><span class="ph" data-en="Select" data-th="เลือก">เลือก</span><i class="ic" data-lucide="chevron-down"></i></button></div>
+   <div class="field"><label><span data-en="Skill claimed" data-th="ทักษะที่ขอเคลม">ทักษะที่ขอเคลม</span> <span class="req">*</span></label>
+    <button type="button" class="picker" data-sheet="pick" data-target="ev_dim" data-src="dims" data-title="เลือกมิติทักษะ"><span class="ph" data-en="Select" data-th="เลือก">เลือก</span><i class="ic" data-lucide="chevron-down"></i></button></div>
+   <div class="field"><label for="ev_url"><span data-en="File or link" data-th="ไฟล์หรือลิงก์">ไฟล์หรือลิงก์</span> <span class="req">*</span></label><input class="inp" type="url" id="ev_url" name="evidence_url" required placeholder="https://"></div>
+   <div class="field"><label for="ev_note"><span data-en="What did you do?" data-th="คุณทำอะไรไว้บ้าง">คุณทำอะไรไว้บ้าง</span></label><textarea class="inp" id="ev_note" name="description" maxlength="400"></textarea></div>
+  </form>
+ </div>
+ <footer><button class="btn btn-ghost" data-close><span data-en="Save draft" data-th="บันทึกร่าง">บันทึกร่าง</span></button><button class="btn btn-grad" id="evSubmit"><span data-en="Submit" data-th="ส่งตรวจสอบ">ส่งตรวจสอบ</span></button></footer>
+</div>
+
+<div class="sheet" id="sheet-edit">
+ <span class="grab"></span>
+ <header><h3 data-en="Edit your details" data-th="แก้ไขข้อมูลของคุณ">แก้ไขข้อมูลของคุณ</h3></header>
+ <div class="body">
+  <form id="editForm">
+   <div class="field"><label for="e_first">first_name</label><input class="inp" id="e_first" name="first_name" value="ณิชา"></div>
+   <div class="field"><label for="e_last">last_name</label><input class="inp" id="e_last" name="last_name" value="ศรีวัฒน์"></div>
+   <div class="field"><label for="e_email">email</label><input class="inp" type="email" id="e_email" name="email" value="nicha.sri@gmail.com"><span class="hint" data-en="Sign-in stays tied to your Google account." data-th="การเข้าสู่ระบบยังผูกกับบัญชี Google เดิม">การเข้าสู่ระบบยังผูกกับบัญชี Google เดิม</span></div>
+   <div class="field"><label for="e_phone">phone</label><input class="inp" type="tel" id="e_phone" name="phone" value="081-234-5678"></div>
+   <div class="field"><label for="e_goal">growth_goal</label><textarea class="inp" id="e_goal" name="growth_goal">อยากมีผลงานจริงในพอร์ตก่อนจบปี 4</textarea></div>
+   <div class="field"><label for="e_pf">portfolio_url</label><input class="inp" type="url" id="e_pf" name="portfolio_url" placeholder="https://"></div>
+  </form>
+ </div>
+ <footer><button class="btn btn-ghost" data-close><span data-en="Cancel" data-th="ยกเลิก">ยกเลิก</span></button><button class="btn btn-grad" id="editSave"><span data-en="Save" data-th="บันทึก">บันทึก</span></button></footer>
+</div>
+
+<div class="sheet" id="sheet-share">
+ <span class="grab"></span>
+ <header><h3 data-en="Share what you choose" data-th="แชร์เฉพาะสิ่งที่คุณเลือก">แชร์เฉพาะสิ่งที่คุณเลือก</h3><p data-en="Private evidence is never shown." data-th="หลักฐานส่วนตัวจะไม่ถูกแสดง">หลักฐานส่วนตัวจะไม่ถูกแสดง</p></header>
+ <div class="body">
+  <div class="field"><label data-en="Your link" data-th="ลิงก์ของคุณ">ลิงก์ของคุณ</label><input class="inp" id="shareUrl" readonly value="https://yeah.or.th/p/nicha-s-4182"></div>
+  <div style="display:flex;flex-direction:column;gap:14px;margin-top:6px">
+   <div style="display:flex;gap:12px;align-items:center"><span class="cbx"><input type="checkbox" checked><span></span></span><span style="font-size:14px" data-en="Display name and level" data-th="ชื่อที่แสดงและระดับสมาชิก">ชื่อที่แสดงและระดับสมาชิก</span></div>
+   <div style="display:flex;gap:12px;align-items:center"><span class="cbx"><input type="checkbox" checked><span></span></span><span style="font-size:14px" data-en="Verified skill counts" data-th="จำนวนทักษะที่ผ่านการตรวจสอบ">จำนวนทักษะที่ผ่านการตรวจสอบ</span></div>
+   <div style="display:flex;gap:12px;align-items:center"><span class="cbx"><input type="checkbox" checked><span></span></span><span style="font-size:14px" data-en="Credentials and status" data-th="Credential และสถานะ">Credential และสถานะ</span></div>
+   <div style="display:flex;gap:12px;align-items:center"><span class="cbx"><input type="checkbox"><span></span></span><span style="font-size:14px" data-en="Contact email" data-th="อีเมลติดต่อ">อีเมลติดต่อ</span></div>
+  </div>
+ </div>
+ <footer><button class="btn btn-dark" id="copyShare"><i class="ic" data-lucide="copy"></i><span data-en="Copy link" data-th="คัดลอกลิงก์">คัดลอกลิงก์</span></button><button class="btn btn-grad" data-close><span data-en="Done" data-th="เสร็จสิ้น">เสร็จสิ้น</span></button></footer>
+</div>
+
+<div class="sheet" id="sheet-appdetail">
+ <span class="grab"></span>
+ <header><h3>YEAH Future Talent · AI Product</h3><p>application_id · APP-2026-0311</p></header>
+ <div class="body">
+  <div class="notif"><span class="nic"><i class="ic" data-lucide="check"></i></span><div><b data-en="Submitted" data-th="ส่งใบสมัครแล้ว">ส่งใบสมัครแล้ว</b><p>14 ก.ย. 2026 · 21:04</p></div></div>
+  <div class="notif"><span class="nic"><i class="ic" data-lucide="search"></i></span><div><b data-en="Screening" data-th="กำลังคัดกรอง">กำลังคัดกรอง</b><p data-en="Reviewed by the selection team." data-th="ตรวจโดยทีมคัดเลือก">ตรวจโดยทีมคัดเลือก</p></div></div>
+  <div class="notif" style="opacity:.5"><span class="nic"><i class="ic" data-lucide="mic"></i></span><div><b data-en="Interview" data-th="สัมภาษณ์">สัมภาษณ์</b><p data-en="Slot to be confirmed." data-th="รอยืนยันรอบสัมภาษณ์">รอยืนยันรอบสัมภาษณ์</p></div></div>
+  <div class="notif" style="opacity:.5"><span class="nic"><i class="ic" data-lucide="flag"></i></span><div><b data-en="Result" data-th="ผลลัพธ์">ผลลัพธ์</b><p data-en="By 10 Oct 2026." data-th="ภายใน 10 ต.ค. 2026">ภายใน 10 ต.ค. 2026</p></div></div>
+ </div>
+ <footer><button class="btn btn-ghost" data-close><span data-en="Close" data-th="ปิด">ปิด</span></button><button class="btn btn-dark" id="withdrawApp"><span data-en="Withdraw" data-th="ถอนใบสมัคร">ถอนใบสมัคร</span></button></footer>
+</div>
+
+<div class="toast" id="toast"><i class="ic" data-lucide="circle-check"></i><span id="toastMsg"></span></div>
+
+<script>
+(function(){
+/* ---------- icons ---------- */
+var icache={};
+function icons(root){
+ (root||document).querySelectorAll('[data-lucide]:not([data-done])').forEach(function(el){
+  var n=el.getAttribute('data-lucide');el.setAttribute('data-done','1');
+  icache[n]=icache[n]||fetch('https://cdn.jsdelivr.net/npm/lucide-static@0.460.0/icons/'+n+'.svg').then(function(r){return r.ok?r.text():''});
+  icache[n].then(function(t){if(t.indexOf('<svg')<0)return;el.innerHTML=t.slice(t.indexOf('<svg'));var s=el.querySelector('svg');if(s){s.setAttribute('width','100%');s.setAttribute('height','100%');}}).catch(function(){});
+ });
+}
+/* ---------- reference data (same option sets as the desktop file) ---------- */
+var SRC={
+ provinces:['กรุงเทพมหานคร','กระบี่','กาญจนบุรี','กาฬสินธุ์','กำแพงเพชร','ขอนแก่น','จันทบุรี','ฉะเชิงเทรา','ชลบุรี','ชัยนาท','ชัยภูมิ','ชุมพร','เชียงราย','เชียงใหม่','ตรัง','ตราด','ตาก','นครนายก','นครปฐม','นครพนม','นครราชสีมา','นครศรีธรรมราช','นครสวรรค์','นนทบุรี','นราธิวาส','น่าน','บึงกาฬ','บุรีรัมย์','ปทุมธานี','ประจวบคีรีขันธ์','ปราจีนบุรี','ปัตตานี','พระนครศรีอยุธยา','พะเยา','พังงา','พัทลุง','พิจิตร','พิษณุโลก','เพชรบุรี','เพชรบูรณ์','แพร่','ภูเก็ต','มหาสารคาม','มุกดาหาร','แม่ฮ่องสอน','ยโสธร','ยะลา','ร้อยเอ็ด','ระนอง','ระยอง','ราชบุรี','ลพบุรี','ลำปาง','ลำพูน','เลย','ศรีสะเกษ','สกลนคร','สงขลา','สตูล','สมุทรปราการ','สมุทรสงคราม','สมุทรสาคร','สระแก้ว','สระบุรี','สิงห์บุรี','สุโขทัย','สุพรรณบุรี','สุราษฎร์ธานี','สุรินทร์','หนองคาย','หนองบัวลำภู','อ่างทอง','อำนาจเจริญ','อุดรธานี','อุตรดิตถ์','อุทัยธานี','อุบลราชธานี'].map(function(p){return [p,p]}),
+ unis:['จุฬาลงกรณ์มหาวิทยาลัย','มหาวิทยาลัยธรรมศาสตร์','มหาวิทยาลัยมหิดล','มหาวิทยาลัยเกษตรศาสตร์','มหาวิทยาลัยเชียงใหม่','มหาวิทยาลัยขอนแก่น','มหาวิทยาลัยสงขลานครินทร์','สจล. ลาดกระบัง','มจธ. บางมด','มหาวิทยาลัยศิลปากร','มหาวิทยาลัยศรีนครินทรวิโรฒ','มหาวิทยาลัยกรุงเทพ','มหาวิทยาลัยอัสสัมชัญ','อื่น ๆ'].map(function(p){return [p,p]}),
+ edu:[['high_school','มัธยม / ปวช.'],['diploma','ปวส. / อนุปริญญา'],['bachelor','ปริญญาตรี'],['master','ปริญญาโท'],['doctorate','ปริญญาเอก']],
+ emp:[['full_time','พนักงานประจำ'],['part_time','พนักงานพาร์ตไทม์'],['freelance','ฟรีแลนซ์'],['business_owner','เจ้าของธุรกิจ / ผู้ก่อตั้ง'],['between_jobs','กำลังหางาน']],
+ tracks:[['','ยังไม่แน่ใจ'],['ai_product','AI Product'],['business_growth','ธุรกิจและการเติบโต'],['creative_media','ครีเอทีฟและสื่อ'],['social_impact','ผลกระทบทางสังคม']],
+ acts:[['ACT-0442','Creative Media Clinic · 30 ส.ค. 2026'],['ACT-0391','Founders Meetup August · 12 ส.ค. 2026'],['ACT-0377','AI Prototyping Bootcamp C2 · 26 ก.ค. 2026']],
+ dims:[['hard_skill','Hard skill'],['ownership_execution','Ownership & execution'],['collaboration_communication','Collaboration & communication'],['adaptability','Adaptability / learning agility'],['multiplier_potential','Multiplier potential']]
+};
+var PROGRAMS=[
+ {id:'PRG-FT-C3',type:'bootcamp',title:'YEAH Future Talent · Cohort 3',title_en:'YEAH Future Talent · Cohort 3',
+  desc:'บูตแคมป์ 16 สัปดาห์ เรียนกับ mentor จากภาคอุตสาหกรรม จบด้วยผลงานจริงหนึ่งชิ้นที่ผ่านการตรวจสอบ',
+  desc_en:'A 16-week bootcamp with industry mentors. You leave with one real, verified piece of work.',
+  intake:40,taken:27,start:'03 พ.ย. 2026',end:'27 ก.พ. 2027',start_en:'3 Nov 2026',end_en:'27 Feb 2027',duration:'16 สัปดาห์',duration_en:'16 weeks',
+  place:'True Digital Park + online',hours:212,levels:['general','1','2'],
+  req:['ลิงก์พอร์ตโฟลิโอหรือผลงาน 1 ชิ้น','วิดีโอแนะนำตัว 1 นาที','ใบแสดงผลการเรียน (ถ้ามี)'],
+  req_en:['A portfolio link or one past piece of work','A 1-minute introduction video','Transcript, if you have one']},
+ {id:'PRG-EV-PN13',type:'event',title:'Pitch Night #13',title_en:'Pitch Night #13',
+  desc:'เวทีพิตช์รายเดือน เปิดให้สมาชิกทุกระดับเข้าฟังและสมัครขึ้นพิตช์ 5 นาที',
+  desc_en:'The monthly pitch stage. Open to every level, with five-minute slots.',
+  intake:120,taken:96,start:'02 ต.ค. 2026',end:'02 ต.ค. 2026',start_en:'2 Oct 2026',end_en:'2 Oct 2026',duration:'1 คืน · 18:00–21:00',duration_en:'One night · 18:00–21:00',
+  place:'Siam Innovation District',hours:41,levels:['general','1','2','3','4'],
+  req:['สไลด์พิตช์ 5 หน้า (เฉพาะผู้ขึ้นพิตช์)'],req_en:['A five-slide pitch deck, if you want a slot']},
+ {id:'PRG-PJ-TFAI',type:'project',title:'Build Sprint · ThaiFarm AI',title_en:'Build Sprint · ThaiFarm AI',
+  desc:'โจทย์จริงจากพาร์ตเนอร์ ทีมละ 4 คน ส่งมอบ prototype ใน 8 สัปดาห์',
+  desc_en:'A real partner brief. Teams of four ship a prototype in eight weeks.',
+  intake:12,taken:3,start:'14 ต.ค. 2026',end:'09 ธ.ค. 2026',start_en:'14 Oct 2026',end_en:'9 Dec 2026',duration:'8 สัปดาห์',duration_en:'8 weeks',
+  place:'Hybrid',hours:520,levels:['2','3','4'],
+  req:['ผลงานที่ผ่าน Verify อย่างน้อย 2 ชิ้น','ลิงก์ GitHub หรือ Figma','เวลาว่าง 8 ชม./สัปดาห์'],
+  req_en:['At least two verified pieces of evidence','A GitHub or Figma link','At least 8 hours a week']},
+ {id:'PRG-CL-CNX',type:'event',title:'Talent Clinic · เชียงใหม่',title_en:'Talent Clinic · Chiang Mai',
+  desc:'คลินิกครึ่งวัน คุยกับ mentor ตัวต่อตัว เพื่อหาว่าคุณควรเริ่มจากตรงไหน',
+  desc_en:'A half-day clinic. One-on-one time with a mentor.',
+  intake:60,taken:60,start:'12 ก.ย. 2026',end:'12 ก.ย. 2026',start_en:'12 Sep 2026',end_en:'12 Sep 2026',duration:'ครึ่งวัน',duration_en:'Half a day',
+  place:'CAMP · Maya Chiang Mai',hours:-36,levels:['general','1','2','3','4'],
+  req:['ไม่ต้องแนบหลักฐาน'],req_en:['No evidence needed']}
+];
+var MEMBER_LEVEL='general',MY_TIER=0;
+var LEVEL_LABEL={general:'General Member','1':'Level 1 Explorer','2':'Level 2 Builder','3':'Level 3 Leader','4':'Level 4 Catalyst'};
+var TIERS=[
+ {eyebrow:'Level 00',name_th:'สมาชิกทั่วไป (General Member)',name_en:'General Member',
+  d_th:'ระดับตั้งต้นที่ทุกคนได้รับทันทีที่ลงทะเบียนเสร็จ เมื่อใบสมัครแรกได้รับการตอบรับ ระดับของคุณจะขยับเป็น Level 1 Explorer',
+  d_en:'The default tier assigned the moment you finish registering. Your first accepted application moves you to Level 1, Explorer.',
+  icon:'lock',label:'General',
+  b:[['user-plus','เข้าร่วมคอมมูนิตี้','Join the community'],['calendar-days','สมัครอีเวนต์ได้','Apply to events'],['file-text','สร้างโปรไฟล์และเก็บหลักฐาน','Build a profile, collect evidence']]},
+ {eyebrow:'Level 01',name_th:'Explorer',name_en:'Explorer',
+  d_th:'ระดับเริ่มต้นสำหรับสมาชิกที่เข้าร่วมโครงการแรกและกำลังสำรวจว่าทักษะของตัวเองเหมาะกับอะไร',
+  d_en:'The first tier for members who have entered a project and are exploring where their skills fit.',
+  icon:'compass',label:'Explorer',
+  b:[['user-plus','โครงการแรกของคุณ','Your first project'],['users','ทำเนียบสมาชิก','Member directory'],['badge-check','Credential 01','Credential 01']]},
+ {eyebrow:'Level 02',name_th:'Builder',name_en:'Builder',
+  d_th:'สำหรับสมาชิกที่กำลังลงมือทำโครงการจริงและสะสมหลักฐานการเติบโตของตัวเอง',
+  d_en:'For members actively executing projects and building up evidence of how they grow.',
+  icon:'hammer',label:'Builder',
+  b:[['hammer','โปรเจกต์กับพาร์ตเนอร์','Partner projects'],['handshake','จับคู่ทีม','Team matching'],['badge-check','Credential 02','Credential 02']]},
+ {eyebrow:'Level 03',name_th:'Leader',name_en:'Leader',
+  d_th:'สำหรับสมาชิกระดับสูงที่รับบทบาทผู้นำในโครงการของ YEAH',
+  d_en:'For advanced members taking on leadership roles inside YEAH initiatives.',
+  icon:'flag',label:'Leader',
+  b:[['flag','นำทีมในโครงการ','Lead a project team'],['network','เข้าถึงเมนเทอร์','Mentor access'],['presentation','เวทีพิตช์และ Demo Day','Pitch nights and demo day']]},
+ {eyebrow:'Level 04',name_th:'Catalyst',name_en:'Catalyst',
+  d_th:'ระดับสูงสุด สำหรับสมาชิกที่สร้างผลกระทบสูงและปั้นคนรุ่นถัดไป',
+  d_en:'The highest tier: members driving high impact and building the next generation.',
+  icon:'zap',label:'Catalyst',
+  b:[['megaphone','จัดกิจกรรมของตัวเอง','Run your own events'],['badge-check','ตรวจผลงานรุ่นถัดไป','Verify the next cohort'],['graduation-cap','เครือข่ายศิษย์เก่าและพาร์ตเนอร์','Alumni and partner network']]}
+];
+
+/* ---------- language ---------- */
+var LANG=(function(){try{return localStorage.getItem('yeah-lang')||'th'}catch(e){return 'th'}})();
+function t(th,en){return LANG==='en'?en:th}
+function applyLang(){
+ document.documentElement.setAttribute('lang',LANG);
+ document.documentElement.setAttribute('data-lang',LANG);
+ document.querySelectorAll('[data-en]').forEach(function(el){var v=el.getAttribute(LANG==='en'?'data-en':'data-th');if(v!==null)el.textContent=v});
+ document.getElementById('flagCur').className='flag flag-'+LANG;
+ document.getElementById('langTxt').textContent=LANG.toUpperCase();
+ document.getElementById('f_locale').value=LANG;
+ renderTier(curTier);renderPrograms();renderSummary();
+ try{localStorage.setItem('yeah-lang',LANG)}catch(e){}
+}
+document.getElementById('langBtn').addEventListener('click',function(){LANG=LANG==='th'?'en':'th';applyLang()});
+
+/* ---------- big numbers: count up once the login screen is shown ---------- */
+function countUp(){
+ var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+ document.querySelectorAll('.cnt[data-to]').forEach(function(el){
+  var to=+el.getAttribute('data-to'),suf=el.getAttribute('data-suffix')||'',dur=1600,t0=null;
+  if(reduce){el.textContent=to+suf;return}
+  el.textContent='0'+suf;
+  function frame(ts){if(t0===null)t0=ts;var k=Math.min(1,(ts-t0)/dur),e=1-Math.pow(1-k,3);
+   el.textContent=Math.round(to*e)+suf;if(k<1)requestAnimationFrame(frame)}
+  requestAnimationFrame(frame);
+ });
+}
+/* ---------- screens ---------- */
+function showScreen(s){document.documentElement.setAttribute('data-screen',s);window.scrollTo(0,0);icons();if(s==='login')countUp()}
+document.getElementById('googleBtn').addEventListener('click',function(){showScreen('register');toast(t('เชื่อมบัญชี Google แล้ว','Google account linked'))});
+document.getElementById('emailBtn').addEventListener('click',function(){toast(t('ส่งลิงก์เข้าสู่ระบบไปที่อีเมลแล้ว','Sign-in link sent to your inbox'))});
+document.getElementById('signOut').addEventListener('click',function(){showScreen('login')});
+
+/* ---------- toast ---------- */
+var toastEl=document.getElementById('toast'),toastMsg=document.getElementById('toastMsg'),toastT;
+function toast(m){toastMsg.textContent=m;toastEl.classList.add('on');clearTimeout(toastT);toastT=setTimeout(function(){toastEl.classList.remove('on')},3200)}
+
+/* ---------- bottom sheets ---------- */
+var scrim=document.getElementById('scrim');
+function openSheet(id){
+ var s=document.getElementById('sheet-'+id);if(!s)return;
+ s.classList.add('on');scrim.classList.add('on');document.body.style.overflow='hidden';icons(s);
+}
+function closeSheets(){
+ document.querySelectorAll('.sheet.on').forEach(function(s){s.classList.remove('on')});
+ scrim.classList.remove('on');document.body.style.overflow='';
+}
+scrim.addEventListener('click',closeSheets);
+document.addEventListener('click',function(e){
+ if(e.target.closest('[data-close]')){closeSheets();return}
+ var o=e.target.closest('[data-sheet]');if(!o)return;
+ e.preventDefault();
+ var id=o.getAttribute('data-sheet');
+ if(id==='pick')return openPicker(o);
+ openSheet(id);
+});
+document.querySelectorAll('.sheet').forEach(function(s){
+ var grab=s.querySelector('.grab');if(grab)grab.addEventListener('click',closeSheets);
+});
+
+/* generic option picker */
+var pickTarget=null,pickBtn=null,pickRows=[];
+function openPicker(btn){
+ pickBtn=btn;pickTarget=document.getElementById(btn.getAttribute('data-target'));
+ pickRows=SRC[btn.getAttribute('data-src')]||[];
+ document.getElementById('pickTitle').textContent=btn.getAttribute('data-title')||t('เลือก','Select');
+ var sw=document.getElementById('pickSearchWrap'),si=document.getElementById('pickSearch');
+ sw.style.display=btn.getAttribute('data-search')?'block':'none';si.value='';
+ drawPick('');openSheet('pick');
+}
+function drawPick(q){
+ var list=document.getElementById('pickList');list.innerHTML='';
+ pickRows.filter(function(r){return !q||r[1].toLowerCase().indexOf(q.toLowerCase())>-1}).forEach(function(r){
+  var b=document.createElement('button');b.type='button';
+  b.className=(pickTarget&&pickTarget.value===r[0]?'sel':'');
+  b.innerHTML='<span>'+r[1]+'</span><i class="ic" data-lucide="check"></i>';
+  b.addEventListener('click',function(){
+   pickTarget.value=r[0];
+   var lbl=pickBtn.querySelector('span');lbl.textContent=r[1];lbl.classList.remove('ph');
+   pickBtn.classList.add('filled');
+   closeSheets();validateStep();renderSummary();
+  });
+  list.appendChild(b);
+ });
+ icons(list);
+}
+document.getElementById('pickSearch').addEventListener('input',function(){drawPick(this.value)});
+
+/* ---------- registration wizard ---------- */
+var STEP=1,MAXSTEP=5;
+var STEP_TITLES=[['ข้อมูลส่วนตัว','Identity'],['ช่องทางติดต่อ','Contact'],['การศึกษา / การทำงาน','Study or work'],['ข้อมูลเพิ่มเติม','About you'],['ตรวจทานและยินยอม','Review and consent']];
+var regForm=document.getElementById('regForm');
+function val(name){
+ var els=regForm.querySelectorAll('[name="'+name+'"]');if(!els.length)return '';
+ if(els[0].type==='radio'){var c=regForm.querySelector('[name="'+name+'"]:checked');return c?c.value:''}
+ if(els[0].type==='checkbox')return els[0].checked?'true':'';
+ return (els[0].value||'').trim();
+}
+function phoneOk(v){var d=v.replace(/[^0-9+]/g,'');return /^0[0-9]{9}$/.test(d)||/^\+66[0-9]{9}$/.test(d)}
+function phoneE164(v){var d=v.replace(/[^0-9+]/g,'');return /^0[0-9]{9}$/.test(d)?'+66'+d.slice(1):d}
+function stepValid(n){
+ if(n===1)return !!(val('first_name')&&val('last_name')&&val('birthdate'));
+ if(n===2)return !!(val('email')&&phoneOk(val('phone')));
+ if(n===3){
+  var os=val('occupation_status');if(!os)return false;
+  return os==='student'
+   ? !!(val('university')&&val('faculty')&&val('year_of_study')&&val('education_level'))
+   : !!(val('employment_type')&&val('department_field'));
+ }
+ if(n===4){
+  if(!val('province')||!val('referral_source'))return false;
+  if(val('referral_source')==='other'&&!val('referral_detail'))return false;
+  return true;
+ }
+ if(n===5)return document.getElementById('pdpa_consent').checked;
+ return true;
+}
+function goStep(n){
+ STEP=Math.max(1,Math.min(MAXSTEP,n));
+ document.querySelectorAll('.step').forEach(function(s){s.classList.toggle('on',+s.getAttribute('data-step')===STEP)});
+ document.getElementById('wizBar').style.width=(STEP/MAXSTEP*100)+'%';
+ document.getElementById('wizNum').textContent=STEP;
+ document.getElementById('wizTitle').textContent=t(STEP_TITLES[STEP-1][0],STEP_TITLES[STEP-1][1]);
+ document.getElementById('wizBack').style.display=STEP===1?'none':'inline-flex';
+ document.getElementById('wizNext').style.display=STEP===MAXSTEP?'none':'inline-flex';
+ document.getElementById('wizSubmit').style.display=STEP===MAXSTEP?'inline-flex':'none';
+ if(STEP===MAXSTEP)renderSummary();
+ window.scrollTo(0,0);validateStep();icons();
+}
+function validateStep(){
+ document.getElementById('wizNext').disabled=!stepValid(STEP);
+ var ok=[1,2,3,4,5].every(stepValid);
+ document.getElementById('wizSubmit').disabled=!ok;
+ var hint=document.getElementById('submitHint');
+ hint.textContent=!document.getElementById('pdpa_consent').checked
+  ?t('ติ๊กช่องความยินยอมเพื่อเปิดใช้งานปุ่ม','Tick the consent box to enable the button')
+  :(ok?t('พร้อมส่งแล้ว','Ready to send'):t('ยังมีขั้นตอนที่กรอกไม่ครบ','Some steps are still incomplete'));
+}
+document.getElementById('wizNext').addEventListener('click',function(){goStep(STEP+1)});
+document.getElementById('wizBack').addEventListener('click',function(){goStep(STEP-1)});
+regForm.addEventListener('input',validateStep);
+regForm.addEventListener('change',function(){validateStep();renderSummary()});
+document.getElementById('pdpa_consent').addEventListener('change',validateStep);
+document.getElementById('acceptTerms').addEventListener('click',function(){
+ document.getElementById('pdpa_consent').checked=true;closeSheets();validateStep();toast(t('บันทึกความยินยอมแล้ว','Consent recorded'));
+});
+document.querySelectorAll('input[name="occupation_status"]').forEach(function(r){r.addEventListener('change',function(){
+ document.getElementById('blockStudent').classList.toggle('on',r.value==='student');
+ document.getElementById('blockPro').classList.toggle('on',r.value==='professional');
+ validateStep();
+})});
+document.querySelectorAll('input[name="referral_source"]').forEach(function(r){r.addEventListener('change',function(){
+ document.getElementById('refOther').classList.toggle('on',r.value==='other');validateStep();
+})});
+var goal=document.getElementById('goal');
+goal.addEventListener('input',function(){document.getElementById('goalCount').textContent=goal.value.length});
+var emailInp=document.getElementById('email'),originalEmail=emailInp.value;
+emailInp.addEventListener('input',function(){
+ document.getElementById('emailWarn').style.display=emailInp.value.trim()!==originalEmail?'block':'none';
+});
+var phone=document.getElementById('phone'),phoneHint=document.getElementById('phoneHint');
+phone.addEventListener('blur',function(){
+ var v=phone.value.trim();if(!v)return;
+ var ok=phoneOk(v);phone.classList.toggle('bad',!ok);phoneHint.classList.toggle('err',!ok);
+ phoneHint.textContent=ok?t('จะถูกบันทึกเป็น '+phoneE164(v),'Stored as '+phoneE164(v)):t('กรอกเบอร์มือถือไทย เช่น 081-234-5678','Enter a Thai mobile number, e.g. 081-234-5678');
+});
+function memberPayload(){
+ var os=val('occupation_status');
+ var p={
+  google_sub:val('google_sub'),auth_provider:'google',
+  first_name:val('first_name'),last_name:val('last_name'),birthdate:val('birthdate'),
+  email:val('email'),email_login:val('google_email_login'),
+  email_changed_from_google:val('email')!==val('google_email_login'),
+  phone:phoneE164(val('phone')),occupation_status:os||null,
+  province:val('province')||null,referral_source:val('referral_source')||null,
+  track_interest:val('track_interest')||null,growth_goal:val('growth_goal')||null,
+  membership_level:'general',locale:LANG,signup_source:val('signup_source'),
+  pdpa_consent:document.getElementById('pdpa_consent').checked,
+  consent_version:'pdpa-2026-09-v1',
+  marketing_opt_in:document.getElementById('marketing_opt_in').checked
+ };
+ if(val('referral_detail'))p.referral_detail=val('referral_detail');
+ if(os==='student')p.academic={university:val('university')||null,faculty:val('faculty')||null,year_of_study:val('year_of_study')||null,education_level:val('education_level')||null};
+ if(os==='professional')p.professional={employment_type:val('employment_type')||null,department_field:val('department_field')||null,organisation:val('organisation')||null};
+ return p;
+}
+function labelOf(src,v){var f=(SRC[src]||[]).filter(function(r){return r[0]===v})[0];return f?f[1]:(v||'—')}
+function renderSummary(){
+ var box=document.getElementById('summary');if(!box)return;
+ var os=val('occupation_status');
+ var rows=[
+  [t('ชื่อ','Name'),(val('first_name')+' '+val('last_name')).trim()||'—'],
+  [t('วันเกิด','Birthday'),val('birthdate')||'—'],
+  [t('อีเมล','Email'),val('email')||'—'],
+  [t('เบอร์','Mobile'),val('phone')?phoneE164(val('phone')):'—'],
+  [t('สถานะ','Status'),os?(os==='student'?t('นักศึกษา','Student'):t('คนทำงาน','Professional')):'—']
+ ];
+ if(os==='student')rows.push([t('สถานศึกษา','University'),val('university')||'—'],[t('คณะ / ชั้นปี','Faculty / year'),(val('faculty')||'—')+' · '+(val('year_of_study')||'—')]);
+ if(os==='professional')rows.push([t('การทำงาน','Employment'),labelOf('emp',val('employment_type'))],[t('สายงาน','Field'),val('department_field')||'—']);
+ rows.push([t('จังหวัด','Province'),val('province')||'—'],[t('รู้จักจาก','Referral'),val('referral_source')||'—']);
+ box.innerHTML=rows.map(function(r){return '<div><span>'+r[0]+'</span><b>'+r[1]+'</b></div>'}).join('');
+}
+document.getElementById('wizSubmit').addEventListener('click',function(){
+ console.log('POST /api/members',memberPayload());
+ showScreen('hub');
+ toast(t('ยินดีต้อนรับ คุณเป็นสมาชิกทั่วไป (General Member) แล้ว','Welcome — you are a General Member now'));
+});
+
+/* ---------- hub tabs ---------- */
+function goTab(name){
+ document.querySelectorAll('.tab').forEach(function(s){s.classList.toggle('on',s.getAttribute('data-tab')===name)});
+ document.querySelectorAll('#mtabs button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-tab')===name)});
+ window.scrollTo(0,0);icons();
+}
+document.querySelectorAll('#mtabs button').forEach(function(b){b.addEventListener('click',function(){goTab(b.getAttribute('data-tab'))})});
+document.querySelectorAll('[data-goto]').forEach(function(b){b.addEventListener('click',function(){goTab(b.getAttribute('data-goto'))})});
+document.querySelectorAll('.acc>button').forEach(function(b){b.addEventListener('click',function(){b.parentNode.classList.toggle('open')})});
+
+/* ---------- tiers ---------- */
+var curTier=0;
+function renderTier(i){
+ curTier=i;var T=TIERS[i];
+ var rail=document.getElementById('tierRail');
+ rail.innerHTML=TIERS.map(function(x,j){
+  return '<button class="rstop'+(j===MY_TIER?' now':'')+(j<MY_TIER?' done':'')+(j===i&&i!==MY_TIER?' sel':'')+'" data-t="'+j+'">'+
+   '<i class="ic" data-lucide="'+x.icon+'"></i><small>'+x.eyebrow+'</small><b>'+x.label+'</b></button>';
+ }).join('');
+ rail.querySelectorAll('.rstop').forEach(function(b){b.addEventListener('click',function(){renderTier(+b.getAttribute('data-t'))})});
+ document.getElementById('tierEyebrow').textContent=T.eyebrow;
+ document.getElementById('tierName').textContent=t(T.name_th,T.name_en);
+ document.getElementById('tierDesc').textContent=t(T.d_th,T.d_en);
+ document.getElementById('lockedNote').style.display=i===MY_TIER?'flex':'none';
+ document.getElementById('beneList').innerHTML=T.b.map(function(b){
+  return '<div class="bene"><span class="bic"><i class="ic" data-lucide="'+b[0]+'"></i></span><div><b>'+t(b[1],b[2])+'</b></div></div>';
+ }).join('');
+ icons(document.querySelector('[data-tab="status"]'));
+}
+
+/* ---------- programs + countdown ---------- */
+var deadlines={};
+function pad(n){return (n<10?'0':'')+n}
+function cdText(ms){if(ms<=0)return null;var m=Math.floor(ms/60000),d=Math.floor(m/1440),h=Math.floor((m%1440)/60);return pad(d)+':'+pad(h)+':'+pad(m%60)}
+function levelRow(levels){
+ return ['general','1','2','3','4'].map(function(l){
+  var yes=levels.indexOf(l)>-1,me=l===MEMBER_LEVEL;
+  return '<span class="lv'+(yes?' yes':'')+(yes&&me?' me':'')+'"><i></i>'+(l==='general'?'General':'Lv '+l)+'</span>';
+ }).join('');
+}
+function renderPrograms(){
+ var list=document.getElementById('progList');if(!list)return;
+ var filt=(document.querySelector('input[name="pf"]:checked')||{}).value||'all';
+ list.innerHTML='';
+ PROGRAMS.forEach(function(p){
+  if(filt!=='all'&&p.type!==filt)return;
+  var eligible=p.levels.indexOf(MEMBER_LEVEL)>-1,closed=p.hours<=0,full=p.taken>=p.intake;
+  var el=document.createElement('article');el.className='prog';el.setAttribute('data-program-id',p.id);
+  el.innerHTML=
+   '<div class="prog-cover"><i class="ic" data-lucide="image"></i><span class="ptype">'+p.type+'</span>'+
+    '<span class="countdown'+(closed?' closed':'')+'" data-cd="'+p.id+'"><i class="ic" data-lucide="clock"></i><b>--:--:--</b></span></div>'+
+   '<div class="prog-body"><h4>'+t(p.title,p.title_en)+'</h4><p class="desc">'+t(p.desc,p.desc_en)+'</p>'+
+    '<div class="pmeta">'+
+     '<span><i class="ic" data-lucide="calendar"></i>'+t(p.start,p.start_en)+' – '+t(p.end,p.end_en)+'</span>'+
+     '<span><i class="ic" data-lucide="hourglass"></i>'+t(p.duration,p.duration_en)+'</span>'+
+     '<span><i class="ic" data-lucide="map-pin"></i>'+p.place+'</span></div>'+
+    '<div><div style="display:flex;justify-content:space-between;font-size:12px"><span class="muted">'+t('รับ','Intake')+' '+p.intake+' '+t('ที่นั่ง','seats')+'</span><b>'+p.taken+'/'+p.intake+'</b></div>'+
+     '<div class="seats"><i style="width:'+Math.min(100,p.taken/p.intake*100)+'%"></i></div></div>'+
+    '<div class="elig"><span class="lbl">'+t('ระดับที่สมัครได้','Levels that can apply')+'</span><div class="elig-row">'+levelRow(p.levels)+'</div></div>'+
+    '<div style="display:flex;gap:9px;margin-top:14px">'+
+     (closed||full||!eligible
+      ? '<button class="btn btn-ghost btn-sm" style="flex:1" disabled>'+(closed?t('ปิดรับแล้ว','Closed'):(full?t('เต็มแล้ว','Full'):t('ต้องถึง '+LEVEL_LABEL[p.levels[0]],'Needs '+LEVEL_LABEL[p.levels[0]])))+'</button>'
+      : '<button class="btn btn-grad btn-sm" style="flex:1" data-apply="'+p.id+'">'+t('สมัครเข้าร่วม','Apply')+'</button>')+
+     '<button class="btn btn-ghost btn-sm" data-apply="'+p.id+'">'+t('รายละเอียด','Details')+'</button></div>'+
+   '</div>';
+  list.appendChild(el);
+  if(!deadlines[p.id])deadlines[p.id]=Date.now()+p.hours*3600000;
+ });
+ icons(list);tick();
+}
+document.querySelectorAll('input[name="pf"]').forEach(function(r){r.addEventListener('change',renderPrograms)});
+function tick(){
+ document.querySelectorAll('[data-cd]').forEach(function(el){
+  var id=el.getAttribute('data-cd'),b=el.querySelector('b');if(!b)return;
+  var left=deadlines[id]-Date.now(),s=cdText(left);
+  if(s===null){b.textContent=t('ปิดรับแล้ว','Closed');el.classList.add('closed')}
+  else{b.textContent=s;el.classList.toggle('warn',left<48*3600000)}
+ });
+ var cd=document.getElementById('ap_cd');
+ if(cd&&cd.getAttribute('data-id')){var s2=cdText(deadlines[cd.getAttribute('data-id')]-Date.now());cd.textContent=s2||t('ปิดรับแล้ว','Closed')}
+}
+setInterval(tick,30000);
+document.addEventListener('click',function(e){
+ var b=e.target.closest('[data-apply]');if(!b)return;
+ var p=PROGRAMS.filter(function(x){return x.id===b.getAttribute('data-apply')})[0];if(!p)return;
+ document.getElementById('ap_title').textContent=t(p.title,p.title_en);
+ document.getElementById('ap_dates').textContent=p.type+' · '+t(p.start,p.start_en)+' – '+t(p.end,p.end_en)+' · '+p.place;
+ document.getElementById('ap_desc').textContent=t(p.desc,p.desc_en);
+ document.getElementById('ap_intake').textContent=p.taken+'/'+p.intake;
+ document.getElementById('ap_dur').textContent=t(p.duration,p.duration_en);
+ document.getElementById('ap_cd').setAttribute('data-id',p.id);
+ document.getElementById('ap_req').innerHTML=t(p.req,p.req_en).map(function(r){return '<li>'+r+'</li>'}).join('');
+ document.getElementById('ap_levels').innerHTML=levelRow(p.levels);
+ document.getElementById('ap_pid').value=p.id;
+ document.getElementById('applySubmit').disabled=!(p.levels.indexOf(MEMBER_LEVEL)>-1&&p.hours>0&&p.taken<p.intake);
+ openSheet('apply');tick();
+});
+document.getElementById('applySubmit').addEventListener('click',function(){
+ var f=document.getElementById('applyForm');if(!f.reportValidity())return;
+ var fd=new FormData(f),out={};fd.forEach(function(v,k){out[k]=v});
+ out.status='submitted';out.submitted_at=new Date().toISOString();
+ console.log('POST /api/applications',out);
+ closeSheets();f.reset();toast(t('ส่งใบสมัครแล้ว ดูสถานะได้ที่แท็บประวัติ','Application sent — see the History tab'));
+});
+document.getElementById('evSubmit').addEventListener('click',function(){
+ var f=document.getElementById('evForm');if(!f.reportValidity())return;
+ if(!document.getElementById('ev_activity').value||!document.getElementById('ev_dim').value){toast(t('เลือกกิจกรรมและมิติทักษะก่อน','Pick an activity and a skill dimension'));return}
+ var fd=new FormData(f),out={};fd.forEach(function(v,k){out[k]=v});
+ out.status='submitted';out.skill_delta='pending_verify';
+ console.log('POST /api/evidence',out);closeSheets();f.reset();
+ toast(t('ส่งหลักฐานแล้ว — รอ mentor ตรวจสอบก่อนได้ +1','Evidence submitted — a mentor verifies before any +1'));
+});
+document.getElementById('editSave').addEventListener('click',function(){
+ var fd=new FormData(document.getElementById('editForm')),out={};fd.forEach(function(v,k){out[k]=v});
+ console.log('PATCH /api/members/me',out);closeSheets();toast(t('บันทึกข้อมูลแล้ว','Profile saved'));
+});
+document.getElementById('copyShare').addEventListener('click',function(){
+ var i=document.getElementById('shareUrl');i.select();try{document.execCommand('copy')}catch(e){}
+ toast(t('คัดลอกลิงก์แล้ว','Link copied'));
+});
+document.getElementById('withdrawApp').addEventListener('click',function(){closeSheets();toast(t('ถอนใบสมัครแล้ว','Application withdrawn'))});
+
+/* ---------- init — ?screen=login|register|hub&tab=status|programs|history|profile ---------- */
+applyLang();goStep(1);renderTier(0);renderPrograms();icons();countUp();
+var qs=new URLSearchParams(location.search),qScreen=qs.get('screen'),qTab=qs.get('tab');
+if(['login','register','hub'].indexOf(qScreen)>-1)showScreen(qScreen);
+if(qTab)goTab(qTab);
+if(qs.get('step'))goStep(+qs.get('step'));
+})();
+</script>
+</body>
+</html>

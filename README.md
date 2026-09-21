@@ -1,4 +1,4 @@
-# YEAH — Landing page &amp; member portal
+# YEAH — Landing Page &amp; Member Portal
 
 Static HTML prototypes for the YEAH Future Talent site and member portal. No build step — open any file directly in a browser, or open the two frame viewers to see mobile and desktop side by side.
 

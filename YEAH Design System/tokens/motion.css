@@ -1,0 +1,16 @@
+:root{
+  --duration-instant:80ms; /* @kind other */
+  --duration-fast:140ms; /* @kind other */
+  --duration-base:220ms; /* @kind other */
+  --duration-slow:400ms; /* @kind other */
+
+  --ease-out:cubic-bezier(.2,.8,.2,1); /* @kind other */
+  --ease-in-out:cubic-bezier(.65,0,.35,1); /* @kind other */
+  --ease-linear:linear; /* @kind other */
+
+  --transition-control:transform var(--duration-fast) var(--ease-out),box-shadow var(--duration-fast) var(--ease-out),background-color var(--duration-fast) var(--ease-out),color var(--duration-fast) var(--ease-out);
+
+  /* Press/hover displacement used with the block shadow */
+  --lift:-2px;
+  --press:0px;
+}

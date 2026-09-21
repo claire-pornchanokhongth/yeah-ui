@@ -1,0 +1,58 @@
+:root{
+  /* --- Brand core (CI YEAH) --- */
+  --yeah-pink:#FE0074;
+  --yeah-yellow:#FED732;
+  --yeah-white:#FFFFFF;
+  --yeah-black:#010101;
+
+  /* --- Tints & shades (derived, for states only — never for brand marks) --- */
+  --yeah-pink-700:#C90058;
+  --yeah-pink-300:#FF66AC;
+  --yeah-pink-100:#FFE0EE;
+  --yeah-yellow-700:#D9AF00;
+  --yeah-yellow-300:#FFE884;
+  --yeah-yellow-100:#FFF8DD;
+
+  /* --- Neutrals (built from #010101, never blue-grey) --- */
+  --neutral-950:#010101;
+  --neutral-900:#141414;
+  --neutral-800:#242424;
+  --neutral-600:#5A5A5A;
+  --neutral-400:#9A9A9A;
+  --neutral-200:#DEDEDE;
+  --neutral-100:#F1F1F1;
+  --neutral-050:#F8F8F8;
+
+  /* --- Semantic: surfaces --- */
+  --surface-page:var(--yeah-white);
+  --surface-page-invert:var(--yeah-black);
+  --surface-card:var(--yeah-white);
+  --surface-card-invert:var(--yeah-black);
+  --surface-sunken:var(--neutral-050);
+  --surface-accent:var(--yeah-pink);
+  --surface-accent-alt:var(--yeah-yellow);
+  --surface-muted:var(--neutral-100);
+
+  /* --- Semantic: text --- */
+  --text-heading:var(--yeah-black);
+  --text-body:var(--neutral-800);
+  --text-muted:var(--neutral-600);
+  --text-on-pink:var(--yeah-white);
+  --text-on-yellow:var(--yeah-black);
+  --text-on-dark:var(--yeah-white);
+  --text-accent:var(--yeah-pink);
+  --text-link:var(--yeah-pink);
+  --text-link-hover:var(--yeah-pink-700);
+
+  /* --- Semantic: lines --- */
+  --border-strong:var(--yeah-black);
+  --border-subtle:var(--neutral-200);
+  --border-accent:var(--yeah-pink);
+  --focus-ring:var(--yeah-pink);
+
+  /* --- Semantic: status (borrowed from the two brand hues + minimum extras) --- */
+  --status-info:var(--yeah-black);
+  --status-success:#00A46B;
+  --status-warning:var(--yeah-yellow);
+  --status-danger:var(--yeah-pink);
+}

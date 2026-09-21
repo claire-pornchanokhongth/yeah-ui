@@ -1,0 +1,33 @@
+<!-- @dsCard group="Components" viewport="700x330" name="Feedback — Dialog, Toast, Tooltip" subtitle="Block-shadow modal, four toast tones" -->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>html,body{margin:0}body{background:var(--surface-page);font-family:var(--font-body);color:var(--text-body);padding:16px 20px;box-sizing:border-box}a{color:var(--text-link)}a:hover{color:var(--text-link-hover)}</style>
+</head><body><div id="root"></div>
+<script type="text/babel">
+const { Dialog, Toast, Tooltip, Button, IconButton } = window.YEAHDesignSystem_b0ca81;
+
+function Demo(){const [open,setOpen]=React.useState(false);
+return (<div style={{display:'flex',flexDirection:'column',gap:16}}>
+  <div style={{display:'flex',gap:12,alignItems:'center'}}>
+    <Button onClick={()=>setOpen(true)}>Open dialog</Button>
+    <Tooltip label="Share this event"><IconButton icon="share-2" label="Share"/></Tooltip>
+    <Tooltip label="Save for later" placement="right"><IconButton icon="bookmark" label="Save"/></Tooltip>
+  </div>
+  <div style={{display:'flex',flexWrap:'wrap',gap:12}}>
+    <Toast tone="info" title="Heads up" message="Doors open at 18:00."/>
+    <Toast tone="success" title="You're in" message="QR code sent to your email." onDismiss={()=>{}}/>
+    <Toast tone="warning" title="Almost full" message="3 seats left."/>
+    <Toast tone="danger" title="Payment failed" message="Try another card."/>
+  </div>
+  <Dialog open={open} title="Register for Pitch Night #04" description="Thu 12 Sep · 18:00 · Room 402"
+    onClose={()=>setOpen(false)}
+    footer={<><Button variant="ghost" onClick={()=>setOpen(false)}>Cancel</Button><Button onClick={()=>setOpen(false)}>Confirm</Button></>}>
+    We'll hold your seat for 24 hours.
+  </Dialog>
+</div>)}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo/>);
+</script></body></html>

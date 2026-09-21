@@ -4,13 +4,13 @@ Static HTML prototypes for the YEAH Future Talent site and member portal. No bui
 
 | File | Content |
 |---|---|
-| [`index.html`](index.html) | Frame viewer for the **landing page** — mobile (390×800) and desktop (1440×900) side by side |
-| [`YEAH Landing v3.html`](YEAH%20Landing%20v3.html) | **Landing page** — current version. Hero · 5 Pillars · Activities carousel · Tiers · Journey · Join CTA · Footer. TH/EN toggle in navbar |
-| [`YEAH Portal Frames.html`](YEAH%20Portal%20Frames.html) | Frame viewer for the **member portal** — tabs to jump between Login / Registration / Member hub, mobile + desktop side by side |
-| [`YEAH Portal Desktop.html`](YEAH%20Portal%20Desktop.html) | **Member portal — desktop.** One dense form + sticky side rail. Accepts `?screen=login\|register\|hub` |
-| [`YEAH Portal Mobile.html`](YEAH%20Portal%20Mobile.html) | **Member portal — mobile.** Five-step wizard with bottom sheets. Accepts `?screen=login\|register\|hub&tab=status\|programs\|history\|profile&step=1–5` |
-| [`YEAH Portal Data Contract.md`](YEAH%20Portal%20Data%20Contract.md) | UI ↔ backend data contract for the portal — every field name, validation rule and endpoint the IT team needs |
-| [`YEAH Design System/`](YEAH%20Design%20System/) | Design system source (tokens, components, guidelines) the landing page and portal are built from |
+| [`index.html`](https://claire-pornchanokhongth.github.io/yeah-ui/index.html) | Frame viewer for the **landing page** — mobile (390×800) and desktop (1440×900) side by side |
+| [`YEAH Landing v3.html`](https://claire-pornchanokhongth.github.io/yeah-ui/YEAH%20Landing%20v3.html) | **Landing page** — current version. Hero · 5 Pillars · Activities carousel · Tiers · Journey · Join CTA · Footer. TH/EN toggle in navbar |
+| [`YEAH Portal Frames.html`](https://claire-pornchanokhongth.github.io/yeah-ui/YEAH%20Portal%20Frames.html) | Frame viewer for the **member portal** — tabs to jump between Login / Registration / Member hub, mobile + desktop side by side |
+| [`YEAH Portal Desktop.html`](https://claire-pornchanokhongth.github.io/yeah-ui/YEAH%20Portal%20Desktop.html) | **Member portal — desktop.** One dense form + sticky side rail. Accepts `?screen=login\|register\|hub` |
+| [`YEAH Portal Mobile.html`](https://claire-pornchanokhongth.github.io/yeah-ui/YEAH%20Portal%20Mobile.html) | **Member portal — mobile.** Five-step wizard with bottom sheets. Accepts `?screen=login\|register\|hub&tab=status\|programs\|history\|profile&step=1–5` |
+| [`YEAH Portal Data Contract.md`](https://claire-pornchanokhongth.github.io/yeah-ui/YEAH%20Portal%20Data%20Contract.md) | UI ↔ backend data contract for the portal — every field name, validation rule and endpoint the IT team needs |
+| [`YEAH Design System/`](https://claire-pornchanokhongth.github.io/yeah-ui/YEAH%20Design%20System/) | Design system source (tokens, components, guidelines) the landing page and portal are built from |
 
 ## Older versions
 

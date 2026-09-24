@@ -60,14 +60,14 @@ a{color:#FE0074}a:hover{color:#C90058}
  <div class="frame m" data-screen-label="Mobile frame">
   <h2><b>Mobile</b> · 390 × 800<br>bottom sheets + progressive disclosure</h2>
   <button class="replay" data-target="fMobile">Replay key unlock</button>
-  <div class="phone"><iframe id="fMobile" src="YEAH%20Portal%20Mobile.html?screen=login" title="YEAH portal — mobile"></iframe></div>
+  <div class="phone"><iframe id="fMobile" src="" title="YEAH portal — mobile"></iframe></div>
  </div>
  <div class="frame" data-screen-label="Desktop frame">
   <h2><b>Desktop</b> · 1440 × 900 · shown at 65%</h2>
   <button class="replay" data-target="fDesktop">Replay key unlock</button>
   <div class="desktop">
    <div class="bar"><i></i><i></i><i></i><span>yeah.or.th/member</span></div>
-   <div class="vp"><iframe id="fDesktop" src="YEAH%20Portal%20Desktop.html?screen=login" title="YEAH portal — desktop"></iframe></div>
+   <div class="vp"><iframe id="fDesktop" src="" title="YEAH portal — desktop"></iframe></div>
   </div>
  </div>
 </div>
@@ -88,14 +88,21 @@ var MOBILE_FILE='YEAH%20Portal%20Mobile.html',        MOBILE_REPLAY='Replay key 
 // var MOBILE_FILE='YEAH%20Portal%20Mobile%20Rocket.html', MOBILE_REPLAY='Replay rocket launch';
 /* ------------------------------------------------------------------------------ */
 var SRC={fMobile:MOBILE_FILE,fDesktop:'YEAH%20Portal%20Desktop.html'};
-document.getElementById('fMobile').src=MOBILE_FILE+'?screen=login';
+/* Every iframe src load below carries a cache-buster (&_=timestamp). Switching tabs — unlike
+   clicking through the real login flow inside an already-loaded iframe — issues a fresh
+   request for that exact URL, and browsers/CDNs (GitHub Pages caches for 10 min) will happily
+   serve a stale cached copy of it without one. Only the very first paint's timestamp is shared
+   across the pair so both frames still land on the same "session". */
+var _boot=Date.now();
+document.getElementById('fMobile').src=MOBILE_FILE+'?screen=login&_='+_boot;
+document.getElementById('fDesktop').src=SRC.fDesktop+'?screen=login&_='+_boot;
 document.querySelector('.replay[data-target="fMobile"]').textContent=MOBILE_REPLAY;
 document.querySelectorAll('#tabs button').forEach(function(b){
  b.addEventListener('click',function(){
   document.querySelectorAll('#tabs button').forEach(function(x){x.classList.toggle('on',x===b)});
-  var s=b.getAttribute('data-screen');
-  document.getElementById('fMobile').src=SRC.fMobile+'?screen='+s;
-  document.getElementById('fDesktop').src=SRC.fDesktop+'?screen='+s;
+  var s=b.getAttribute('data-screen'),_t=Date.now();
+  document.getElementById('fMobile').src=SRC.fMobile+'?screen='+s+'&_='+_t;
+  document.getElementById('fDesktop').src=SRC.fDesktop+'?screen='+s+'&_='+_t;
  });
 });
 /* Replay reloads that frame on the login screen with &launch=1. The cache-buster is what

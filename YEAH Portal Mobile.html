@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>YEAH Portal — Login · Register · Member Hub (Mobile)</title>
 <link rel="stylesheet" href="_ds/yeah-design-system-b0ca81dd-b5dc-493d-a727-a84faf7a457a/tokens/fonts.css">
+<!-- Prompt carries the Thai glyphs on the membership card (Poppins is Latin-only) -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="_ds/yeah-design-system-b0ca81dd-b5dc-493d-a727-a84faf7a457a/tokens/colors.css">
 <link rel="stylesheet" href="_ds/yeah-design-system-b0ca81dd-b5dc-493d-a727-a84faf7a457a/tokens/typography.css">
 <style>
@@ -125,15 +127,27 @@ html[data-lang="th"] .bignums small{letter-spacing:.02em}
 .summary b{font-weight:500;text-align:right;word-break:break-word}
 /* ===== 03 hub ===== */
 .hub{padding-bottom:40px;min-height:100vh}
-.phead{background:linear-gradient(135deg,#010101 0%,#20141F 60%,#2A0F22 100%);color:#fff;padding:22px var(--pad) 26px;position:relative;overflow:hidden}
-.phead .blob{width:260px;height:260px;background:radial-gradient(circle at 35% 35%,rgba(254,0,116,.6),rgba(254,215,50,.3) 80%);top:-120px;right:-80px;opacity:.5}
-.phead-row{position:relative;z-index:2;display:flex;gap:14px;align-items:center}
-.avatar{width:62px;height:62px;border-radius:50%;flex:none;padding:2.5px;background:var(--grad)}
-.avatar b{width:100%;height:100%;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:22px;font-weight:600;color:var(--ink)}
-.phead h1{font-size:21px;font-weight:600;color:#fff;margin-bottom:5px}
-.lvl-badge{display:inline-flex;align-items:center;gap:7px;font-family:var(--font-display-alt);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:5px 12px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.34);color:#fff}
-.lvl-badge .ic{width:13px;height:13px;color:var(--yeah-yellow)}
-.phead .pid{position:relative;z-index:2;display:block;margin-top:14px;font-family:var(--font-mono,monospace);font-size:10.5px;color:rgba(255,255,255,.45)}
+/* membership card — first thing in the member-status tab */
+.card-block{margin:0 0 22px}
+.card-block .memcard{width:100%;max-width:420px;margin:0 auto}
+.card-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:420px;margin:16px auto 0}
+.card-actions .btn{width:100%;padding:0 10px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* membership card — artwork is 856×540; shadow scaled from the artwork's dy10 / σ14 / 18% */
+.memcard{position:relative;aspect-ratio:856/540;border-radius:4%/6.3%;box-shadow:0 5px 16px rgba(1,1,1,.18),0 1px 3px rgba(1,1,1,.06);flex:none}
+.memcard svg{display:block;width:100%;height:100%;border-radius:inherit}
+.memcard.swap{animation:mcSwap .42s var(--ease)}
+@keyframes mcSwap{0%{opacity:.25}100%{opacity:1}}
+.mcard-photo{position:absolute;left:6.542%;top:28.148%;width:16.355%;aspect-ratio:1;border-radius:50%;border:none;padding:0;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;outline-offset:3px}
+.mcard-photo:focus-visible{outline:2.5px solid var(--yeah-pink)}
+.mcard-photo .hint{display:flex;flex-direction:column;align-items:center;gap:2px;width:100%;height:100%;border-radius:50%;justify-content:center;background:rgba(1,1,1,.55);color:#fff;font-size:10px;font-weight:600;line-height:1.1;opacity:0;transition:opacity .16s var(--ease)}
+.mcard-photo .hint .ic{width:18px;height:18px}
+.mcard-photo:hover .hint,.mcard-photo:focus-visible .hint{opacity:1}
+.mcard-photo .plus{position:absolute;right:-2%;bottom:-2%;width:30%;aspect-ratio:1;border-radius:50%;background:var(--yeah-pink);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(1,1,1,.3);border:2px solid #fff}
+.mcard-photo .plus .ic{width:60%;height:60%}
+.memcard.has-photo .mcard-photo .plus{display:none}
+.nav-user .ini.pic{background-size:cover!important;background-position:center!important;color:transparent!important}
+@media (prefers-reduced-motion:reduce){.memcard.swap{animation:none}}
 .tab{display:none;padding:18px var(--pad) 0}
 .tab.on{display:block}
 .sec-head{margin-bottom:14px}
@@ -242,14 +256,34 @@ html[data-lang="th"] .bignums small{letter-spacing:.02em}
 .pf b{display:block;font-size:12px;font-family:var(--font-display);font-weight:600;margin-bottom:3px}
 .pf small{font-size:10px;color:var(--muted)}
 /* section menu — sits under the profile block, like a website nav */
-.mtabs{position:sticky;top:60px;z-index:34;display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;background:#fff;border-bottom:1px solid var(--line);padding:10px var(--pad)}
-.mtabs::-webkit-scrollbar{display:none}
-html:not([data-screen="hub"]) .mtabs{display:none}
-.mtabs button{flex:none;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 15px;border-radius:999px;border:1.5px solid var(--line);background:#fff;color:var(--ink);font-size:13.5px;font-weight:500;cursor:pointer;white-space:nowrap}
-.mtabs button .ic{width:16px;height:16px;color:var(--muted)}
-.mtabs button.on{background:var(--yeah-black);border-color:transparent;color:#fff}
-.mtabs button.on .ic{color:var(--yeah-yellow)}
-.mtabs .cnt{min-width:19px;height:19px;border-radius:999px;background:var(--yeah-pink);color:#fff;font-family:var(--font-display-alt);font-size:10px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;padding:0 5px}
+/* hub menu — same pattern as the landing page: burger left, logo centred, full-screen numbered menu */
+.burger{display:none;width:44px;height:44px;margin-left:-10px;border:none;background:none;color:#fff;align-items:center;justify-content:center;cursor:pointer}
+.burger .ic{width:26px;height:26px}
+html[data-screen="hub"] .burger{display:inline-flex}
+html[data-screen="hub"] .top img.logo{position:absolute;left:50%;transform:translateX(-50%)}
+.hmenu{position:fixed;inset:0;z-index:80;display:flex;flex-direction:column;padding:14px var(--pad) 30px;color:#fff;overflow:hidden;
+ background:radial-gradient(420px 460px at -10% 22%,rgba(254,0,116,.32),transparent 70%),radial-gradient(420px 420px at 110% 82%,rgba(254,215,50,.16),transparent 70%),#010101;
+ opacity:0;pointer-events:none;transition:opacity .22s var(--ease)}
+.hmenu.open{opacity:1;pointer-events:auto}
+.hmenu-top{display:flex;align-items:center;justify-content:space-between}
+.hmenu-close{width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.12);color:#fff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.hmenu-close .ic{width:22px;height:22px}
+.hlang{position:relative}
+.hlang>button{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 12px 0 8px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.1);color:#fff;cursor:pointer}
+.hlang>button .flag{width:28px;height:28px}
+.hlang>button .ic{width:16px;height:16px;color:var(--yeah-yellow);transition:transform .18s var(--ease)}
+.hlang.open>button .ic{transform:rotate(180deg)}
+.hlang-menu{display:none;position:absolute;right:0;top:calc(100% + 8px);min-width:150px;background:rgba(18,14,22,.96);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:5px;z-index:2}
+.hlang.open .hlang-menu{display:block}
+.hlang-menu button{display:flex;align-items:center;gap:8px;width:100%;border:none;background:none;color:rgba(255,255,255,.85);font-size:13px;padding:10px;border-radius:9px;cursor:pointer}
+.hlang-menu button.on{background:var(--grad);color:#151515;font-weight:600}
+.hlang-menu .flag{width:18px;height:18px}
+.hmenu nav{margin:auto 0;display:flex;flex-direction:column;gap:6px}
+.hmenu nav button{display:block;text-align:left;border:none;background:none;color:#fff;cursor:pointer;padding:10px;border-radius:18px;font-family:var(--font-display);font-size:30px;font-weight:600;letter-spacing:-.02em;line-height:1.15}
+.hmenu nav button small{display:block;margin-bottom:4px;font-family:var(--font-display-alt);font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--yeah-yellow)}
+.hmenu nav button .cnt{display:inline-flex;vertical-align:middle;margin-left:10px;min-width:24px;height:24px;border-radius:999px;background:var(--yeah-pink);color:#fff;font-family:var(--font-display-alt);font-size:12px;font-weight:700;letter-spacing:0;align-items:center;justify-content:center;padding:0 7px}
+.hmenu nav button.on span:first-of-type{color:var(--yeah-yellow)}
+.hmenu nav button:active{background:rgba(255,255,255,.08)}
 /* ===== bottom sheet ===== */
 .scrim{position:fixed;inset:0;z-index:60;background:rgba(1,1,1,.55);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:opacity .24s var(--ease),visibility .24s}
 .scrim.on{opacity:1;visibility:visible}
@@ -277,11 +311,32 @@ html:not([data-screen="hub"]) .mtabs{display:none}
 <body>
 
 <header class="top">
+ <button class="burger" id="burger" aria-label="Open menu" aria-controls="hmenu" aria-expanded="false"><i class="ic" data-lucide="menu"></i></button>
  <img class="logo" src="uploads/logo_yeah_white_label_asso.png" alt="YEAH">
  <span class="sp"></span>
  <button class="langbtn" id="langBtn"><span class="flag flag-th" id="flagCur"></span><span id="langTxt">TH</span></button>
  <button class="iconbtn" id="notifBtn" aria-label="Notifications" style="display:none"><i class="ic" data-lucide="bell"></i><span class="dot"></span></button>
 </header>
+
+<!-- hub menu: replaces the old tab strip, mirrors the landing page's mobile menu -->
+<div class="hmenu" id="hmenu" aria-hidden="true">
+ <div class="hmenu-top">
+  <button class="hmenu-close" id="hmenuClose" aria-label="Close menu"><i class="ic" data-lucide="x"></i></button>
+  <div class="hlang" id="hlang">
+   <button type="button" id="hlangBtn" aria-label="Language"><span class="flag flag-th" id="hflagCur"></span><i class="ic" data-lucide="chevron-down"></i></button>
+   <div class="hlang-menu">
+    <button type="button" data-setlang="th"><span class="flag flag-th"></span>ไทย (TH)</button>
+    <button type="button" data-setlang="en"><span class="flag flag-en"></span>English (EN)</button>
+   </div>
+  </div>
+ </div>
+ <nav id="mtabs" aria-label="Member hub">
+  <button data-tab="status" class="on"><small>01</small><span data-en="Member status" data-th="สถานะสมาชิก">สถานะสมาชิก</span></button>
+  <button data-tab="programs"><small>02</small><span data-en="Programs" data-th="โครงการที่เปิดรับ">โครงการที่เปิดรับ</span><span class="cnt">4</span></button>
+  <button data-tab="history"><small>03</small><span data-en="Applications and history" data-th="ใบสมัครและประวัติ">ใบสมัครและประวัติ</span><span class="cnt">3</span></button>
+  <button data-tab="profile"><small>04</small><span data-en="Profile" data-th="โปรไฟล์">โปรไฟล์</span></button>
+ </nav>
+</div>
 
 <!-- ============ 01 LOGIN ============ -->
 <main class="screen" id="s-login">
@@ -454,28 +509,20 @@ html:not([data-screen="hub"]) .mtabs{display:none}
 <!-- ============ 03 MEMBER HUB ============ -->
 <main class="screen" id="s-hub">
  <div class="hub">
-  <div class="phead">
-   <span class="blob"></span>
-   <div class="phead-row">
-    <span class="avatar" data-field="member.avatar_url"><b>ณศ</b></span>
-    <div>
-     <span class="lvl-badge" data-field="member.membership_level"><i class="ic" data-lucide="lock"></i><span data-en="General Member" data-th="สมาชิกทั่วไป (General)">สมาชิกทั่วไป (General)</span></span>
-     <h1 data-field="member.full_name" style="margin-top:7px">ณิชา ศรีวัฒน์</h1>
-     <p style="font-size:12px;color:rgba(255,255,255,.7)" data-field="member.university">จุฬาฯ · วิศวกรรมคอมพิวเตอร์ · ปี 3</p>
-    </div>
-   </div>
-   <span class="pid">participant_id: YEAH-M-004182</span>
-  </div>
-
-  <nav class="mtabs" id="mtabs">
-   <button data-tab="status" class="on"><i class="ic" data-lucide="gauge"></i><span data-en="Member status" data-th="สถานะสมาชิก">สถานะสมาชิก</span></button>
-   <button data-tab="programs"><i class="ic" data-lucide="rocket"></i><span data-en="Programs" data-th="โครงการที่เปิดรับ">โครงการที่เปิดรับ</span><span class="cnt">4</span></button>
-   <button data-tab="history"><i class="ic" data-lucide="history"></i><span data-en="Applications and history" data-th="ใบสมัครและประวัติ">ใบสมัครและประวัติ</span><span class="cnt">3</span></button>
-   <button data-tab="profile"><i class="ic" data-lucide="user"></i><span data-en="Profile" data-th="โปรไฟล์">โปรไฟล์</span></button>
-  </nav>
-
   <!-- tab: status -->
   <section class="tab on" data-tab="status">
+   <div class="card-block">
+    <h1 class="sr" data-field="member.full_name">ณิชา ศรีวัฒน์</h1>
+    <div class="memcard" id="mcard" data-field="member.membership_level" data-tier="general">
+     <svg id="mcardSvg" viewBox="0 0 856 540" role="img" aria-label="บัตรสมาชิก"></svg>
+     <button type="button" class="mcard-photo" id="mcardPhoto" data-field="member.avatar_url" aria-label="เพิ่มรูปโปรไฟล์"><span class="hint"><i class="ic" data-lucide="camera"></i><span data-en="Photo" data-th="รูป">รูป</span></span><span class="plus"><i class="ic" data-lucide="plus"></i></span></button>
+     <input type="file" id="mcardFile" accept="image/*" hidden>
+    </div>
+    <div class="card-actions">
+     <button class="btn btn-grad btn-sm" data-sheet="share"><i class="ic" data-lucide="share-2"></i><span data-en="Share profile" data-th="แชร์โปรไฟล์">แชร์โปรไฟล์</span></button>
+     <button class="btn btn-ghost btn-sm" data-sheet="edit"><i class="ic" data-lucide="pencil"></i><span data-en="Edit profile" data-th="แก้ไขโปรไฟล์">แก้ไขโปรไฟล์</span></button>
+    </div>
+   </div>
    <div class="sec-head">
     <span class="eyebrow" data-en="Member status" data-th="สถานะสมาชิก">สถานะสมาชิก</span>
     <h2 data-en="You are a General Member" data-th="คุณเป็นสมาชิกทั่วไป">คุณเป็นสมาชิกทั่วไป</h2>
@@ -889,8 +936,11 @@ function applyLang(){
  document.querySelectorAll('[data-en]').forEach(function(el){var v=el.getAttribute(LANG==='en'?'data-en':'data-th');if(v!==null)el.textContent=v});
  document.getElementById('flagCur').className='flag flag-'+LANG;
  document.getElementById('langTxt').textContent=LANG.toUpperCase();
+ document.getElementById('hflagCur').className='flag flag-'+LANG;
+ document.querySelectorAll('.hlang-menu button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-setlang')===LANG)});
  document.getElementById('f_locale').value=LANG;
  renderTier(curTier);renderPrograms();renderSummary();
+ if(window.mcRender)mcRender();
  try{localStorage.setItem('yeah-lang',LANG)}catch(e){}
 }
 document.getElementById('langBtn').addEventListener('click',function(){LANG=LANG==='th'?'en':'th';applyLang()});
@@ -1097,7 +1147,16 @@ function goTab(name){
  document.querySelectorAll('#mtabs button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-tab')===name)});
  window.scrollTo(0,0);icons();
 }
-document.querySelectorAll('#mtabs button').forEach(function(b){b.addEventListener('click',function(){goTab(b.getAttribute('data-tab'))})});
+document.querySelectorAll('#mtabs button').forEach(function(b){b.addEventListener('click',function(){goTab(b.getAttribute('data-tab'));closeMenu()})});
+var hmenu=document.getElementById('hmenu'),burger=document.getElementById('burger'),hlang=document.getElementById('hlang');
+function openMenu(){hmenu.classList.add('open');hmenu.setAttribute('aria-hidden','false');burger.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';icons(hmenu)}
+function closeMenu(){hmenu.classList.remove('open');hmenu.setAttribute('aria-hidden','true');burger.setAttribute('aria-expanded','false');hlang.classList.remove('open');document.body.style.overflow=''}
+burger.addEventListener('click',openMenu);
+document.getElementById('hmenuClose').addEventListener('click',closeMenu);
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&hmenu.classList.contains('open'))closeMenu()});
+document.getElementById('hlangBtn').addEventListener('click',function(e){e.stopPropagation();hlang.classList.toggle('open')});
+hlang.querySelectorAll('[data-setlang]').forEach(function(b){b.addEventListener('click',function(){LANG=b.getAttribute('data-setlang');applyLang();hlang.classList.remove('open')})});
+hmenu.addEventListener('click',function(e){if(!e.target.closest('.hlang'))hlang.classList.remove('open')});
 document.querySelectorAll('[data-goto]').forEach(function(b){b.addEventListener('click',function(){goTab(b.getAttribute('data-goto'))})});
 document.querySelectorAll('.acc>button').forEach(function(b){b.addEventListener('click',function(){b.parentNode.classList.toggle('open')})});
 
@@ -1105,6 +1164,7 @@ document.querySelectorAll('.acc>button').forEach(function(b){b.addEventListener(
 var curTier=0;
 function renderTier(i){
  curTier=i;var T=TIERS[i];
+ window.MC_TIER=i;if(window.mcSetTier)mcSetTier(i);
  var rail=document.getElementById('tierRail');
  rail.innerHTML=TIERS.map(function(x,j){
   return '<button class="rstop'+(j===MY_TIER?' now':'')+(j<MY_TIER?' done':'')+(j===i&&i!==MY_TIER?' sel':'')+'" data-t="'+j+'">'+
@@ -1118,7 +1178,7 @@ function renderTier(i){
  document.getElementById('beneList').innerHTML=T.b.map(function(b){
   return '<div class="bene"><span class="bic"><i class="ic" data-lucide="'+b[0]+'"></i></span><div><b>'+t(b[1],b[2])+'</b></div></div>';
  }).join('');
- icons(document.querySelector('[data-tab="status"]'));
+ icons(document.querySelector('section[data-tab="status"]'));
 }
 
 /* ---------- programs + countdown ---------- */
@@ -1218,6 +1278,9 @@ applyLang();goStep(1);renderTier(0);renderPrograms();icons();countUp();
 var qs=new URLSearchParams(location.search),qScreen=qs.get('screen'),qTab=qs.get('tab');
 if(['login','register','hub'].indexOf(qScreen)>-1)showScreen(qScreen);
 if(qTab)goTab(qTab);
+/* &tier=general|explorer|builder|leader|catalyst (or 0–4) previews that tier and its card */
+var qTier=qs.get('tier'),tierKeys=['general','explorer','builder','leader','catalyst'];
+if(qTier!==null){var ti=tierKeys.indexOf(qTier);if(ti<0&&/^[0-4]$/.test(qTier))ti=+qTier;if(ti>-1)renderTier(ti)}
 if(qs.get('step'))goStep(+qs.get('step'));
 /* &launch=1 auto-plays the key-unlock transition once. The beat before it fires lets the
    login screen paint first, so the frames preview shows what you are transitioning FROM. */
@@ -1230,7 +1293,7 @@ if(qs.get('launch')==='1')setTimeout(function(){var b=document.getElementById('g
    --lk-w is the logo box width; every light anchor is derived from it so the marks and the
    light stay in register at any viewport. */
 #launch{position:fixed;inset:0;z-index:9000;display:none;overflow:hidden;
- --lk-pink:var(--yeah-pink,#FE0074);--lk-yellow:var(--yeah-yellow,#FED732);--lk-w:min(340px,86vw)}
+ --lk-pink:var(--yeah-pink,#FE0074);--lk-yellow:var(--yeah-yellow,#FED732);--lk-w:min(300px,70vw)}
 #launch.on{display:block}
 #launch.done{opacity:0;transition:opacity .45s var(--ease)}
 
@@ -1305,11 +1368,11 @@ if(qs.get('launch')==='1')setTimeout(function(){var b=document.getElementById('g
 /* twist: 90° about the shaft axis, so the round bow turns edge-on */
 #launch .lk-keywrap{position:absolute;inset:0;transform-origin:50% 50%;
  animation:lkTwist .2s cubic-bezier(.62,0,.24,1) .6s both}
-@keyframes lkTwist{from{transform:perspective(560px) rotateX(0)}to{transform:perspective(560px) rotateX(90deg)}}
+@keyframes lkTwist{from{transform:perspective(460px) rotateX(0)}to{transform:perspective(460px) rotateX(90deg)}}
 /* the key is a light source. drop-shadow, not mix-blend-mode: blend modes render
    unreliably under the 3D transform on .lk-keywrap. Radii stay ≤30px so the bow's
    halo doesn't swallow the Y. */
-#launch .lk-key{filter:drop-shadow(0 0 4px rgba(254,215,50,.95)) drop-shadow(0 0 12px rgba(254,215,50,.5)) drop-shadow(0 0 20px rgba(255,140,60,.32))}
+#launch .lk-key{filter:drop-shadow(0 0 3px rgba(254,215,50,.95)) drop-shadow(0 0 9px rgba(254,215,50,.5)) drop-shadow(0 0 16px rgba(255,140,60,.32))}
 
 /* speed lines — the cheapest energy in the sequence; they read as texture, never individually */
 #launch .lk-streak{position:absolute;left:50%;height:2px;opacity:0;mix-blend-mode:screen;
@@ -1448,6 +1511,135 @@ window.yeahLaunch=function(done){
   L._t3=setTimeout(function(){L.className='';L.setAttribute('aria-hidden','true');document.body.style.overflow=''},470);
  },whiteOut+authWait);
 };
+</script>
+<script>
+/* ---------- membership card ----------------------------------------------------
+   One SVG card per tier, drawn in the 856×540 space of the card artwork
+   (yeah_virtual_cards_editable_text.svg). Every text element follows the site
+   language: TH set in Poppins (Prompt carries the Thai glyphs Poppins lacks),
+   EN set in Ibrand, falling back to the system sans when it isn't installed.
+   Prototype: the card follows whichever tier is picked in the member-status tier
+   selector (renderTier calls mcSetTier), so the team can see all five designs.
+   Production reads member.membership_level instead.
+   The photo is held in memory only — the real upload goes to member.avatar_url. */
+(function(){
+ var card=document.getElementById('mcard');if(!card)return;
+ var svg=document.getElementById('mcardSvg'),
+     photoBtn=document.getElementById('mcardPhoto'),file=document.getElementById('mcardFile');
+ var FONT={th:"'Poppins','Prompt','Noto Sans Thai',sans-serif",
+           en:"'Ibrand',system-ui,-apple-system,'Segoe UI','Helvetica Neue',Arial,sans-serif"};
+ var MEMBER={name_th:'ณิชา ศรีวัฒน์',name_en:'Nicha Sriwat',since:'09/2026'};
+ var TIER_CARDS=[
+  {key:'general', th:'ทั่วไป',       en:'General', bg:'#FFFFFF',ink:'#000000',stroke:1},
+  {key:'explorer',th:'นักสำรวจ',     en:'Explorer',bg:'#FFFFFF',ink:'#000000',stroke:1},
+  {key:'builder', th:'นักสร้าง',     en:'Builder', bg:'#FFD731',ink:'#000000'},
+  {key:'leader',  th:'ผู้นำ',         en:'Leader',  bg:'#FF0074',ink:'#FFFFFF'},
+  {key:'catalyst',th:'ผู้จุดประกาย', en:'Catalyst',bg:'#000000',ink:'#FFFFFF'}
+ ];
+ var cur=window.MC_TIER||0,photo=null;
+
+ /* brand shapes, lifted from the card artwork */
+ var P={
+  Y:'M 780.8125 897.589844 L 780.800781 897.589844 C 780.8125 898.070312 780.8125 898.546875 780.8125 899.027344 C 780.8125 934.542969 756.527344 964.390625 723.644531 972.863281 L 723.644531 1032.71875 L 685.480469 1032.71875 L 685.480469 972.863281 C 652.605469 964.398438 628.3125 934.550781 628.3125 899.027344 C 628.3125 898.546875 628.3125 898.070312 628.324219 897.589844 L 628.3125 897.589844 L 628.3125 842.058594 L 666.335938 842.058594 L 666.335938 901.125 C 666.335938 915.296875 674.039062 927.65625 685.480469 934.261719 C 691.097656 937.511719 697.613281 939.359375 704.558594 939.359375 C 711.511719 939.359375 718.027344 937.5 723.644531 934.253906 C 735.085938 927.648438 742.789062 915.285156 742.789062 901.125 L 742.789062 842.058594 L 780.8125 842.058594 Z',
+  A:'M 1024.78125 1033.316406 L 1024.78125 917.484375 C 1025.203125 875.484375 1059.394531 841.558594 1101.496094 841.558594 C 1143.59375 841.558594 1177.789062 875.484375 1178.210938 917.484375 L 1178.21875 1033.316406 L 1120.582031 1033.316406 L 1120.570312 978.027344 A 41.8079 41.8079 0 1 0 1082.417969 978.027344 L 1082.417969 1033.316406 Z',
+  SQ:'M 1369.605469 1033.023438 L 1331.449219 1033.023438 L 1331.449219 982.628906 L 1369.605469 982.628906 Z',
+  K1:'M 951.714844 956.414062 C 943.769531 980.109375 921.386719 997.175781 895.015625 997.175781 L 895.015625 1035.996094 C 942.972656 1035.996094 982.921875 1001.773438 991.785156 956.414062 Z',
+  K2:'M 838.359375 918.253906 C 846.332031 894.609375 868.6875 877.59375 895.015625 877.59375 C 921.347656 877.59375 943.703125 894.609375 951.675781 918.253906 Z M 1066.300781 918.253906 L 991.757812 918.253906 C 982.863281 872.945312 942.933594 838.769531 895.015625 838.769531 C 847.101562 838.769531 807.171875 872.945312 798.277344 918.253906 C 797.910156 920.082031 797.597656 921.917969 797.347656 923.777344 C 796.730469 928.226562 796.410156 932.773438 796.410156 937.386719 C 796.410156 942.003906 796.730469 946.550781 797.347656 951 C 797.589844 952.816406 797.898438 954.625 798.25 956.414062 L 1062.703125 956.414062 C 1060.765625 951.597656 1059.695312 946.34375 1059.695312 940.824219 C 1059.695312 932.511719 1062.125 924.757812 1066.300781 918.253906',
+  K3:'M 1369.609375 842.058594 L 1369.609375 956.375 L 1369.578125 956.375 L 1369.578125 956.414062 L 1062.703125 956.414062 C 1060.765625 951.597656 1059.695312 946.34375 1059.695312 940.824219 C 1059.695312 932.511719 1062.125 924.757812 1066.300781 918.253906 L 1217.109375 918.253906 L 1217.109375 842.058594 L 1255.261719 842.058594 L 1255.261719 918.253906 L 1331.445312 918.253906 L 1331.445312 842.058594 Z',
+  K4:'M 1040 918.25 L 1090 918.25 L 1090 956.41 L 1040 956.41 Z',
+  L1:'M 1255.265625 1033.023438 L 1217.109375 1033.023438 L 1217.109375 982.628906 L 1255.265625 982.628906 Z',
+  LA:'M 1066.800781 917.484375 C 1074.316406 906.339844 1087.054688 899.015625 1101.496094 899.015625 C 1115.933594 899.015625 1128.675781 906.339844 1136.191406 917.484375 C 1136.359375 917.734375 1136.53125 917.992188 1136.691406 918.253906 L 1178.21875 918.253906 C 1178.21875 917.992188 1178.21875 917.734375 1178.210938 917.484375 C 1177.789062 875.484375 1143.59375 841.558594 1101.496094 841.558594 C 1059.394531 841.558594 1025.203125 875.484375 1024.78125 917.484375 L 1024.78125 1033.316406 L 1082.417969 1033.316406 L 1082.417969 978.027344 C 1073.515625 973.453125 1066.472656 965.769531 1062.703125 956.414062 C 1060.765625 951.597656 1059.695312 946.34375 1059.695312 940.824219 C 1059.695312 932.511719 1062.125 924.757812 1066.300781 918.253906 C 1066.460938 917.992188 1066.632812 917.734375 1066.800781 917.484375 M 1120.570312 978.027344 L 1120.570312 1017.53125 L 1120.582031 1017.53125 L 1120.582031 1033.316406 L 1178.21875 1033.316406 L 1178.21875 956.414062 L 1140.285156 956.414062 C 1136.519531 965.769531 1129.476562 973.453125 1120.570312 978.027344'
+ };
+ var PINK='#FF0074',YEL='#FFD731';
+ var DEFS='<defs>'+
+  '<symbol id="mcY" viewBox="0 0 152.50 190.66" overflow="visible"><path transform="translate(-628.312 -842.059)" d="'+P.Y+'"/></symbol>'+
+  '<symbol id="mcA" viewBox="0 0 153.44 191.76" overflow="visible"><path transform="translate(-1024.781 -841.559)" d="'+P.A+'"/></symbol>'+
+  '<symbol id="mcSQ" viewBox="0 0 38.16 50.39" overflow="visible"><path transform="translate(-1331.449 -982.629)" d="'+P.SQ+'"/></symbol>'+
+  '<symbol id="mcKEY" viewBox="0 0 573.20 197.23" overflow="visible"><g transform="translate(-796.410 -838.770)"><path d="'+P.K1+'"/><path d="'+P.K2+'"/><path d="'+P.K3+'"/><path d="'+P.K4+'"/></g></symbol>'+
+  '<linearGradient id="mcGlow" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="856" y2="540"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".45" stop-color="#FFFFFF"/><stop offset=".78" stop-color="#FFEBF5"/><stop offset="1" stop-color="#FFF3CC"/></linearGradient>'+
+  '<radialGradient id="mcWash" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="330" gradientTransform="scale(1 .67)"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".55" stop-color="#FFFFFF" stop-opacity=".97"/><stop offset=".8" stop-color="#FFFFFF" stop-opacity=".6"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>'+
+  '<clipPath id="mcClip"><rect width="856" height="540" rx="34"/></clipPath>'+
+  '<clipPath id="mcAv"><circle cx="126" cy="222" r="70"/></clipPath>'+
+ '</defs>';
+ function use(id,w,h,fill,tf){return '<use href="#'+id+'" width="'+w+'" height="'+h+'" fill="'+fill+'" stroke="'+fill+'" stroke-width="1.2" stroke-linejoin="round" transform="'+tf+'"/>'}
+ var LOGO='<g transform="translate(56 52) scale(0.22933) translate(-628.312 -838.770)">'+
+  '<path fill="'+YEL+'" d="'+P.K1+'"/><path fill="'+YEL+'" d="'+P.K2+'"/><path fill="'+YEL+'" d="'+P.K3+'"/>'+
+  '<path fill="'+PINK+'" d="'+P.L1+'"/><path fill="'+PINK+'" d="'+P.SQ+'"/><path fill="'+PINK+'" d="'+P.LA+'"/><path fill="'+PINK+'" d="'+P.Y+'"/></g>';
+
+ function art(key){
+  var s='',i,r;
+  if(key==='general')return '<rect width="856" height="540" fill="url(#mcGlow)"/>';
+  if(key==='explorer'){
+   for(i=0;i<=16;i++)s+='<line x1="'+i*54+'" y1="0" x2="'+i*54+'" y2="540"/>';
+   for(i=0;i<=11;i++)s+='<line x1="0" y1="'+i*54+'" x2="856" y2="'+i*54+'"/>';
+   return '<g stroke="'+PINK+'" stroke-opacity=".18" stroke-width="1.5">'+s+'</g>'+
+    use('mcKEY',620,213.33,YEL,'translate(440 250)')+use('mcA',260,324.93,PINK,'translate(600 -110)')+
+    use('mcSQ',54,71.32,PINK,'translate(432 432)')+use('mcSQ',54,71.32,'#000000','translate(486 486)');
+  }
+  if(key==='builder'){
+   var H=142.02213;
+   for(i=0;i<6;i++)for(r=0;r<5;r++){
+    var x=470+i*110;
+    s+=i%2?use('mcY',96,120.02,PINK,'translate('+x+' '+(-H/2+r*H)+') rotate(180 48 60.01)')
+          :use('mcY',96,120.02,PINK,'translate('+x+' '+(-H+r*H)+')');
+   }
+   return s+'<rect width="856" height="540" fill="url(#mcWash)"/>';
+  }
+  if(key==='leader')
+   return use('mcKEY',500,172.04,YEL,'translate(300 160)')+
+    use('mcSQ',33.5,44.24,'#FFFFFF','translate(667.14 285.99)')+use('mcSQ',33.5,44.24,'#FFFFFF','translate(766.67 285.99)')+
+    '<rect width="856" height="540" fill="url(#mcWash)"/>';
+  if(key==='catalyst'){
+   for(i=0;i<5;i++)for(r=0;r<6;r++)
+    s+=use('mcA',86,107.48,(i===2&&r===3)?YEL:PINK,'translate('+(445+i*100+(r%2?0:50))+' '+(-105.478+r*119.478)+')');
+   return s;
+  }
+  return '';
+ }
+ function esc(v){return String(v).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+ function lang(){return document.documentElement.getAttribute('data-lang')==='en'?'en':'th'}
+
+ function render(){
+  var L=lang(),T=TIER_CARDS[cur],en=L==='en',f=FONT[L];
+  var name=en?MEMBER.name_en:MEMBER.name_th,
+      tier=en?T.en.toUpperCase():T.th,
+      since=en?'MEMBER SINCE '+MEMBER.since:'สมาชิกตั้งแต่ '+MEMBER.since;
+  var av=photo
+   ? '<image href="'+photo+'" x="56" y="152" width="140" height="140" preserveAspectRatio="xMidYMid slice" clip-path="url(#mcAv)"/>'
+   : '<circle cx="126" cy="222" r="70" fill="#D9D9D9"/><g clip-path="url(#mcAv)" fill="#6E6E6E"><circle cx="126" cy="207" r="26"/><ellipse cx="126" cy="289" rx="52" ry="46"/></g>';
+  svg.innerHTML=DEFS+'<g clip-path="url(#mcClip)"><rect width="856" height="540" fill="'+T.bg+'"/>'+art(T.key)+LOGO+av+
+   '<g font-family="'+f.replace(/"/g,'&quot;')+'" fill="'+T.ink+'">'+
+    '<text x="56" y="362" font-weight="500" font-size="38" data-field="member.full_name">'+esc(name)+'</text>'+
+    '<text x="56" y="468" font-weight="600" font-size="22" letter-spacing="'+(en?3:0)+'">'+esc(tier)+'</text>'+
+    '<text x="56" y="496" font-weight="400" font-size="16" letter-spacing="'+(en?2.1:0)+'" opacity=".8" data-field="member.created_at">'+esc(since)+'</text>'+
+   '</g></g>'+
+   (T.stroke?'<rect x="1" y="1" width="854" height="538" rx="33" fill="none" stroke="#DDD" stroke-width="2"/>':'');
+  svg.setAttribute('aria-label',(en?'Membership card, ':'บัตรสมาชิก ')+(en?T.en:T.th)+' — '+name);
+  card.setAttribute('data-tier',T.key);
+  card.classList.toggle('has-photo',!!photo);
+  photoBtn.setAttribute('aria-label',photo?(en?'Change photo':'เปลี่ยนรูปโปรไฟล์'):(en?'Add photo':'เพิ่มรูปโปรไฟล์'));
+ }
+ window.mcRender=render;
+
+ window.mcSetTier=function(i){
+  if(i===cur||!TIER_CARDS[i])return;
+  cur=i;render();
+  card.classList.remove('swap');void card.offsetWidth;card.classList.add('swap');
+ };
+ photoBtn.addEventListener('click',function(){file.click()});
+ file.addEventListener('change',function(){
+  var f=file.files&&file.files[0];if(!f||!/^image\//.test(f.type))return;
+  var rd=new FileReader();
+  rd.onload=function(){
+   photo=rd.result;render();
+   /* the header chip shows the same photo */
+   document.querySelectorAll('.nav-user .ini').forEach(function(el){el.style.backgroundImage='url("'+photo+'")';el.classList.add('pic')});
+  };
+  rd.readAsDataURL(f);file.value='';
+ });
+
+ render();
+})();
 </script>
 </body>
 </html>

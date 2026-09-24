@@ -48,7 +48,7 @@ a{color:#FE0074}a:hover{color:#C90058}
   <p>Grey areas = photo placeholders · TH/EN toggle in the header (TH default) · the portal reuses the landing page's palette, type and chrome</p>
  </div>
 </div>
-<p class="hint">Desktop and mobile are two separate files, as the PRD requires. Mobile uses a five-step wizard with bottom sheets for every long option list and a section menu under the profile block; desktop uses one dense form and a sticky side rail. Use the tabs above to jump between the three screens; the Google button on login plays a sign-in transition and lands on registration, and finishing registration lands on the member hub. The two platforms deliberately tell different stories at that moment — use the replay buttons to watch either one.</p>
+<p class="hint">Desktop and mobile are two separate files, as the PRD requires. Mobile uses a five-step wizard with bottom sheets for every long option list and a section menu under the profile block; desktop uses one dense form and a sticky side rail. Use the tabs above to jump between the three screens; the Google button on login plays the key-unlock sign-in transition and lands on registration, and finishing registration lands on the member hub. Use the replay buttons to watch it on either frame.</p>
 
 <div class="tabs" id="tabs">
  <button data-screen="login" class="on">01 Login</button>
@@ -59,7 +59,7 @@ a{color:#FE0074}a:hover{color:#C90058}
 <div class="frames">
  <div class="frame m" data-screen-label="Mobile frame">
   <h2><b>Mobile</b> · 390 × 800<br>bottom sheets + progressive disclosure</h2>
-  <button class="replay" data-target="fMobile">Replay rocket launch</button>
+  <button class="replay" data-target="fMobile">Replay key unlock</button>
   <div class="phone"><iframe id="fMobile" src="YEAH%20Portal%20Mobile.html?screen=login" title="YEAH portal — mobile"></iframe></div>
  </div>
  <div class="frame" data-screen-label="Desktop frame">
@@ -74,12 +74,21 @@ a{color:#FE0074}a:hover{color:#C90058}
 
 <div class="notes">
  <p><b>Data contract.</b> Every input carries the field name the backend receives, and every rendered record carries its id — <code>data-program-id</code>, <code>data-application-id</code>, <code>data-participation-id</code>, <code>data-field</code> — so the same data can be read out of the markup without any of it being visible on screen. Full field list, enums and endpoints: <a href="YEAH%20Portal%20Data%20Contract.md">YEAH Portal Data Contract.md</a>.</p>
- <p style="margin-top:10px"><b>Sign-in transition.</b> Clicking through on the login screen plays a full-screen transition before the auth step. <b>Mobile</b> launches a pink rocket that climbs off the top of the screen and fills the frame with its exhaust (2.2s flight, white at 2.65s). <b>Desktop</b> flies the yellow key element in from off-screen, threads it through the keyhole in the A, turns it 90° so the round bow goes edge-on and leaves the straight bar of the unlocked wordmark, then rips a horizontal flare across the frame that blooms into the loading screen (white at 1.3s). Both then hold for 850ms, standing in for the real Google round-trip — that hold is the only number to change when live auth goes in. Both respect <code>prefers-reduced-motion</code>, which skips to a still mark and a short wash.</p>
+ <p style="margin-top:10px"><b>Sign-in transition.</b> Clicking through on the login screen plays a full-screen key unlock before the auth step, on both platforms. The yellow key element flies in from off-screen, threads the keyhole in the A — behind the letter's left leg, in front of its right — then turns 90° about its own shaft so the round bow goes edge-on and leaves the straight bar of the unlocked wordmark. A horizontal flare rips across the frame and blooms into the white loading screen. Blank white at 1.3s, then an 850ms hold standing in for the real Google round-trip — that hold is the only number to change when live auth goes in. Mobile runs the same beats with the mark sized to the phone and a flare shaped for a portrait frame. Both respect <code>prefers-reduced-motion</code>, which skips to a still unlocked mark and a short wash.</p>
+ <p style="margin-top:10px"><b>Rocket variant.</b> The mobile login previously launched a pink rocket that climbed off the top of the screen and filled the frame with its exhaust. It is archived intact at <a href="YEAH%20Portal%20Mobile%20Rocket.html?screen=login&amp;launch=1">YEAH Portal Mobile Rocket.html</a> — one commented line in this file's script swaps the mobile frame back to it.</p>
  <p style="margin-top:10px"><b>Deep links.</b> Both files accept <code>?screen=login|register|hub</code> and <code>&amp;launch=1</code>, which auto-plays the sign-in transition once on load (this is what the replay buttons use); mobile also takes <code>&amp;tab=status|programs|history|profile</code> and <code>&amp;step=1–5</code>.</p>
 </div>
 
 <script>
-var SRC={fMobile:'YEAH%20Portal%20Mobile.html',fDesktop:'YEAH%20Portal%20Desktop.html'};
+/* ---- Mobile transition variant ------------------------------------------------
+   The mobile frame ships the key unlock, same as desktop. To put the rocket launch
+   back, comment the first pair and uncomment the second — nothing else to touch.  */
+var MOBILE_FILE='YEAH%20Portal%20Mobile.html',        MOBILE_REPLAY='Replay key unlock';
+// var MOBILE_FILE='YEAH%20Portal%20Mobile%20Rocket.html', MOBILE_REPLAY='Replay rocket launch';
+/* ------------------------------------------------------------------------------ */
+var SRC={fMobile:MOBILE_FILE,fDesktop:'YEAH%20Portal%20Desktop.html'};
+document.getElementById('fMobile').src=MOBILE_FILE+'?screen=login';
+document.querySelector('.replay[data-target="fMobile"]').textContent=MOBILE_REPLAY;
 document.querySelectorAll('#tabs button').forEach(function(b){
  b.addEventListener('click',function(){
   document.querySelectorAll('#tabs button').forEach(function(x){x.classList.toggle('on',x===b)});

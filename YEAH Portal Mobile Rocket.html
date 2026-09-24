@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>YEAH Portal — Login · Register · Member Hub (Mobile)</title>
+<title>YEAH Portal — Login · Register · Member Hub (Mobile · rocket transition)</title>
 <link rel="stylesheet" href="_ds/yeah-design-system-b0ca81dd-b5dc-493d-a727-a84faf7a457a/tokens/fonts.css">
 <link rel="stylesheet" href="_ds/yeah-design-system-b0ca81dd-b5dc-493d-a727-a84faf7a457a/tokens/colors.css">
 <link rel="stylesheet" href="_ds/yeah-design-system-b0ca81dd-b5dc-493d-a727-a84faf7a457a/tokens/typography.css">
@@ -1219,216 +1219,117 @@ var qs=new URLSearchParams(location.search),qScreen=qs.get('screen'),qTab=qs.get
 if(['login','register','hub'].indexOf(qScreen)>-1)showScreen(qScreen);
 if(qTab)goTab(qTab);
 if(qs.get('step'))goStep(+qs.get('step'));
-/* &launch=1 auto-plays the key-unlock transition once. The beat before it fires lets the
+/* &launch=1 auto-plays the rocket launch transition once. The beat before it fires lets the
    login screen paint first, so the frames preview shows what you are transitioning FROM. */
 if(qs.get('launch')==='1')setTimeout(function(){var b=document.getElementById('googleBtn');if(b)b.click()},600);
 })();
 </script>
-<!-- ============ KEY-UNLOCK TRANSITION (login → auth) ============ -->
+<!-- ============ ROCKET LAUNCH TRANSITION (login → auth) ============
+     Archived alternative to the key unlock that "YEAH Portal Mobile.html" now ships.
+     Kept intact so the rocket can be put back from "YEAH Portal Frames.html" by
+     swapping one line; see the "Mobile transition variant" block in that file. -->
 <style>
-/* Brand marks use the design-system tokens; literal fallbacks keep file:// previews on-brand.
-   --lk-w is the logo box width; every light anchor is derived from it so the marks and the
-   light stay in register at any viewport. */
+/* Pink is the design-system --yeah-pink (#FE0074); fallback kept inline for file:// use. */
 #launch{position:fixed;inset:0;z-index:9000;display:none;overflow:hidden;
- --lk-pink:var(--yeah-pink,#FE0074);--lk-yellow:var(--yeah-yellow,#FED732);--lk-w:min(340px,86vw)}
+ --lx-pink:var(--yeah-pink,#FE0074);--lx-pink-300:var(--yeah-pink-300,#FF66AC);--lx-size:96px}
 #launch.on{display:block}
-#launch.done{opacity:0;transition:opacity .45s var(--ease)}
+#launch.done{opacity:0;transition:opacity .45s cubic-bezier(.2,.8,.2,1)}
 
-/* Opaque ground, deliberately not pure black: screen(src,#000) is a no-op, so the additive
-   layers need something to lift. Every screen layer below is a DIRECT child of #launch —
-   nested inside .lk-logo its transform would isolate the blend and silently do nothing. */
-#launch .lk-atmo{position:absolute;inset:0;opacity:0;
- background:radial-gradient(120% 90% at 50% 50%,#140A12 0%,#060207 62%,#020103 100%);
- animation:lkAtmo .14s linear both}
-@keyframes lkAtmo{to{opacity:1}}
+/* night sky that deepens the moment the engine lights */
+#launch .lx-sky{position:absolute;inset:0;opacity:0;
+ background:radial-gradient(130% 80% at 50% 108%,rgba(254,0,116,.34) 0%,rgba(24,4,16,.78) 48%,rgba(4,1,6,.94) 100%);
+ animation:lxSky .55s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes lxSky{to{opacity:1}}
 
-/* drifting bloom — the login screen's own .blob idiom, see .auth-brand .b1/.b2 above */
-#launch .lk-blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:0;pointer-events:none;
- mix-blend-mode:screen;animation:lkBlob 1.2s var(--ease) .04s both,lkDrift 9s ease-in-out .04s infinite alternate}
-#launch .lk-blob.b1{width:280px;height:280px;top:-60px;right:-14%;
- background:radial-gradient(circle at 32% 32%,var(--lk-yellow),#FF7A3C 70%)}
-#launch .lk-blob.b2{width:300px;height:300px;bottom:-110px;left:-16%;
- background:radial-gradient(circle at 35% 35%,var(--lk-pink),#B8005B 75%)}
-@keyframes lkBlob{0%{opacity:0}15%{opacity:.42}70%{opacity:.46}100%{opacity:0}}
-@keyframes lkDrift{from{transform:translate(-14px,10px)}to{transform:translate(18px,-16px)}}
+/* the craft: ignition shake, then a hard accelerating climb off the top of the screen */
+#launch .lx-craft{position:absolute;left:50%;bottom:calc(-1 * var(--lx-size) * .12);width:var(--lx-size);margin-left:calc(var(--lx-size) / -2);
+ will-change:transform;animation:lxFly 1.9s linear .3s both}
+@keyframes lxFly{0%{transform:translateY(0)}10%{transform:translateY(-2.5vh)}30%{transform:translateY(-16vh)}50%{transform:translateY(-48vh)}75%{transform:translateY(-125vh)}100%{transform:translateY(-195vh)}}
+#launch .lx-shake{animation:lxShake .1s linear 0s 3}
+@keyframes lxShake{0%,100%{transform:translate(0,0)}25%{transform:translate(-1.5px,1px)}50%{transform:translate(1.5px,-1px)}75%{transform:translate(-1px,-1.5px)}}
 
-/* volumetric haze on the key's axis — soft gradient stops, no blur filter to rasterise */
-#launch .lk-haze{position:absolute;left:0;right:0;top:50%;height:26vh;margin-top:-13vh;opacity:0;
- mix-blend-mode:screen;transform:scaleX(.6);
- background:radial-gradient(58% 50% at 50% 50%,rgba(255,214,120,.24) 0%,rgba(254,0,116,.13) 46%,rgba(255,255,255,0) 78%);
- animation:lkHaze 1s var(--ease) .06s both}
-@keyframes lkHaze{0%{opacity:0;transform:scaleX(.6)}16%{opacity:.9;transform:scaleX(1)}72%{opacity:.9}100%{opacity:0;transform:scaleX(1.12)}}
+#launch .lx-rocket{display:block;width:100%;height:auto;
+ filter:drop-shadow(0 0 10px rgba(254,0,116,.9)) drop-shadow(0 0 34px rgba(254,0,116,.55)) drop-shadow(0 0 70px rgba(254,0,116,.3))}
 
-/* both marks share one viewBox, so the pink shapes and the yellow key stay in register.
-   DOM order inside .lk-logo IS paint order (no z-index anywhere) and is load-bearing:
-   pink → bar → trail → key → .lk-front. Nothing may be inserted after .lk-front. */
-#launch .lk-logo{position:absolute;left:50%;top:50%;width:var(--lk-w);aspect-ratio:741.3 / 197.23;
- transform:translate(-50%,-50%)}
-#launch .lk-logo svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+/* jet blast straight out of the nozzle */
+#launch .lx-jet{position:absolute;left:50%;top:81%;width:calc(var(--lx-size) * .46);height:calc(var(--lx-size) * 1.3);
+ margin-left:calc(var(--lx-size) * -.23);transform-origin:50% 0;opacity:0;
+ background:radial-gradient(52% 50% at 50% 6%,#fff 0%,#FFF0F7 16%,var(--lx-pink-300) 34%,var(--lx-pink) 56%,rgba(254,0,116,.35) 78%,rgba(254,0,116,0) 100%);
+ filter:blur(1px);animation:lxIgnite .3s cubic-bezier(.2,.8,.2,1) forwards,lxFlicker .07s steps(2,end) .3s infinite alternate}
+@keyframes lxIgnite{from{opacity:0;transform:scaleY(.15)}to{opacity:1;transform:scaleY(1)}}
+@keyframes lxFlicker{from{transform:scaleY(1) scaleX(1)}to{transform:scaleY(1.18) scaleX(.9)}}
 
-#launch .lk-pink,#launch .lk-front{opacity:0;transform:scale(.94);transform-origin:50% 50%;
- filter:saturate(1) brightness(1);
- animation:lkPink .2s var(--ease) .04s both,lkBlowout .14s linear .81s both}
-@keyframes lkPink{to{opacity:1;transform:scale(1)}}
-/* over-exposure: saturate() must come FIRST. brightness() alone cannot reach white from
-   #FE0074 — its green channel is 0, so it clips to magenta. Desaturating collapses the mark
-   to its luminance grey, which then blows out cleanly. Both functions must appear in BOTH
-   keyframes in the same order, or the list is non-interpolable and steps instead of ramping. */
-@keyframes lkBlowout{from{filter:saturate(1) brightness(1)}to{filter:saturate(.08) brightness(6)}}
+/* exhaust column trailing all the way down behind the craft */
+#launch .lx-trail{position:absolute;left:50%;top:88%;width:calc(var(--lx-size) * .3);height:200vh;
+ margin-left:calc(var(--lx-size) * -.15);opacity:0;transform-origin:50% 0;
+ background:linear-gradient(180deg,rgba(255,255,255,.95) 0%,rgba(254,0,116,.6) 12%,rgba(254,0,116,.22) 42%,rgba(254,0,116,0) 100%);
+ filter:blur(6px);animation:lxTrail 1.9s cubic-bezier(.2,.8,.2,1) .3s both}
+@keyframes lxTrail{0%{opacity:0;transform:scaleX(.4)}22%{opacity:1;transform:scaleX(1)}100%{opacity:.8;transform:scaleX(1.7)}}
 
-/* …and the flattened key reads as the straight yellow bar of the unlocked mark */
-#launch .lk-bar{opacity:0;filter:saturate(1) brightness(1);
- animation:lkBar .08s linear .78s both,lkBlowout .14s linear .81s both}
-@keyframes lkBar{to{opacity:1}}
+/* smoke: the exhaust boils up and swallows the page */
+#launch .lx-puff{position:absolute;left:50%;bottom:-62vmax;width:124vmax;height:124vmax;margin-left:-62vmax;border-radius:50%;
+ opacity:0;transform:scale(.1);filter:blur(14px);
+ background:radial-gradient(closest-side,rgba(255,255,255,.98) 0%,rgba(255,255,255,.82) 38%,rgba(255,236,245,.4) 62%,rgba(255,255,255,0) 78%)}
+#launch .p1{animation:lxPuff 1.5s cubic-bezier(.25,.7,.3,1) 1.2s both}
+#launch .p2{left:30%;bottom:-68vmax;animation:lxPuff 1.5s cubic-bezier(.25,.7,.3,1) 1.32s both}
+#launch .p3{left:70%;bottom:-66vmax;animation:lxPuff 1.45s cubic-bezier(.25,.7,.3,1) 1.42s both}
+@keyframes lxPuff{0%{opacity:0;transform:scale(.12) translateY(8vh)}50%{opacity:.5}100%{opacity:.92;transform:scale(2) translateY(-40vh)}}
 
-/* light trail: rides the key on its own wrapper with the IDENTICAL lkInsert timing — a one
-   frame desync shows as a detached streak. Blur is baked in statically; only scaleX animates,
-   and stretching a blurred texture anisotropically is what gives the anamorphic smear. */
-#launch .lk-trailslide{position:absolute;inset:0;will-change:transform;
- animation:lkInsert .46s cubic-bezier(.3,.72,.24,1) .06s both}
-#launch .lk-trail{position:absolute;top:50%;left:calc(var(--lk-w) * -.55);width:calc(var(--lk-w) * .96);
- height:calc(var(--lk-w) * .075);margin-top:calc(var(--lk-w) * -.0375);opacity:0;
- transform-origin:100% 50%;will-change:transform,opacity;filter:blur(7px);border-radius:999px;
- background:linear-gradient(90deg,rgba(254,215,50,0) 0%,rgba(254,215,50,.55) 44%,rgba(255,246,214,.95) 86%,#fff 100%);
- animation:lkTrail .54s cubic-bezier(.25,.6,.2,1) .06s both}
-@keyframes lkTrail{0%{opacity:0;transform:scaleX(.3)}18%{opacity:1}62%{opacity:.95;transform:scaleX(1.9)}100%{opacity:0;transform:scaleX(.15)}}
+/* the mist settles into a clean white loading screen */
+#launch .lx-white{position:absolute;inset:0;background:#fff;opacity:0;animation:lxWhite .9s linear 1.75s both}
+@keyframes lxWhite{to{opacity:1}}
 
-/* seat punch, insert and turn each need their OWN element: two animations on one element
-   both targeting `transform` means the later one owns the entire timeline, delay included. */
-#launch .lk-keypop{position:absolute;inset:0;animation:lkPop .14s var(--ease) .52s both}
-@keyframes lkPop{0%{transform:scale(1)}45%{transform:scale(1.035)}100%{transform:scale(1)}}
-/* insert: the key flies in from off-screen and threads the keyhole in the A.
-   -50vw clears the centred logo box, -60% clears the key's own reach inside it. */
-#launch .lk-keyslide{position:absolute;inset:0;will-change:transform;
- animation:lkInsert .46s cubic-bezier(.3,.72,.24,1) .06s both}
-@keyframes lkInsert{from{transform:translateX(calc(-50vw - 60%))}to{transform:translateX(0)}}
-/* twist: 90° about the shaft axis, so the round bow turns edge-on */
-#launch .lk-keywrap{position:absolute;inset:0;transform-origin:50% 50%;
- animation:lkTwist .2s cubic-bezier(.62,0,.24,1) .6s both}
-@keyframes lkTwist{from{transform:perspective(560px) rotateX(0)}to{transform:perspective(560px) rotateX(90deg)}}
-/* the key is a light source. drop-shadow, not mix-blend-mode: blend modes render
-   unreliably under the 3D transform on .lk-keywrap. Radii stay ≤30px so the bow's
-   halo doesn't swallow the Y. */
-#launch .lk-key{filter:drop-shadow(0 0 4px rgba(254,215,50,.95)) drop-shadow(0 0 12px rgba(254,215,50,.5)) drop-shadow(0 0 20px rgba(255,140,60,.32))}
+#launch .lx-load{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+ opacity:0;transition:opacity .35s cubic-bezier(.2,.8,.2,1);color:#141414;text-align:center;padding:0 24px}
+#launch.wait .lx-load{opacity:1}
+#launch .lx-load .d{display:flex;gap:7px}
+#launch .lx-load .d i{width:9px;height:9px;border-radius:50%;background:var(--lx-pink);animation:lxDot 1s ease-in-out infinite}
+#launch .lx-load .d i:nth-child(2){animation-delay:.14s}
+#launch .lx-load .d i:nth-child(3){animation-delay:.28s}
+@keyframes lxDot{0%,100%{opacity:.25;transform:translateY(0)}45%{opacity:1;transform:translateY(-6px)}}
+#launch .lx-load p{font-size:13.5px;color:#6A6A6A}
 
-/* speed lines — the cheapest energy in the sequence; they read as texture, never individually */
-#launch .lk-streak{position:absolute;left:50%;height:2px;opacity:0;mix-blend-mode:screen;
- background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,246,214,.9),rgba(255,255,255,0));
- animation:lkStreak .22s linear both}
-#launch .lk-streak.s1{top:42%;width:24vw;animation-delay:.1s}
-#launch .lk-streak.s2{top:53.5%;width:32vw;animation-delay:.16s}
-#launch .lk-streak.s3{top:47%;width:18vw;animation-delay:.24s}
-@keyframes lkStreak{0%{opacity:0;transform:translateX(-62vw)}25%{opacity:.85}100%{opacity:0;transform:translateX(52vw)}}
-
-/* unlock: anamorphic flare rips along the shaft axis — the most readable beat in the
-   sequence, so it carries the highest contrast */
-#launch .lk-flare{position:absolute;left:50%;top:50%;width:230vw;height:14vh;
- margin-left:-115vw;margin-top:-7vh;opacity:0;mix-blend-mode:screen;transform:scale(.14,.3);
- will-change:transform,opacity;
- background:radial-gradient(50% 50% at 50% 50%,#fff 0%,#fff 30%,rgba(255,240,210,.85) 52%,rgba(255,214,120,.4) 72%,rgba(255,214,120,0) 100%);
- animation:lkFlare .5s linear .8s both}
-/* two motions in one flash, so per-keyframe easing: a sharp decelerating rip to full width,
-   then an accelerating vertical bloom that swallows the frame. */
-@keyframes lkFlare{
- 0%{opacity:0;transform:scale(.14,.3);animation-timing-function:cubic-bezier(.15,.85,.3,1)}
- 16%{opacity:1}
- 34%{transform:scale(1,.45);animation-timing-function:cubic-bezier(.5,0,.75,.6)}
- 100%{opacity:1;transform:scale(1,20)}}
-
-#launch .lk-white{position:absolute;inset:0;background:#fff;opacity:0;animation:lkWhite .18s linear 1.12s both}
-@keyframes lkWhite{to{opacity:1}}
-
-#launch .lk-load{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
- opacity:0;transition:opacity .35s var(--ease);color:#141414;text-align:center;padding:0 24px}
-#launch.wait .lk-load{opacity:1}
-#launch .lk-load .d{display:flex;gap:7px}
-#launch .lk-load .d i{width:9px;height:9px;border-radius:50%;background:var(--lk-pink);animation:lkDot 1s ease-in-out infinite}
-#launch .lk-load .d i:nth-child(2){animation-delay:.14s}
-#launch .lk-load .d i:nth-child(3){animation-delay:.28s}
-@keyframes lkDot{0%,100%{opacity:.25;transform:translateY(0)}45%{opacity:1;transform:translateY(-6px)}}
-#launch .lk-load p{font-size:13.5px;color:#6A6A6A}
-
-/* prefers-reduced-motion: hold the unlocked mark still, then wash to the white loading
-   screen. Layers whose base rule is opacity:0 just get animation:none; the blobs get
-   display:none so their infinite drift cannot survive. The .rm class and the media query
-   must be kept identical — JS sets .rm from matchMedia, the query catches mid-session changes. */
-#launch.rm .lk-blob{display:none}
-#launch.rm .lk-haze,#launch.rm .lk-trailslide,#launch.rm .lk-trail,
-#launch.rm .lk-streak,#launch.rm .lk-keypop,#launch.rm .lk-keyslide,#launch.rm .lk-keywrap,
-#launch.rm .lk-flare{animation:none}
-#launch.rm .lk-atmo{animation:lkAtmo .01s linear both}
-#launch.rm .lk-pink,#launch.rm .lk-front{animation:lkPink .01s linear both}
-#launch.rm .lk-bar{animation:lkBar .01s linear both}
-#launch.rm .lk-white{animation:lkWhite .28s linear .28s both}
+/* prefers-reduced-motion: no flight, just a quick wash to the white loading screen */
+#launch.rm .lx-sky,#launch.rm .lx-craft,#launch.rm .lx-puff{display:none}
+#launch.rm .lx-white{animation:lxWhite .28s linear forwards}
 @media (prefers-reduced-motion:reduce){
- #launch .lk-blob{display:none}
- #launch .lk-haze,#launch .lk-trailslide,#launch .lk-trail,
- #launch .lk-streak,#launch .lk-keypop,#launch .lk-keyslide,#launch .lk-keywrap,
- #launch .lk-flare{animation:none}
- #launch .lk-atmo{animation:lkAtmo .01s linear both}
- #launch .lk-pink,#launch .lk-front{animation:lkPink .01s linear both}
- #launch .lk-bar{animation:lkBar .01s linear both}
- #launch .lk-white{animation:lkWhite .28s linear .28s both}
+ #launch .lx-sky,#launch .lx-craft,#launch .lx-puff{display:none}
+ #launch .lx-white{animation:lxWhite .28s linear forwards}
 }
 </style>
 
 <div id="launch" role="status" aria-live="polite" aria-hidden="true">
- <span class="lk-atmo"></span>
- <span class="lk-blob b1"></span><span class="lk-blob b2"></span>
- <span class="lk-haze"></span>
-
- <div class="lk-logo">
-  <!-- YEAH pink shapes — solid "a" with keyhole -->
-  <svg class="lk-pink" viewBox="628.3125 838.769531 741.296875 197.226563" aria-hidden="true">
-   <g fill="var(--lk-pink)">
-    <path d="M 1255.265625 1033.023438 L 1217.109375 1033.023438 L 1217.109375 982.628906 L 1255.265625 982.628906 Z M 1255.265625 1033.023438"/>
-    <path d="M 1369.605469 1033.023438 L 1331.449219 1033.023438 L 1331.449219 982.628906 L 1369.605469 982.628906 Z M 1369.605469 1033.023438"/>
-    <path d="M 1024.78125 1033.316406 L 1024.78125 917.484375 C 1025.203125 875.484375 1059.394531 841.558594 1101.496094 841.558594 C 1143.59375 841.558594 1177.789062 875.484375 1178.210938 917.484375 L 1178.21875 1033.316406 L 1120.582031 1033.316406 L 1120.582031 1017.53125 L 1120.570312 1017.53125 L 1120.570312 978.027344 A 41.807874 41.807874 0 1 0 1082.417969 978.027344 L 1082.417969 1033.316406 Z"/>
-    <path d="M 780.8125 897.589844 L 780.800781 897.589844 C 780.8125 898.070312 780.8125 898.546875 780.8125 899.027344 C 780.8125 934.542969 756.527344 964.390625 723.644531 972.863281 L 723.644531 1032.71875 L 685.480469 1032.71875 L 685.480469 972.863281 C 652.605469 964.398438 628.3125 934.550781 628.3125 899.027344 C 628.3125 898.546875 628.3125 898.070312 628.324219 897.589844 L 628.3125 897.589844 L 628.3125 842.058594 L 666.335938 842.058594 L 666.335938 901.125 C 666.335938 915.296875 674.039062 927.65625 685.480469 934.261719 C 691.097656 937.511719 697.613281 939.359375 704.558594 939.359375 C 711.511719 939.359375 718.027344 937.5 723.644531 934.253906 C 735.085938 927.648438 742.789062 915.285156 742.789062 901.125 L 742.789062 842.058594 L 780.8125 842.058594 Z M 780.8125 897.589844"/>
-   </g>
-  </svg>
-
-  <!-- the straight bar the key leaves behind once it has been turned; sits at the key's depth -->
-  <svg class="lk-bar" viewBox="628.3125 838.769531 741.296875 197.226563" aria-hidden="true">
-   <rect x="796.410156" y="918.253906" width="573.199219" height="38.160156" fill="var(--lk-yellow)"/>
-  </svg>
-
-  <!-- light trail, riding the key on its own wrapper -->
-  <div class="lk-trailslide"><span class="lk-trail"></span></div>
-
-  <!-- YEAH yellow key element — bow on the left, shaft running right -->
-  <div class="lk-keypop"><div class="lk-keyslide"><div class="lk-keywrap">
-   <svg class="lk-key" viewBox="628.3125 838.769531 741.296875 197.226563" aria-hidden="true">
-    <g fill="var(--lk-yellow)">
-     <path d="M 951.714844 956.414062 C 943.769531 980.109375 921.386719 997.175781 895.015625 997.175781 L 895.015625 1035.996094 C 942.972656 1035.996094 982.921875 1001.773438 991.785156 956.414062 Z M 951.714844 956.414062"/>
-     <path d="M 838.359375 918.253906 C 846.332031 894.609375 868.6875 877.59375 895.015625 877.59375 C 921.347656 877.59375 943.703125 894.609375 951.675781 918.253906 Z M 1066.300781 918.253906 L 991.757812 918.253906 C 982.863281 872.945312 942.933594 838.769531 895.015625 838.769531 C 847.101562 838.769531 807.171875 872.945312 798.277344 918.253906 C 797.910156 920.082031 797.597656 921.917969 797.347656 923.777344 C 796.730469 928.226562 796.410156 932.773438 796.410156 937.386719 C 796.410156 942.003906 796.730469 946.550781 797.347656 951 C 797.589844 952.816406 797.898438 954.625 798.25 956.414062 L 1062.703125 956.414062 C 1060.765625 951.597656 1059.695312 946.34375 1059.695312 940.824219 C 1059.695312 932.511719 1062.125 924.757812 1066.300781 918.253906"/>
-     <path d="M 1369.609375 842.058594 L 1369.609375 956.375 L 1369.578125 956.375 L 1369.578125 956.414062 L 1062.703125 956.414062 C 1060.765625 951.597656 1059.695312 946.34375 1059.695312 940.824219 C 1059.695312 932.511719 1062.125 924.757812 1066.300781 918.253906 L 1217.109375 918.253906 L 1217.109375 842.058594 L 1255.261719 842.058594 L 1255.261719 918.253906 L 1331.445312 918.253906 L 1331.445312 842.058594 Z M 1369.609375 842.058594"/>
+ <span class="lx-sky"></span>
+ <span class="lx-puff p1"></span><span class="lx-puff p2"></span><span class="lx-puff p3"></span>
+ <div class="lx-craft">
+  <div class="lx-shake">
+   <span class="lx-trail"></span>
+   <span class="lx-jet"></span>
+   <svg class="lx-rocket" viewBox="0 0 64 100" aria-hidden="true">
+    <g fill="var(--lx-pink)">
+     <path d="M19.5 56.5c-7.5 6.4-11 15.2-10.6 25.2 6.2-1.6 11.4-4.7 15.6-9.3z"/>
+     <path d="M44.5 56.5c7.5 6.4 11 15.2 10.6 25.2-6.2-1.6-11.4-4.7-15.6-9.3z"/>
+     <path d="M32 2.5c8.6 8.6 14 18.6 16.3 30 1.6 8 1.4 16.2-.6 24.4-1 4.1-2.6 8-4.7 11.7H20.9c-2.1-3.7-3.6-7.6-4.7-11.7-2-8.2-2.2-16.4-.6-24.4C17.9 21.1 23.4 11.1 32 2.5z"/>
+     <path d="M23.4 72.6h17.2l3 9.4a2 2 0 0 1-1.9 2.6H22.3a2 2 0 0 1-1.9-2.6z"/>
     </g>
+    <circle cx="32" cy="34" r="9.4" fill="#2A0416"/>
+    <circle cx="32" cy="34" r="9.4" fill="none" stroke="var(--lx-pink-300)" stroke-width="2.4"/>
+    <path d="M27.6 29.8a6.2 6.2 0 0 1 4.4-1.8" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".8"/>
    </svg>
-  </div></div></div>
-
-  <!-- the A's left half, redrawn on top so the key threads through the letter.
-       Must stay last inside .lk-logo — DOM order is paint order here. -->
-  <svg class="lk-front" viewBox="628.3125 838.769531 741.296875 197.226563" aria-hidden="true">
-   <defs><clipPath id="lkALeft"><rect x="1000" y="800" width="101.496094" height="280"/></clipPath></defs>
-   <path clip-path="url(#lkALeft)" fill="var(--lk-pink)" d="M 1024.78125 1033.316406 L 1024.78125 917.484375 C 1025.203125 875.484375 1059.394531 841.558594 1101.496094 841.558594 C 1143.59375 841.558594 1177.789062 875.484375 1178.210938 917.484375 L 1178.21875 1033.316406 L 1120.582031 1033.316406 L 1120.582031 1017.53125 L 1120.570312 1017.53125 L 1120.570312 978.027344 A 41.807874 41.807874 0 1 0 1082.417969 978.027344 L 1082.417969 1033.316406 Z"/>
-  </svg>
+  </div>
  </div>
-
- <span class="lk-streak s1"></span><span class="lk-streak s2"></span><span class="lk-streak s3"></span>
- <span class="lk-flare"></span>
- <span class="lk-white"></span>
- <div class="lk-load">
+ <span class="lx-white"></span>
+ <div class="lx-load">
   <span class="d"><i></i><i></i><i></i></span>
   <p id="lxMsg">กำลังพาไปยังหน้ายืนยันตัวตนของ Google…</p>
  </div>
 </div>
 
 <script>
-/* Key insert → 90° turn → unlock burst → white-out, then hand off to the auth step.
-   Key launches on click: insert .06–.52s, turn ends .8s, unlock flash .8s and it keeps
-   blooming into the white-out, full at 1.3s. `authWait` only stands in for the real
-   Google round-trip. */
+/* Rocket launch → white-out, then hand off to the auth step.
+   Flight is 2.2s (ignition .3s + climb 1.9s); the rocket clears the top at ~1.7s
+   and the white mist finishes at 2.65s.
+   `authWait` only stands in for the real Google round-trip. */
 window.yeahLaunch=function(done){
  var L=document.getElementById('launch');
  if(!L){done();return}
@@ -1436,7 +1337,7 @@ window.yeahLaunch=function(done){
  if(msg)msg.textContent=(document.documentElement.getAttribute('data-lang')==='en')
   ? 'Taking you to Google sign-in…' : 'กำลังพาไปยังหน้ายืนยันตัวตนของ Google…';
  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
- var whiteOut=reduce?580:1300,authWait=reduce?250:850;
+ var whiteOut=reduce?300:2650,authWait=reduce?250:850;
  clearTimeout(L._t1);clearTimeout(L._t2);clearTimeout(L._t3);
  L.className='on'+(reduce?' rm':'');
  L.setAttribute('aria-hidden','false');
@@ -1449,5 +1350,6 @@ window.yeahLaunch=function(done){
  },whiteOut+authWait);
 };
 </script>
+
 </body>
 </html>

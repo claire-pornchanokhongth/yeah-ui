@@ -13,6 +13,8 @@ Static HTML prototypes for the YEAH Future Talent site and member portal. No bui
 
 `YEAH Landing.html` and `YEAH Landing v2.html` are earlier drafts, kept for reference. `YEAH Landing v3.html` is current — use that one.
 
+`YEAH Portal Mobile Rocket.html` is the mobile portal with the earlier rocket-launch sign-in transition instead of the key unlock. Everything else in it is identical to `YEAH Portal Mobile.html`. One commented line in `YEAH Portal Frames.html` swaps the mobile frame between the two.
+
 ## Notes
 
 - Grey blocks are photo placeholders; lorem ipsum / placeholder copy is not final.

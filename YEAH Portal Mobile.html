@@ -909,7 +909,10 @@ function countUp(){
 }
 /* ---------- screens ---------- */
 function showScreen(s){document.documentElement.setAttribute('data-screen',s);window.scrollTo(0,0);icons();if(s==='login')countUp()}
-document.getElementById('googleBtn').addEventListener('click',function(){showScreen('register');toast(t('เชื่อมบัญชี Google แล้ว','Google account linked'))});
+document.getElementById('googleBtn').addEventListener('click',function(){
+ var go=function(){showScreen('register');toast(t('เชื่อมบัญชี Google แล้ว','Google account linked'))};
+ if(window.yeahLaunch)window.yeahLaunch(go);else go();
+});
 document.getElementById('emailBtn').addEventListener('click',function(){toast(t('ส่งลิงก์เข้าสู่ระบบไปที่อีเมลแล้ว','Sign-in link sent to your inbox'))});
 document.getElementById('signOut').addEventListener('click',function(){showScreen('login')});
 
@@ -1216,7 +1219,134 @@ var qs=new URLSearchParams(location.search),qScreen=qs.get('screen'),qTab=qs.get
 if(['login','register','hub'].indexOf(qScreen)>-1)showScreen(qScreen);
 if(qTab)goTab(qTab);
 if(qs.get('step'))goStep(+qs.get('step'));
+/* &launch=1 auto-plays the rocket launch transition once. The beat before it fires lets the
+   login screen paint first, so the frames preview shows what you are transitioning FROM. */
+if(qs.get('launch')==='1')setTimeout(function(){var b=document.getElementById('googleBtn');if(b)b.click()},600);
 })();
 </script>
+<!-- ============ ROCKET LAUNCH TRANSITION (login → auth) ============ -->
+<style>
+/* Pink is the design-system --yeah-pink (#FE0074); fallback kept inline for file:// use. */
+#launch{position:fixed;inset:0;z-index:9000;display:none;overflow:hidden;
+ --lx-pink:var(--yeah-pink,#FE0074);--lx-pink-300:var(--yeah-pink-300,#FF66AC);--lx-size:96px}
+#launch.on{display:block}
+#launch.done{opacity:0;transition:opacity .45s cubic-bezier(.2,.8,.2,1)}
+
+/* night sky that deepens the moment the engine lights */
+#launch .lx-sky{position:absolute;inset:0;opacity:0;
+ background:radial-gradient(130% 80% at 50% 108%,rgba(254,0,116,.34) 0%,rgba(24,4,16,.78) 48%,rgba(4,1,6,.94) 100%);
+ animation:lxSky .55s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes lxSky{to{opacity:1}}
+
+/* the craft: ignition shake, then a hard accelerating climb off the top of the screen */
+#launch .lx-craft{position:absolute;left:50%;bottom:calc(-1 * var(--lx-size) * .12);width:var(--lx-size);margin-left:calc(var(--lx-size) / -2);
+ will-change:transform;animation:lxFly 1.9s linear .3s both}
+@keyframes lxFly{0%{transform:translateY(0)}10%{transform:translateY(-2.5vh)}30%{transform:translateY(-16vh)}50%{transform:translateY(-48vh)}75%{transform:translateY(-125vh)}100%{transform:translateY(-195vh)}}
+#launch .lx-shake{animation:lxShake .1s linear 0s 3}
+@keyframes lxShake{0%,100%{transform:translate(0,0)}25%{transform:translate(-1.5px,1px)}50%{transform:translate(1.5px,-1px)}75%{transform:translate(-1px,-1.5px)}}
+
+#launch .lx-rocket{display:block;width:100%;height:auto;
+ filter:drop-shadow(0 0 10px rgba(254,0,116,.9)) drop-shadow(0 0 34px rgba(254,0,116,.55)) drop-shadow(0 0 70px rgba(254,0,116,.3))}
+
+/* jet blast straight out of the nozzle */
+#launch .lx-jet{position:absolute;left:50%;top:81%;width:calc(var(--lx-size) * .46);height:calc(var(--lx-size) * 1.3);
+ margin-left:calc(var(--lx-size) * -.23);transform-origin:50% 0;opacity:0;
+ background:radial-gradient(52% 50% at 50% 6%,#fff 0%,#FFF0F7 16%,var(--lx-pink-300) 34%,var(--lx-pink) 56%,rgba(254,0,116,.35) 78%,rgba(254,0,116,0) 100%);
+ filter:blur(1px);animation:lxIgnite .3s cubic-bezier(.2,.8,.2,1) forwards,lxFlicker .07s steps(2,end) .3s infinite alternate}
+@keyframes lxIgnite{from{opacity:0;transform:scaleY(.15)}to{opacity:1;transform:scaleY(1)}}
+@keyframes lxFlicker{from{transform:scaleY(1) scaleX(1)}to{transform:scaleY(1.18) scaleX(.9)}}
+
+/* exhaust column trailing all the way down behind the craft */
+#launch .lx-trail{position:absolute;left:50%;top:88%;width:calc(var(--lx-size) * .3);height:200vh;
+ margin-left:calc(var(--lx-size) * -.15);opacity:0;transform-origin:50% 0;
+ background:linear-gradient(180deg,rgba(255,255,255,.95) 0%,rgba(254,0,116,.6) 12%,rgba(254,0,116,.22) 42%,rgba(254,0,116,0) 100%);
+ filter:blur(6px);animation:lxTrail 1.9s cubic-bezier(.2,.8,.2,1) .3s both}
+@keyframes lxTrail{0%{opacity:0;transform:scaleX(.4)}22%{opacity:1;transform:scaleX(1)}100%{opacity:.8;transform:scaleX(1.7)}}
+
+/* smoke: the exhaust boils up and swallows the page */
+#launch .lx-puff{position:absolute;left:50%;bottom:-62vmax;width:124vmax;height:124vmax;margin-left:-62vmax;border-radius:50%;
+ opacity:0;transform:scale(.1);filter:blur(14px);
+ background:radial-gradient(closest-side,rgba(255,255,255,.98) 0%,rgba(255,255,255,.82) 38%,rgba(255,236,245,.4) 62%,rgba(255,255,255,0) 78%)}
+#launch .p1{animation:lxPuff 1.5s cubic-bezier(.25,.7,.3,1) 1.2s both}
+#launch .p2{left:30%;bottom:-68vmax;animation:lxPuff 1.5s cubic-bezier(.25,.7,.3,1) 1.32s both}
+#launch .p3{left:70%;bottom:-66vmax;animation:lxPuff 1.45s cubic-bezier(.25,.7,.3,1) 1.42s both}
+@keyframes lxPuff{0%{opacity:0;transform:scale(.12) translateY(8vh)}50%{opacity:.5}100%{opacity:.92;transform:scale(2) translateY(-40vh)}}
+
+/* the mist settles into a clean white loading screen */
+#launch .lx-white{position:absolute;inset:0;background:#fff;opacity:0;animation:lxWhite .9s linear 1.75s both}
+@keyframes lxWhite{to{opacity:1}}
+
+#launch .lx-load{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+ opacity:0;transition:opacity .35s cubic-bezier(.2,.8,.2,1);color:#141414;text-align:center;padding:0 24px}
+#launch.wait .lx-load{opacity:1}
+#launch .lx-load .d{display:flex;gap:7px}
+#launch .lx-load .d i{width:9px;height:9px;border-radius:50%;background:var(--lx-pink);animation:lxDot 1s ease-in-out infinite}
+#launch .lx-load .d i:nth-child(2){animation-delay:.14s}
+#launch .lx-load .d i:nth-child(3){animation-delay:.28s}
+@keyframes lxDot{0%,100%{opacity:.25;transform:translateY(0)}45%{opacity:1;transform:translateY(-6px)}}
+#launch .lx-load p{font-size:13.5px;color:#6A6A6A}
+
+/* prefers-reduced-motion: no flight, just a quick wash to the white loading screen */
+#launch.rm .lx-sky,#launch.rm .lx-craft,#launch.rm .lx-puff{display:none}
+#launch.rm .lx-white{animation:lxWhite .28s linear forwards}
+@media (prefers-reduced-motion:reduce){
+ #launch .lx-sky,#launch .lx-craft,#launch .lx-puff{display:none}
+ #launch .lx-white{animation:lxWhite .28s linear forwards}
+}
+</style>
+
+<div id="launch" role="status" aria-live="polite" aria-hidden="true">
+ <span class="lx-sky"></span>
+ <span class="lx-puff p1"></span><span class="lx-puff p2"></span><span class="lx-puff p3"></span>
+ <div class="lx-craft">
+  <div class="lx-shake">
+   <span class="lx-trail"></span>
+   <span class="lx-jet"></span>
+   <svg class="lx-rocket" viewBox="0 0 64 100" aria-hidden="true">
+    <g fill="var(--lx-pink)">
+     <path d="M19.5 56.5c-7.5 6.4-11 15.2-10.6 25.2 6.2-1.6 11.4-4.7 15.6-9.3z"/>
+     <path d="M44.5 56.5c7.5 6.4 11 15.2 10.6 25.2-6.2-1.6-11.4-4.7-15.6-9.3z"/>
+     <path d="M32 2.5c8.6 8.6 14 18.6 16.3 30 1.6 8 1.4 16.2-.6 24.4-1 4.1-2.6 8-4.7 11.7H20.9c-2.1-3.7-3.6-7.6-4.7-11.7-2-8.2-2.2-16.4-.6-24.4C17.9 21.1 23.4 11.1 32 2.5z"/>
+     <path d="M23.4 72.6h17.2l3 9.4a2 2 0 0 1-1.9 2.6H22.3a2 2 0 0 1-1.9-2.6z"/>
+    </g>
+    <circle cx="32" cy="34" r="9.4" fill="#2A0416"/>
+    <circle cx="32" cy="34" r="9.4" fill="none" stroke="var(--lx-pink-300)" stroke-width="2.4"/>
+    <path d="M27.6 29.8a6.2 6.2 0 0 1 4.4-1.8" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".8"/>
+   </svg>
+  </div>
+ </div>
+ <span class="lx-white"></span>
+ <div class="lx-load">
+  <span class="d"><i></i><i></i><i></i></span>
+  <p id="lxMsg">กำลังพาไปยังหน้ายืนยันตัวตนของ Google…</p>
+ </div>
+</div>
+
+<script>
+/* Rocket launch → white-out, then hand off to the auth step.
+   Flight is 2.2s (ignition .3s + climb 1.9s); the rocket clears the top at ~1.7s
+   and the white mist finishes at 2.65s.
+   `authWait` only stands in for the real Google round-trip. */
+window.yeahLaunch=function(done){
+ var L=document.getElementById('launch');
+ if(!L){done();return}
+ var msg=document.getElementById('lxMsg');
+ if(msg)msg.textContent=(document.documentElement.getAttribute('data-lang')==='en')
+  ? 'Taking you to Google sign-in…' : 'กำลังพาไปยังหน้ายืนยันตัวตนของ Google…';
+ var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ var whiteOut=reduce?300:2650,authWait=reduce?250:850;
+ clearTimeout(L._t1);clearTimeout(L._t2);clearTimeout(L._t3);
+ L.className='on'+(reduce?' rm':'');
+ L.setAttribute('aria-hidden','false');
+ document.body.style.overflow='hidden';
+ L._t1=setTimeout(function(){L.classList.add('wait')},whiteOut);
+ L._t2=setTimeout(function(){
+  done();
+  L.classList.add('done');
+  L._t3=setTimeout(function(){L.className='';L.setAttribute('aria-hidden','true');document.body.style.overflow=''},470);
+ },whiteOut+authWait);
+};
+</script>
+
 </body>
 </html>

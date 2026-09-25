@@ -144,10 +144,9 @@ html[data-lang="th"] .bignums small{letter-spacing:.02em}
 .rail::-webkit-scrollbar{display:none}
 .rstop{flex:none;width:120px;scroll-snap-align:start;border:1.5px solid var(--line);border-radius:16px;background:#fff;padding:14px 12px;text-align:left;cursor:pointer}
 .rstop .ic{width:20px;height:20px;color:#B6B6B6;margin-bottom:8px}
-.rstop small{display:block;font-family:var(--font-display-alt);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#A8A8A8}
-.rstop b{display:block;font-family:var(--font-display);font-size:15px;font-weight:600;margin-top:2px}
+.rstop b{display:block;font-family:var(--font-display);font-size:15px;font-weight:600}
 .rstop.now{background:var(--yeah-black);border-color:transparent}
-.rstop.now b{color:#fff}.rstop.now small{color:var(--yeah-yellow)}.rstop.now .ic{color:var(--yeah-yellow)}
+.rstop.now b{color:#fff}.rstop.now .ic{color:var(--yeah-yellow)}
 .rstop.done{border-color:var(--ok)}.rstop.done .ic{color:var(--ok)}
 .rstop.sel{outline:3px solid rgba(254,215,50,.85);outline-offset:2px}
 .meter{height:9px;border-radius:99px;background:#EDEDED;overflow:hidden;margin:10px 0 8px}
@@ -483,14 +482,14 @@ html:not([data-screen="hub"]) .mtabs{display:none}
    </div>
    <div class="rail" id="tierRail"></div>
    <div class="card" style="padding:16px;margin-bottom:14px">
-    <div style="display:flex;justify-content:space-between;font-size:12.5px"><b id="tierName">สมาชิกทั่วไป (General Member)</b><span class="muted" id="tierEyebrow">Level 00</span></div>
-    <p class="hint" id="tierDesc" style="margin-top:6px">ระดับตั้งต้นที่ทุกคนได้รับทันทีที่ลงทะเบียนเสร็จ เมื่อใบสมัครแรกได้รับการตอบรับ ระดับของคุณจะขยับเป็น Level 1 Explorer</p>
+    <div style="display:flex;justify-content:space-between;font-size:12.5px"><b id="tierName">สมาชิกทั่วไป (General Member)</b></div>
+    <p class="hint" id="tierDesc" style="margin-top:6px">ระดับตั้งต้นที่ทุกคนได้รับทันทีที่ลงทะเบียนเสร็จ เมื่อใบสมัครแรกได้รับการตอบรับ ระดับของคุณจะขยับเป็น Explorer</p>
     <div class="meter"><i style="width:8%"></i></div>
     <div id="beneList" style="margin-top:6px"></div>
     <div class="locked-note" id="lockedNote">
      <i class="ic" data-lucide="lock"></i>
      <div>
-      <b data-en="Level 1 · Explorer is locked" data-th="Level 1 · Explorer ยังล็อกอยู่">Level 1 · Explorer ยังล็อกอยู่</b>
+      <b data-en="Explorer is locked" data-th="Explorer ยังล็อกอยู่">Explorer ยังล็อกอยู่</b>
       <p data-en="Apply to any open program and get accepted. Nothing else is required." data-th="สมัครโครงการที่เปิดรับและได้รับการตอบรับ เพียงเท่านี้">สมัครโครงการที่เปิดรับและได้รับการตอบรับ เพียงเท่านี้</p>
       <div class="track"><i class="on"></i><i></i><i></i></div>
      </div>
@@ -577,7 +576,7 @@ html:not([data-screen="hub"]) .mtabs{display:none}
      <div style="flex:1"><h4>Creative Media Clinic</h4><p class="role">clinic · <span data-en="Participant · 1 day" data-th="ผู้เข้าร่วม · 1 วัน">ผู้เข้าร่วม · 1 วัน</span></p>
       <div class="dims"><span class="dim">Collab <b>+1</b></span><span class="dim">Adapt <b>+1</b></span></div>
       <span class="st st-verified"><i class="ic" data-lucide="badge-check"></i>Verified</span>
-      <span class="cred"><i class="ic" data-lucide="award"></i>Level 01</span></div>
+      <span class="cred"><i class="ic" data-lucide="award"></i><span data-en="Participation certificate" data-th="ใบรับรองการเข้าร่วม">ใบรับรองการเข้าร่วม</span></span></div>
     </div>
     <div class="row" data-participation-id="PT-2026-0391">
      <span class="dblock"><b>12</b><small>ส.ค.</small></span>
@@ -590,7 +589,7 @@ html:not([data-screen="hub"]) .mtabs{display:none}
      <div style="flex:1"><h4>AI Prototyping Bootcamp · C2</h4><p class="role">bootcamp · <span data-en="Team member · 6 weeks" data-th="สมาชิกทีม · 6 สัปดาห์">สมาชิกทีม · 6 สัปดาห์</span></p>
       <div class="dims"><span class="dim">Hard <b>+2</b></span><span class="dim">Exec <b>+2</b></span><span class="dim">Collab <b>+1</b></span></div>
       <span class="st st-verified"><i class="ic" data-lucide="badge-check"></i>Verified</span>
-      <span class="cred"><i class="ic" data-lucide="award"></i>Level 02</span></div>
+      <span class="cred"><i class="ic" data-lucide="award"></i><span data-en="Skill certificate" data-th="ใบรับรองทักษะ">ใบรับรองทักษะ</span></span></div>
     </div>
     <div class="row" data-participation-id="PT-2026-0344">
      <span class="dblock"><b>08</b><small>ก.ค.</small></span>
@@ -851,29 +850,29 @@ var PROGRAMS=[
   req:['ไม่ต้องแนบหลักฐาน'],req_en:['No evidence needed']}
 ];
 var MEMBER_LEVEL='general',MY_TIER=0;
-var LEVEL_LABEL={general:'General Member','1':'Level 1 Explorer','2':'Level 2 Builder','3':'Level 3 Leader','4':'Level 4 Catalyst'};
+var LEVEL_LABEL={general:'General Member','1':'Explorer','2':'Builder','3':'Leader','4':'Catalyst'};
 var TIERS=[
- {eyebrow:'Level 00',name_th:'สมาชิกทั่วไป (General Member)',name_en:'General Member',
-  d_th:'ระดับตั้งต้นที่ทุกคนได้รับทันทีที่ลงทะเบียนเสร็จ เมื่อใบสมัครแรกได้รับการตอบรับ ระดับของคุณจะขยับเป็น Level 1 Explorer',
-  d_en:'The default tier assigned the moment you finish registering. Your first accepted application moves you to Level 1, Explorer.',
+ {name_th:'สมาชิกทั่วไป (General Member)',name_en:'General Member',
+  d_th:'ระดับตั้งต้นที่ทุกคนได้รับทันทีที่ลงทะเบียนเสร็จ เมื่อใบสมัครแรกได้รับการตอบรับ ระดับของคุณจะขยับเป็น Explorer',
+  d_en:'The default tier assigned the moment you finish registering. Your first accepted application moves you to Explorer.',
   icon:'lock',label:'General',
   b:[['user-plus','เข้าร่วมคอมมูนิตี้','Join the community'],['calendar-days','สมัครอีเวนต์ได้','Apply to events'],['file-text','สร้างโปรไฟล์และเก็บหลักฐาน','Build a profile, collect evidence']]},
- {eyebrow:'Level 01',name_th:'Explorer',name_en:'Explorer',
+ {name_th:'Explorer',name_en:'Explorer',
   d_th:'ระดับเริ่มต้นสำหรับสมาชิกที่เข้าร่วมโครงการแรกและกำลังสำรวจว่าทักษะของตัวเองเหมาะกับอะไร',
   d_en:'The first tier for members who have entered a project and are exploring where their skills fit.',
   icon:'compass',label:'Explorer',
   b:[['user-plus','โครงการแรกของคุณ','Your first project'],['users','ทำเนียบสมาชิก','Member directory'],['badge-check','Credential 01','Credential 01']]},
- {eyebrow:'Level 02',name_th:'Builder',name_en:'Builder',
+ {name_th:'Builder',name_en:'Builder',
   d_th:'สำหรับสมาชิกที่กำลังลงมือทำโครงการจริงและสะสมหลักฐานการเติบโตของตัวเอง',
   d_en:'For members actively executing projects and building up evidence of how they grow.',
   icon:'hammer',label:'Builder',
   b:[['hammer','โปรเจกต์กับพาร์ตเนอร์','Partner projects'],['handshake','จับคู่ทีม','Team matching'],['badge-check','Credential 02','Credential 02']]},
- {eyebrow:'Level 03',name_th:'Leader',name_en:'Leader',
+ {name_th:'Leader',name_en:'Leader',
   d_th:'สำหรับสมาชิกระดับสูงที่รับบทบาทผู้นำในโครงการของ YEAH',
   d_en:'For advanced members taking on leadership roles inside YEAH initiatives.',
   icon:'flag',label:'Leader',
   b:[['flag','นำทีมในโครงการ','Lead a project team'],['network','เข้าถึงเมนเทอร์','Mentor access'],['presentation','เวทีพิตช์และ Demo Day','Pitch nights and demo day']]},
- {eyebrow:'Level 04',name_th:'Catalyst',name_en:'Catalyst',
+ {name_th:'Catalyst',name_en:'Catalyst',
   d_th:'ระดับสูงสุด สำหรับสมาชิกที่สร้างผลกระทบสูงและปั้นคนรุ่นถัดไป',
   d_en:'The highest tier: members driving high impact and building the next generation.',
   icon:'zap',label:'Catalyst',
@@ -1108,10 +1107,9 @@ function renderTier(i){
  var rail=document.getElementById('tierRail');
  rail.innerHTML=TIERS.map(function(x,j){
   return '<button class="rstop'+(j===MY_TIER?' now':'')+(j<MY_TIER?' done':'')+(j===i&&i!==MY_TIER?' sel':'')+'" data-t="'+j+'">'+
-   '<i class="ic" data-lucide="'+x.icon+'"></i><small>'+x.eyebrow+'</small><b>'+x.label+'</b></button>';
+   '<i class="ic" data-lucide="'+x.icon+'"></i><b>'+x.label+'</b></button>';
  }).join('');
  rail.querySelectorAll('.rstop').forEach(function(b){b.addEventListener('click',function(){renderTier(+b.getAttribute('data-t'))})});
- document.getElementById('tierEyebrow').textContent=T.eyebrow;
  document.getElementById('tierName').textContent=t(T.name_th,T.name_en);
  document.getElementById('tierDesc').textContent=t(T.d_th,T.d_en);
  document.getElementById('lockedNote').style.display=i===MY_TIER?'flex':'none';
@@ -1152,7 +1150,7 @@ function renderPrograms(){
     '<div class="elig"><span class="lbl">'+t('ระดับที่สมัครได้','Levels that can apply')+'</span><div class="elig-row">'+levelRow(p.levels)+'</div></div>'+
     '<div style="display:flex;gap:9px;margin-top:14px">'+
      (closed||full||!eligible
-      ? '<button class="btn btn-ghost btn-sm" style="flex:1" disabled>'+(closed?t('ปิดรับแล้ว','Closed'):(full?t('เต็มแล้ว','Full'):t('ต้องถึง '+LEVEL_LABEL[p.levels[0]],'Needs '+LEVEL_LABEL[p.levels[0]])))+'</button>'
+      ? '<button class="btn btn-ghost btn-sm" style="flex:1" disabled>'+(closed?t('ปิดรับแล้ว','Closed'):(full?t('เต็มแล้ว','Full'):t('ต้องถึงระดับ '+LEVEL_LABEL[p.levels[0]],'Needs '+LEVEL_LABEL[p.levels[0]])))+'</button>'
       : '<button class="btn btn-grad btn-sm" style="flex:1" data-apply="'+p.id+'">'+t('สมัครเข้าร่วม','Apply')+'</button>')+
      '<button class="btn btn-ghost btn-sm" data-apply="'+p.id+'">'+t('รายละเอียด','Details')+'</button></div>'+
    '</div>';

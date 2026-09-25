@@ -44,6 +44,7 @@ is true **and** every required field below is filled.
 | `google_sub` | string | yes | Primary key. Hidden input. |
 | `auth_provider` | string | yes | `google` |
 | `first_name`, `last_name` | string | yes | Pre-filled from Google, editable |
+| `first_name_en`, `last_name_en` | string | yes | English name, typed by the member. Latin letters, space, `.` `'` `-` only. Every name shown in EN mode (hub, card, saved QR picture) reads these |
 | `birthdate` | date `YYYY-MM-DD` | yes | Used only for age-banded eligibility |
 | `email` | string | yes | Contact address; may differ from `email_login` |
 | `email_login` | string | yes | The Google account's address |
@@ -114,7 +115,7 @@ One read model backs the whole page. Shape:
 | `3` | Leader | Taking leadership roles inside initiatives |
 | `4` | Catalyst | Top performers driving impact and building the next generation |
 
-`general` renders as the **locked state before Level 1**, with a three-step progress track
+`general` renders as the **locked state before Explorer**, with a three-step progress track
 (profile complete · application sent · accepted). The same names are used on the landing page
 (`YEAH Landing v3.html`) and must stay in sync.
 
@@ -139,7 +140,7 @@ mentor or partner verifies the evidence** — the front end never increments any
 | `intake`, `seats_taken` | "27/40" plus the seat bar; `seats_taken >= intake` disables Apply |
 | `starts_at`, `ends_at`, `duration_label`, `location` | Meta row |
 | `apply_deadline` (ISO 8601, +07:00) | **DD:HH:MM countdown.** Under 48h it flips to the high-contrast state; past the deadline the card reads Closed and Apply is disabled |
-| `eligible_levels[]` | Five checkboxes `general,1,2,3,4`. A level not in the list renders unchecked; the member's own level is highlighted; if their level is absent, Apply is replaced by "Needs Level n" |
+| `eligible_levels[]` | Five checkboxes `general,1,2,3,4`. A level not in the list renders unchecked; the member's own level is highlighted; if their level is absent, Apply is replaced by "Needs <tier name>" (tier names only — the UI shows no level numbers) |
 
 ### `applications[]`
 
@@ -170,7 +171,7 @@ Credential levels follow the design brief: 01 Certificate of Participation, 02 C
 |---|---|---|
 | Apply to a program | `POST /api/applications` | `program_id`, `participant_id`, `motivation` (≤500, required), `evidence_url` (required, URL), `visibility`, `status: "submitted"`, `submitted_at` |
 | Submit evidence | `POST /api/evidence` | `evidence_type` ∈ `yeah_activity` \| `project_output` \| `employment_outcome`, `activity_id`, `skill_dimension`, `evidence_url`, `description`, `status: "submitted"` — the UI sets no skill delta |
-| Edit profile | `PATCH /api/members/me` | any registration field; `google_sub` is never editable |
+| Edit profile | `PATCH /api/members/me` | any registration field; `google_sub` is never editable. Also `resume_file` (PDF/DOC/DOCX ≤5 MB — send as `multipart/form-data`; stored and returned as `member.resume_url`), `portfolio_url`, `linkedin_url` (must match `linkedin.com/in/…`) |
 | Share profile | `PATCH /api/members/me/visibility` | per-item booleans: display name + level, skill counts, credentials, contact email |
 | Withdraw application | `DELETE /api/applications/{id}` | — |
 | Export history | `GET /api/members/me/participations.csv` | — |
@@ -182,7 +183,8 @@ Credential levels follow the design brief: 01 Certificate of Participation, 02 C
 - It never computes or displays a skill `+1` that has not come back verified from the server.
 - It never treats email as an identity key.
 - It never enables submit on an unconsented form, and it stores the consent **version**.
-- It shows `general` as a real state, not as an empty Level 1.
+- It shows `general` as a real state, not as an empty Explorer.
+- It shows tiers by name only (General Member, Explorer, Builder, Leader, Catalyst), never with a level number.
 - Deadlines, seat counts and eligibility are read from data; the four sample programs in each file
   (`PROGRAMS` array, top of the script block) are the only place to change them.
 
@@ -193,5 +195,5 @@ Credential levels follow the design brief: 01 Certificate of Participation, 02 C
   and animate up on load; point them at `GET /api/stats` when it exists.
 - Whether `birthdate` is needed at registration at all, or only when a program has an age band.
 - Whether `track_interest` should become required once tracks are fixed.
-- Level 3 panel and president approval screens are out of scope here; only the member-facing
+- The YEAH Certified (credential 03) panel and president approval screens are out of scope here; only the member-facing
   credential state (`active` / `revoked`) is rendered.

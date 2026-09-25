@@ -38,13 +38,16 @@ html[data-screen="register"] #screen-register,
 html[data-screen="hub"] #screen-hub{display:block}
 /* ===== nav (same chrome as landing) ===== */
 .nav{position:sticky;top:0;z-index:50;height:var(--nav-h);background:rgba(5,4,7,.9);backdrop-filter:blur(18px) saturate(1.5);-webkit-backdrop-filter:blur(18px) saturate(1.5);border-bottom:1px solid rgba(255,255,255,.12)}
-.nav .wrap{display:flex;align-items:center;gap:14px;height:100%}
+.nav .wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px;height:100%}
+.nav .wrap>a:first-child{justify-self:start;display:inline-flex}
 .nav-logo{height:32px;width:auto}
-.nav-tabs{display:flex;gap:2px;margin-left:18px}
+/* menu sits in the page centre, like the landing nav; the 1fr side columns keep it there and
+   only let it drift left when the right-hand group is wider than its half */
+.nav-tabs{display:flex;gap:2px}
 .nav-tabs a{font-size:13.5px;font-weight:500;white-space:nowrap;color:rgba(255,255,255,.82);padding:9px 12px;border-radius:999px;transition:background .14s var(--ease),color .14s}
 .nav-tabs a:hover,.nav-tabs a.on{background:rgba(255,255,255,.14);color:#fff}
 html:not([data-screen="hub"]) .nav-tabs{display:none}
-.nav-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.nav-right{grid-column:3;justify-self:end;display:flex;align-items:center;gap:10px;white-space:nowrap}
 .lang{position:relative}
 .lang-btn{display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 10px 0 6px;border-radius:999px;border:none;background:rgba(255,255,255,.24);cursor:pointer;transition:background .14s var(--ease)}
 .lang-btn:hover{background:rgba(255,255,255,.34)}
@@ -60,13 +63,29 @@ html:not([data-screen="hub"]) .nav-tabs{display:none}
 .lang-menu .flag{width:18px;height:18px}
 .nav-user{display:flex;align-items:center;gap:10px;padding:5px 14px 5px 5px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);cursor:pointer}
 html:not([data-screen="hub"]) .nav-user,html:not([data-screen="hub"]) .nav-bell{display:none}
-.nav-bell{position:relative;width:38px;height:38px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;transition:background .14s var(--ease)}
-.nav-bell:hover,.nav-bell.on{background:rgba(255,255,255,.24);color:#fff}
+.bell{position:relative}
+html:not([data-screen="hub"]) .bell{display:none}
+.nav-bell{position:relative;width:38px;height:38px;border-radius:50%;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;transition:background .14s var(--ease)}
+.nav-bell:hover,.bell.open .nav-bell{background:rgba(255,255,255,.24);color:#fff}
 .nav-bell .ic{width:18px;height:18px}
 .nav-bell .cnt{position:absolute;top:-4px;right:-5px;min-width:18px;height:18px;border-radius:999px;background:var(--yeah-pink);color:#fff;border:2px solid #0B0A0D;font-family:var(--font-display-alt);font-size:9.5px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 4px}
-.nav-user b.ini{width:30px;height:30px;border-radius:50%;background:var(--grad);color:#151515;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:13px;flex:none}
+.nav-user b.ini{width:30px;height:30px;border-radius:50%;background:#D9D9D9;overflow:hidden;display:block;flex:none}
+.nav-user b.ini svg{display:block;width:100%;height:100%}
+.nav-user .ini.pic svg{display:none}
 .nav-user b{font-size:12.5px;font-weight:600;color:#fff}
 .nav-user small{display:block;font-family:var(--font-display-alt);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--yeah-yellow)}
+/* not enough room for the name beside a centred menu — keep the avatar only */
+@media (max-width:1180px){.nav-user{padding:4px}.nav-user>div{display:none}}
+/* notification panel — drops from the bell */
+.notif-pop{position:absolute;right:-8px;top:calc(100% + 12px);width:400px;max-height:min(560px,calc(100vh - var(--nav-h) - 30px));display:flex;flex-direction:column;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:18px;box-shadow:0 26px 60px -24px rgba(1,1,1,.55);overflow:hidden;z-index:70;white-space:normal;
+ opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .16s var(--ease),transform .16s var(--ease),visibility .16s}
+.bell.open .notif-pop{opacity:1;visibility:visible;transform:none}
+.notif-pop header{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:16px 18px 14px;border-bottom:1px solid var(--line)}
+.notif-pop header h2{font-size:18px;font-weight:600;margin-top:2px}
+.notif-pop .list{overflow:auto}
+.notif-pop .notif>div{flex:1;min-width:0}
+.notif-pop .notif p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+@media (prefers-reduced-motion:reduce){.notif-pop{transition:none}}
 /* ===== buttons ===== */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 26px;border-radius:999px;border:none;font-family:var(--font-display-alt);font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:transform .14s var(--ease),box-shadow .14s var(--ease),background .14s}
 .btn .ic{width:17px;height:17px}
@@ -192,6 +211,7 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
 .phead .meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;color:var(--muted)}
 .phead .meta span{display:inline-flex;align-items:center;gap:6px}
 .phead .meta .ic{width:15px;height:15px}
+.phead .meta+.meta{margin-top:-2px}
 .phead-side{margin-left:auto;display:flex;flex-direction:column;gap:10px;align-items:stretch}
 /* membership card — artwork is 856×540; shadow scaled from the artwork's dy10 / σ14 / 18% */
 .memcard{position:relative;aspect-ratio:856/540;border-radius:4%/6.3%;box-shadow:0 5px 16px rgba(1,1,1,.18),0 1px 3px rgba(1,1,1,.06);flex:none}
@@ -335,6 +355,23 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
 .pf .bd{padding:11px 13px}
 .pf b{display:block;font-size:12.5px;font-family:var(--font-display);font-weight:600;margin-bottom:4px}
 .pf small{font-size:10.5px;color:var(--muted)}
+/* CV / resume picker (edit profile) */
+.filepick{position:relative}
+.filepick input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.fp-drop{display:flex;align-items:center;gap:12px;padding:14px 16px;border:1.5px dashed #CFCFCF;border-radius:14px;background:#FAFAFA;cursor:pointer;transition:border-color .14s var(--ease),background .14s var(--ease)}
+.fp-drop:hover,.filepick.drag .fp-drop{border-color:var(--yeah-pink);background:#FFF5F9}
+.filepick input:focus-visible~.fp-drop,.filepick input:focus-visible~.fp-file{outline:2.5px solid var(--yeah-pink);outline-offset:2px}
+.fp-ic{width:40px;height:40px;flex:none;border-radius:12px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+.fp-ic .ic{width:19px;height:19px;color:var(--yeah-pink)}
+.fp-drop b,.fp-file b{display:block;font-family:var(--font-display);font-size:13.5px;font-weight:600;color:var(--ink)}
+.fp-drop small,.fp-file small{display:block;font-size:11.5px;color:var(--muted)}
+.fp-file{display:none;align-items:center;gap:10px;padding:10px 8px 10px 12px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.fp-meta{flex:1;min-width:0}
+.fp-meta b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.filepick.has .fp-drop{display:none}.filepick.has .fp-file{display:flex}
+.fp-act{display:inline-flex;align-items:center;min-height:40px;padding:0 8px;font-size:12px;font-weight:600;color:var(--yeah-pink);cursor:pointer}
+.fp-x{width:40px;height:40px;flex:none;border-radius:50%;border:none;background:#F4F4F5;color:var(--muted);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.fp-x .ic{width:16px;height:16px}
 /* ===== modal ===== */
 .modal{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;padding:26px;background:rgba(1,1,1,.62);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:opacity .22s var(--ease),visibility .22s}
 .modal.open{opacity:1;visibility:visible}
@@ -345,6 +382,16 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
 .mhead h3{font-size:22px;font-weight:600}
 .mbody{padding:22px 28px 26px}
 .mbody h4{font-size:15px;font-weight:600;margin:18px 0 6px}
+/* profile QR in the share modal */
+.qr-box{display:flex;align-items:center;gap:22px;padding:18px;border:1px solid var(--line);border-radius:18px;background:#FAFAFA;margin-top:4px}
+.qr-frame{position:relative;width:148px;height:148px;flex:none;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 6px 18px -8px rgba(1,1,1,.25)}
+.qr-frame canvas{display:block;width:100%;height:100%}
+.qr-err{display:none;position:absolute;inset:0;align-items:center;justify-content:center;text-align:center;padding:14px;font-size:12px;color:var(--muted)}
+.qr-box.err .qr-err{display:flex}.qr-box.err canvas{visibility:hidden}
+.qr-txt b{display:block;font-family:var(--font-display);font-size:15px;font-weight:600}
+.qr-txt p{font-size:12.5px;color:var(--muted);margin:4px 0 12px}
+.qr-save{display:flex;flex-direction:column;gap:8px}
+.qr-save-btns{display:flex;flex-wrap:wrap;gap:8px}
 .mbody p{font-size:13.5px;color:#3E3E3E;margin-bottom:8px}
 .mbody ul{margin:0 0 10px 18px;font-size:13.5px;color:#3E3E3E}
 .mfoot{position:sticky;bottom:0;background:#fff;border-top:1px solid var(--line);padding:16px 28px;display:flex;gap:12px;justify-content:flex-end}
@@ -380,10 +427,29 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
      <button data-setlang="en"><span class="flag flag-en"></span>English (EN)</button>
     </div>
    </div>
-   <a class="nav-bell" id="navBell" href="#s-notif" aria-label="Notifications"><i class="ic" data-lucide="bell"></i><span class="cnt" id="bellCnt">2</span></a>
+   <div class="bell" id="bell">
+    <button type="button" class="nav-bell" id="navBell" aria-label="Notifications" aria-haspopup="true" aria-expanded="false" aria-controls="notifPop"><i class="ic" data-lucide="bell"></i><span class="cnt" id="bellCnt">2</span></button>
+    <div class="notif-pop" id="notifPop" role="dialog" aria-label="Notifications">
+     <header>
+      <div>
+       <span class="eyebrow" data-en="Notifications" data-th="การแจ้งเตือน">การแจ้งเตือน</span>
+       <h2 data-en="What changed" data-th="มีอะไรเปลี่ยนบ้าง">มีอะไรเปลี่ยนบ้าง</h2>
+      </div>
+      <button class="btn btn-ghost btn-sm" id="markRead"><span data-en="Mark all read" data-th="อ่านทั้งหมดแล้ว">อ่านทั้งหมดแล้ว</span></button>
+     </header>
+     <div class="list" data-field="notifications[]">
+      <div class="notif unread"><span class="nic"><i class="ic" data-lucide="search"></i></span><div><b data-en="Your Future Talent application moved to Screening" data-th="ใบสมัคร Future Talent ของคุณเข้าสู่ขั้นคัดกรอง">ใบสมัคร Future Talent ของคุณเข้าสู่ขั้นคัดกรอง</b><p data-en="We will confirm the interview slot within 5 days." data-th="เราจะยืนยันรอบสัมภาษณ์ภายใน 5 วัน">เราจะยืนยันรอบสัมภาษณ์ภายใน 5 วัน</p></div><time>2 ชม.</time></div>
+      <div class="notif unread"><span class="nic"><i class="ic" data-lucide="badge-check"></i></span><div><b data-en="Creative Media Clinic verified — Collaboration +1" data-th="Creative Media Clinic ผ่านการตรวจสอบ — Collaboration +1">Creative Media Clinic ผ่านการตรวจสอบ — Collaboration +1</b><p data-en="Verified by ครูเอ๋ · partner mentor" data-th="ตรวจสอบโดย ครูเอ๋ · partner mentor">ตรวจสอบโดย ครูเอ๋ · partner mentor</p></div><time>1 ว.</time></div>
+      <div class="notif"><span class="nic"><i class="ic" data-lucide="clock"></i></span><div><b data-en="Pitch Night #12 closes in 3 days" data-th="Pitch Night #12 ปิดรับใน 3 วัน">Pitch Night #12 ปิดรับใน 3 วัน</b><p data-en="You are number 4 on the waitlist." data-th="คุณอยู่ลำดับสำรองที่ 4">คุณอยู่ลำดับสำรองที่ 4</p></div><time>3 ว.</time></div>
+      <div class="notif"><span class="nic"><i class="ic" data-lucide="megaphone"></i></span><div><b data-en="New program open: YEAH Future Talent · Cohort 3" data-th="โครงการใหม่เปิดรับ: YEAH Future Talent · Cohort 3">โครงการใหม่เปิดรับ: YEAH Future Talent · Cohort 3</b><p data-en="Applications are open now. See the details and apply." data-th="เปิดรับสมัครแล้ว ดูรายละเอียดและสมัครได้เลย">เปิดรับสมัครแล้ว ดูรายละเอียดและสมัครได้เลย</p></div><time>4 ว.</time></div>
+      <div class="notif"><span class="nic"><i class="ic" data-lucide="user"></i></span><div><b data-en="Your profile is 78% complete" data-th="โปรไฟล์ของคุณครบ 78% แล้ว">โปรไฟล์ของคุณครบ 78% แล้ว</b><p data-en="Add a portfolio link and a photo to reach 100%." data-th="เพิ่มลิงก์ผลงานและรูปโปรไฟล์เพื่อให้ครบ 100%">เพิ่มลิงก์ผลงานและรูปโปรไฟล์เพื่อให้ครบ 100%</p></div><time>4 ว.</time></div>
+      <div class="notif"><span class="nic"><i class="ic" data-lucide="party-popper"></i></span><div><b data-en="Welcome to YEAH" data-th="ยินดีต้อนรับสู่ YEAH">ยินดีต้อนรับสู่ YEAH</b><p data-en="You are a General Member now. Your level moves on verified evidence." data-th="คุณเป็นสมาชิกทั่วไป (General Member) แล้ว ระดับจะขยับตามหลักฐานที่ผ่านการตรวจสอบ">คุณเป็นสมาชิกทั่วไป (General Member) แล้ว ระดับจะขยับตามหลักฐานที่ผ่านการตรวจสอบ</p></div><time>4 ว.</time></div>
+     </div>
+    </div>
+   </div>
    <div class="nav-user" id="navUser" data-field="member.display_name">
-    <b class="ini">ณศ</b>
-    <div><b id="navName">ณิชา ศรีวัฒน์</b><small id="navLevel">General member</small></div>
+    <b class="ini"><svg viewBox="56 152 140 140" aria-hidden="true"><defs><clipPath id="navAv"><circle cx="126" cy="222" r="70"/></clipPath></defs><circle cx="126" cy="222" r="70" fill="#D9D9D9"/><g clip-path="url(#navAv)" fill="#6E6E6E"><circle cx="126" cy="207" r="26"/><ellipse cx="126" cy="289" rx="52" ry="46"/></g></svg></b>
+    <div><b id="navName" data-member-name data-th="ณิชา ศรีวัฒน์" data-en="Nicha Sriwat">ณิชา ศรีวัฒน์</b><small id="navLevel">General member</small></div>
    </div>
   </div>
  </div>
@@ -483,6 +549,17 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
         <span class="pill-auto">Google</span>
        </div>
       </div>
+      <div class="grid2" style="margin-top:18px">
+       <div class="field">
+        <label for="first_name_en"><span data-en="First name in English" data-th="ชื่อจริงภาษาอังกฤษ">ชื่อจริงภาษาอังกฤษ</span> <span class="req">*</span></label>
+        <input class="inp" id="first_name_en" name="first_name_en" required placeholder="Nicha" autocomplete="off" autocapitalize="words" spellcheck="false" lang="en">
+       </div>
+       <div class="field">
+        <label for="last_name_en"><span data-en="Surname in English" data-th="นามสกุลภาษาอังกฤษ">นามสกุลภาษาอังกฤษ</span> <span class="req">*</span></label>
+        <input class="inp" id="last_name_en" name="last_name_en" required placeholder="Sriwat" autocomplete="off" autocapitalize="words" spellcheck="false" lang="en">
+       </div>
+      </div>
+      <span class="hint" id="enNameHint" style="display:block;margin-top:8px" data-en="English letters only, as on your passport or student ID. Used on your card and profile when the site is in English." data-th="ใช้ตัวอักษรภาษาอังกฤษตามพาสปอร์ตหรือบัตรนักศึกษา ใช้บนบัตรสมาชิกและโปรไฟล์เมื่อเปิดเว็บเป็นภาษาอังกฤษ">ใช้ตัวอักษรภาษาอังกฤษตามพาสปอร์ตหรือบัตรนักศึกษา ใช้บนบัตรสมาชิกและโปรไฟล์เมื่อเปิดเว็บเป็นภาษาอังกฤษ</span>
       <div class="grid3" style="margin-top:18px">
        <div class="field">
         <label for="birthdate"><span data-en="Birthday" data-th="วันเกิด">วันเกิด</span> <span class="req">*</span></label>
@@ -682,9 +759,12 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
       <input type="file" id="mcardFile" accept="image/*" hidden>
      </div>
      <div class="phead-main">
-      <h1 id="hubName" data-field="member.full_name">ณิชา ศรีวัฒน์</h1>
+      <h1 id="hubName" data-field="member.full_name" data-member-name data-th="ณิชา ศรีวัฒน์" data-en="Nicha Sriwat">ณิชา ศรีวัฒน์</h1>
       <div class="meta">
        <span><i class="ic" data-lucide="graduation-cap"></i><b data-field="member.university">จุฬาลงกรณ์มหาวิทยาลัย · ปี 3</b></span>
+      </div>
+      <div class="meta">
+       <span><i class="ic" data-lucide="id-card"></i><span data-en="Member status" data-th="สถานะสมาชิก">สถานะสมาชิก</span> <b data-field="member.membership_level" data-en="General Member" data-th="สมาชิกทั่วไป">สมาชิกทั่วไป</b></span>
        <span><i class="ic" data-lucide="calendar"></i><span data-en="Member since" data-th="สมาชิกตั้งแต่">สมาชิกตั้งแต่</span> <b data-field="member.created_at">21 ก.ย. 2026</b></span>
       </div>
      </div>
@@ -725,21 +805,21 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
        <div class="tierbar">
         <div class="fill" id="tierFill"></div>
         <button class="tstop now locked" style="--p:0" data-t="0"><i class="ic" data-lucide="lock"></i><small data-en="You are here" data-th="คุณอยู่ตรงนี้">คุณอยู่ตรงนี้</small><span>General</span></button>
-        <button class="tstop" style="--p:25" data-t="1"><i class="ic" data-lucide="compass"></i><small>Level 01</small><span>Explorer</span></button>
-        <button class="tstop" style="--p:50" data-t="2"><i class="ic" data-lucide="hammer"></i><small>Level 02</small><span>Builder</span></button>
-        <button class="tstop" style="--p:75" data-t="3"><i class="ic" data-lucide="flag"></i><small>Level 03</small><span>Leader</span></button>
-        <button class="tstop" style="--p:100" data-t="4"><i class="ic" data-lucide="zap"></i><small>Level 04</small><span>Catalyst</span></button>
+        <button class="tstop" style="--p:25" data-t="1"><i class="ic" data-lucide="compass"></i><span>Explorer</span></button>
+        <button class="tstop" style="--p:50" data-t="2"><i class="ic" data-lucide="hammer"></i><span>Builder</span></button>
+        <button class="tstop" style="--p:75" data-t="3"><i class="ic" data-lucide="flag"></i><span>Leader</span></button>
+        <button class="tstop" style="--p:100" data-t="4"><i class="ic" data-lucide="zap"></i><span>Catalyst</span></button>
        </div>
 
        <div class="tier-panel">
         <div>
-         <span class="eyebrow" id="tierEyebrow">Level 00 · General Member</span>
+         <span class="eyebrow" id="tierEyebrow">ระดับปัจจุบันของคุณ</span>
          <h3 id="tierName" style="font-size:22px;margin:4px 0 12px">สมาชิกทั่วไป (General Member)</h3>
-         <p class="muted" id="tierDesc" style="font-size:13.5px;margin-bottom:16px">ระดับตั้งต้นที่ทุกคนได้รับทันทีที่ลงทะเบียนเสร็จ เมื่อใบสมัครแรกได้รับการตอบรับ ระดับของคุณจะขยับเป็น Level 1 Explorer</p>
+         <p class="muted" id="tierDesc" style="font-size:13.5px;margin-bottom:16px">ระดับตั้งต้นที่ทุกคนได้รับทันทีที่ลงทะเบียนเสร็จ เมื่อใบสมัครแรกได้รับการตอบรับ ระดับของคุณจะขยับเป็น Explorer</p>
          <div class="locked-note" id="lockedNote">
           <i class="ic" data-lucide="lock"></i>
           <div>
-           <b data-en="Level 1 · Explorer is locked" data-th="Level 1 · Explorer ยังล็อกอยู่">Level 1 · Explorer ยังล็อกอยู่</b>
+           <b data-en="Explorer is locked" data-th="Explorer ยังล็อกอยู่">Explorer ยังล็อกอยู่</b>
            <p data-en="Apply to any open program and get accepted. Nothing else is required." data-th="สมัครโครงการที่เปิดรับและได้รับการตอบรับ เพียงเท่านี้ ไม่มีเงื่อนไขอื่น">สมัครโครงการที่เปิดรับและได้รับการตอบรับ เพียงเท่านี้ ไม่มีเงื่อนไขอื่น</p>
            <div class="track" style="margin-top:10px"><i class="on"></i><i></i><i></i></div>
            <span class="hint" style="margin-top:6px;display:block">1/3 — <span data-en="profile complete · application sent · accepted" data-th="โปรไฟล์ครบ · ส่งใบสมัคร · ได้รับการตอบรับ">โปรไฟล์ครบ · ส่งใบสมัคร · ได้รับการตอบรับ</span></span>
@@ -835,7 +915,7 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
         <div><h4>Creative Media Clinic</h4><p class="role">clinic · <span data-en="Participant" data-th="ผู้เข้าร่วม">ผู้เข้าร่วม</span> · 1 <span data-en="day" data-th="วัน">วัน</span> · Siam Innovation District</p></div>
         <div class="dims"><span class="dim">Collab <b>+1</b></span><span class="dim">Adapt <b>+1</b></span></div>
         <span class="st st-verified"><i class="ic" data-lucide="badge-check"></i>Verified</span>
-        <span class="cred"><i class="ic" data-lucide="award"></i>Level 01</span>
+        <span class="cred"><i class="ic" data-lucide="award"></i><span data-en="Participation certificate" data-th="ใบรับรองการเข้าร่วม">ใบรับรองการเข้าร่วม</span></span>
        </div>
        <div class="hrow" data-participation-id="PT-2026-0391">
         <span class="dblock"><b>12</b><small>ส.ค. 26</small></span>
@@ -849,7 +929,7 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
         <div><h4>AI Prototyping Bootcamp · Cohort 2</h4><p class="role">bootcamp · <span data-en="Team member" data-th="สมาชิกทีม">สมาชิกทีม</span> · 6 <span data-en="weeks" data-th="สัปดาห์">สัปดาห์</span> · <span data-en="online + on-site" data-th="ออนไลน์ + ออนไซต์">ออนไลน์ + ออนไซต์</span></p></div>
         <div class="dims"><span class="dim">Hard <b>+2</b></span><span class="dim">Exec <b>+2</b></span><span class="dim">Collab <b>+1</b></span></div>
         <span class="st st-verified"><i class="ic" data-lucide="badge-check"></i>Verified</span>
-        <span class="cred"><i class="ic" data-lucide="award"></i>Level 02</span>
+        <span class="cred"><i class="ic" data-lucide="award"></i><span data-en="Skill certificate" data-th="ใบรับรองทักษะ">ใบรับรองทักษะ</span></span>
        </div>
        <div class="hrow" data-participation-id="PT-2026-0344">
         <span class="dblock"><b>08</b><small>ก.ค. 26</small></span>
@@ -891,8 +971,10 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
       </div>
       <div class="card" style="overflow:hidden">
        <div class="pd-grid">
-        <div class="pd"><span class="lbl">first_name</span><b>ณิชา</b></div>
-        <div class="pd"><span class="lbl">last_name</span><b>ศรีวัฒน์</b></div>
+        <div class="pd"><span class="lbl">first_name</span><b data-pd="first_name">ณิชา</b></div>
+        <div class="pd"><span class="lbl">last_name</span><b data-pd="last_name">ศรีวัฒน์</b></div>
+        <div class="pd"><span class="lbl">first_name_en</span><b data-pd="first_name_en">Nicha</b></div>
+        <div class="pd"><span class="lbl">last_name_en</span><b data-pd="last_name_en">Sriwat</b></div>
         <div class="pd"><span class="lbl">birthdate</span><b>14 มี.ค. 2548</b></div>
         <div class="pd"><span class="lbl">email</span><b>nicha.sri@gmail.com</b></div>
         <div class="pd"><span class="lbl">phone</span><b>081-234-5678</b></div>
@@ -908,26 +990,13 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
         <div class="pd"><span class="lbl">growth_goal</span><b>อยากมีผลงานจริงในพอร์ตก่อนจบปี 4</b></div>
         <div class="pd"><span class="lbl">pdpa_consent</span><b>true · pdpa-2026-09-v1 · 21 ก.ย. 2026</b></div>
         <div class="pd"><span class="lbl">marketing_opt_in</span><b>true</b></div>
-        <div class="pd"><span class="lbl">portfolio_url</span><b class="empty" data-en="not added" data-th="ยังไม่ได้เพิ่ม">ยังไม่ได้เพิ่ม</b></div>
+        <div class="pd"><span class="lbl">resume_file</span><b data-pd="resume_file" class="empty" data-en="not added" data-th="ยังไม่ได้เพิ่ม">ยังไม่ได้เพิ่ม</b></div>
+        <div class="pd"><span class="lbl">portfolio_url</span><b data-pd="portfolio_url" class="empty" data-en="not added" data-th="ยังไม่ได้เพิ่ม">ยังไม่ได้เพิ่ม</b></div>
+        <div class="pd"><span class="lbl">linkedin_url</span><b data-pd="linkedin_url" class="empty" data-en="not added" data-th="ยังไม่ได้เพิ่ม">ยังไม่ได้เพิ่ม</b></div>
        </div>
       </div>
      </section>
 
-     <!-- ---------- NOTIFICATIONS ---------- -->
-     <section class="sec" id="s-notif">
-      <div class="sec-top">
-       <div>
-        <span class="eyebrow" data-en="Notifications" data-th="การแจ้งเตือน">การแจ้งเตือน</span>
-        <h2 data-en="What changed" data-th="มีอะไรเปลี่ยนบ้าง">มีอะไรเปลี่ยนบ้าง</h2>
-       </div>
-       <button class="btn btn-ghost btn-sm" id="markRead"><span data-en="Mark all read" data-th="อ่านทั้งหมดแล้ว">อ่านทั้งหมดแล้ว</span></button>
-      </div>
-      <div class="card" data-field="notifications[]">
-       <div class="notif unread"><span class="nic"><i class="ic" data-lucide="search"></i></span><div><b data-en="Your Future Talent application moved to Screening" data-th="ใบสมัคร Future Talent ของคุณเข้าสู่ขั้นคัดกรอง">ใบสมัคร Future Talent ของคุณเข้าสู่ขั้นคัดกรอง</b><p data-en="We will confirm the interview slot within 5 days." data-th="เราจะยืนยันรอบสัมภาษณ์ภายใน 5 วัน">เราจะยืนยันรอบสัมภาษณ์ภายใน 5 วัน</p></div><time>2 ชม.</time></div>
-       <div class="notif unread"><span class="nic"><i class="ic" data-lucide="badge-check"></i></span><div><b data-en="Creative Media Clinic verified — Collaboration +1" data-th="Creative Media Clinic ผ่านการตรวจสอบ — Collaboration +1">Creative Media Clinic ผ่านการตรวจสอบ — Collaboration +1</b><p data-en="Verified by ครูเอ๋ · partner mentor" data-th="ตรวจสอบโดย ครูเอ๋ · partner mentor">ตรวจสอบโดย ครูเอ๋ · partner mentor</p></div><time>1 ว.</time></div>
-       <div class="notif"><span class="nic"><i class="ic" data-lucide="clock"></i></span><div><b data-en="Pitch Night #12 closes in 3 days" data-th="Pitch Night #12 ปิดรับใน 3 วัน">Pitch Night #12 ปิดรับใน 3 วัน</b><p data-en="You are number 4 on the waitlist." data-th="คุณอยู่ลำดับสำรองที่ 4">คุณอยู่ลำดับสำรองที่ 4</p></div><time>3 ว.</time></div>
-      </div>
-     </section>
     </div>
    </div>
   </div>
@@ -1046,6 +1115,10 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
     <div class="field"><label for="e_last">last_name</label><input class="inp" id="e_last" name="last_name" value="ศรีวัฒน์"></div>
    </div>
    <div class="grid2" style="margin-top:16px">
+    <div class="field"><label for="e_first_en">first_name_en</label><input class="inp" id="e_first_en" name="first_name_en" value="Nicha" lang="en" autocapitalize="words" spellcheck="false"></div>
+    <div class="field"><label for="e_last_en">last_name_en</label><input class="inp" id="e_last_en" name="last_name_en" value="Sriwat" lang="en" autocapitalize="words" spellcheck="false"></div>
+   </div>
+   <div class="grid2" style="margin-top:16px">
     <div class="field"><label for="e_email">email</label><input class="inp" type="email" id="e_email" name="email" value="nicha.sri@gmail.com"><span class="hint" data-en="Sign-in stays tied to your Google account." data-th="การเข้าสู่ระบบยังผูกกับบัญชี Google เดิมเสมอ">การเข้าสู่ระบบยังผูกกับบัญชี Google เดิมเสมอ</span></div>
     <div class="field"><label for="e_phone">phone</label><input class="inp" type="tel" id="e_phone" name="phone" value="081-234-5678"></div>
    </div>
@@ -1054,7 +1127,16 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
     <div class="field"><label for="e_fac">faculty</label><input class="inp" id="e_fac" name="faculty" value="วิศวกรรมคอมพิวเตอร์"></div>
    </div>
    <div class="field" style="margin-top:16px"><label for="e_goal">growth_goal</label><textarea class="inp" id="e_goal" name="growth_goal">อยากมีผลงานจริงในพอร์ตก่อนจบปี 4</textarea></div>
+   <div class="field" style="margin-top:16px"><label for="e_cv">resume_file</label>
+    <div class="filepick" id="cvPick">
+     <input type="file" id="e_cv" name="resume_file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+     <label for="e_cv" class="fp-drop"><span class="fp-ic"><i class="ic" data-lucide="file-up"></i></span><span><b data-en="Upload your CV or resume" data-th="อัปโหลด CV หรือเรซูเม่">อัปโหลด CV หรือเรซูเม่</b><small data-en="PDF, DOC or DOCX · up to 5 MB · drag a file here" data-th="PDF, DOC หรือ DOCX · ไม่เกิน 5 MB · ลากไฟล์มาวางได้">PDF, DOC หรือ DOCX · ไม่เกิน 5 MB · ลากไฟล์มาวางได้</small></span></label>
+     <div class="fp-file"><span class="fp-ic"><i class="ic" data-lucide="file-text"></i></span><span class="fp-meta"><b id="cvName"></b><small id="cvSize"></small></span><label for="e_cv" class="fp-act" data-en="Replace" data-th="เปลี่ยนไฟล์">เปลี่ยนไฟล์</label><button type="button" class="fp-x" id="cvRemove" aria-label="Remove file"><i class="ic" data-lucide="x"></i></button></div>
+    </div>
+    <span class="hint err" id="cvErr" hidden></span>
+   </div>
    <div class="field" style="margin-top:16px"><label for="e_pf">portfolio_url</label><input class="inp" type="url" id="e_pf" name="portfolio_url" placeholder="https://"></div>
+   <div class="field" style="margin-top:16px"><label for="e_li">linkedin_url</label><input class="inp" type="url" id="e_li" name="linkedin_url" placeholder="https://www.linkedin.com/in/…" autocomplete="url"><span class="hint" id="liHint" data-en="Link to your public LinkedIn profile." data-th="ลิงก์โปรไฟล์ LinkedIn สาธารณะของคุณ">ลิงก์โปรไฟล์ LinkedIn สาธารณะของคุณ</span></div>
   </form>
  </div>
  <div class="mfoot"><button class="btn btn-ghost btn-sm" data-close><span data-en="Cancel" data-th="ยกเลิก">ยกเลิก</span></button><button class="btn btn-grad btn-sm" id="editSave"><span data-en="Save changes" data-th="บันทึกการแก้ไข">บันทึกการแก้ไข</span></button></div>
@@ -1066,6 +1148,14 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
  <div class="mbody">
   <div class="field"><label for="shareUrl" data-en="Your link" data-th="ลิงก์ของคุณ">ลิงก์ของคุณ</label>
    <div style="display:flex;gap:10px"><input class="inp" id="shareUrl" readonly value="https://yeah.or.th/p/nicha-s-4182"><button class="btn btn-dark btn-sm" id="copyShare" style="flex:none"><i class="ic" data-lucide="copy"></i><span data-en="Copy" data-th="คัดลอก">คัดลอก</span></button></div>
+  </div>
+  <div class="qr-box">
+   <div class="qr-frame"><canvas id="shareQr" role="img" aria-label="QR code"></canvas><span class="qr-err" data-en="Could not load the QR code" data-th="โหลด QR ไม่สำเร็จ">โหลด QR ไม่สำเร็จ</span></div>
+   <div class="qr-txt">
+    <b data-en="Your profile QR code" data-th="QR โค้ดโปรไฟล์ของคุณ">QR โค้ดโปรไฟล์ของคุณ</b>
+    <p data-en="Anyone who scans it opens your public profile. Save it as a card in your tier's design, in Thai or English." data-th="ใครสแกนก็เปิดโปรไฟล์สาธารณะของคุณได้ทันที บันทึกเป็นรูปการ์ดตามดีไซน์ระดับสมาชิกของคุณ ได้ทั้งภาษาไทยและอังกฤษ">ใครสแกนก็เปิดโปรไฟล์สาธารณะของคุณได้ทันที บันทึกเป็นรูปการ์ดตามดีไซน์ระดับสมาชิกของคุณ ได้ทั้งภาษาไทยและอังกฤษ</p>
+    <div class="qr-save"><span class="lbl" data-en="Save as image" data-th="บันทึกเป็นรูปภาพ">บันทึกเป็นรูปภาพ</span><div class="qr-save-btns"><button type="button" class="btn btn-ghost btn-sm" data-saveqr="th" lang="th"><i class="ic" data-lucide="download"></i>ภาษาไทย</button><button type="button" class="btn btn-ghost btn-sm" data-saveqr="en" lang="en"><i class="ic" data-lucide="download"></i>English</button></div></div>
+   </div>
   </div>
   <h4 data-en="Shown on the public page" data-th="แสดงบนหน้าสาธารณะ">แสดงบนหน้าสาธารณะ</h4>
   <div style="display:flex;flex-direction:column;gap:12px">
@@ -1145,7 +1235,7 @@ var PROGRAMS=[
   req:['ไม่ต้องแนบหลักฐาน'],req_en:['No evidence needed']}
 ];
 var MEMBER_LEVEL='general';
-var LEVEL_LABEL={general:'General Member','1':'Level 1 Explorer','2':'Level 2 Builder','3':'Level 3 Leader','4':'Level 4 Catalyst'};
+var LEVEL_LABEL={general:'General Member','1':'Explorer','2':'Builder','3':'Leader','4':'Catalyst'};
 
 /* ---------- language ---------- */
 var LANG=(function(){try{return localStorage.getItem('yeah-lang')||'th'}catch(e){return 'th'}})();
@@ -1161,7 +1251,7 @@ function applyLang(){
  try{localStorage.setItem('yeah-lang',LANG)}catch(e){}
 }
 var langWrap=document.getElementById('lang');
-document.getElementById('langBtn').addEventListener('click',function(e){e.stopPropagation();langWrap.classList.toggle('open')});
+document.getElementById('langBtn').addEventListener('click',function(e){e.stopPropagation();setBell(false);langWrap.classList.toggle('open')});
 document.querySelectorAll('#langMenu button').forEach(function(b){b.addEventListener('click',function(e){e.stopPropagation();LANG=b.getAttribute('data-setlang');applyLang();langWrap.classList.remove('open')})});
 document.addEventListener('click',function(e){if(!e.target.closest('.lang'))langWrap.classList.remove('open')});
 function t(th,en){return LANG==='en'?en:th}
@@ -1235,7 +1325,7 @@ phone.addEventListener('input',update);
 /* ---------- completeness + payload ---------- */
 var regForm=document.getElementById('regForm');
 var GROUPS={
- identity:['first_name','last_name','birthdate','email','phone'],
+ identity:['first_name','last_name','first_name_en','last_name_en','birthdate','email','phone'],
  status:['occupation_status'],
  about:['province','referral_source'],
  consent:['pdpa_consent']
@@ -1254,6 +1344,7 @@ function groupDone(k){
   need=need.concat(os==='student'?['university','faculty','year_of_study','education_level']:['employment_type','department_field']);
  }
  if(k==='identity'&&!phoneOk(val('phone')))return false;
+ if(k==='identity'&&!(latinName(val('first_name_en'))&&latinName(val('last_name_en'))))return false;
  if(k==='about'&&val('referral_source')==='other'&&!val('referral_detail'))return false;
  return need.every(function(n){return !!val(n)});
 }
@@ -1288,7 +1379,7 @@ function memberPayload(){
  var os=val('occupation_status');
  var p={
   google_sub:val('google_sub'),auth_provider:'google',
-  first_name:val('first_name'),last_name:val('last_name'),
+  first_name:val('first_name'),last_name:val('last_name'),first_name_en:val('first_name_en'),last_name_en:val('last_name_en'),
   birthdate:val('birthdate'),
   email:val('email'),
   email_login:val('google_email_login'),
@@ -1314,37 +1405,38 @@ function memberPayload(){
 regForm.addEventListener('submit',function(e){
  e.preventDefault();
  console.log('POST /api/members',memberPayload());
+ setMemberName(val('first_name')+' '+val('last_name'),val('first_name_en')+' '+val('last_name_en'));
  showScreen('hub');
  toast(t('ยินดีต้อนรับ คุณเป็นสมาชิกทั่วไป (General Member) แล้ว','Welcome — you are a General Member now'));
 });
 
 /* ---------- member hub: tiers ---------- */
 var TIERS=[
- {key:'general',eyebrow:'Level 00 · General Member',name_th:'สมาชิกทั่วไป (General Member)',name_en:'General Member',
-  d_th:'ระดับตั้งต้นที่ทุกคนได้รับทันทีที่ลงทะเบียนเสร็จ คุณเห็นทุกโครงการและสมัครได้ทันที เมื่อใบสมัครแรกได้รับการตอบรับ ระดับของคุณจะขยับเป็น Level 1 Explorer',
-  d_en:'The default tier assigned the moment you finish registering. You can see every program and apply today; your first accepted application moves you to Level 1, Explorer.',
+ {key:'general',name_th:'สมาชิกทั่วไป (General Member)',name_en:'General Member',
+  d_th:'ระดับตั้งต้นที่ทุกคนได้รับทันทีที่ลงทะเบียนเสร็จ คุณเห็นทุกโครงการและสมัครได้ทันที เมื่อใบสมัครแรกได้รับการตอบรับ ระดับของคุณจะขยับเป็น Explorer',
+  d_en:'The default tier assigned the moment you finish registering. You can see every program and apply today; your first accepted application moves you to Explorer.',
   b:[['user-plus','เข้าร่วมคอมมูนิตี้','Join the community','เห็นสมาชิกและกิจกรรมทั้งหมด','See every member and event'],
      ['calendar-days','สมัครอีเวนต์ได้','Apply to events','อีเวนต์เปิดรับทุกระดับ','Events are open to every level'],
      ['file-text','สร้างโปรไฟล์','Build your profile','เก็บหลักฐานผลงานได้ตั้งแต่วันนี้','Start collecting evidence today']],lock:false},
- {key:'1',eyebrow:'Level 01 · Explorer',name_th:'Explorer',name_en:'Explorer',
+ {key:'1',name_th:'Explorer',name_en:'Explorer',
   d_th:'ระดับเริ่มต้นสำหรับสมาชิกที่เข้าร่วมโครงการแรกและกำลังสำรวจว่าทักษะของตัวเองเหมาะกับอะไร',
   d_en:'The first tier for members who have entered a project and are exploring where their skills fit.',
   b:[['user-plus','โครงการแรกของคุณ','Your first project','ได้ลงมือทำจริงตั้งแต่โครงการแรก','Get in and start doing the work'],
      ['users','ทำเนียบสมาชิก','Member directory','หาคนที่ทำเรื่องเดียวกับคุณ','Find people working on what you work on'],
      ['badge-check','Credential 01','Credential 01','ใบรับรองการเข้าร่วมเมื่อเรียนครบ','Certificate of participation']],lock:true},
- {key:'2',eyebrow:'Level 02 · Builder',name_th:'Builder',name_en:'Builder',
+ {key:'2',name_th:'Builder',name_en:'Builder',
   d_th:'สำหรับสมาชิกที่กำลังลงมือทำโครงการจริงและสะสมหลักฐานการเติบโตของตัวเอง',
   d_en:'For members actively executing projects and building up evidence of how they grow.',
   b:[['hammer','โปรเจกต์กับพาร์ตเนอร์','Partner projects','โจทย์จริง ทีมละ 4 คน','Real briefs, teams of four'],
      ['handshake','จับคู่ทีม','Team matching','หาทีมหรือหา co-founder','Find a team or a co-founder'],
      ['badge-check','Credential 02','Credential 02','ใบรับรองทักษะตามมิติที่ Verify','Certificate of skill']],lock:true},
- {key:'3',eyebrow:'Level 03 · Leader',name_th:'Leader',name_en:'Leader',
+ {key:'3',name_th:'Leader',name_en:'Leader',
   d_th:'สำหรับสมาชิกระดับสูงที่รับบทบาทผู้นำในโครงการของ YEAH',
   d_en:'For advanced members taking on leadership roles inside YEAH initiatives.',
   b:[['flag','นำทีมในโครงการ','Lead a project team','ดูแลโจทย์และทีมของตัวเอง','Own a brief and the people on it'],
      ['network','เข้าถึงเมนเทอร์','Mentor access','มีเมนเทอร์ประจำตัว','A mentor assigned to you'],
      ['presentation','เวทีพิตช์และ Demo Day','Pitch nights and demo day','ได้สิทธิ์ขึ้นเวทีหลัก','A slot on the main stage']],lock:true},
- {key:'4',eyebrow:'Level 04 · Catalyst',name_th:'Catalyst',name_en:'Catalyst',
+ {key:'4',name_th:'Catalyst',name_en:'Catalyst',
   d_th:'ระดับสูงสุด สำหรับสมาชิกที่สร้างผลกระทบสูงและปั้นคนรุ่นถัดไป',
   d_en:'The highest tier: members driving high impact and building the next generation.',
   b:[['megaphone','จัดกิจกรรมของตัวเอง','Run your own events','ออกแบบเอง แล้วเราสนับสนุน','Design it, we back it'],
@@ -1355,7 +1447,7 @@ var curTier=0,MY_TIER=0;
 function renderTier(i){
  curTier=i;var T=TIERS[i];
  window.MC_TIER=i;if(window.mcSetTier)mcSetTier(i);
- document.getElementById('tierEyebrow').textContent=T.eyebrow;
+ document.getElementById('tierEyebrow').textContent=i===MY_TIER?t('ระดับปัจจุบันของคุณ','Your current tier'):(i<MY_TIER?t('ระดับที่ผ่านมาแล้ว','A tier you have passed'):t('ระดับที่ยังล็อกอยู่','A locked tier'));
  document.getElementById('tierName').textContent=t(T.name_th,T.name_en);
  document.getElementById('tierDesc').textContent=t(T.d_th,T.d_en);
  document.getElementById('lockedNote').style.display=(i===MY_TIER)?'flex':'none';
@@ -1420,7 +1512,7 @@ function renderPrograms(){
     '<div class="elig"><span class="lbl">'+t('ระดับที่สมัครได้','Levels that can apply')+'</span><div class="elig-row">'+levelRow(p.levels)+'</div></div>'+
     '<div class="prog-foot">'+
      (closed||full||!eligible
-      ? '<button class="btn btn-ghost btn-sm" disabled>'+(closed?t('ปิดรับแล้ว','Closed'):(full?t('เต็มแล้ว','Full'):t('ต้องถึง '+LEVEL_LABEL[p.levels[0]],'Needs '+LEVEL_LABEL[p.levels[0]])))+'</button>'
+      ? '<button class="btn btn-ghost btn-sm" disabled>'+(closed?t('ปิดรับแล้ว','Closed'):(full?t('เต็มแล้ว','Full'):t('ต้องถึงระดับ '+LEVEL_LABEL[p.levels[0]],'Needs '+LEVEL_LABEL[p.levels[0]])))+'</button>'
       : '<button class="btn btn-grad btn-sm" data-apply="'+p.id+'">'+t('สมัครเข้าร่วม','Apply')+'</button>')+
      '<button class="btn btn-ghost btn-sm" data-apply="'+p.id+'" data-view="1">'+t('รายละเอียด','Details')+'</button>'+
     '</div>'+
@@ -1477,15 +1569,118 @@ document.getElementById('evSubmit').addEventListener('click',function(){
  console.log('POST /api/evidence',out);closeModals();f.reset();
  toast(t('ส่งหลักฐานแล้ว — รอ mentor ตรวจสอบก่อนได้ +1','Evidence submitted — a mentor verifies before any +1'));
 });
+/* ---------- member name in both languages ----------
+   [data-member-name] elements swap with the TH/EN toggle; the card and the QR picture read the same pair. */
+function latinName(v){return /^[A-Za-z][A-Za-z .'\-]*$/.test(v)}
+function setMemberName(th,en){
+ th=th.trim();en=en.trim()||th;
+ document.querySelectorAll('[data-member-name]').forEach(function(el){el.setAttribute('data-th',th);el.setAttribute('data-en',en);el.textContent=t(th,en)});
+ if(window.mcSetName)mcSetName(th,en);
+}
+function checkEnName(){
+ var bad=false;
+ ['first_name_en','last_name_en'].forEach(function(k){var v=val(k),b=!!v&&!latinName(v);document.getElementById(k).classList.toggle('bad',b);bad=bad||b});
+ document.getElementById('enNameHint').classList.toggle('err',bad);
+}
+['first_name_en','last_name_en'].forEach(function(k){document.getElementById(k).addEventListener('input',checkEnName)});
+
+/* ---------- edit profile: CV / resume file ----------
+   Held in the form until Save; the real upload is multipart and comes back as member.resume_url. */
+(function(){
+ var inp=document.getElementById('e_cv'),box=document.getElementById('cvPick'),err=document.getElementById('cvErr'),drop=box.querySelector('.fp-drop');
+ var OK=/\.(pdf|docx?)$/i,MAX=5*1024*1024;
+ function size(n){return n<1048576?Math.max(1,Math.round(n/1024))+' KB':(n/1048576).toFixed(1)+' MB'}
+ function show(){
+  var f=inp.files&&inp.files[0],msg='';
+  if(f&&!OK.test(f.name))msg=t('รองรับเฉพาะไฟล์ PDF, DOC หรือ DOCX','Only PDF, DOC or DOCX files');
+  else if(f&&f.size>MAX)msg=t('ไฟล์ใหญ่เกิน 5 MB','That file is over 5 MB');
+  if(msg){inp.value='';f=null}
+  err.textContent=msg;err.hidden=!msg;
+  box.classList.toggle('has',!!f);
+  if(f){document.getElementById('cvName').textContent=f.name;document.getElementById('cvSize').textContent=size(f.size)}
+ }
+ inp.addEventListener('change',show);
+ document.getElementById('cvRemove').addEventListener('click',function(){inp.value='';show();inp.focus()});
+ ['dragenter','dragover'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();box.classList.add('drag')})});
+ drop.addEventListener('dragleave',function(){box.classList.remove('drag')});
+ drop.addEventListener('drop',function(e){e.preventDefault();box.classList.remove('drag');if(e.dataTransfer.files.length){inp.files=e.dataTransfer.files;show()}});
+})();
+
+/* ---------- edit profile: LinkedIn ---------- */
+var LI_RE=/^https?:\/\/([a-z]{2,3}\.)?linkedin\.com\/in\/[^\/?#\s]+\/?([?#].*)?$/i;
+function liOk(){
+ var el=document.getElementById('e_li'),h=document.getElementById('liHint'),v=el.value.trim(),ok=!v||LI_RE.test(v);
+ el.classList.toggle('bad',!ok);h.classList.toggle('err',!ok);
+ h.setAttribute('data-th',ok?'ลิงก์โปรไฟล์ LinkedIn สาธารณะของคุณ':'ใช้ลิงก์โปรไฟล์ในรูปแบบ linkedin.com/in/ชื่อของคุณ');
+ h.setAttribute('data-en',ok?'Link to your public LinkedIn profile.':'Use your profile link, like linkedin.com/in/your-name');
+ h.textContent=t(h.getAttribute('data-th'),h.getAttribute('data-en'));
+ return ok;
+}
+document.getElementById('e_li').addEventListener('input',liOk);
+
+/* profile-details rows marked data-pd follow what was saved */
+function fillProfile(o){
+ document.querySelectorAll('[data-pd]').forEach(function(b){
+  var k=b.getAttribute('data-pd');if(!(k in o))return;
+  var v=o[k];if(v&&typeof v==='object')v=v.name;
+  if(k==='resume_file'&&!v)return; /* no new file picked — keep what is on record */
+  b.classList.toggle('empty',!v);
+  b.setAttribute('data-th',v||'ยังไม่ได้เพิ่ม');b.setAttribute('data-en',v||'not added');
+  b.textContent=v||t('ยังไม่ได้เพิ่ม','not added');
+ });
+}
 document.getElementById('editSave').addEventListener('click',function(){
- var fd=new FormData(document.getElementById('editForm')),out={};fd.forEach(function(v,k){out[k]=v});
- console.log('PATCH /api/members/me',out);closeModals();
- toast(t('บันทึกข้อมูลแล้ว','Profile saved'));
+ if(!liOk()){document.getElementById('e_li').focus();return}
+ var enBad=['e_first_en','e_last_en'].filter(function(id){var v=document.getElementById(id).value.trim();document.getElementById(id).classList.toggle('bad',!latinName(v));return !latinName(v)});
+ if(enBad.length){document.getElementById(enBad[0]).focus();toast(t('กรอกชื่อภาษาอังกฤษด้วยตัวอักษรภาษาอังกฤษ','Enter your English name in English letters'));return}
+ var fd=new FormData(document.getElementById('editForm')),out={};
+ fd.forEach(function(v,k){out[k]=(typeof File==='function'&&v instanceof File)?(v.name?{name:v.name,size:v.size,type:v.type}:null):v});
+ console.log('PATCH /api/members/me'+(out.resume_file?' (multipart, with resume_file)':''),out);
+ setMemberName(out.first_name+' '+out.last_name,out.first_name_en+' '+out.last_name_en);
+ fillProfile(out);
+ closeModals();toast(t('บันทึกข้อมูลแล้ว','Profile saved'));
 });
 document.getElementById('copyShare').addEventListener('click',function(){
  var i=document.getElementById('shareUrl');i.select();try{document.execCommand('copy')}catch(e){}
  toast(t('คัดลอกลิงก์แล้ว','Link copied'));
 });
+/* ---------- profile QR — drawn from qrcode-generator's module grid onto our own canvas,
+   so the saved PNG is never a tainted canvas and needs no image from another origin ---------- */
+var qrLib=null;
+function loadQr(){
+ return qrLib||(qrLib=new Promise(function(ok,no){
+  if(window.qrcode)return ok();
+  var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js';
+  s.onload=function(){ok()};s.onerror=function(){qrLib=null;no()};document.head.appendChild(s);
+ }));
+}
+function qrFor(text){var q=qrcode(0,'M');q.addData(text);q.make();return q}
+/* quiet zone of 4 modules is part of the drawn box */
+function drawQr(ctx,q,x,y,size){
+ var n=q.getModuleCount()+8,c=size/n;ctx.fillStyle='#fff';ctx.fillRect(x,y,size,size);ctx.fillStyle='#141414';
+ for(var r=0;r<n-8;r++)for(var k=0;k<n-8;k++)if(q.isDark(r,k))ctx.fillRect(Math.floor(x+(k+4)*c),Math.floor(y+(r+4)*c),Math.ceil(c),Math.ceil(c));
+}
+function shareLink(){return document.getElementById('shareUrl').value}
+function renderShareQr(){
+ var cv=document.getElementById('shareQr'),box=cv.closest('.qr-box');
+ loadQr().then(function(){
+  var css=cv.clientWidth||168,dpr=Math.max(2,window.devicePixelRatio||1);
+  cv.width=cv.height=Math.round(css*dpr);
+  drawQr(cv.getContext('2d'),qrFor(shareLink()),0,0,cv.width);box.classList.remove('err');
+ },function(){box.classList.add('err')});
+}
+function downloadBlob(b,name){
+ var a=document.createElement('a'),u=URL.createObjectURL(b);a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();
+ setTimeout(function(){URL.revokeObjectURL(u)},4000);
+}
+/* the saved picture is the tier's card back (drawn by the card script), in the language picked */
+function saveQrImage(L){
+ loadQr().then(function(){return window.mcBackPng(L,shareLink())}).then(function(b){
+  downloadBlob(b,'yeah-profile-qr-'+L+'.png');toast(t('บันทึกรูป QR แล้ว','QR image saved'));
+ },function(){toast(t('โหลด QR ไม่สำเร็จ ลองอีกครั้ง','Could not load the QR code — try again'))});
+}
+document.querySelectorAll('[data-saveqr]').forEach(function(b){b.addEventListener('click',function(){saveQrImage(b.getAttribute('data-saveqr'))})});
+document.addEventListener('click',function(e){if(e.target.closest('[data-modal="share"]'))renderShareQr()});
 document.getElementById('withdrawApp').addEventListener('click',function(){closeModals();toast(t('ถอนใบสมัครแล้ว','Application withdrawn'))});
 document.getElementById('markRead').addEventListener('click',function(){
  document.querySelectorAll('.notif.unread').forEach(function(n){n.classList.remove('unread')});
@@ -1494,13 +1689,19 @@ document.getElementById('markRead').addEventListener('click',function(){
 });
 document.getElementById('exportHistory').addEventListener('click',function(){toast(t('กำลังเตรียมไฟล์ CSV ของประวัติการเข้าร่วม','Preparing a CSV of your activity history'))});
 document.getElementById('navUser').addEventListener('click',function(){location.hash='#s-profile'});
+var bellWrap=document.getElementById('bell'),bellBtn=document.getElementById('navBell');
+function setBell(open){bellWrap.classList.toggle('open',open);bellBtn.setAttribute('aria-expanded',open?'true':'false');if(open){langWrap.classList.remove('open');icons(bellWrap)}}
+bellBtn.addEventListener('click',function(e){e.stopPropagation();setBell(!bellWrap.classList.contains('open'))});
+document.getElementById('notifPop').addEventListener('click',function(e){e.stopPropagation()});
+document.addEventListener('click',function(){setBell(false)});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&bellWrap.classList.contains('open')){setBell(false);bellBtn.focus()}});
 
-/* top tabs + bell scroll spy */
-var spySections=['s-status','s-programs','s-apps','s-history','s-portfolio','s-profile','s-notif'];
+/* top tabs scroll spy */
+var spySections=['s-status','s-programs','s-apps','s-history','s-portfolio','s-profile'];
 function spy(){
  var y=window.scrollY+120,cur=spySections[0];
  spySections.forEach(function(id){var el=document.getElementById(id);if(el&&el.offsetTop<=y)cur=id});
- document.querySelectorAll('#hubTabs a,#navBell').forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+cur)});
+ document.querySelectorAll('#hubTabs a').forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+cur)});
 }
 window.addEventListener('scroll',function(){if(document.documentElement.getAttribute('data-screen')==='hub')spy()});
 
@@ -1512,6 +1713,7 @@ if(['login','register','hub'].indexOf(qScreen)>-1)showScreen(qScreen);
 /* &tier=general|explorer|builder|leader|catalyst (or 0–4) opens the hub previewing that tier and its card */
 var qTier=qs.get('tier'),tierKeys=['general','explorer','builder','leader','catalyst'];
 if(qTier!==null){var ti=tierKeys.indexOf(qTier);if(ti<0&&/^[0-4]$/.test(qTier))ti=+qTier;if(ti>-1)renderTier(ti)}
+if(qs.get('share')==='1'&&qScreen==='hub'){openModal('share');renderShareQr()}
 /* &launch=1 auto-plays the key-unlock transition once. The beat before it fires lets the
    login screen paint first, so the frames preview shows what you are transitioning FROM. */
 if(qs.get('launch')==='1')setTimeout(function(){var b=document.getElementById('googleBtn');if(b)b.click()},600);
@@ -1849,6 +2051,94 @@ window.yeahLaunch=function(done){
   card.classList.toggle('has-photo',!!photo);
   photoBtn.setAttribute('aria-label',photo?(en?'Change photo':'เปลี่ยนรูปโปรไฟล์'):(en?'Add photo':'เพิ่มรูปโปรไฟล์'));
  }
+
+ /* ---------- card back: the saved profile-QR picture ---------------------------
+   The five designs of yeah_card_backs_overview.svg (540×856, one per tier), redrawn on
+   a canvas with Path2D rather than rendered from SVG: an SVG drawn as an image cannot
+   use the page's web fonts, and the Thai name needs Prompt. Follows the same tier as
+   the card front, so the prototype can export every design. Needs window.qrcode. */
+ var BACK=[
+  {ink:'#000000',link:PINK,ring:1},{ink:'#000000',link:PINK,ring:1},{ink:'#000000',link:'#000000'},
+  {ink:'#FFFFFF',link:'#FFFFFF'},{ink:'#FFFFFF',link:'#FFFFFF'}];
+ var STATUS={th:['สมาชิกทั่วไป','สมาชิกนักสำรวจ','สมาชิกนักสร้าง','สมาชิกผู้นำ','สมาชิกผู้จุดประกาย'],
+             en:['General Member','Explorer Member','Builder Member','Leader Member','Catalyst Member']};
+ var CAPTION={th:'สแกนเพื่อดูโปรไฟล์ YEAH ของฉัน',en:'Scan to see my YEAH profile'};
+ var SYM={Y:{w:152.50,h:190.66,ox:628.312,oy:842.059,d:[P.Y]},A:{w:153.44,h:191.76,ox:1024.781,oy:841.559,d:[P.A]},
+          SQ:{w:38.16,h:50.39,ox:1331.449,oy:982.629,d:[P.SQ]},KEY:{w:573.20,h:197.23,ox:796.410,oy:838.770,d:[P.K1,P.K2,P.K3,P.K4]}};
+ /* canvas twin of use(): symbol scaled to width w at (tx,ty); flip = the artwork's rotate(180) about the mark's centre */
+ function mark(x,id,w,fill,tx,ty,flip){
+  var S=SYM[id],s=w/S.w;
+  x.save();x.translate(tx,ty);
+  if(flip){x.translate(w/2,S.h*s/2);x.rotate(Math.PI);x.translate(-w/2,-S.h*s/2)}
+  x.scale(s,s);x.translate(-S.ox,-S.oy);
+  x.fillStyle=x.strokeStyle=fill;x.lineWidth=1.2;x.lineJoin='round';
+  S.d.forEach(function(d){var p=new Path2D(d);x.fill(p);x.stroke(p)});
+  x.restore();
+ }
+ function rr(x,l,t,w,h,r){x.beginPath();x.moveTo(l+r,t);x.arcTo(l+w,t,l+w,t+h,r);x.arcTo(l+w,t+h,l,t+h,r);x.arcTo(l,t+h,l,t,r);x.arcTo(l,t,l+w,t,r);x.closePath()}
+ function backArt(x,k){
+  var i,r;
+  if(k===0){
+   var g=x.createLinearGradient(0,0,540,856);
+   g.addColorStop(0,'#FFFFFF');g.addColorStop(.5,'#FFFFFF');g.addColorStop(.8,'#FFEBF5');g.addColorStop(1,'#FFF3CC');
+   x.fillStyle=g;x.fillRect(0,0,540,856);return;
+  }
+  x.fillStyle=TIER_CARDS[k].bg;x.fillRect(0,0,540,856);
+  if(k===1){
+   x.beginPath();
+   for(i=0;i<=10;i++){x.moveTo(i*54,0);x.lineTo(i*54,856)}
+   for(i=0;i<=15;i++){x.moveTo(0,i*54);x.lineTo(540,i*54)}
+   x.strokeStyle='rgba(255,0,116,.18)';x.lineWidth=1.5;x.stroke();
+   mark(x,'A',180,PINK,392,-118);mark(x,'KEY',640,YEL,-40,700);
+   mark(x,'SQ',54,PINK,432,756);mark(x,'SQ',54,'#000000',486,810);
+  }
+  if(k===2){
+   var H=142.022131;
+   x.save();x.beginPath();x.rect(0,676,540,180);x.clip();
+   for(i=0;i<4;i++)for(r=0;r<4;r++)mark(x,'Y',96,PINK,-130+i*220,616.988935+r*H,true);
+   for(i=0;i<3;i++)for(r=0;r<4;r++)mark(x,'Y',96,PINK,-20+i*220,545.977869+r*H);
+   x.restore();
+  }
+  if(k===3){
+   mark(x,'KEY',470,YEL,40,690);
+   mark(x,'SQ',31.49,'#FFFFFF',385.1125,808.4271);mark(x,'SQ',31.49,'#FFFFFF',478.6699,808.4271);
+  }
+  if(k===4)
+   for(r=0;r<3;r++)for(i=0;i<7;i++)mark(x,'A',86,(r===1&&i===3)?YEL:PINK,(r===1?-42:-92)+i*100,690+r*119.478106);
+ }
+ /* largest size ≤ size that fits max px */
+ function fit(x,txt,weight,size,max,fam){for(;size>18;size--){x.font=weight+' '+size+'px '+fam;if(x.measureText(txt).width<=max)break}}
+ window.mcBackPng=function(L,url){
+  var T=BACK[cur],name=L==='en'?MEMBER.name_en:MEMBER.name_th,
+      link=url.replace(/^https?:\/\//,''),FAM="Prompt,'Noto Sans Thai',sans-serif";
+  var need=document.fonts?Promise.all(['600 38px Prompt','400 20px Prompt','500 21px Prompt','500 18px Poppins'].map(function(f){
+   return document.fonts.load(f,name+STATUS[L][cur]+CAPTION[L]+link).catch(function(){});
+  })):Promise.resolve();
+  return need.then(function(){
+   var cv=document.createElement('canvas'),x=cv.getContext('2d'),q=qrcode(0,'M');
+   q.addData(url);q.make();
+   cv.width=1080;cv.height=1712;x.scale(2,2);
+   x.save();rr(x,0,0,540,856,34);x.clip();
+   backArt(x,cur);
+   if(T.ring){rr(x,90,166,360,392,26);x.strokeStyle='#EEEEEE';x.lineWidth=2;x.stroke()}
+   rr(x,90,166,360,392,26);x.fillStyle='#FFFFFF';x.fill();
+   var n=q.getModuleCount(),c=260/n,i,j;x.fillStyle='#000000';
+   for(i=0;i<n;i++)for(j=0;j<n;j++)if(q.isDark(i,j))x.fillRect(140+j*c,196+i*c,c+.02,c+.02);
+   x.save();x.translate(208,498);x.scale(.16727,.16727);x.translate(-628.312,-838.770);
+   [[P.K1,YEL],[P.K2,YEL],[P.K3,YEL],[P.L1,PINK],[P.SQ,PINK],[P.LA,PINK],[P.Y,PINK]].forEach(function(p){x.fillStyle=p[1];x.fill(new Path2D(p[0]))});
+   x.restore();
+   x.fillStyle=T.ink;x.textAlign='left';
+   fit(x,name,600,38,444,FAM);x.fillText(name,48,98);
+   x.globalAlpha=.85;x.font='400 20px '+FAM;x.fillText(STATUS[L][cur],48,134);x.globalAlpha=1;
+   x.textAlign='center';x.font='500 21px '+FAM;x.fillText(CAPTION[L],270,614);
+   x.fillStyle=T.link;x.font="500 18px Poppins,"+FAM;x.fillText(link,270,648);
+   var w=x.measureText(link).width;x.fillRect(270-w/2,651.5,w,1.4);
+   x.restore();
+   if(T.ring){rr(x,1,1,538,854,33);x.strokeStyle='#DDDDDD';x.lineWidth=2;x.stroke()}
+   return new Promise(function(ok){cv.toBlob(ok,'image/png')});
+  });
+ };
+ window.mcSetName=function(th,en){MEMBER.name_th=th;MEMBER.name_en=en;render()};
  window.mcRender=render;
 
  window.mcSetTier=function(i){

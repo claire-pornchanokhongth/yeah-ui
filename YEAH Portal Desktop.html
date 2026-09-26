@@ -48,19 +48,14 @@ html[data-screen="hub"] #screen-hub{display:block}
 .nav-tabs a:hover,.nav-tabs a.on{background:rgba(255,255,255,.14);color:#fff}
 html:not([data-screen="hub"]) .nav-tabs{display:none}
 .nav-right{grid-column:3;justify-self:end;display:flex;align-items:center;gap:10px;white-space:nowrap}
-.lang{position:relative}
-.lang-btn{display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 10px 0 6px;border-radius:999px;border:none;background:rgba(255,255,255,.24);cursor:pointer;transition:background .14s var(--ease)}
-.lang-btn:hover{background:rgba(255,255,255,.34)}
+/* language: one tap flips TH ↔ EN — no menu. Shows the language the page is in now. */
+.lang-btn{display:inline-flex;align-items:center;gap:9px;height:40px;padding:0 16px 0 6px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;font-size:14px;font-weight:500;letter-spacing:.02em;cursor:pointer;transition:background .14s var(--ease),border-color .14s var(--ease)}
+.lang-btn:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.45)}
+.lang-btn:focus-visible{outline:2.5px solid var(--yeah-yellow);outline-offset:2px}
+.lang-btn .flag{width:28px;height:28px}
 .flag{width:22px;height:22px;border-radius:50%;flex:none;box-shadow:inset 0 0 0 1px rgba(1,1,1,.15)}
 .flag-th{background:linear-gradient(180deg,#A51931 0 16.7%,#F4F5F8 16.7% 33.4%,#2D2A4A 33.4% 66.7%,#F4F5F8 66.7% 83.4%,#A51931 83.4%)}
 .flag-en{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Crect width='60' height='60' fill='%23012169'/%3E%3Cpath d='M0 0 60 60M60 0 0 60' stroke='%23fff' stroke-width='12'/%3E%3Cpath d='M0 0 60 60M60 0 0 60' stroke='%23C8102E' stroke-width='6'/%3E%3Cpath d='M30 0V60M0 30H60' stroke='%23fff' stroke-width='20'/%3E%3Cpath d='M30 0V60M0 30H60' stroke='%23C8102E' stroke-width='12'/%3E%3C/svg%3E") center/cover}
-.lang-btn .chev{width:14px;height:14px;color:var(--yeah-yellow)}
-.lang-menu{display:none;position:absolute;right:0;top:calc(100% + 8px);min-width:140px;background:rgba(18,14,22,.96);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:5px;box-shadow:0 20px 50px -18px rgba(1,1,1,.8);z-index:70}
-.lang.open .lang-menu{display:block}
-.lang-menu button{display:flex;align-items:center;gap:8px;width:100%;border:none;background:none;color:rgba(255,255,255,.85);font-size:12.5px;padding:8px 10px;border-radius:9px;cursor:pointer}
-.lang-menu button:hover{background:rgba(255,255,255,.1);color:#fff}
-.lang-menu button.on{background:var(--grad);color:#151515;font-weight:600}
-.lang-menu .flag{width:18px;height:18px}
 .nav-user{display:flex;align-items:center;gap:10px;padding:5px 14px 5px 5px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);cursor:pointer}
 html:not([data-screen="hub"]) .nav-user,html:not([data-screen="hub"]) .nav-bell{display:none}
 .bell{position:relative}
@@ -164,29 +159,74 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
 .auth-box>p.sub{color:var(--muted);font-size:14px;margin-bottom:28px}
 .or{display:flex;align-items:center;gap:14px;margin:22px 0;color:#A5A5A5;font-size:11.5px;font-family:var(--font-display-alt);letter-spacing:.12em;text-transform:uppercase}
 .or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
+/* ===== login + registration field format — sentence-case labels over filled pill inputs ===== */
+.fmt .field{gap:9px}
+.fmt .field>label,.fmt .lbl,html[data-lang="th"] .fmt .field>label,html[data-lang="th"] .fmt .lbl{font-family:inherit;font-size:15px;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink)}
+.fmt .inp{min-height:54px;border:1.5px solid transparent;border-radius:999px;background-color:#F2F2F3;padding:0 22px;font-size:15.5px}
+.fmt textarea.inp{border-radius:22px;padding:15px 22px}
+.fmt select.inp{padding-right:48px;background-position:right 20px center}
+.fmt .inp::placeholder{color:#8E8A94}
+.fmt .inp:focus{border-color:#A6A2AC;box-shadow:0 0 0 4px #E6E5E9}
+.fmt .inp.bad{border-color:var(--yeah-pink);background-color:#FFF5F9}
+/* show / hide password — the eye sits inside the pill */
+.pw-wrap{position:relative}
+.pw-wrap .inp,.fmt .pw-wrap .inp{padding-right:58px}
+.pw-eye{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:42px;height:42px;border:none;background:none;border-radius:50%;color:var(--muted);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.pw-eye:hover{color:var(--ink);background:rgba(1,1,1,.05)}
+.pw-eye:focus-visible{outline:2.5px solid var(--yeah-pink);outline-offset:1px}
+.pw-eye .ic{width:20px;height:20px}
+.fmt .hint{font-size:13px;line-height:1.55}
+.btn-auth{width:100%;min-height:54px;font-family:inherit;font-size:16px;font-weight:600;letter-spacing:0;text-transform:none}
+.auth-box .btn-google{min-height:56px;border-color:#E3E3E3;font-size:16px}
+.auth-box .or{margin:26px 0 24px}
+html[data-lang="th"] .or{letter-spacing:.03em}
+.auth-box form .field+.field{margin-top:20px}
+.auth-forgot{display:flex;justify-content:flex-end;margin:16px 0 24px}
+.auth-link{background:none;border:none;padding:0;color:var(--yeah-pink);font-size:15px;font-weight:500;cursor:pointer}
+.auth-link:hover{color:var(--yeah-pink-700);text-decoration:underline}
+html[data-lang="en"] .auth-forgot .auth-link{font-size:13px}
+.auth-alt{text-align:center;margin-top:24px;font-size:15px;color:var(--ink)}
+.auth-alt .auth-link{font-weight:600;margin-left:4px}
+/* searchable institution picker — search box on top, list under it, "other" pinned last */
+.combo{position:relative}
+.combo-btn{display:flex;align-items:center;gap:10px;width:100%;text-align:left;cursor:pointer}
+.combo-btn>span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.combo-btn .ph{color:#8E8A94}
+.combo-btn .ic{width:18px;height:18px;color:var(--muted);transition:transform .18s var(--ease)}
+.combo.open .combo-btn{border-color:#A6A2AC;box-shadow:0 0 0 4px #E6E5E9}
+.combo.open .combo-btn .ic{transform:rotate(180deg)}
+.combo-pop{display:none;position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:45;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 50px -22px rgba(1,1,1,.45);overflow:hidden}
+.combo.open .combo-pop{display:flex;flex-direction:column}
+.combo-search{position:relative;padding:12px;border-bottom:1px solid var(--line)}
+.combo-search .ic{position:absolute;left:28px;top:50%;transform:translateY(-50%);width:17px;height:17px;color:var(--muted);pointer-events:none}
+.combo-search input{width:100%;min-height:46px;border:1.5px solid transparent;border-radius:999px;background:#F2F2F3;padding:0 18px 0 44px;font-size:15px}
+.combo-search input:focus{outline:none;border-color:#A6A2AC}
+.combo-list{max-height:290px;overflow:auto;overscroll-behavior:contain;padding:6px 0}
+.combo-list button,.combo-other{display:flex;flex-direction:column;align-items:flex-start;gap:1px;width:100%;text-align:left;border:none;background:none;padding:10px 18px;cursor:pointer;font-size:14.5px;color:var(--ink)}
+.combo-list button.act,.combo-list button:hover,.combo-other.act,.combo-other:hover{background:#FFF3F8}
+.combo-list button.sel{color:var(--yeah-pink);font-weight:600}
+.combo-note{padding:8px 18px 10px;font-size:12px;color:var(--muted)}
+.combo-empty{padding:16px 18px 6px;font-size:13.5px;color:var(--muted)}
+.combo-other{flex-direction:row;align-items:center;gap:10px;border-top:1px solid var(--line);padding:13px 18px;font-weight:600;color:var(--yeah-pink)}
+.combo-other .ic{width:17px;height:17px}
+.other-name{margin-top:12px}
 /* ===== 02 REGISTER ===== */
 .reg{padding:40px 0 90px;background:linear-gradient(180deg,#fff 0%,#FFF6F9 320px,#F6F6F7 100%)}
 .reg-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:26px}
 .reg-head h1{font-size:38px;font-weight:600;margin:8px 0 6px}
 .reg-grid{display:grid;grid-template-columns:minmax(0,1fr) 336px;gap:26px;align-items:start}
-.rail{display:flex;gap:10px;margin-bottom:24px}
-.rail a{flex:1;padding:14px 16px;border-radius:14px;border:1.5px solid var(--line);background:#fff;display:flex;gap:12px;align-items:center;color:var(--ink);transition:all .16s var(--ease)}
-.rail a.on{border-color:transparent;background:var(--yeah-black);color:#fff}
-.rail a.done{border-color:var(--ok)}
-.rail i.n{width:28px;height:28px;flex:none;border-radius:50%;background:#F1F1F1;display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-display-alt);font-style:normal;font-size:11.5px;font-weight:700}
-.rail a.on i.n{background:var(--grad);color:#151515}
-.rail a.done i.n{background:var(--ok);color:#fff}
-.rail b{font-size:13px;font-weight:600;display:block}
-.rail small{font-size:11px;color:var(--muted)}
-.rail a.on small{color:rgba(255,255,255,.6)}
 .fs{margin-bottom:22px}
 .fs h3{font-size:20px;font-weight:600;margin:4px 0 4px}
 .fs>p.sub{font-size:13px;color:var(--muted);margin-bottom:20px}
 .fs-head{display:flex;align-items:center;gap:12px;margin-bottom:18px}
 .fs-head .n{width:34px;height:34px;border-radius:50%;background:var(--grad);color:#151515;display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-display-alt);font-weight:700;font-size:13px;flex:none}
-.prefilled{position:relative}
-.prefilled .inp{padding-right:84px}
-.pill-auto{position:absolute;right:12px;top:34px;font-family:var(--font-display-alt);font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--yeah-yellow);color:#151515;border-radius:999px;padding:4px 9px;pointer-events:none}
+/* manual sign-up: nothing comes from Google, and the account needs a password */
+html[data-auth="email"] #emailWarn{display:none!important}
+html:not([data-auth="email"]) .only-email{display:none!important}
+html[data-auth="email"] .only-google{display:none!important}
+.acct-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
+.pw-hint{display:block;margin-top:8px}
 .cond{display:none}
 .cond.on{display:block;animation:fadeUp .3s var(--ease)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}}
@@ -420,13 +460,7 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
    <a href="#s-profile" data-en="Profile details" data-th="ข้อมูลโปรไฟล์">ข้อมูลโปรไฟล์</a>
   </nav>
   <div class="nav-right">
-   <div class="lang" id="lang">
-    <button class="lang-btn" id="langBtn" aria-label="Language"><span class="flag flag-th" id="flagCur"></span><i class="ic chev" data-lucide="chevron-down"></i></button>
-    <div class="lang-menu" id="langMenu">
-     <button data-setlang="th" class="on"><span class="flag flag-th"></span>ไทย (TH)</button>
-     <button data-setlang="en"><span class="flag flag-en"></span>English (EN)</button>
-    </div>
-   </div>
+   <button type="button" class="lang-btn" id="langBtn" aria-label="Switch to English"><span class="flag flag-th" id="flagCur"></span><span id="langTxt">TH</span></button>
    <div class="bell" id="bell">
     <button type="button" class="nav-bell" id="navBell" aria-label="Notifications" aria-haspopup="true" aria-expanded="false" aria-controls="notifPop"><i class="ic" data-lucide="bell"></i><span class="cnt" id="bellCnt">2</span></button>
     <div class="notif-pop" id="notifPop" role="dialog" aria-label="Notifications">
@@ -468,37 +502,39 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
    <h1 data-en="From potential to proof of work." data-th="เปลี่ยนศักยภาพให้เป็นผลงานที่พิสูจน์ได้">เปลี่ยนศักยภาพให้เป็นผลงานที่พิสูจน์ได้</h1>
    <p data-en="One account for every YEAH program. Apply to bootcamps and events, collect verified evidence of what you build, and carry a credential that anyone can check." data-th="บัญชีเดียวใช้ได้กับทุกโครงการของ YEAH สมัครบูตแคมป์และกิจกรรม เก็บหลักฐานผลงานที่ผ่านการตรวจสอบ และถือ Credential ที่ใคร ๆ ก็ตรวจสอบได้">บัญชีเดียวใช้ได้กับทุกโครงการของ YEAH สมัครบูตแคมป์และกิจกรรม เก็บหลักฐานผลงานที่ผ่านการตรวจสอบ และถือ Credential ที่ใคร ๆ ก็ตรวจสอบได้</p>
    <div class="auth-steps">
-    <div><i class="n">1</i><span data-en="Sign in with Google — no new password." data-th="เข้าสู่ระบบด้วย Google ไม่ต้องตั้งรหัสผ่านใหม่">เข้าสู่ระบบด้วย Google ไม่ต้องตั้งรหัสผ่านใหม่</span></div>
+    <div><i class="n">1</i><span data-en="Sign in with Google, or sign up with your email." data-th="เข้าสู่ระบบด้วย Google หรือสมัครด้วยอีเมลของคุณ">เข้าสู่ระบบด้วย Google หรือสมัครด้วยอีเมลของคุณ</span></div>
     <div><i class="n">2</i><span data-en="Fill your profile once — about 3 minutes." data-th="กรอกโปรไฟล์ครั้งเดียว ใช้เวลาราว 3 นาที">กรอกโปรไฟล์ครั้งเดียว ใช้เวลาราว 3 นาที</span></div>
     <div><i class="n">3</i><span data-en="Apply to a program and move from General Member to Explorer." data-th="สมัครเข้าโครงการเพื่อขยับจาก General Member ไปสู่ Explorer">สมัครเข้าโครงการเพื่อขยับจาก General Member ไปสู่ Explorer</span></div>
    </div>
   </div>
 
   <div class="auth-panel">
-   <div class="auth-box">
+   <div class="auth-box fmt">
     <span class="eyebrow" data-en="Member login" data-th="เข้าสู่ระบบสมาชิก">เข้าสู่ระบบสมาชิก</span>
     <h2 data-en="Welcome to YEAH" data-th="ยินดีต้อนรับสู่ YEAH">ยินดีต้อนรับสู่ YEAH</h2>
-    <p class="sub" data-en="Use the Google account you want tied to your membership. We match you by Google ID, not by email address." data-th="ใช้บัญชี Google ที่ต้องการผูกกับการเป็นสมาชิก ระบบจับคู่คุณด้วย Google ID ไม่ใช่อีเมล">ใช้บัญชี Google ที่ต้องการผูกกับการเป็นสมาชิก ระบบจับคู่คุณด้วย Google ID ไม่ใช่อีเมล</p>
-
+    <p class="sub" data-en="Sign in with Google, or with the email and password you signed up with." data-th="เข้าสู่ระบบด้วย Google หรือด้วยอีเมลและรหัสผ่านที่คุณใช้สมัคร">เข้าสู่ระบบด้วย Google หรือด้วยอีเมลและรหัสผ่านที่คุณใช้สมัคร</p>
 
     <button class="btn btn-google" id="googleBtn">
      <svg class="gl" viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8c-.5 2.8-2 5.1-4.4 6.7v5.6h7.1c4.2-3.8 6.6-9.5 6.6-16.3z"/><path fill="#34A853" d="M24 46c6 0 11-2 14.6-5.2l-7.1-5.6c-2 1.3-4.5 2.1-7.5 2.1-5.8 0-10.6-3.9-12.4-9.1H4.3v5.7C7.9 41.1 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.6 28.2c-.4-1.3-.7-2.7-.7-4.2s.3-2.9.7-4.2v-5.7H4.3C2.8 17 2 20.4 2 24s.8 7 2.3 9.9l7.3-5.7z"/><path fill="#EA4335" d="M24 10.7c3.3 0 6.2 1.1 8.5 3.3l6.3-6.3C35 4.1 30 2 24 2 15.4 2 7.9 6.9 4.3 14.1l7.3 5.7c1.8-5.2 6.6-9.1 12.4-9.1z"/></svg>
      <span data-en="Continue with Google" data-th="ดำเนินการต่อด้วย Google">ดำเนินการต่อด้วย Google</span>
     </button>
 
-    <div class="or"><span data-en="or" data-th="หรือ">หรือ</span></div>
+    <div class="or"><span data-en="or continue with" data-th="หรือดำเนินการต่อด้วย">หรือดำเนินการต่อด้วย</span></div>
 
     <form id="emailForm" novalidate>
      <div class="field">
-      <label for="login_email"><span data-en="Email you registered with" data-th="อีเมลที่เคยลงทะเบียนไว้">อีเมลที่เคยลงทะเบียนไว้</span></label>
-      <input class="inp" type="email" id="login_email" name="login_email" inputmode="email" autocomplete="email" placeholder="you@example.com">
-      <span class="hint" data-en="We send a one-time sign-in link. The link still asks for the Google account tied to your membership." data-th="เราจะส่งลิงก์เข้าสู่ระบบแบบใช้ครั้งเดียว ลิงก์จะยังขอบัญชี Google ที่ผูกกับสมาชิกภาพของคุณ">เราจะส่งลิงก์เข้าสู่ระบบแบบใช้ครั้งเดียว ลิงก์จะยังขอบัญชี Google ที่ผูกกับสมาชิกภาพของคุณ</span>
+      <label for="login_email"><span data-en="Email address" data-th="อีเมล">อีเมล</span></label>
+      <input class="inp" type="email" id="login_email" name="login_email" inputmode="email" autocomplete="username" data-ph-en="Enter your email" data-ph-th="กรอกอีเมลของคุณ" placeholder="กรอกอีเมลของคุณ">
      </div>
-     <button class="btn btn-ghost" type="submit" id="emailSubmit" style="width:100%;margin-top:14px"><i class="ic" data-lucide="mail"></i><span data-en="Send sign-in link" data-th="ส่งลิงก์เข้าสู่ระบบ">ส่งลิงก์เข้าสู่ระบบ</span></button>
+     <div class="field">
+      <label for="login_password"><span data-en="Password" data-th="รหัสผ่าน">รหัสผ่าน</span></label>
+      <div class="pw-wrap"><input class="inp" type="password" id="login_password" name="login_password" autocomplete="current-password" data-ph-en="Enter your password" data-ph-th="กรอกรหัสผ่านของคุณ" placeholder="กรอกรหัสผ่านของคุณ"><button type="button" class="pw-eye" data-for="login_password" aria-label="Show password"><i class="ic" data-lucide="eye"></i></button></div>
+     </div>
+     <div class="auth-forgot"><button type="button" class="auth-link" data-modal="forgot" data-en="Forgot your password?" data-th="ลืมรหัสผ่าน?">ลืมรหัสผ่าน?</button></div>
+     <button class="btn btn-grad btn-auth" type="submit" id="emailSubmit" disabled><span data-en="Sign in" data-th="เข้าสู่ระบบ">เข้าสู่ระบบ</span></button>
     </form>
 
-
-
+    <p class="auth-alt"><span data-en="Don't have an account?" data-th="ยังไม่มีบัญชี?">ยังไม่มีบัญชี?</span><button type="button" class="auth-link" id="signUpLink" data-en="Sign up" data-th="สมัครสมาชิก">สมัครสมาชิก</button></p>
    </div>
   </div>
  </div>
@@ -510,25 +546,18 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
   <div class="wrap">
    <div class="reg-head">
     <div>
-     <span class="eyebrow" data-en="Step 2 of 3 · New member" data-th="ขั้นที่ 2 จาก 3 · สมาชิกใหม่">ขั้นที่ 2 จาก 3 · สมาชิกใหม่</span>
-     <h1 data-en="Complete your member profile" data-th="กรอกโปรไฟล์สมาชิกให้ครบ">กรอกโปรไฟล์สมาชิกให้ครบ</h1>
-     <p class="muted" data-en="About 3 minutes. You can edit everything later from your profile." data-th="ใช้เวลาราว 3 นาที แก้ไขภายหลังได้ทั้งหมดจากหน้าโปรไฟล์">ใช้เวลาราว 3 นาที แก้ไขภายหลังได้ทั้งหมดจากหน้าโปรไฟล์</p>
+     <h1 data-en="Complete your member profile" data-th="กรอกโปรไฟล์สมาชิก">กรอกโปรไฟล์สมาชิก</h1>
+     <p class="muted" data-en="You can edit everything later from your profile." data-th="คุณสามารถแก้ไขภายหลังได้จากหน้าโปรไฟล์">คุณสามารถแก้ไขภายหลังได้จากหน้าโปรไฟล์</p>
     </div>
-    <button class="btn btn-ghost btn-sm" id="signOutReg"><i class="ic" data-lucide="log-out"></i><span data-en="Use another account" data-th="ใช้บัญชีอื่น">ใช้บัญชีอื่น</span></button>
-   </div>
-
-   <div class="rail">
-    <a href="#g-identity" class="on"><i class="n">1</i><span><b data-en="Identity" data-th="ข้อมูลส่วนตัว">ข้อมูลส่วนตัว</b><small data-en="Name, birthday, contact" data-th="ชื่อ วันเกิด การติดต่อ">ชื่อ วันเกิด การติดต่อ</small></span></a>
-    <a href="#g-status"><i class="n">2</i><span><b data-en="Study or work" data-th="การศึกษาหรือการทำงาน">การศึกษาหรือการทำงาน</b><small data-en="Student or professional" data-th="นักศึกษาหรือคนทำงาน">นักศึกษาหรือคนทำงาน</small></span></a>
-    <a href="#g-about"><i class="n">3</i><span><b data-en="Where you are from" data-th="ที่อยู่และการรู้จักเรา">ที่อยู่และการรู้จักเรา</b><small data-en="Province, referral, consent" data-th="จังหวัด ช่องทางที่รู้จัก ความยินยอม">จังหวัด ช่องทางที่รู้จัก ความยินยอม</small></span></a>
    </div>
 
    <div class="reg-grid">
-    <form class="card card-pad" id="regForm" novalidate autocomplete="on">
-     <!-- google identity, carried to the backend as the primary key -->
+    <form class="card card-pad fmt" id="regForm" novalidate autocomplete="on">
+     <!-- Google sign-up: google_sub is the primary key. Email sign-up (html[data-auth="email"]):
+          both hidden values are blanked and auth_provider becomes "email". -->
      <input type="hidden" name="google_sub" id="google_sub" value="108214477390215540912">
      <input type="hidden" name="google_email_login" id="google_email_login" value="nicha.sri@gmail.com">
-     <input type="hidden" name="auth_provider" value="google">
+     <input type="hidden" name="auth_provider" id="f_auth_provider" value="google">
      <input type="hidden" name="locale" id="f_locale" value="th">
      <input type="hidden" name="consent_version" value="pdpa-2026-09-v1">
      <input type="hidden" name="signup_source" id="f_signup_source" value="landing_join_cta">
@@ -536,17 +565,16 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
      <!-- ---- group 1 ---- -->
      <section class="fs" id="g-identity">
       <div class="fs-head"><span class="n">1</span><div><h3 data-en="Identity" data-th="ข้อมูลส่วนตัว">ข้อมูลส่วนตัว</h3></div></div>
-      <p class="sub" data-en="Name and email come from your Google account. Edit them if your legal or university record differs." data-th="ชื่อและอีเมลดึงมาจากบัญชี Google แก้ไขได้หากต่างจากชื่อตามเอกสารหรือทะเบียนมหาวิทยาลัย">ชื่อและอีเมลดึงมาจากบัญชี Google แก้ไขได้หากต่างจากชื่อตามเอกสารหรือทะเบียนมหาวิทยาลัย</p>
+      <p class="sub only-google" data-en="Name and email come from your Google account. Edit them if your legal or university record differs." data-th="ชื่อและอีเมลดึงมาจากบัญชี Google แก้ไขได้หากต่างจากชื่อตามเอกสารหรือทะเบียนมหาวิทยาลัย">ชื่อและอีเมลดึงมาจากบัญชี Google แก้ไขได้หากต่างจากชื่อตามเอกสารหรือทะเบียนมหาวิทยาลัย</p>
+      <p class="sub only-email" data-en="Use your name as it appears on your ID or student record. Your email and password become your sign-in." data-th="กรอกชื่อตามบัตรประชาชนหรือทะเบียนสถานศึกษา อีเมลและรหัสผ่านจะใช้สำหรับเข้าสู่ระบบ">กรอกชื่อตามบัตรประชาชนหรือทะเบียนสถานศึกษา อีเมลและรหัสผ่านจะใช้สำหรับเข้าสู่ระบบ</p>
       <div class="grid2">
-       <div class="field prefilled">
+       <div class="field">
         <label for="first_name"><span data-en="First name" data-th="ชื่อจริง">ชื่อจริง</span> <span class="req">*</span></label>
-        <input class="inp" id="first_name" name="first_name" required value="ณิชา" autocomplete="given-name">
-        <span class="pill-auto">Google</span>
+        <input class="inp" id="first_name" name="first_name" required value="ณิชา" autocomplete="given-name" data-ph-en="e.g. ณิชา" data-ph-th="เช่น ณิชา" placeholder="เช่น ณิชา">
        </div>
-       <div class="field prefilled">
+       <div class="field">
         <label for="last_name"><span data-en="Surname" data-th="นามสกุล">นามสกุล</span> <span class="req">*</span></label>
-        <input class="inp" id="last_name" name="last_name" required value="ศรีวัฒน์" autocomplete="family-name">
-        <span class="pill-auto">Google</span>
+        <input class="inp" id="last_name" name="last_name" required value="ศรีวัฒน์" autocomplete="family-name" data-ph-en="e.g. ศรีวัฒน์" data-ph-th="เช่น ศรีวัฒน์" placeholder="เช่น ศรีวัฒน์">
        </div>
       </div>
       <div class="grid2" style="margin-top:18px">
@@ -560,17 +588,11 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
        </div>
       </div>
       <span class="hint" id="enNameHint" style="display:block;margin-top:8px" data-en="English letters only, as on your passport or student ID. Used on your card and profile when the site is in English." data-th="ใช้ตัวอักษรภาษาอังกฤษตามพาสปอร์ตหรือบัตรนักศึกษา ใช้บนบัตรสมาชิกและโปรไฟล์เมื่อเปิดเว็บเป็นภาษาอังกฤษ">ใช้ตัวอักษรภาษาอังกฤษตามพาสปอร์ตหรือบัตรนักศึกษา ใช้บนบัตรสมาชิกและโปรไฟล์เมื่อเปิดเว็บเป็นภาษาอังกฤษ</span>
-      <div class="grid3" style="margin-top:18px">
+      <div class="grid2" style="margin-top:18px">
        <div class="field">
         <label for="birthdate"><span data-en="Birthday" data-th="วันเกิด">วันเกิด</span> <span class="req">*</span></label>
         <input class="inp" type="date" id="birthdate" name="birthdate" required max="2014-01-01">
         <span class="hint" data-en="Used for age-banded program eligibility only." data-th="ใช้เพื่อดูเกณฑ์อายุของโครงการเท่านั้น">ใช้เพื่อดูเกณฑ์อายุของโครงการเท่านั้น</span>
-       </div>
-       <div class="field prefilled">
-        <label for="email"><span data-en="Contact email" data-th="อีเมลสำหรับติดต่อ">อีเมลสำหรับติดต่อ</span> <span class="req">*</span></label>
-        <input class="inp" type="email" id="email" name="email" required value="nicha.sri@gmail.com" autocomplete="email">
-        <span class="pill-auto">Google</span>
-        <span class="hint warn" id="emailWarn" style="display:none" data-en="Noted. Program mail goes to this address, but you still sign in with nicha.sri@gmail.com." data-th="รับทราบ อีเมลเกี่ยวกับโครงการจะส่งมาที่นี่ แต่การเข้าสู่ระบบยังใช้ nicha.sri@gmail.com เสมอ">รับทราบ อีเมลเกี่ยวกับโครงการจะส่งมาที่นี่ แต่การเข้าสู่ระบบยังใช้ nicha.sri@gmail.com เสมอ</span>
        </div>
        <div class="field">
         <label for="phone"><span data-en="Mobile" data-th="เบอร์มือถือ">เบอร์มือถือ</span> <span class="req">*</span></label>
@@ -578,6 +600,24 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
         <span class="hint" id="phoneHint" data-en="Thai mobile: 08x-xxx-xxxx or +66 8x xxx xxxx." data-th="เบอร์ไทย: 08x-xxx-xxxx หรือ +66 8x xxx xxxx">เบอร์ไทย: 08x-xxx-xxxx หรือ +66 8x xxx xxxx</span>
        </div>
       </div>
+      <!-- email, and on email sign-up the password pair right beside it -->
+      <div class="acct-row">
+       <div class="field">
+        <label for="email"><span class="only-google" data-en="Contact email" data-th="อีเมลสำหรับติดต่อ">อีเมลสำหรับติดต่อ</span><span class="only-email" data-en="Email address" data-th="อีเมล">อีเมล</span> <span class="req">*</span></label>
+        <input class="inp" type="email" id="email" name="email" required value="nicha.sri@gmail.com" autocomplete="email" placeholder="you@example.com">
+        <span class="hint warn" id="emailWarn" style="display:none" data-en="Noted. Program mail goes to this address, but you still sign in with nicha.sri@gmail.com." data-th="รับทราบ อีเมลเกี่ยวกับโครงการจะส่งมาที่นี่ แต่การเข้าสู่ระบบยังใช้ nicha.sri@gmail.com เสมอ">รับทราบ อีเมลเกี่ยวกับโครงการจะส่งมาที่นี่ แต่การเข้าสู่ระบบยังใช้ nicha.sri@gmail.com เสมอ</span>
+       </div>
+       <div class="field only-email">
+        <label for="password"><span data-en="Password" data-th="รหัสผ่าน">รหัสผ่าน</span> <span class="req">*</span></label>
+        <div class="pw-wrap"><input class="inp" type="password" id="password" name="password" autocomplete="new-password" data-ph-en="Create a strong password" data-ph-th="ตั้งรหัสผ่านที่ปลอดภัย" placeholder="ตั้งรหัสผ่านที่ปลอดภัย"><button type="button" class="pw-eye" data-for="password" aria-label="Show password"><i class="ic" data-lucide="eye"></i></button></div>
+       </div>
+       <div class="field only-email">
+        <label for="password_confirm"><span data-en="Confirm password" data-th="ยืนยันรหัสผ่าน">ยืนยันรหัสผ่าน</span> <span class="req">*</span></label>
+        <div class="pw-wrap"><input class="inp" type="password" id="password_confirm" autocomplete="new-password" data-ph-en="Confirm your password" data-ph-th="กรอกรหัสผ่านอีกครั้ง" placeholder="กรอกรหัสผ่านอีกครั้ง"><button type="button" class="pw-eye" data-for="password_confirm" aria-label="Show password"><i class="ic" data-lucide="eye"></i></button></div>
+        <span class="hint" id="pwMatchHint" style="display:none"></span>
+       </div>
+      </div>
+      <span class="hint pw-hint only-email" id="pwHint" data-en="Must be at least 8 characters with uppercase, lowercase, number, and special character (@$!%*?&amp;)" data-th="อย่างน้อย 8 ตัวอักษร ประกอบด้วยตัวพิมพ์ใหญ่ ตัวพิมพ์เล็ก ตัวเลข และอักขระพิเศษ (@$!%*?&amp;)">อย่างน้อย 8 ตัวอักษร ประกอบด้วยตัวพิมพ์ใหญ่ ตัวพิมพ์เล็ก ตัวเลข และอักขระพิเศษ (@$!%*?&amp;)</span>
      </section>
 
      <!-- ---- group 2 ---- -->
@@ -587,40 +627,83 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
       <div class="field">
        <span class="lbl"><span data-en="Current status" data-th="สถานะปัจจุบัน">สถานะปัจจุบัน</span> <span class="req">*</span></span>
        <div class="seg">
-        <input type="radio" name="occupation_status" id="os_student" value="student" required>
-        <label for="os_student"><i class="ic" data-lucide="graduation-cap"></i><span data-en="Student" data-th="นักเรียน / นักศึกษา">นักเรียน / นักศึกษา</span></label>
+        <input type="radio" name="occupation_status" id="os_school" value="school_student" required>
+        <label for="os_school"><i class="ic" data-lucide="backpack"></i><span data-en="School student" data-th="นักเรียน">นักเรียน</span></label>
+        <input type="radio" name="occupation_status" id="os_uni" value="university_student">
+        <label for="os_uni"><i class="ic" data-lucide="graduation-cap"></i><span data-en="University student" data-th="นักศึกษา">นักศึกษา</span></label>
         <input type="radio" name="occupation_status" id="os_pro" value="professional">
         <label for="os_pro"><i class="ic" data-lucide="briefcase"></i><span data-en="Working professional" data-th="คนทำงาน">คนทำงาน</span></label>
        </div>
       </div>
 
+      <!-- นักเรียน: ม.1 upward, including ปวช. and กศน. -->
+      <div class="cond" id="blockSchool" style="margin-top:20px">
+       <div class="grid2">
+        <div class="field">
+         <span class="lbl" id="school_lbl"><span data-en="School" data-th="โรงเรียน / สถานศึกษา">โรงเรียน / สถานศึกษา</span> <span class="req">*</span></span>
+         <div class="combo" data-kind="school" data-for="school">
+          <input type="hidden" name="school" id="school" data-req-group="school_student">
+          <button type="button" class="inp combo-btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="school_lbl"><span class="ph" data-en="Search or select" data-th="ค้นหาหรือเลือก">ค้นหาหรือเลือก</span><i class="ic" data-lucide="chevron-down"></i></button>
+         </div>
+         <div class="cond other-name" id="school_other_wrap">
+          <input class="inp" id="school_other" name="school_other" data-ph-en="Your school's full name" data-ph-th="ชื่อเต็มของโรงเรียน / สถานศึกษา" placeholder="ชื่อเต็มของโรงเรียน / สถานศึกษา">
+          <span class="hint" data-en="Required — we could not find it in the list." data-th="จำเป็น — ไม่พบชื่อนี้ในรายการ">จำเป็น — ไม่พบชื่อนี้ในรายการ</span>
+         </div>
+        </div>
+        <div class="field">
+         <span class="lbl"><span data-en="Grade" data-th="ระดับชั้น">ระดับชั้น</span> <span class="req">*</span></span>
+         <div class="chips">
+          <input type="radio" name="grade_level" id="g_m1" value="m1" data-req-group="school_student"><label for="g_m1"><span data-en="M.1" data-th="ม.1">ม.1</span></label>
+          <input type="radio" name="grade_level" id="g_m2" value="m2"><label for="g_m2"><span data-en="M.2" data-th="ม.2">ม.2</span></label>
+          <input type="radio" name="grade_level" id="g_m3" value="m3"><label for="g_m3"><span data-en="M.3" data-th="ม.3">ม.3</span></label>
+          <input type="radio" name="grade_level" id="g_m4" value="m4"><label for="g_m4"><span data-en="M.4" data-th="ม.4">ม.4</span></label>
+          <input type="radio" name="grade_level" id="g_m5" value="m5"><label for="g_m5"><span data-en="M.5" data-th="ม.5">ม.5</span></label>
+          <input type="radio" name="grade_level" id="g_m6" value="m6"><label for="g_m6"><span data-en="M.6" data-th="ม.6">ม.6</span></label>
+          <input type="radio" name="grade_level" id="g_v1" value="voc1"><label for="g_v1"><span data-en="Voc. 1" data-th="ปวช.1">ปวช.1</span></label>
+          <input type="radio" name="grade_level" id="g_v2" value="voc2"><label for="g_v2"><span data-en="Voc. 2" data-th="ปวช.2">ปวช.2</span></label>
+          <input type="radio" name="grade_level" id="g_v3" value="voc3"><label for="g_v3"><span data-en="Voc. 3" data-th="ปวช.3">ปวช.3</span></label>
+         </div>
+        </div>
+       </div>
+      </div>
+
+      <!-- นักศึกษา: ปวส. / bachelor / graduate -->
       <div class="cond" id="blockStudent" style="margin-top:20px">
        <div class="grid2">
         <div class="field">
-         <label for="university"><span data-en="University / school" data-th="มหาวิทยาลัย / สถานศึกษา">มหาวิทยาลัย / สถานศึกษา</span> <span class="req">*</span></label>
-         <select class="inp" id="university" name="university" data-req-group="student"><option value="" data-en="Select" data-th="เลือก">เลือก</option></select>
+         <span class="lbl" id="university_lbl"><span data-en="University / institution" data-th="มหาวิทยาลัย / สถานศึกษา">มหาวิทยาลัย / สถานศึกษา</span> <span class="req">*</span></span>
+         <div class="combo" data-kind="uni" data-for="university">
+          <input type="hidden" name="university" id="university" data-req-group="university_student">
+          <button type="button" class="inp combo-btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="university_lbl"><span class="ph" data-en="Search or select" data-th="ค้นหาหรือเลือก">ค้นหาหรือเลือก</span><i class="ic" data-lucide="chevron-down"></i></button>
+         </div>
+         <div class="cond other-name" id="university_other_wrap">
+          <input class="inp" id="university_other" name="university_other" data-ph-en="Your institution's full name" data-ph-th="ชื่อเต็มของมหาวิทยาลัย / สถานศึกษา" placeholder="ชื่อเต็มของมหาวิทยาลัย / สถานศึกษา">
+          <span class="hint" data-en="Required — we could not find it in the list." data-th="จำเป็น — ไม่พบชื่อนี้ในรายการ">จำเป็น — ไม่พบชื่อนี้ในรายการ</span>
+         </div>
         </div>
         <div class="field">
          <label for="faculty"><span data-en="Faculty / field" data-th="คณะ / สาขา">คณะ / สาขา</span> <span class="req">*</span></label>
-         <input class="inp" id="faculty" name="faculty" data-req-group="student" placeholder="เช่น วิศวกรรมคอมพิวเตอร์">
+         <input class="inp" id="faculty" name="faculty" data-req-group="university_student" data-ph-en="e.g. Computer Engineering" data-ph-th="เช่น วิศวกรรมคอมพิวเตอร์" placeholder="เช่น วิศวกรรมคอมพิวเตอร์">
         </div>
        </div>
        <div class="grid2" style="margin-top:18px">
         <div class="field">
          <span class="lbl"><span data-en="Year of study" data-th="ชั้นปี">ชั้นปี</span> <span class="req">*</span></span>
          <div class="chips" id="yearChips">
-          <input type="radio" name="year_of_study" id="y1" value="1" data-req-group="student"><label for="y1">ปี 1</label>
-          <input type="radio" name="year_of_study" id="y2" value="2"><label for="y2">ปี 2</label>
-          <input type="radio" name="year_of_study" id="y3" value="3"><label for="y3">ปี 3</label>
-          <input type="radio" name="year_of_study" id="y4" value="4"><label for="y4">ปี 4</label>
-          <input type="radio" name="year_of_study" id="y5" value="graduated"><label for="y5"><span data-en="Graduated" data-th="จบแล้ว">จบแล้ว</span></label>
+          <input type="radio" name="year_of_study" id="y1" value="1" data-req-group="university_student"><label for="y1"><span data-en="Year 1" data-th="ปี 1">ปี 1</span></label>
+          <input type="radio" name="year_of_study" id="y2" value="2"><label for="y2"><span data-en="Year 2" data-th="ปี 2">ปี 2</span></label>
+          <input type="radio" name="year_of_study" id="y3" value="3"><label for="y3"><span data-en="Year 3" data-th="ปี 3">ปี 3</span></label>
+          <input type="radio" name="year_of_study" id="y4" value="4"><label for="y4"><span data-en="Year 4" data-th="ปี 4">ปี 4</span></label>
+          <input type="radio" name="year_of_study" id="y5" value="5"><label for="y5"><span data-en="Year 5" data-th="ปี 5">ปี 5</span></label>
+          <input type="radio" name="year_of_study" id="y6" value="6"><label for="y6"><span data-en="Year 6" data-th="ปี 6">ปี 6</span></label>
+          <input type="radio" name="year_of_study" id="y7" value="7"><label for="y7"><span data-en="Year 7" data-th="ปี 7">ปี 7</span></label>
+          <input type="radio" name="year_of_study" id="y8" value="8"><label for="y8"><span data-en="Year 8" data-th="ปี 8">ปี 8</span></label>
          </div>
         </div>
         <div class="field">
          <label for="education_level"><span data-en="Education level" data-th="ระดับการศึกษา">ระดับการศึกษา</span> <span class="req">*</span></label>
-         <select class="inp" id="education_level" name="education_level" data-req-group="student">
+         <select class="inp" id="education_level" name="education_level" data-req-group="university_student">
           <option value="" data-en="Select" data-th="เลือก">เลือก</option>
-          <option value="high_school" data-en="High school / vocational" data-th="มัธยม / ปวช.">มัธยม / ปวช.</option>
           <option value="diploma" data-en="Diploma" data-th="ปวส. / อนุปริญญา">ปวส. / อนุปริญญา</option>
           <option value="bachelor" data-en="Bachelor" data-th="ปริญญาตรี">ปริญญาตรี</option>
           <option value="master" data-en="Master" data-th="ปริญญาโท">ปริญญาโท</option>
@@ -645,19 +728,19 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
         </div>
         <div class="field">
          <label for="department_field"><span data-en="Department / field" data-th="แผนก / สายงาน">แผนก / สายงาน</span> <span class="req">*</span></label>
-         <input class="inp" id="department_field" name="department_field" data-req-group="professional" placeholder="เช่น Product, Marketing, Data">
+         <input class="inp" id="department_field" name="department_field" data-req-group="professional" data-ph-en="e.g. Product, Marketing, Data" data-ph-th="เช่น Product, Marketing, Data" placeholder="เช่น Product, Marketing, Data">
         </div>
        </div>
        <div class="grid2" style="margin-top:18px">
         <div class="field">
          <label for="organisation"><span data-en="Organisation" data-th="องค์กร">องค์กร</span></label>
-         <input class="inp" id="organisation" name="organisation" placeholder="ไม่บังคับ">
+         <input class="inp" id="organisation" name="organisation" data-ph-en="Optional" data-ph-th="ไม่บังคับ" placeholder="ไม่บังคับ">
         </div>
         <div class="field">
          <label for="years_experience"><span data-en="Years of experience" data-th="ประสบการณ์ (ปี)">ประสบการณ์ (ปี)</span></label>
          <select class="inp" id="years_experience" name="years_experience">
           <option value="" data-en="Select" data-th="เลือก">เลือก</option>
-          <option value="0-1">0–1</option><option value="2-4">2–4</option><option value="5-9">5–9</option><option value="10+">10+</option>
+          <option value="0-1" data-en="0–1 years" data-th="0–1 ปี">0–1 ปี</option><option value="2-4" data-en="2–4 years" data-th="2–4 ปี">2–4 ปี</option><option value="5-9" data-en="5–9 years" data-th="5–9 ปี">5–9 ปี</option><option value="10+" data-en="10+ years" data-th="10 ปีขึ้นไป">10 ปีขึ้นไป</option>
          </select>
         </div>
        </div>
@@ -695,12 +778,12 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
         <input type="radio" name="referral_source" id="r7" value="other"><label for="r7"><i class="ic" data-lucide="circle-ellipsis"></i><span data-en="Other" data-th="อื่น ๆ">อื่น ๆ</span></label>
        </div>
        <div class="cond" id="refOther" style="margin-top:12px">
-        <input class="inp" id="referral_detail" name="referral_detail" placeholder="ช่วยบอกเราหน่อยว่าเจอ YEAH จากที่ไหน">
+        <input class="inp" id="referral_detail" name="referral_detail" data-ph-en="Tell us where you found YEAH" data-ph-th="ช่วยบอกเราหน่อยว่าเจอ YEAH จากที่ไหน" placeholder="ช่วยบอกเราหน่อยว่าเจอ YEAH จากที่ไหน">
        </div>
       </div>
       <div class="field" style="margin-top:18px">
        <label for="goal"><span data-en="What do you want out of YEAH?" data-th="คุณอยากได้อะไรจาก YEAH">คุณอยากได้อะไรจาก YEAH</span></label>
-       <textarea class="inp" id="goal" name="growth_goal" maxlength="300" placeholder="เช่น อยากมีผลงานจริงในพอร์ตก่อนจบปี 4"></textarea>
+       <textarea class="inp" id="goal" name="growth_goal" maxlength="300" data-ph-en="e.g. I want real work in my portfolio before I finish year 4" data-ph-th="เช่น อยากมีผลงานจริงในพอร์ตก่อนจบปี 4" placeholder="เช่น อยากมีผลงานจริงในพอร์ตก่อนจบปี 4"></textarea>
        <span class="hint"><span data-en="Optional. Becomes your Growth Goal on the member hub." data-th="ไม่บังคับ ข้อความนี้จะกลายเป็น Growth Goal บนหน้าสมาชิก">ไม่บังคับ ข้อความนี้จะกลายเป็น Growth Goal บนหน้าสมาชิก</span> <b id="goalCount">0</b>/300</span>
       </div>
 
@@ -734,10 +817,6 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
        <div data-k="about"><i class="ic" data-lucide="circle"></i><span data-en="Province and referral" data-th="จังหวัดและช่องทางที่รู้จัก">จังหวัดและช่องทางที่รู้จัก</span></div>
        <div data-k="consent"><i class="ic" data-lucide="circle"></i><span data-en="PDPA consent" data-th="ความยินยอม PDPA">ความยินยอม PDPA</span></div>
       </div>
-     </div>
-     <div class="card card-pad" style="background:#0E0C11;border-color:transparent;color:#fff">
-      <span class="eyebrow" data-en="After you submit" data-th="หลังจากกดส่ง">หลังจากกดส่ง</span>
-      <p style="font-size:13px;color:rgba(255,255,255,.78);margin-top:8px" data-en="You start as a General Member. Apply to any open program to reach Explorer." data-th="คุณจะเริ่มต้นเป็นสมาชิกทั่วไป สมัครโครงการที่เปิดรับเพื่อขยับไป Explorer">คุณจะเริ่มต้นเป็นสมาชิกทั่วไป สมัครโครงการที่เปิดรับเพื่อขยับไป Explorer</p>
      </div>
     </aside>
    </div>
@@ -979,7 +1058,7 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
         <div class="pd"><span class="lbl">email</span><b>nicha.sri@gmail.com</b></div>
         <div class="pd"><span class="lbl">phone</span><b>081-234-5678</b></div>
         <div class="pd"><span class="lbl">google_sub</span><b style="font-family:var(--font-mono,monospace);font-size:12px">1082144773…40912</b></div>
-        <div class="pd"><span class="lbl">occupation_status</span><b>student</b></div>
+        <div class="pd"><span class="lbl">occupation_status</span><b>university_student</b></div>
         <div class="pd"><span class="lbl">university</span><b>จุฬาลงกรณ์มหาวิทยาลัย</b></div>
         <div class="pd"><span class="lbl">faculty</span><b>วิศวกรรมคอมพิวเตอร์</b></div>
         <div class="pd"><span class="lbl">year_of_study</span><b>3</b></div>
@@ -1024,6 +1103,20 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
  <div class="mfoot"><button class="btn btn-ghost btn-sm" data-close><span data-en="Close" data-th="ปิด">ปิด</span></button><button class="btn btn-grad btn-sm" id="acceptTerms"><span data-en="Accept and tick the box" data-th="ยอมรับและติ๊กช่อง">ยอมรับและติ๊กช่อง</span></button></div>
 </div></div>
 
+<div class="modal" id="m-forgot" role="dialog" aria-labelledby="forgotTitle"><div class="mcard" style="width:min(480px,100%)">
+ <button class="mclose" data-close aria-label="Close"><i class="ic" data-lucide="x"></i></button>
+ <div class="mhead"><span class="eyebrow" data-en="Reset password" data-th="ตั้งรหัสผ่านใหม่">ตั้งรหัสผ่านใหม่</span><h3 id="forgotTitle" data-en="Forgot your password?" data-th="ลืมรหัสผ่าน?">ลืมรหัสผ่าน?</h3></div>
+ <form class="mbody fmt" id="forgotForm" novalidate>
+  <p data-en="Enter the email you signed up with. If it matches an account, we will send a link to set a new password. The link works for 30 minutes." data-th="กรอกอีเมลที่ใช้สมัคร หากตรงกับบัญชีในระบบ เราจะส่งลิงก์สำหรับตั้งรหัสผ่านใหม่ไปให้ ลิงก์ใช้ได้ 30 นาที">กรอกอีเมลที่ใช้สมัคร หากตรงกับบัญชีในระบบ เราจะส่งลิงก์สำหรับตั้งรหัสผ่านใหม่ไปให้ ลิงก์ใช้ได้ 30 นาที</p>
+  <div class="field" style="margin-top:14px">
+   <label for="forgot_email"><span data-en="Email address" data-th="อีเมล">อีเมล</span></label>
+   <input class="inp" type="email" id="forgot_email" name="email" inputmode="email" autocomplete="email" data-ph-en="Enter your email" data-ph-th="กรอกอีเมลของคุณ" placeholder="กรอกอีเมลของคุณ">
+  </div>
+  <p class="hint" style="margin-top:12px" data-en="Signed up with Google? You don't have a YEAH password — use Continue with Google." data-th="สมัครด้วย Google? บัญชีของคุณไม่มีรหัสผ่าน YEAH ให้ใช้ปุ่ม ดำเนินการต่อด้วย Google">สมัครด้วย Google? บัญชีของคุณไม่มีรหัสผ่าน YEAH ให้ใช้ปุ่ม ดำเนินการต่อด้วย Google</p>
+  <button class="btn btn-grad btn-auth" type="submit" id="forgotSubmit" style="margin-top:20px" disabled><span data-en="Send reset link" data-th="ส่งลิงก์ตั้งรหัสผ่านใหม่">ส่งลิงก์ตั้งรหัสผ่านใหม่</span></button>
+ </form>
+</div></div>
+
 <div class="modal" id="m-apply"><div class="mcard wide">
  <button class="mclose" data-close><i class="ic" data-lucide="x"></i></button>
  <div class="mhead"><span class="eyebrow" id="ap_type">bootcamp</span><h3 id="ap_title">—</h3><p class="hint" id="ap_dates" style="margin-top:6px"></p></div>
@@ -1044,7 +1137,7 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
    <input type="hidden" name="participant_id" value="YEAH-M-004182">
    <div class="field">
     <label for="ap_motivation"><span data-en="Why do you want in?" data-th="ทำไมคุณอยากเข้าร่วม">ทำไมคุณอยากเข้าร่วม</span> <span class="req">*</span></label>
-    <textarea class="inp" id="ap_motivation" name="motivation" maxlength="500" required placeholder="สองถึงสามประโยคก็พอ"></textarea>
+    <textarea class="inp" id="ap_motivation" name="motivation" maxlength="500" required data-ph-en="Two or three sentences is enough" data-ph-th="สองถึงสามประโยคก็พอ" placeholder="สองถึงสามประโยคก็พอ"></textarea>
    </div>
    <div class="field" style="margin-top:16px">
     <label for="ap_link"><span data-en="Evidence link" data-th="ลิงก์หลักฐาน">ลิงก์หลักฐาน</span> <span class="req">*</span></label>
@@ -1080,21 +1173,21 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
    </div>
    <div class="field" style="margin-top:16px"><label for="ev_activity"><span data-en="Activity" data-th="กิจกรรม">กิจกรรม</span> <span class="req">*</span></label>
     <select class="inp" id="ev_activity" name="activity_id" required>
-     <option value="">เลือกกิจกรรมที่เข้าร่วม</option>
-     <option value="ACT-0442">Creative Media Clinic · 30 ส.ค. 2026</option>
-     <option value="ACT-0391">Founders Meetup August · 12 ส.ค. 2026</option>
-     <option value="ACT-0377">AI Prototyping Bootcamp C2 · 26 ก.ค. 2026</option>
+     <option value="" data-en="Choose the activity you joined" data-th="เลือกกิจกรรมที่เข้าร่วม">เลือกกิจกรรมที่เข้าร่วม</option>
+     <option value="ACT-0442" data-en="Creative Media Clinic · 30 Aug 2026" data-th="Creative Media Clinic · 30 ส.ค. 2026">Creative Media Clinic · 30 ส.ค. 2026</option>
+     <option value="ACT-0391" data-en="Founders Meetup August · 12 Aug 2026" data-th="Founders Meetup August · 12 ส.ค. 2026">Founders Meetup August · 12 ส.ค. 2026</option>
+     <option value="ACT-0377" data-en="AI Prototyping Bootcamp C2 · 26 Jul 2026" data-th="AI Prototyping Bootcamp C2 · 26 ก.ค. 2026">AI Prototyping Bootcamp C2 · 26 ก.ค. 2026</option>
     </select>
    </div>
    <div class="grid2" style="margin-top:16px">
     <div class="field"><label for="ev_dim"><span data-en="Skill claimed" data-th="ทักษะที่ขอเคลม">ทักษะที่ขอเคลม</span> <span class="req">*</span></label>
      <select class="inp" id="ev_dim" name="skill_dimension" required>
-      <option value="">เลือกมิติทักษะ</option>
-      <option value="hard_skill">Hard skill</option>
-      <option value="ownership_execution">Ownership &amp; execution</option>
-      <option value="collaboration_communication">Collaboration &amp; communication</option>
-      <option value="adaptability">Adaptability / learning agility</option>
-      <option value="multiplier_potential">Multiplier potential</option>
+      <option value="" data-en="Choose a skill dimension" data-th="เลือกมิติทักษะ">เลือกมิติทักษะ</option>
+      <option value="hard_skill" data-en="Hard skill" data-th="ทักษะเฉพาะทาง">ทักษะเฉพาะทาง</option>
+      <option value="ownership_execution" data-en="Ownership &amp; execution" data-th="ความรับผิดชอบและการลงมือทำ">ความรับผิดชอบและการลงมือทำ</option>
+      <option value="collaboration_communication" data-en="Collaboration &amp; communication" data-th="การทำงานร่วมและการสื่อสาร">การทำงานร่วมและการสื่อสาร</option>
+      <option value="adaptability" data-en="Adaptability / learning agility" data-th="การปรับตัวและเรียนรู้">การปรับตัวและเรียนรู้</option>
+      <option value="multiplier_potential" data-en="Multiplier potential" data-th="การส่งต่อให้รุ่นถัดไป">การส่งต่อให้รุ่นถัดไป</option>
      </select>
     </div>
     <div class="field"><label for="ev_url"><span data-en="File or link" data-th="ไฟล์หรือลิงก์">ไฟล์หรือลิงก์</span> <span class="req">*</span></label><input class="inp" type="url" id="ev_url" name="evidence_url" required placeholder="https://"></div>
@@ -1187,7 +1280,8 @@ html[data-lang="th"] .bignums small{letter-spacing:.04em}
 
 <div class="toast" id="toast"><i class="ic" data-lucide="circle-check"></i><span id="toastMsg"></span></div>
 
-
+<!-- school + university lists for the registration pickers (shared with the mobile file) -->
+<script src="data/th-institutions.js"></script>
 <script>
 (function(){
 /* ---------- icons (same loader as the landing page) ---------- */
@@ -1201,9 +1295,15 @@ function icons(root){
 }
 /* ---------- reference data ---------- */
 var PROVINCES=['กรุงเทพมหานคร','กระบี่','กาญจนบุรี','กาฬสินธุ์','กำแพงเพชร','ขอนแก่น','จันทบุรี','ฉะเชิงเทรา','ชลบุรี','ชัยนาท','ชัยภูมิ','ชุมพร','เชียงราย','เชียงใหม่','ตรัง','ตราด','ตาก','นครนายก','นครปฐม','นครพนม','นครราชสีมา','นครศรีธรรมราช','นครสวรรค์','นนทบุรี','นราธิวาส','น่าน','บึงกาฬ','บุรีรัมย์','ปทุมธานี','ประจวบคีรีขันธ์','ปราจีนบุรี','ปัตตานี','พระนครศรีอยุธยา','พะเยา','พังงา','พัทลุง','พิจิตร','พิษณุโลก','เพชรบุรี','เพชรบูรณ์','แพร่','ภูเก็ต','มหาสารคาม','มุกดาหาร','แม่ฮ่องสอน','ยโสธร','ยะลา','ร้อยเอ็ด','ระนอง','ระยอง','ราชบุรี','ลพบุรี','ลำปาง','ลำพูน','เลย','ศรีสะเกษ','สกลนคร','สงขลา','สตูล','สมุทรปราการ','สมุทรสงคราม','สมุทรสาคร','สระแก้ว','สระบุรี','สิงห์บุรี','สุโขทัย','สุพรรณบุรี','สุราษฎร์ธานี','สุรินทร์','หนองคาย','หนองบัวลำภู','อ่างทอง','อำนาจเจริญ','อุดรธานี','อุตรดิตถ์','อุทัยธานี','อุบลราชธานี'];
-var UNIS=['จุฬาลงกรณ์มหาวิทยาลัย','มหาวิทยาลัยธรรมศาสตร์','มหาวิทยาลัยมหิดล','มหาวิทยาลัยเกษตรศาสตร์','มหาวิทยาลัยเชียงใหม่','มหาวิทยาลัยขอนแก่น','มหาวิทยาลัยสงขลานครินทร์','สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง','มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี','มหาวิทยาลัยศิลปากร','มหาวิทยาลัยศรีนครินทรวิโรฒ','มหาวิทยาลัยกรุงเทพ','มหาวิทยาลัยอัสสัมชัญ','อื่น ๆ (ระบุในช่องคณะ)'];
 function fillSelect(id,arr){var s=document.getElementById(id);if(!s)return;arr.forEach(function(v){var o=document.createElement('option');o.value=v;o.textContent=v;s.appendChild(o)})}
-fillSelect('province',PROVINCES);fillSelect('university',UNIS);
+var PROVINCE_EN={"กรุงเทพมหานคร":"Bangkok","กระบี่":"Krabi","กาญจนบุรี":"Kanchanaburi","กาฬสินธุ์":"Kalasin","กำแพงเพชร":"Kamphaeng Phet","ขอนแก่น":"Khon Kaen","จันทบุรี":"Chanthaburi","ฉะเชิงเทรา":"Chachoengsao","ชลบุรี":"Chon Buri","ชัยนาท":"Chai Nat","ชัยภูมิ":"Chaiyaphum","ชุมพร":"Chumphon","เชียงราย":"Chiang Rai","เชียงใหม่":"Chiang Mai","ตรัง":"Trang","ตราด":"Trat","ตาก":"Tak","นครนายก":"Nakhon Nayok","นครปฐม":"Nakhon Pathom","นครพนม":"Nakhon Phanom","นครราชสีมา":"Nakhon Ratchasima","นครศรีธรรมราช":"Nakhon Si Thammarat","นครสวรรค์":"Nakhon Sawan","นนทบุรี":"Nonthaburi","นราธิวาส":"Narathiwat","น่าน":"Nan","บึงกาฬ":"Bueng Kan","บุรีรัมย์":"Buri Ram","ปทุมธานี":"Pathum Thani","ประจวบคีรีขันธ์":"Prachuap Khiri Khan","ปราจีนบุรี":"Prachin Buri","ปัตตานี":"Pattani","พระนครศรีอยุธยา":"Phra Nakhon Si Ayutthaya","พะเยา":"Phayao","พังงา":"Phangnga","พัทลุง":"Phatthalung","พิจิตร":"Phichit","พิษณุโลก":"Phitsanulok","เพชรบุรี":"Phetchaburi","เพชรบูรณ์":"Phetchabun","แพร่":"Phrae","ภูเก็ต":"Phuket","มหาสารคาม":"Maha Sarakham","มุกดาหาร":"Mukdahan","แม่ฮ่องสอน":"Mae Hong Son","ยโสธร":"Yasothon","ยะลา":"Yala","ร้อยเอ็ด":"Roi Et","ระนอง":"Ranong","ระยอง":"Rayong","ราชบุรี":"Ratchaburi","ลพบุรี":"Lop Buri","ลำปาง":"Lampang","ลำพูน":"Lamphun","เลย":"Loei","ศรีสะเกษ":"Si Sa Ket","สกลนคร":"Sakon Nakhon","สงขลา":"Songkhla","สตูล":"Satun","สมุทรปราการ":"Samut Prakan","สมุทรสงคราม":"Samut Songkhram","สมุทรสาคร":"Samut Sakhon","สระแก้ว":"Sa Kaeo","สระบุรี":"Saraburi","สิงห์บุรี":"Sing Buri","สุโขทัย":"Sukhothai","สุพรรณบุรี":"Suphan Buri","สุราษฎร์ธานี":"Surat Thani","สุรินทร์":"Surin","หนองคาย":"Nong Khai","หนองบัวลำภู":"Nong Bua Lam Phu","อ่างทอง":"Ang Thong","อำนาจเจริญ":"Amnat Charoen","อุดรธานี":"Udon Thani","อุตรดิตถ์":"Uttaradit","อุทัยธานี":"Uthai Thani","อุบลราชธานี":"Ubon Ratchathani"};
+/* provinces: the value stays the Thai name; the label and the order follow the page language */
+function renderProvinces(){
+ var sel=document.getElementById('province'),cur=sel.value,en=LANG==='en';
+ var list=PROVINCES.slice();if(en)list.sort(function(a,b){return PROVINCE_EN[a]<PROVINCE_EN[b]?-1:1});
+ sel.innerHTML='<option value="">'+(en?'Select':'เลือก')+'</option>'+list.map(function(p){return '<option value="'+p+'">'+(en?PROVINCE_EN[p]:p)+'</option>'}).join('');
+ sel.value=cur;
+}
 
 /* ---------- programs (what GET /api/programs?status=open returns) ---------- */
 var PROGRAMS=[
@@ -1243,17 +1343,17 @@ function applyLang(){
  document.documentElement.setAttribute('lang',LANG);
  document.documentElement.setAttribute('data-lang',LANG);
  document.querySelectorAll('[data-en]').forEach(function(el){var v=el.getAttribute(LANG==='en'?'data-en':'data-th');if(v!==null)el.textContent=v});
+ document.querySelectorAll('[data-ph-en]').forEach(function(el){el.placeholder=el.getAttribute(LANG==='en'?'data-ph-en':'data-ph-th')});
+ document.querySelectorAll('.pw-eye').forEach(syncEye);
  var fc=document.getElementById('flagCur');if(fc)fc.className='flag flag-'+LANG;
- document.querySelectorAll('#langMenu button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-setlang')===LANG)});
+ document.getElementById('langTxt').textContent=LANG.toUpperCase();
+ document.getElementById('langBtn').setAttribute('aria-label',LANG==='th'?'Switch to English':'เปลี่ยนเป็นภาษาไทย');
  var loc=document.getElementById('f_locale');if(loc)loc.value=LANG;
- renderPrograms();renderTier(curTier);
+ renderPrograms();renderTier(curTier);refreshCombos();renderProvinces();
  if(window.mcRender)mcRender();
  try{localStorage.setItem('yeah-lang',LANG)}catch(e){}
 }
-var langWrap=document.getElementById('lang');
-document.getElementById('langBtn').addEventListener('click',function(e){e.stopPropagation();setBell(false);langWrap.classList.toggle('open')});
-document.querySelectorAll('#langMenu button').forEach(function(b){b.addEventListener('click',function(e){e.stopPropagation();LANG=b.getAttribute('data-setlang');applyLang();langWrap.classList.remove('open')})});
-document.addEventListener('click',function(e){if(!e.target.closest('.lang'))langWrap.classList.remove('open')});
+document.getElementById('langBtn').addEventListener('click',function(){LANG=LANG==='th'?'en':'th';applyLang()});
 function t(th,en){return LANG==='en'?en:th}
 
 /* ---------- big numbers: count up once the login screen is shown ---------- */
@@ -1270,12 +1370,75 @@ function countUp(){
 }
 /* ---------- screens ---------- */
 function showScreen(s){document.documentElement.setAttribute('data-screen',s);window.scrollTo({top:0,behavior:'instant'in window?'instant':'auto'});icons();if(s==='login')countUp()}
+/* ---------- show / hide password ---------- */
+function syncEye(b){
+ var on=document.getElementById(b.getAttribute('data-for')).type==='text';
+ b.setAttribute('aria-pressed',on?'true':'false');
+ b.setAttribute('aria-label',on?t('ซ่อนรหัสผ่าน','Hide password'):t('แสดงรหัสผ่าน','Show password'));
+}
+document.querySelectorAll('.pw-eye').forEach(function(b){
+ syncEye(b);
+ b.addEventListener('click',function(){
+  var inp=document.getElementById(b.getAttribute('data-for')),show=inp.type==='password';
+  inp.type=show?'text':'password';
+  var i=b.querySelector('.ic');i.setAttribute('data-lucide',show?'eye-off':'eye');i.removeAttribute('data-done');i.innerHTML='';icons(b);
+  syncEye(b);
+ });
+});
+
+/* Two ways into registration. Google: name and email arrive pre-filled and google_sub is the key.
+   Email ("Sign up" on the login screen): the same form, empty, plus a password pair by the email. */
+var GOOGLE_PREFILL={first_name:'ณิชา',last_name:'ศรีวัฒน์',email:'nicha.sri@gmail.com',google_sub:'108214477390215540912',google_email_login:'nicha.sri@gmail.com'};
+function setAuthMode(m){
+ document.documentElement.setAttribute('data-auth',m);
+ var g=m==='google';
+ Object.keys(GOOGLE_PREFILL).forEach(function(id){var el=document.getElementById(id);if(el)el.value=g?GOOGLE_PREFILL[id]:''});
+ document.getElementById('f_auth_provider').value=m;
+ document.getElementById('f_signup_source').value=g?'landing_join_cta':'login_sign_up';
+ ['password','password_confirm'].forEach(function(id){var el=document.getElementById(id);el.value='';el.classList.remove('bad');el.type='password'});
+ document.querySelectorAll('.pw-eye').forEach(function(b){var i=b.querySelector('.ic');if(i.getAttribute('data-lucide')!=='eye'){i.setAttribute('data-lucide','eye');i.removeAttribute('data-done');i.innerHTML='';icons(b)}syncEye(b)});
+ document.getElementById('emailWarn').style.display='none';
+ document.getElementById('pwMatchHint').style.display='none';
+ pwHint.classList.remove('err');
+ pwHint.style.display='';
+ originalEmail=emailInp.value;
+ update();
+}
 document.getElementById('googleBtn').addEventListener('click',function(){
- var go=function(){showScreen('register');toast(t('เชื่อมบัญชี Google แล้ว — กรอกโปรไฟล์ต่อได้เลย','Google account linked — finish your profile'))};
+ var go=function(){setAuthMode('google');showScreen('register');toast(t('เชื่อมบัญชี Google แล้ว — กรอกโปรไฟล์ต่อได้เลย','Google account linked — finish your profile'))};
  if(window.yeahLaunch)window.yeahLaunch(go);else go();
 });
-document.getElementById('emailForm').addEventListener('submit',function(e){e.preventDefault();toast(t('ส่งลิงก์เข้าสู่ระบบไปที่อีเมลแล้ว','Sign-in link sent to your inbox'))});
-document.getElementById('signOutReg').addEventListener('click',function(){showScreen('login')});
+/* Sign up plays the same key unlock, minus the auth hold — there is no provider to wait for */
+document.getElementById('signUpLink').addEventListener('click',function(){
+ var go=function(){setAuthMode('email');showScreen('register');document.getElementById('first_name').focus();};
+ if(window.yeahLaunch)window.yeahLaunch(go,'signup');else go();
+});
+
+/* email + password sign-in — POST /api/auth/login; an existing member lands on the hub */
+var EMAIL_RE=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+var loginEmail=document.getElementById('login_email'),loginPw=document.getElementById('login_password'),loginBtn=document.getElementById('emailSubmit');
+function loginReady(){loginBtn.disabled=!(EMAIL_RE.test(loginEmail.value.trim())&&loginPw.value.length>0)}
+loginEmail.addEventListener('input',loginReady);loginPw.addEventListener('input',loginReady);
+document.getElementById('emailForm').addEventListener('submit',function(e){
+ e.preventDefault();if(loginBtn.disabled)return;
+ console.log('POST /api/auth/login',{provider:'email',email:loginEmail.value.trim(),password:'[redacted]'});
+ var go=function(){loginPw.value='';loginReady();showScreen('hub');toast(t('ยินดีต้อนรับกลับ','Welcome back'))};
+ if(window.yeahLaunch)window.yeahLaunch(go,'signin');else go();
+});
+
+/* forgot password — POST /api/auth/password/forgot. Same reply whether or not the address has an
+   account, so the form never reveals who is a member. */
+var forgotEmail=document.getElementById('forgot_email'),forgotBtn=document.getElementById('forgotSubmit');
+forgotEmail.addEventListener('input',function(){forgotBtn.disabled=!EMAIL_RE.test(forgotEmail.value.trim())});
+document.querySelector('.auth-forgot [data-modal="forgot"]').addEventListener('click',function(){
+ forgotEmail.value=loginEmail.value.trim();forgotBtn.disabled=!EMAIL_RE.test(forgotEmail.value);
+ setTimeout(function(){forgotEmail.focus()},60);
+});
+document.getElementById('forgotForm').addEventListener('submit',function(e){
+ e.preventDefault();if(forgotBtn.disabled)return;
+ console.log('POST /api/auth/password/forgot',{email:forgotEmail.value.trim()});
+ closeModals();toast(t('ถ้าอีเมลนี้มีบัญชีอยู่ เราส่งลิงก์ตั้งรหัสผ่านใหม่ไปแล้ว','If that email has an account, a reset link is on its way'));
+});
 
 /* ---------- toast ---------- */
 var toastEl=document.getElementById('toast'),toastMsg=document.getElementById('toastMsg'),toastT;
@@ -1290,13 +1453,131 @@ document.addEventListener('click',function(e){
 });
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeModals()}});
 
+/* ---------- institution search over data/th-institutions.js (same helper in the mobile file) ----------
+   Rows are unpacked on first use and ranked by QS 2027 position, then size (students), then
+   alphabetically in the page language. Every typed word must appear in the Thai name, English
+   name or abbreviation, so a school can be found in either language.
+   Thai digits match Arabic ones, and spaces, dots and brackets are ignored, so "มทร ธัญบุรี"
+   finds "มทร.ธัญบุรี". */
+var INST=(function(){
+ var cache={},PFX=/^(โรงเรียน|มหาวิทยาลัย|วิทยาลัย|สถาบัน)/,NONE=1e9;
+ function collator(l){return window.Intl&&Intl.Collator?new Intl.Collator(l,{sensitivity:'base',numeric:true}):null}
+ var COL={th:collator('th'),en:collator('en')};
+ function key(s){return String(s).toLowerCase().replace(/[๐-๙]/g,function(c){return String(c.charCodeAt(0)-3664)}).replace(/[\s.\-()'’,]/g,'')}
+ function bare(s){return s.replace(PFX,'')}
+ function parse(kind){
+  var D=window.YEAH_INST,out=[];if(!D)return out;
+  if(kind==='school'){
+   D.school.split('\n').forEach(function(l){
+    var f=l.split('\t'),th=f[0],en=f[1]||'';
+    if(th.charAt(0)==='~')th='โรงเรียน'+th.slice(1);
+    if(en.slice(-1)==='~')en=en.slice(0,-1)+' School';
+    out.push({th:th,en:en,n:f[2]?parseInt(f[2],16):0,q:NONE,k:key(th+'|'+en)});
+   });
+  }else{
+   D.uni.forEach(function(r){out.push({th:r[0],en:r[1],n:r[3]||0,q:r[4]||NONE,k:key(r[0]+'|'+r[1]+'|'+r[2])})});
+  }
+  return out;
+ }
+ /* QS 2027 rank (best first) → students (most first) → alphabetical in the page language */
+ function rows(kind,en){
+  var ck=kind+(en?'-en':'-th');if(cache[ck])return cache[ck];
+  var base=cache[kind]||(cache[kind]=parse(kind)),col=COL[en?'en':'th'];
+  function name(r){return en&&r.en?r.en:bare(r.th)}
+  return cache[ck]=base.slice().sort(function(a,b){
+   return (a.q-b.q)||(b.n-a.n)||(col?col.compare(name(a),name(b)):(name(a)<name(b)?-1:1));
+  });
+ }
+ /* results keep that order — typing only filters, it never re-ranks */
+ function search(kind,q,limit,en){
+  var all=rows(kind,en),toks=String(q||'').trim().split(/\s+/).map(key).filter(Boolean);
+  if(!toks.length)return {list:all.slice(0,limit),total:all.length};
+  var m=[];
+  for(var i=0;i<all.length;i++){
+   var r=all[i],ok=true;
+   for(var j=0;j<toks.length;j++)if(r.k.indexOf(toks[j])<0){ok=false;break}
+   if(ok)m.push(r);
+  }
+  return {list:m.slice(0,limit),total:m.length};
+ }
+ function label(r,en){return en&&r.en?r.en:r.th}
+ function esc(v){return String(v).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+ return {search:search,label:label,esc:esc};
+})();
+
+/* ---------- searchable picker: search box on top, list below, "อื่น ๆ (กรุณาระบุ)" pinned last ----------
+   Picking a row stores its Thai name; picking "other" stores "other" and opens a required text
+   field underneath, pre-filled with whatever was typed into the search. */
+var combos=[];
+function closeCombos(except){combos.forEach(function(c){if(c!==except)c.close()})}
+function refreshCombos(){combos.forEach(function(c){c.refresh()})}
+document.addEventListener('click',function(e){if(!e.target.closest('.combo'))closeCombos()});
+document.querySelectorAll('.combo').forEach(function(root){
+ var kind=root.getAttribute('data-kind'),field=root.getAttribute('data-for'),LIMIT=80,
+     hidden=root.querySelector('input[type=hidden]'),btn=root.querySelector('.combo-btn'),lbl=btn.querySelector('span'),
+     otherWrap=document.getElementById(field+'_other_wrap'),otherInp=document.getElementById(field+'_other'),
+     pop,inp,list,otherBtn,cur=[],act=-1,sel=null;
+ lbl.removeAttribute('data-en');lbl.removeAttribute('data-th');
+ function build(){
+  pop=document.createElement('div');pop.className='combo-pop';
+  pop.innerHTML='<div class="combo-search"><i class="ic" data-lucide="search"></i><input type="search" autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="true"></div><div class="combo-list" role="listbox"></div><button type="button" class="combo-other"><i class="ic" data-lucide="pencil-line"></i><span></span></button>';
+  root.appendChild(pop);
+  inp=pop.querySelector('input');list=pop.querySelector('.combo-list');otherBtn=pop.querySelector('.combo-other');
+  inp.addEventListener('input',draw);
+  inp.addEventListener('keydown',onKey);
+  list.addEventListener('click',function(e){var b=e.target.closest('button[data-i]');if(b)pick(cur[+b.getAttribute('data-i')])});
+  otherBtn.addEventListener('click',pickOther);
+  icons(pop);
+ }
+ function draw(){
+  var en=LANG==='en',q=inp.value.trim(),res=INST.search(kind,q,LIMIT,en),h='';
+  inp.placeholder=kind==='school'?t('พิมพ์ชื่อโรงเรียน','Type your school name'):t('พิมพ์ชื่อหรือชื่อย่อ','Type a name or abbreviation');
+  cur=res.list;
+  if(!res.total)h='<div class="combo-empty">'+INST.esc(t('ไม่พบ “'+q+'” ในรายการ เลือก “อื่น ๆ” ด้านล่างแล้วพิมพ์ชื่อเองได้','No match for “'+q+'”. Choose “Other” below and type the name yourself.'))+'</div>';
+  cur.forEach(function(r,i){h+='<button type="button" role="option" data-i="'+i+'"'+(sel===r?' class="sel" aria-selected="true"':'')+'><span>'+INST.esc(INST.label(r,en))+'</span></button>'});
+  if(res.total>cur.length)h+='<div class="combo-note">'+INST.esc(q?t('แสดง '+cur.length+' จาก '+res.total.toLocaleString()+' รายการที่ตรง — พิมพ์เพิ่มเพื่อให้แคบลง','Showing '+cur.length+' of '+res.total.toLocaleString()+' matches — keep typing to narrow it down'):t('พิมพ์เพื่อค้นหาจากทั้งหมด '+res.total.toLocaleString()+' แห่ง','Type to search all '+res.total.toLocaleString()))+'</div>';
+  list.innerHTML=h;list.scrollTop=0;
+  otherBtn.querySelector('span').textContent=t('อื่น ๆ (กรุณาระบุ)','Other (please specify)');
+  setAct(q?(cur.length?0:cur.length):-1);
+ }
+ function setAct(i){
+  act=i;var items=list.querySelectorAll('button[data-i]');
+  items.forEach(function(b,j){b.classList.toggle('act',j===act)});
+  otherBtn.classList.toggle('act',act===cur.length);
+  var el=act===cur.length?null:items[act];if(el)el.scrollIntoView({block:'nearest'});
+ }
+ function onKey(e){
+  if(e.key==='ArrowDown'){e.preventDefault();setAct(Math.min(act+1,cur.length))}
+  else if(e.key==='ArrowUp'){e.preventDefault();setAct(Math.max(act-1,0))}
+  else if(e.key==='Enter'){e.preventDefault();if(act===cur.length)pickOther();else if(cur[act])pick(cur[act])}
+  else if(e.key==='Escape'){e.preventDefault();close();btn.focus()}
+  else if(e.key==='Tab')close();
+ }
+ function setLabel(){
+  lbl.className=sel?'':'ph';
+  lbl.textContent=!sel?t('ค้นหาหรือเลือก','Search or select'):sel==='other'?t('อื่น ๆ (กรุณาระบุ)','Other (please specify)'):INST.label(sel,LANG==='en');
+ }
+ function pick(r){sel=r;hidden.value=r.th;otherWrap.classList.remove('on');otherInp.value='';setLabel();close();btn.focus();update()}
+ function pickOther(){
+  var typed=inp.value.trim();sel='other';hidden.value='other';
+  if(typed)otherInp.value=typed;
+  otherWrap.classList.add('on');setLabel();close();otherInp.focus();update();
+ }
+ function open(){if(!pop)build();closeCombos(api);root.classList.add('open');btn.setAttribute('aria-expanded','true');inp.value='';draw();inp.focus()}
+ function close(){root.classList.remove('open');btn.setAttribute('aria-expanded','false')}
+ btn.addEventListener('click',function(){root.classList.contains('open')?close():open()});
+ var api={close:close,refresh:function(){setLabel();if(root.classList.contains('open'))draw()}};
+ combos.push(api);setLabel();
+});
+
 /* ---------- registration: conditional blocks ---------- */
-var blockStudent=document.getElementById('blockStudent'),blockPro=document.getElementById('blockPro');
+var STATUS_BLOCK={school_student:'blockSchool',university_student:'blockStudent',professional:'blockPro'};
 document.querySelectorAll('input[name="occupation_status"]').forEach(function(r){r.addEventListener('change',function(){
- var s=r.value==='student';
- blockStudent.classList.toggle('on',s);blockPro.classList.toggle('on',!s);
- setGroupRequired('student',s);setGroupRequired('professional',!s);
- update();
+ Object.keys(STATUS_BLOCK).forEach(function(k){
+  document.getElementById(STATUS_BLOCK[k]).classList.toggle('on',k===r.value);
+  setGroupRequired(k,k===r.value);
+ });
+ closeCombos();update();
 })});
 function setGroupRequired(g,on){document.querySelectorAll('[data-req-group="'+g+'"]').forEach(function(el){if(on)el.setAttribute('required','required');else el.removeAttribute('required')})}
 document.querySelectorAll('input[name="referral_source"]').forEach(function(r){r.addEventListener('change',function(){
@@ -1322,6 +1603,26 @@ phone.addEventListener('blur',function(){
 });
 phone.addEventListener('input',update);
 
+/* password (email sign-up only): 8+ chars with upper, lower, digit and one of @$!%*?& */
+var PW_RE=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+var pw=document.getElementById('password'),pw2=document.getElementById('password_confirm'),
+    pwHint=document.getElementById('pwHint'),pwMatchHint=document.getElementById('pwMatchHint');
+function pwOk(){return PW_RE.test(pw.value)&&pw.value===pw2.value}
+/* the rule text stays up until the password meets all of it, and comes back if an edit breaks it */
+function syncPwHint(){pwHint.style.display=PW_RE.test(pw.value)?'none':''}
+pw.addEventListener('input',syncPwHint);
+pw.addEventListener('blur',function(){if(!pw.value)return;var ok=PW_RE.test(pw.value);pw.classList.toggle('bad',!ok);pwHint.classList.toggle('err',!ok)});
+pw.addEventListener('input',function(){if(PW_RE.test(pw.value)){pw.classList.remove('bad');pwHint.classList.remove('err')}});
+function checkMatch(){
+ if(!pw2.value){pwMatchHint.style.display='none';pw2.classList.remove('bad');return}
+ var ok=pw.value===pw2.value;pw2.classList.toggle('bad',!ok);
+ pwMatchHint.style.display=ok?'none':'block';pwMatchHint.className='hint err';
+ pwMatchHint.textContent=t('รหัสผ่านไม่ตรงกัน','Passwords do not match');
+}
+pw2.addEventListener('blur',checkMatch);pw2.addEventListener('input',function(){if(pw.value===pw2.value)checkMatch()});
+pw.addEventListener('input',function(){if(pw2.value)checkMatch()});
+function isEmailMode(){return document.documentElement.getAttribute('data-auth')==='email'}
+
 /* ---------- completeness + payload ---------- */
 var regForm=document.getElementById('regForm');
 var GROUPS={
@@ -1341,9 +1642,13 @@ function groupDone(k){
  if(k==='status'){
   var os=val('occupation_status');
   if(!os)return false;
-  need=need.concat(os==='student'?['university','faculty','year_of_study','education_level']:['employment_type','department_field']);
+  need=need.concat({school_student:['school','grade_level'],university_student:['university','faculty','year_of_study','education_level'],professional:['employment_type','department_field']}[os]);
+  if(os==='school_student'&&val('school')==='other')need.push('school_other');
+  if(os==='university_student'&&val('university')==='other')need.push('university_other');
  }
  if(k==='identity'&&!phoneOk(val('phone')))return false;
+ if(k==='identity'&&!EMAIL_RE.test(val('email')))return false;
+ if(k==='identity'&&isEmailMode()&&!pwOk())return false;
  if(k==='identity'&&!(latinName(val('first_name_en'))&&latinName(val('last_name_en'))))return false;
  if(k==='about'&&val('referral_source')==='other'&&!val('referral_detail'))return false;
  return need.every(function(n){return !!val(n)});
@@ -1358,9 +1663,6 @@ function update(){
  var pct=Math.round(done/keys.length*100);
  document.getElementById('pctNum').textContent=pct+'%';
  document.getElementById('pctBar').style.width=pct+'%';
- /* rail state */
- var rail=document.querySelectorAll('.rail a');
- ['identity','status','about'].forEach(function(k,i){rail[i].classList.toggle('done',groupDone(k))});
  /* PDPA gate — submit stays disabled until consent is ticked AND required fields are in */
  var consent=document.getElementById('pdpa_consent').checked;
  var ready=consent&&keys.every(groupDone);
@@ -1376,14 +1678,12 @@ regForm.addEventListener('change',update);
 document.getElementById('acceptTerms').addEventListener('click',function(){document.getElementById('pdpa_consent').checked=true;closeModals();update();toast(t('บันทึกความยินยอมแล้ว','Consent recorded'))});
 
 function memberPayload(){
- var os=val('occupation_status');
+ var os=val('occupation_status'),g=!isEmailMode();
  var p={
-  google_sub:val('google_sub'),auth_provider:'google',
+  auth_provider:g?'google':'email',
   first_name:val('first_name'),last_name:val('last_name'),first_name_en:val('first_name_en'),last_name_en:val('last_name_en'),
   birthdate:val('birthdate'),
   email:val('email'),
-  email_login:val('google_email_login'),
-  email_changed_from_google:val('email')!==val('google_email_login'),
   phone:phoneE164(val('phone')),
   occupation_status:os||null,
   province:val('province')||null,
@@ -1397,14 +1697,18 @@ function memberPayload(){
   consent_version:'pdpa-2026-09-v1',
   marketing_opt_in:document.getElementById('marketing_opt_in').checked
  };
+ if(g){p.google_sub=val('google_sub');p.email_login=val('google_email_login');p.email_changed_from_google=val('email')!==val('google_email_login')}
+ else{p.email_login=val('email');p.password=val('password')}
  if(val('referral_detail'))p.referral_detail=val('referral_detail');
- if(os==='student')p.academic={university:val('university')||null,faculty:val('faculty')||null,year_of_study:val('year_of_study')||null,education_level:val('education_level')||null};
+ if(os==='school_student'){p.academic={school:val('school')||null,grade_level:val('grade_level')||null};if(val('school')==='other')p.academic.school_other=val('school_other')}
+ if(os==='university_student'){p.academic={university:val('university')||null,faculty:val('faculty')||null,year_of_study:val('year_of_study')?+val('year_of_study'):null,education_level:val('education_level')||null};if(val('university')==='other')p.academic.university_other=val('university_other')}
  if(os==='professional')p.professional={employment_type:val('employment_type')||null,department_field:val('department_field')||null,organisation:val('organisation')||null,years_experience:val('years_experience')||null};
  return p;
 }
 regForm.addEventListener('submit',function(e){
  e.preventDefault();
- console.log('POST /api/members',memberPayload());
+ var body=memberPayload();if(body.password)body.password='[redacted]';
+ console.log('POST /api/members',body);
  setMemberName(val('first_name')+' '+val('last_name'),val('first_name_en')+' '+val('last_name_en'));
  showScreen('hub');
  toast(t('ยินดีต้อนรับ คุณเป็นสมาชิกทั่วไป (General Member) แล้ว','Welcome — you are a General Member now'));
@@ -1690,7 +1994,7 @@ document.getElementById('markRead').addEventListener('click',function(){
 document.getElementById('exportHistory').addEventListener('click',function(){toast(t('กำลังเตรียมไฟล์ CSV ของประวัติการเข้าร่วม','Preparing a CSV of your activity history'))});
 document.getElementById('navUser').addEventListener('click',function(){location.hash='#s-profile'});
 var bellWrap=document.getElementById('bell'),bellBtn=document.getElementById('navBell');
-function setBell(open){bellWrap.classList.toggle('open',open);bellBtn.setAttribute('aria-expanded',open?'true':'false');if(open){langWrap.classList.remove('open');icons(bellWrap)}}
+function setBell(open){bellWrap.classList.toggle('open',open);bellBtn.setAttribute('aria-expanded',open?'true':'false');if(open)icons(bellWrap)}
 bellBtn.addEventListener('click',function(e){e.stopPropagation();setBell(!bellWrap.classList.contains('open'))});
 document.getElementById('notifPop').addEventListener('click',function(e){e.stopPropagation()});
 document.addEventListener('click',function(){setBell(false)});
@@ -1706,9 +2010,11 @@ function spy(){
 window.addEventListener('scroll',function(){if(document.documentElement.getAttribute('data-screen')==='hub')spy()});
 
 
-/* init — ?screen=login|register|hub deep-links a single screen, used by the frames preview */
-applyLang();renderTier(0);renderPrograms();icons();update();countUp();
+/* init — ?screen=login|register|hub deep-links a single screen, used by the frames preview;
+   &mode=email opens registration as the manual "Sign up" form (empty, with password fields) */
 var qs=new URLSearchParams(location.search),qScreen=qs.get('screen');
+setAuthMode(qs.get('mode')==='email'?'email':'google');
+applyLang();renderTier(0);renderPrograms();icons();update();countUp();
 if(['login','register','hub'].indexOf(qScreen)>-1)showScreen(qScreen);
 /* &tier=general|explorer|builder|leader|catalyst (or 0–4) opens the hub previewing that tier and its card */
 var qTier=qs.get('tier'),tierKeys=['general','explorer','builder','leader','catalyst'];
@@ -1923,20 +2229,24 @@ if(qs.get('launch')==='1')setTimeout(function(){var b=document.getElementById('g
 /* Key insert → 90° turn → unlock burst → white-out, then hand off to the auth step.
    Key launches on click: insert .06–.52s, turn ends .8s, unlock flash .8s and it keeps
    blooming into the white-out, full at 1.3s. `authWait` only stands in for the real
-   Google round-trip. */
-window.yeahLaunch=function(done){
+   server round-trip, and the loading line under the mark names it.
+   mode: 'google' (default) — Google sign-in; 'signin' — email + password sign-in;
+         'signup' — the Sign up link: nothing to authenticate, so no hold and no loading line. */
+window.yeahLaunch=function(done,mode){
  var L=document.getElementById('launch');
  if(!L){done();return}
+ mode=mode||'google';
+ var en=document.documentElement.getAttribute('data-lang')==='en';
  var msg=document.getElementById('lxMsg');
- if(msg)msg.textContent=(document.documentElement.getAttribute('data-lang')==='en')
-  ? 'Taking you to Google sign-in…' : 'กำลังพาไปยังหน้ายืนยันตัวตนของ Google…';
+ if(msg)msg.textContent=mode==='signin'?(en?'Signing you in…':'กำลังเข้าสู่ระบบ…')
+  :(en?'Taking you to Google sign-in…':'กำลังพาไปยังหน้ายืนยันตัวตนของ Google…');
  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
- var whiteOut=reduce?580:1300,authWait=reduce?250:850;
+ var whiteOut=reduce?580:1300,authWait=mode==='signup'?0:(reduce?250:850);
  clearTimeout(L._t1);clearTimeout(L._t2);clearTimeout(L._t3);
  L.className='on'+(reduce?' rm':'');
  L.setAttribute('aria-hidden','false');
  document.body.style.overflow='hidden';
- L._t1=setTimeout(function(){L.classList.add('wait')},whiteOut);
+ if(authWait)L._t1=setTimeout(function(){L.classList.add('wait')},whiteOut);
  L._t2=setTimeout(function(){
   done();
   L.classList.add('done');

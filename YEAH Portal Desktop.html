@@ -372,12 +372,6 @@ html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
 .cred .ic{width:13px;height:13px}
 .cred.none{background:#F4F4F5;color:#A0A0A0;cursor:default}
 /* profile details */
-.pd-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line)}
-.pd{padding:16px 20px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);min-width:0}
-.pd:nth-child(3n){border-right:none}
-.pd .lbl{display:block;margin-bottom:5px;color:#8C8C8C}
-.pd b{font-size:14px;font-weight:500;word-break:break-word}
-.pd .empty{color:#B8B8B8;font-style:italic;font-weight:400}
 /* notifications */
 .notif{display:flex;gap:14px;padding:14px 18px;border-bottom:1px solid var(--line)}
 .notif:last-child{border-bottom:none}
@@ -457,7 +451,6 @@ html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
    <a href="#s-apps" data-en="My applications" data-th="ใบสมัครของฉัน">ใบสมัครของฉัน</a>
    <a href="#s-history" data-en="Past programs" data-th="โครงการที่เคยเข้าร่วม">โครงการที่เคยเข้าร่วม</a>
    <a href="#s-portfolio" data-en="Portfolio" data-th="ผลงาน">ผลงาน</a>
-   <a href="#s-profile" data-en="Profile details" data-th="ข้อมูลโปรไฟล์">ข้อมูลโปรไฟล์</a>
   </nav>
   <div class="nav-right">
    <button type="button" class="lang-btn" id="langBtn" aria-label="Switch to English"><span class="flag flag-th" id="flagCur"></span><span id="langTxt">TH</span></button>
@@ -547,7 +540,7 @@ html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
    <div class="reg-head">
     <div>
      <h1 data-en="Complete your member profile" data-th="กรอกโปรไฟล์สมาชิก">กรอกโปรไฟล์สมาชิก</h1>
-     <p class="muted" data-en="You can edit everything later from your profile." data-th="คุณสามารถแก้ไขภายหลังได้จากหน้าโปรไฟล์">คุณสามารถแก้ไขภายหลังได้จากหน้าโปรไฟล์</p>
+     <p class="muted" data-en="Please verify your information before creating your account." data-th="โปรดตรวจสอบความถูกต้องก่อนการสร้างบัญชี">โปรดตรวจสอบความถูกต้องก่อนการสร้างบัญชี</p>
     </div>
    </div>
 
@@ -1038,44 +1031,6 @@ html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
       </div>
      </section>
 
-     <!-- ---------- PROFILE DETAILS ---------- -->
-     <section class="sec" id="s-profile">
-      <div class="sec-top">
-       <div>
-        <span class="eyebrow" data-en="Profile details" data-th="ข้อมูลโปรไฟล์">ข้อมูลโปรไฟล์</span>
-        <h2 data-en="Everything on your record" data-th="ข้อมูลทั้งหมดในระเบียนของคุณ">ข้อมูลทั้งหมดในระเบียนของคุณ</h2>
-        <p data-en="Same fields you filled at registration. Edit any of them here." data-th="เป็นชุดเดียวกับที่กรอกตอนลงทะเบียน แก้ไขได้จากที่นี่">เป็นชุดเดียวกับที่กรอกตอนลงทะเบียน แก้ไขได้จากที่นี่</p>
-       </div>
-       <button class="btn btn-dark btn-sm" data-modal="editprofile"><i class="ic" data-lucide="pencil"></i><span data-en="Edit" data-th="แก้ไข">แก้ไข</span></button>
-      </div>
-      <div class="card" style="overflow:hidden">
-       <div class="pd-grid">
-        <div class="pd"><span class="lbl">first_name</span><b data-pd="first_name">ณิชา</b></div>
-        <div class="pd"><span class="lbl">last_name</span><b data-pd="last_name">ศรีวัฒน์</b></div>
-        <div class="pd"><span class="lbl">first_name_en</span><b data-pd="first_name_en">Nicha</b></div>
-        <div class="pd"><span class="lbl">last_name_en</span><b data-pd="last_name_en">Sriwat</b></div>
-        <div class="pd"><span class="lbl">birthdate</span><b>14 มี.ค. 2548</b></div>
-        <div class="pd"><span class="lbl">email</span><b>nicha.sri@gmail.com</b></div>
-        <div class="pd"><span class="lbl">phone</span><b>081-234-5678</b></div>
-        <div class="pd"><span class="lbl">google_sub</span><b style="font-family:var(--font-mono,monospace);font-size:12px">1082144773…40912</b></div>
-        <div class="pd"><span class="lbl">occupation_status</span><b>university_student</b></div>
-        <div class="pd"><span class="lbl">university</span><b>จุฬาลงกรณ์มหาวิทยาลัย</b></div>
-        <div class="pd"><span class="lbl">faculty</span><b>วิศวกรรมคอมพิวเตอร์</b></div>
-        <div class="pd"><span class="lbl">year_of_study</span><b>3</b></div>
-        <div class="pd"><span class="lbl">education_level</span><b>bachelor</b></div>
-        <div class="pd"><span class="lbl">province</span><b>กรุงเทพมหานคร</b></div>
-        <div class="pd"><span class="lbl">referral_source</span><b>tiktok</b></div>
-        <div class="pd"><span class="lbl">track_interest</span><b>ai_product</b></div>
-        <div class="pd"><span class="lbl">growth_goal</span><b>อยากมีผลงานจริงในพอร์ตก่อนจบปี 4</b></div>
-        <div class="pd"><span class="lbl">pdpa_consent</span><b>true · pdpa-2026-09-v1 · 21 ก.ย. 2026</b></div>
-        <div class="pd"><span class="lbl">marketing_opt_in</span><b>true</b></div>
-        <div class="pd"><span class="lbl">resume_file</span><b data-pd="resume_file" class="empty" data-en="not added" data-th="ยังไม่ได้เพิ่ม">ยังไม่ได้เพิ่ม</b></div>
-        <div class="pd"><span class="lbl">portfolio_url</span><b data-pd="portfolio_url" class="empty" data-en="not added" data-th="ยังไม่ได้เพิ่ม">ยังไม่ได้เพิ่ม</b></div>
-        <div class="pd"><span class="lbl">linkedin_url</span><b data-pd="linkedin_url" class="empty" data-en="not added" data-th="ยังไม่ได้เพิ่ม">ยังไม่ได้เพิ่ม</b></div>
-       </div>
-      </div>
-     </section>
-
     </div>
    </div>
   </div>
@@ -1203,23 +1158,29 @@ html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
  <div class="mhead"><span class="eyebrow" data-en="Profile details" data-th="ข้อมูลโปรไฟล์">ข้อมูลโปรไฟล์</span><h3 data-en="Edit your details" data-th="แก้ไขข้อมูลของคุณ">แก้ไขข้อมูลของคุณ</h3></div>
  <div class="mbody">
   <form id="editForm">
-   <div class="grid2">
-    <div class="field"><label for="e_first">first_name</label><input class="inp" id="e_first" name="first_name" value="ณิชา"></div>
-    <div class="field"><label for="e_last">last_name</label><input class="inp" id="e_last" name="last_name" value="ศรีวัฒน์"></div>
+   <div class="grid2" style="margin:10px 0 16px">
+    <div class="field"><label><span data-en="Name (Thai)" data-th="ชื่อ-นามสกุล (ไทย)">ชื่อ-นามสกุล (ไทย)</span></label><input class="inp" value="ณิชา ศรีวัฒน์" readonly disabled data-field="member.first_name member.last_name"></div>
+    <div class="field"><label><span data-en="Name (English)" data-th="ชื่อ-นามสกุล (อังกฤษ)">ชื่อ-นามสกุล (อังกฤษ)</span></label><input class="inp" value="Nicha Sriwat" readonly disabled data-field="member.first_name_en member.last_name_en"></div>
+    <div class="field"><label><span data-en="Birthdate" data-th="วันเกิด">วันเกิด</span></label><input class="inp" value="14 มี.ค. 2547" readonly disabled data-field="member.birthdate"></div>
+    <div class="field"><label><span data-en="Email" data-th="อีเมล">อีเมล</span></label><input class="inp" value="nicha.sri@gmail.com" readonly disabled data-field="member.email"></div>
    </div>
-   <div class="grid2" style="margin-top:16px">
-    <div class="field"><label for="e_first_en">first_name_en</label><input class="inp" id="e_first_en" name="first_name_en" value="Nicha" lang="en" autocapitalize="words" spellcheck="false"></div>
-    <div class="field"><label for="e_last_en">last_name_en</label><input class="inp" id="e_last_en" name="last_name_en" value="Sriwat" lang="en" autocapitalize="words" spellcheck="false"></div>
-   </div>
-   <div class="grid2" style="margin-top:16px">
-    <div class="field"><label for="e_email">email</label><input class="inp" type="email" id="e_email" name="email" value="nicha.sri@gmail.com"><span class="hint" data-en="Sign-in stays tied to your Google account." data-th="การเข้าสู่ระบบยังผูกกับบัญชี Google เดิมเสมอ">การเข้าสู่ระบบยังผูกกับบัญชี Google เดิมเสมอ</span></div>
+   <div class="grid2" style="margin-top:10px">
     <div class="field"><label for="e_phone">phone</label><input class="inp" type="tel" id="e_phone" name="phone" value="081-234-5678"></div>
+    <div class="field"><label for="e_occ"><span data-en="Current status" data-th="สถานะปัจจุบัน">สถานะปัจจุบัน</span></label><select class="inp" id="e_occ" name="occupation_status"></select></div>
+   </div>
+   <div id="eUniBlock">
+    <div class="grid2" style="margin-top:16px">
+     <div class="field"><label for="e_uni">university</label><input class="inp" id="e_uni" name="university" value="จุฬาลงกรณ์มหาวิทยาลัย"></div>
+     <div class="field"><label for="e_fac">faculty</label><input class="inp" id="e_fac" name="faculty" value="วิศวกรรมคอมพิวเตอร์"></div>
+    </div>
+    <div class="grid2" style="margin-top:16px">
+     <div class="field"><label for="e_year"><span data-en="Year of study" data-th="ชั้นปี">ชั้นปี</span></label><select class="inp" id="e_year" name="year_of_study"></select></div><div class="field"><label for="e_edu"><span data-en="Education level" data-th="ระดับการศึกษา">ระดับการศึกษา</span></label><select class="inp" id="e_edu" name="education_level"></select></div>
+    </div>
    </div>
    <div class="grid2" style="margin-top:16px">
-    <div class="field"><label for="e_uni">university</label><input class="inp" id="e_uni" name="university" value="จุฬาลงกรณ์มหาวิทยาลัย"></div>
-    <div class="field"><label for="e_fac">faculty</label><input class="inp" id="e_fac" name="faculty" value="วิศวกรรมคอมพิวเตอร์"></div>
+    <div class="field"><label for="e_prov"><span data-en="Province" data-th="จังหวัด">จังหวัด</span></label><select class="inp" id="e_prov" name="province"></select></div><div class="field"><label for="e_track"><span data-en="Track you are curious about" data-th="สายที่คุณสนใจ">สายที่คุณสนใจ</span></label><select class="inp" id="e_track" name="track_interest"></select></div>
    </div>
-   <div class="field" style="margin-top:16px"><label for="e_goal">growth_goal</label><textarea class="inp" id="e_goal" name="growth_goal">อยากมีผลงานจริงในพอร์ตก่อนจบปี 4</textarea></div>
+   <div class="field" style="margin-top:16px"><label for="e_goal">growth_goal</label><textarea class="inp" id="e_goal" name="growth_goal" maxlength="300">อยากมีผลงานจริงในพอร์ตก่อนจบปี 4</textarea></div>
    <div class="field" style="margin-top:16px"><label for="e_cv">resume_file</label>
     <div class="filepick" id="cvPick">
      <input type="file" id="e_cv" name="resume_file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
@@ -1922,26 +1883,28 @@ function liOk(){
 }
 document.getElementById('e_li').addEventListener('input',liOk);
 
-/* profile-details rows marked data-pd follow what was saved */
-function fillProfile(o){
- document.querySelectorAll('[data-pd]').forEach(function(b){
-  var k=b.getAttribute('data-pd');if(!(k in o))return;
-  var v=o[k];if(v&&typeof v==='object')v=v.name;
-  if(k==='resume_file'&&!v)return; /* no new file picked — keep what is on record */
-  b.classList.toggle('empty',!v);
-  b.setAttribute('data-th',v||'ยังไม่ได้เพิ่ม');b.setAttribute('data-en',v||'not added');
-  b.textContent=v||t('ยังไม่ได้เพิ่ม','not added');
- });
-}
+
+/* ---------- edit profile: selects mirror the registration form; uni fields only for university students ---------- */
+(function(){
+ function clone(from,to,cur){var src=document.getElementById(from),dst=document.getElementById(to);
+  dst.innerHTML=src.innerHTML;if(cur!=null)dst.value=cur}
+ var occ=document.getElementById('e_occ');
+ [['university_student','นักศึกษา','University student'],['school_student','นักเรียน','School student'],['professional','คนทำงาน','Working professional']].forEach(function(o){
+  var op=document.createElement('option');op.value=o[0];op.setAttribute('data-th',o[1]);op.setAttribute('data-en',o[2]);op.textContent=o[1];occ.appendChild(op)});
+ var yr=document.getElementById('e_year');
+ for(var i=1;i<=8;i++){var op=document.createElement('option');op.value=i;op.setAttribute('data-th','ปี '+i);op.setAttribute('data-en','Year '+i);op.textContent='ปี '+i;yr.appendChild(op)}
+ clone('education_level','e_edu','bachelor');clone('province','e_prov');clone('track_interest','e_track','ai_product');
+ occ.value='university_student';yr.value='3';
+ function tog(){document.getElementById('eUniBlock').style.display=occ.value==='university_student'?'':'none'}
+ occ.addEventListener('change',tog);tog();
+ document.querySelector('[data-modal="editprofile"]').addEventListener('click',function(){
+  clone('province','e_prov',document.getElementById('e_prov').value||'กรุงเทพมหานคร')});
+})();
 document.getElementById('editSave').addEventListener('click',function(){
  if(!liOk()){document.getElementById('e_li').focus();return}
- var enBad=['e_first_en','e_last_en'].filter(function(id){var v=document.getElementById(id).value.trim();document.getElementById(id).classList.toggle('bad',!latinName(v));return !latinName(v)});
- if(enBad.length){document.getElementById(enBad[0]).focus();toast(t('กรอกชื่อภาษาอังกฤษด้วยตัวอักษรภาษาอังกฤษ','Enter your English name in English letters'));return}
  var fd=new FormData(document.getElementById('editForm')),out={};
  fd.forEach(function(v,k){out[k]=(typeof File==='function'&&v instanceof File)?(v.name?{name:v.name,size:v.size,type:v.type}:null):v});
  console.log('PATCH /api/members/me'+(out.resume_file?' (multipart, with resume_file)':''),out);
- setMemberName(out.first_name+' '+out.last_name,out.first_name_en+' '+out.last_name_en);
- fillProfile(out);
  closeModals();toast(t('บันทึกข้อมูลแล้ว','Profile saved'));
 });
 document.getElementById('copyShare').addEventListener('click',function(){
@@ -1992,7 +1955,7 @@ document.getElementById('markRead').addEventListener('click',function(){
  toast(t('อ่านทั้งหมดแล้ว','All caught up'));
 });
 document.getElementById('exportHistory').addEventListener('click',function(){toast(t('กำลังเตรียมไฟล์ CSV ของประวัติการเข้าร่วม','Preparing a CSV of your activity history'))});
-document.getElementById('navUser').addEventListener('click',function(){location.hash='#s-profile'});
+document.getElementById('navUser').addEventListener('click',function(){openModal('editprofile')});
 var bellWrap=document.getElementById('bell'),bellBtn=document.getElementById('navBell');
 function setBell(open){bellWrap.classList.toggle('open',open);bellBtn.setAttribute('aria-expanded',open?'true':'false');if(open)icons(bellWrap)}
 bellBtn.addEventListener('click',function(e){e.stopPropagation();setBell(!bellWrap.classList.contains('open'))});
@@ -2001,7 +1964,7 @@ document.addEventListener('click',function(){setBell(false)});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&bellWrap.classList.contains('open')){setBell(false);bellBtn.focus()}});
 
 /* top tabs scroll spy */
-var spySections=['s-status','s-programs','s-apps','s-history','s-portfolio','s-profile'];
+var spySections=['s-status','s-programs','s-apps','s-history','s-portfolio'];
 function spy(){
  var y=window.scrollY+120,cur=spySections[0];
  spySections.forEach(function(id){var el=document.getElementById(id);if(el&&el.offsetTop<=y)cur=id});

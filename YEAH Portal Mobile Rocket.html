@@ -760,11 +760,21 @@ html:not([data-screen="hub"]) .mtabs{display:none}
  <header><h3 data-en="Edit your details" data-th="แก้ไขข้อมูลของคุณ">แก้ไขข้อมูลของคุณ</h3></header>
  <div class="body">
   <form id="editForm">
-   <div class="field"><label for="e_first">first_name</label><input class="inp" id="e_first" name="first_name" value="ณิชา"></div>
-   <div class="field"><label for="e_last">last_name</label><input class="inp" id="e_last" name="last_name" value="ศรีวัฒน์"></div>
-   <div class="field"><label for="e_email">email</label><input class="inp" type="email" id="e_email" name="email" value="nicha.sri@gmail.com"><span class="hint" data-en="Sign-in stays tied to your Google account." data-th="การเข้าสู่ระบบยังผูกกับบัญชี Google เดิม">การเข้าสู่ระบบยังผูกกับบัญชี Google เดิม</span></div>
+   <div class="field"><label><span data-en="Name (Thai)" data-th="ชื่อ-นามสกุล (ไทย)">ชื่อ-นามสกุล (ไทย)</span></label><input class="inp" value="ณิชา ศรีวัฒน์" readonly disabled></div>
+   <div class="field"><label><span data-en="Name (English)" data-th="ชื่อ-นามสกุล (อังกฤษ)">ชื่อ-นามสกุล (อังกฤษ)</span></label><input class="inp" value="Nicha Sriwat" readonly disabled></div>
+   <div class="field"><label><span data-en="Birthdate" data-th="วันเกิด">วันเกิด</span></label><input class="inp" value="14 มี.ค. 2548" readonly disabled></div>
+   <div class="field"><label><span data-en="Email" data-th="อีเมล">อีเมล</span></label><input class="inp" value="nicha.sri@gmail.com" readonly disabled></div>
    <div class="field"><label for="e_phone">phone</label><input class="inp" type="tel" id="e_phone" name="phone" value="081-234-5678"></div>
-   <div class="field"><label for="e_goal">growth_goal</label><textarea class="inp" id="e_goal" name="growth_goal">อยากมีผลงานจริงในพอร์ตก่อนจบปี 4</textarea></div>
+   <div class="field"><label for="e_occ"><span data-en="Current status" data-th="สถานะปัจจุบัน">สถานะปัจจุบัน</span></label><select class="inp" id="e_occ" name="occupation_status"></select></div>
+   <div id="eUniBlock">
+   <div class="field"><label for="e_uni">university</label><input class="inp" id="e_uni" name="university" value="จุฬาลงกรณ์มหาวิทยาลัย"></div>
+   <div class="field"><label for="e_fac">faculty</label><input class="inp" id="e_fac" name="faculty" value="วิศวกรรมคอมพิวเตอร์"></div>
+   <div class="field"><label for="e_year"><span data-en="Year of study" data-th="ชั้นปี">ชั้นปี</span></label><select class="inp" id="e_year" name="year_of_study"></select></div>
+   <div class="field"><label for="e_edu"><span data-en="Education level" data-th="ระดับการศึกษา">ระดับการศึกษา</span></label><select class="inp" id="e_edu" name="education_level"></select></div>
+   </div>
+   <div class="field"><label for="e_prov"><span data-en="Province" data-th="จังหวัด">จังหวัด</span></label><select class="inp" id="e_prov" name="province"></select></div>
+   <div class="field"><label for="e_track"><span data-en="Track you are curious about" data-th="สายที่คุณสนใจ">สายที่คุณสนใจ</span></label><select class="inp" id="e_track" name="track_interest"></select></div>
+   <div class="field"><label for="e_goal">growth_goal</label><textarea class="inp" id="e_goal" name="growth_goal" maxlength="300">อยากมีผลงานจริงในพอร์ตก่อนจบปี 4</textarea></div>
    <div class="field"><label for="e_pf">portfolio_url</label><input class="inp" type="url" id="e_pf" name="portfolio_url" placeholder="https://"></div>
   </form>
  </div>
@@ -1201,6 +1211,19 @@ document.getElementById('evSubmit').addEventListener('click',function(){
  console.log('POST /api/evidence',out);closeSheets();f.reset();
  toast(t('ส่งหลักฐานแล้ว — รอ mentor ตรวจสอบก่อนได้ +1','Evidence submitted — a mentor verifies before any +1'));
 });
+/* ---------- edit profile: option lists come from SRC; uni fields only for university students ---------- */
+(function(){
+ function fill(id,rows,cur,blank){var s=document.getElementById(id);
+  rows.forEach(function(r){var o=document.createElement('option');if(typeof r==='string')r=[r,r,r];
+   o.value=r[0];o.setAttribute('data-th',r[1]);o.setAttribute('data-en',r[2]||r[1]);o.textContent=r[1];s.appendChild(o)});
+  s.value=cur}
+ fill('e_occ',[['university_student','นักศึกษา','University student'],['school_student','นักเรียน','School student'],['professional','คนทำงาน','Working professional']],'university_student');
+ var yrs=[];for(var i=1;i<=8;i++)yrs.push([String(i),'ปี '+i,'Year '+i]);
+ fill('e_year',yrs,'3');fill('e_edu',SRC.edu,'bachelor');fill('e_prov',SRC.provinces,'กรุงเทพมหานคร');fill('e_track',SRC.tracks,'ai_product');
+ var occ=document.getElementById('e_occ');
+ function tog(){document.getElementById('eUniBlock').style.display=occ.value==='university_student'?'':'none'}
+ occ.addEventListener('change',tog);tog();
+})();
 document.getElementById('editSave').addEventListener('click',function(){
  var fd=new FormData(document.getElementById('editForm')),out={};fd.forEach(function(v,k){out[k]=v});
  console.log('PATCH /api/members/me',out);closeSheets();toast(t('บันทึกข้อมูลแล้ว','Profile saved'));

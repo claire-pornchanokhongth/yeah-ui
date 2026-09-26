@@ -30,7 +30,7 @@ the email field.
 
 | Rule | Behaviour the UI assumes |
 |---|---|
-| Lookup key | `claims.sub` — **never** email. Email is editable later and is not stable. |
+| Lookup key | `claims.sub` — **never** email. Email is not stable (the member may use a different contact address than the Google one). |
 | `member_found` | Redirect to the member hub. |
 | `member_not_found` | Redirect to registration, pre-filled from `claims.name` and `claims.email`. |
 | Email edited at registration | Store the new value as `email`; keep `claims.email` as `email_login`. The UI shows a warning that sign-in still uses the Google account, and sends `email_changed_from_google: true`. |
@@ -68,10 +68,10 @@ is true **and** every required field below is filled. The same form serves both 
 | `auth_provider` | enum | yes | `google` \| `email` |
 | `google_sub` | string | if `google` | Primary key for Google members. Hidden input; not sent for `email` |
 | `password` | string | if `email` | ≥ 8 chars with an uppercase letter, a lowercase letter, a digit and one of `@$!%*?&` (the UI allows only those symbols). The UI also requires a matching confirm field, which is **not** sent. Hash server-side; never log it — the prototype's console log shows `[redacted]` |
-| `first_name`, `last_name` | string | yes | Pre-filled from Google, editable |
-| `first_name_en`, `last_name_en` | string | yes | English name, typed by the member. Latin letters, space, `.` `'` `-` only. Every name shown in EN mode (hub, card, saved QR picture) reads these |
-| `birthdate` | date `YYYY-MM-DD` | yes | Used only for age-banded eligibility |
-| `email` | string | yes | Contact address; may differ from `email_login` |
+| `first_name`, `last_name` | string | yes | Pre-filled from Google. **Read-only after registration** |
+| `first_name_en`, `last_name_en` | string | yes | English name, typed by the member. Latin letters, space, `.` `'` `-` only. Read-only after registration. Every name shown in EN mode (hub, card, saved QR picture) reads these |
+| `birthdate` | date `YYYY-MM-DD` | yes | Used only for age-banded eligibility. Shown on the profile, read-only after registration |
+| `email` | string | yes | Contact address; may differ from `email_login`. Shown on the profile, read-only after registration |
 | `email_login` | string | yes | Google: the Google account's address. Email sign-up: same as `email` |
 | `email_changed_from_google` | bool | if `google` | Derived |
 | `phone` | string | yes | Accepts `08x-xxx-xxxx`, `0xxxxxxxxx`, `+66xxxxxxxxx`; **normalised to E.164 (`+66…`) before sending** |
@@ -252,7 +252,7 @@ Credential levels follow the design brief: 01 Certificate of Participation, 02 C
 |---|---|---|
 | Apply to a program | `POST /api/applications` | `program_id`, `participant_id`, `motivation` (≤500, required), `evidence_url` (required, URL), `visibility`, `status: "submitted"`, `submitted_at` |
 | Submit evidence | `POST /api/evidence` | `evidence_type` ∈ `yeah_activity` \| `project_output` \| `employment_outcome`, `activity_id`, `skill_dimension`, `evidence_url`, `description`, `status: "submitted"` — the UI sets no skill delta |
-| Edit profile | `PATCH /api/members/me` | any registration field; `google_sub` is never editable. Also `resume_file` (PDF/DOC/DOCX ≤5 MB — send as `multipart/form-data`; stored and returned as `member.resume_url`), `portfolio_url`, `linkedin_url` (must match `linkedin.com/in/…`) |
+| Edit profile | `PATCH /api/members/me` | **Editable:** `phone`, `occupation_status`, `university`, `faculty`, `year_of_study`, `education_level`, `province`, `track_interest`, `growth_goal`, `resume_file` (PDF/DOC/DOCX ≤5 MB — send as `multipart/form-data`; stored and returned as `member.resume_url`), `portfolio_url`, `linkedin_url` (must match `linkedin.com/in/…`). **Rejected with 400 if sent:** `first_name`, `last_name`, `first_name_en`, `last_name_en`, `birthdate`, `email`, `google_sub`, `referral_source`, `pdpa_consent`, `marketing_opt_in`. Shown on the profile: everything above except `google_sub`, `referral_source`, `pdpa_consent`, `marketing_opt_in` |
 | Share profile | `PATCH /api/members/me/visibility` | per-item booleans: display name + level, skill counts, credentials, contact email |
 | Withdraw application | `DELETE /api/applications/{id}` | — |
 | Export history | `GET /api/members/me/participations.csv` | — |

@@ -796,16 +796,15 @@ html[data-screen="hub"] .logo-btn{position:absolute;left:50%;transform:translate
      <div class="pd"><span>last_name_en</span><b data-pd="last_name_en">Sriwat</b></div>
      <div class="pd"><span>birthdate</span><b>14 มี.ค. 2548</b></div>
      <div class="pd"><span>email</span><b>nicha.sri@gmail.com</b></div>
-     <div class="pd"><span>phone</span><b>+66812345678</b></div>
-     <div class="pd"><span>google_sub</span><b style="font-family:var(--font-mono,monospace);font-size:11px">1082144773…40912</b></div>
+     <div class="pd"><span>phone</span><b data-pd="phone">+66812345678</b></div>
     </div>
    </div>
    <div class="acc">
     <button type="button"><i class="ic" data-lucide="graduation-cap"></i><b data-en="Study or work" data-th="การศึกษาหรือการทำงาน">การศึกษาหรือการทำงาน</b><i class="ic chev" data-lucide="chevron-down"></i></button>
     <div class="body">
      <div class="pd"><span>occupation_status</span><b>university_student</b></div>
-     <div class="pd"><span>university</span><b>จุฬาลงกรณ์มหาวิทยาลัย</b></div>
-     <div class="pd"><span>faculty</span><b>วิศวกรรมคอมพิวเตอร์</b></div>
+     <div class="pd"><span>university</span><b data-pd="university">จุฬาลงกรณ์มหาวิทยาลัย</b></div>
+     <div class="pd"><span>faculty</span><b data-pd="faculty">วิศวกรรมคอมพิวเตอร์</b></div>
      <div class="pd"><span>year_of_study</span><b>3</b></div>
      <div class="pd"><span>education_level</span><b>bachelor</b></div>
     </div>
@@ -814,9 +813,8 @@ html[data-screen="hub"] .logo-btn{position:absolute;left:50%;transform:translate
     <button type="button"><i class="ic" data-lucide="map-pin"></i><b data-en="Location, referral and goal" data-th="ที่อยู่ ช่องทางที่รู้จัก และเป้าหมาย">ที่อยู่ ช่องทางที่รู้จัก และเป้าหมาย</b><i class="ic chev" data-lucide="chevron-down"></i></button>
     <div class="body">
      <div class="pd"><span>province</span><b>กรุงเทพมหานคร</b></div>
-     <div class="pd"><span>referral_source</span><b>tiktok</b></div>
      <div class="pd"><span>track_interest</span><b>ai_product</b></div>
-     <div class="pd"><span>growth_goal</span><b>อยากมีผลงานจริงในพอร์ตก่อนจบปี 4</b></div>
+     <div class="pd"><span>growth_goal</span><b data-pd="growth_goal">อยากมีผลงานจริงในพอร์ตก่อนจบปี 4</b></div>
     </div>
    </div>
    <div class="acc">
@@ -957,13 +955,21 @@ html[data-screen="hub"] .logo-btn{position:absolute;left:50%;transform:translate
  <header><h3 data-en="Edit your details" data-th="แก้ไขข้อมูลของคุณ">แก้ไขข้อมูลของคุณ</h3></header>
  <div class="body">
   <form id="editForm">
-   <div class="field"><label for="e_first">first_name</label><input class="inp" id="e_first" name="first_name" value="ณิชา"></div>
-   <div class="field"><label for="e_last">last_name</label><input class="inp" id="e_last" name="last_name" value="ศรีวัฒน์"></div>
-   <div class="field"><label for="e_first_en">first_name_en</label><input class="inp" id="e_first_en" name="first_name_en" value="Nicha" lang="en" autocapitalize="words" spellcheck="false"></div>
-   <div class="field"><label for="e_last_en">last_name_en</label><input class="inp" id="e_last_en" name="last_name_en" value="Sriwat" lang="en" autocapitalize="words" spellcheck="false"></div>
-   <div class="field"><label for="e_email">email</label><input class="inp" type="email" id="e_email" name="email" value="nicha.sri@gmail.com"><span class="hint" data-en="Sign-in stays tied to your Google account." data-th="การเข้าสู่ระบบยังผูกกับบัญชี Google เดิม">การเข้าสู่ระบบยังผูกกับบัญชี Google เดิม</span></div>
+   <div class="field"><label><span data-en="Name (Thai)" data-th="ชื่อ-นามสกุล (ไทย)">ชื่อ-นามสกุล (ไทย)</span></label><input class="inp" value="ณิชา ศรีวัฒน์" readonly disabled></div>
+   <div class="field"><label><span data-en="Name (English)" data-th="ชื่อ-นามสกุล (อังกฤษ)">ชื่อ-นามสกุล (อังกฤษ)</span></label><input class="inp" value="Nicha Sriwat" readonly disabled></div>
+   <div class="field"><label><span data-en="Birthdate" data-th="วันเกิด">วันเกิด</span></label><input class="inp" value="14 มี.ค. 2548" readonly disabled></div>
+   <div class="field"><label><span data-en="Email" data-th="อีเมล">อีเมล</span></label><input class="inp" value="nicha.sri@gmail.com" readonly disabled></div>
    <div class="field"><label for="e_phone">phone</label><input class="inp" type="tel" id="e_phone" name="phone" value="081-234-5678"></div>
-   <div class="field"><label for="e_goal">growth_goal</label><textarea class="inp" id="e_goal" name="growth_goal">อยากมีผลงานจริงในพอร์ตก่อนจบปี 4</textarea></div>
+   <div class="field"><label for="e_occ"><span data-en="Current status" data-th="สถานะปัจจุบัน">สถานะปัจจุบัน</span></label><select class="inp" id="e_occ" name="occupation_status"></select></div>
+   <div id="eUniBlock">
+   <div class="field"><label for="e_uni">university</label><input class="inp" id="e_uni" name="university" value="จุฬาลงกรณ์มหาวิทยาลัย"></div>
+   <div class="field"><label for="e_fac">faculty</label><input class="inp" id="e_fac" name="faculty" value="วิศวกรรมคอมพิวเตอร์"></div>
+   <div class="field"><label for="e_year"><span data-en="Year of study" data-th="ชั้นปี">ชั้นปี</span></label><select class="inp" id="e_year" name="year_of_study"></select></div>
+   <div class="field"><label for="e_edu"><span data-en="Education level" data-th="ระดับการศึกษา">ระดับการศึกษา</span></label><select class="inp" id="e_edu" name="education_level"></select></div>
+   </div>
+   <div class="field"><label for="e_prov"><span data-en="Province" data-th="จังหวัด">จังหวัด</span></label><select class="inp" id="e_prov" name="province"></select></div>
+   <div class="field"><label for="e_track"><span data-en="Track you are curious about" data-th="สายที่คุณสนใจ">สายที่คุณสนใจ</span></label><select class="inp" id="e_track" name="track_interest"></select></div>
+   <div class="field"><label for="e_goal">growth_goal</label><textarea class="inp" id="e_goal" name="growth_goal" maxlength="300">อยากมีผลงานจริงในพอร์ตก่อนจบปี 4</textarea></div>
    <div class="field"><label for="e_cv">resume_file</label>
     <div class="filepick" id="cvPick">
      <input type="file" id="e_cv" name="resume_file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
@@ -1702,14 +1708,24 @@ function fillProfile(o){
   b.textContent=v||t('ยังไม่ได้เพิ่ม','not added');
  });
 }
+/* ---------- edit profile: option lists come from SRC; uni fields only for university students ---------- */
+(function(){
+ function fill(id,rows,cur,blank){var s=document.getElementById(id);
+  rows.forEach(function(r){var o=document.createElement('option');if(typeof r==='string')r=[r,r,r];
+   o.value=r[0];o.setAttribute('data-th',r[1]);o.setAttribute('data-en',r[2]||r[1]);o.textContent=r[1];s.appendChild(o)});
+  s.value=cur}
+ fill('e_occ',[['university_student','นักศึกษา','University student'],['school_student','นักเรียน','School student'],['professional','คนทำงาน','Working professional']],'university_student');
+ var yrs=[];for(var i=1;i<=8;i++)yrs.push([String(i),'ปี '+i,'Year '+i]);
+ fill('e_year',yrs,'3');fill('e_edu',SRC.edu,'bachelor');fill('e_prov',SRC.provinces,'กรุงเทพมหานคร');fill('e_track',SRC.tracks,'ai_product');
+ var occ=document.getElementById('e_occ');
+ function tog(){document.getElementById('eUniBlock').style.display=occ.value==='university_student'?'':'none'}
+ occ.addEventListener('change',tog);tog();
+})();
 document.getElementById('editSave').addEventListener('click',function(){
  if(!liOk()){document.getElementById('e_li').focus();return}
- var enBad=['e_first_en','e_last_en'].filter(function(id){var v=document.getElementById(id).value.trim();document.getElementById(id).classList.toggle('bad',!latinName(v));return !latinName(v)});
- if(enBad.length){document.getElementById(enBad[0]).focus();toast(t('กรอกชื่อภาษาอังกฤษด้วยตัวอักษรภาษาอังกฤษ','Enter your English name in English letters'));return}
  var fd=new FormData(document.getElementById('editForm')),out={};
  fd.forEach(function(v,k){out[k]=(typeof File==='function'&&v instanceof File)?(v.name?{name:v.name,size:v.size,type:v.type}:null):v});
  console.log('PATCH /api/members/me'+(out.resume_file?' (multipart, with resume_file)':''),out);
- setMemberName(out.first_name+' '+out.last_name,out.first_name_en+' '+out.last_name_en);
  fillProfile(out);
  closeSheets();toast(t('บันทึกข้อมูลแล้ว','Profile saved'));
 });

@@ -13,22 +13,26 @@
 /* ===== tokens carried over from YEAH Landing v3 ===== */
 :root{
  --grad:linear-gradient(135deg,var(--yeah-yellow) 0%,#FF7A3C 45%,var(--yeah-pink) 100%);
- --glass:rgba(255,255,255,.12);--glass-brd:rgba(255,255,255,.3);
+ /* frosted light glass — same recipe as YEAH Portal Mobile */
+ --glass:rgba(255,255,255,.72);--glass-brd:rgba(255,255,255,.88);
+ --glass-blur:blur(24px) saturate(1.35);
+ /* selected state for every picker: dark glass, yellow mark */
+ --sel:rgba(14,10,16,.88);
+ --glass-sh:inset 0 1px 0 rgba(255,255,255,.9),0 1px 2px rgba(60,16,44,.05),0 18px 40px -24px rgba(90,20,60,.34);
  --nav-h:64px;--ease:cubic-bezier(.2,.8,.2,1);
  --card-r:22px;--field-r:12px;
- --line:#E8E8E8;--ink:#141414;--muted:#6A6A6A;
+ --line:rgba(40,16,36,.1);--ink:#141414;--muted:#57525A;
  --ok:#00A46B;--warn:#D9AF00;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:'Poppins','Noto Sans Thai',var(--font-body,sans-serif);color:var(--ink);background:#F6F6F7;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body{font-family:'Poppins','Noto Sans Thai',var(--font-body,sans-serif);color:var(--ink);background:#F4EEF1;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
 h1,h2,h3,h4{font-family:var(--font-display);letter-spacing:-.02em;line-height:1.12;color:var(--ink)}
 a{color:var(--yeah-pink);text-decoration:none}a:hover{color:var(--yeah-pink-700)}
 img{display:block}button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
 html[data-lang="th"] p,html[data-lang="th"] label{line-height:1.7}
 .ic{display:inline-flex;width:20px;height:20px;flex:none}.ic svg{width:100%;height:100%}
 .wrap{width:min(1240px,100% - 48px);margin-inline:auto}
-.eyebrow{font-family:var(--font-display-alt);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block}
 .muted{color:var(--muted)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 /* ===== screens ===== */
@@ -37,7 +41,7 @@ html[data-screen="login"] #screen-login,
 html[data-screen="register"] #screen-register,
 html[data-screen="hub"] #screen-hub{display:block}
 /* ===== nav (same chrome as landing) ===== */
-.nav{position:sticky;top:0;z-index:50;height:var(--nav-h);background:rgba(5,4,7,.9);backdrop-filter:blur(18px) saturate(1.5);-webkit-backdrop-filter:blur(18px) saturate(1.5);border-bottom:1px solid rgba(255,255,255,.12)}
+.nav{position:sticky;top:0;z-index:50;height:var(--nav-h);background:rgba(8,6,10,.78);backdrop-filter:blur(20px) saturate(1.6);-webkit-backdrop-filter:blur(20px) saturate(1.6);border-bottom:1px solid rgba(255,255,255,.12)}
 .nav .wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px;height:100%}
 .nav .wrap>a:first-child{justify-self:start;display:inline-flex}
 .nav-logo{height:32px;width:auto}
@@ -127,15 +131,16 @@ textarea.inp{min-height:96px;resize:vertical}
 .chips input{position:absolute;opacity:0;pointer-events:none}
 .chips label{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border:1.5px solid var(--line);border-radius:999px;background:#fff;cursor:pointer;font-size:13.5px;transition:all .14s var(--ease)}
 .chips label .ic{width:16px;height:16px;color:var(--muted)}
-.chips input:checked+label{background:var(--grad);border-color:transparent;color:#151515;font-weight:600}
-.chips input:checked+label .ic{color:#151515}
+.chips input:checked+label{background:var(--sel);border-color:transparent;color:#fff;font-weight:600}
+.chips input:checked+label:not(:has(.ic)){color:var(--yeah-yellow)}
+.chips input:checked+label .ic{color:var(--yeah-yellow)}
 /* consent */
 .consent{display:flex;gap:14px;align-items:flex-start;padding:20px;border:1.5px solid var(--line);border-radius:16px;background:#FAFAFA}
 .cbx{position:relative;flex:none;width:26px;height:26px;margin-top:2px}
 .cbx input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
 .cbx span{position:absolute;inset:0;border:2px solid #B8B8B8;border-radius:7px;background:#fff;pointer-events:none;transition:all .14s var(--ease)}
-.cbx input:checked+span{background:var(--grad);border-color:transparent}
-.cbx input:checked+span::after{content:"";position:absolute;left:8px;top:3.5px;width:6px;height:12px;border:2.6px solid #151515;border-top:0;border-left:0;transform:rotate(42deg)}
+.cbx input:checked+span{background:var(--sel);border-color:transparent}
+.cbx input:checked+span::after{content:"";position:absolute;left:8px;top:3.5px;width:6px;height:12px;border:2.6px solid var(--yeah-yellow);border-top:0;border-left:0;transform:rotate(42deg)}
 .cbx input:focus-visible+span{box-shadow:0 0 0 3px rgba(254,215,50,.7)}
 /* ===== 01 LOGIN ===== */
 .auth{min-height:calc(100vh - var(--nav-h));display:grid;grid-template-columns:1.05fr .95fr}
@@ -211,7 +216,7 @@ html[data-lang="en"] .auth-forgot .auth-link{font-size:13px}
 .combo-other .ic{width:17px;height:17px}
 .other-name{margin-top:12px}
 /* ===== 02 REGISTER ===== */
-.reg{padding:40px 0 90px;background:linear-gradient(180deg,#fff 0%,#FFF6F9 320px,#F6F6F7 100%)}
+.reg{padding:40px 0 90px}
 .reg-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:26px}
 .reg-head h1{font-size:38px;font-weight:600;margin:8px 0 6px}
 .reg-grid{display:grid;grid-template-columns:minmax(0,1fr) 336px;gap:26px;align-items:start}
@@ -437,6 +442,87 @@ html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
 .toast .ic{width:18px;height:18px;color:var(--yeah-yellow)}
 /* dev drawer */
 @media (max-width:1180px){.hub-grid{grid-template-columns:1fr}.side{position:static}.reg-grid{grid-template-columns:1fr}.prog-grid{grid-template-columns:1fr}}
+/* ===== glass layer — frosted panels over a warm ambient field, matching YEAH Portal Mobile ===== */
+/* the field is fixed, so panels pick up a different tint as they scroll over it; grain keeps it from reading as a flat vector */
+body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+ background:radial-gradient(50% 50% at 0% 0%,rgba(254,0,116,.12),transparent 70%),radial-gradient(45% 45% at 100% 25%,rgba(254,215,50,.27),transparent 70%),
+  radial-gradient(50% 50% at 12% 85%,rgba(255,122,60,.13),transparent 70%),radial-gradient(45% 45% at 95% 100%,rgba(254,0,116,.11),transparent 70%)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.16;
+ background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .2 0 0 0 0 .05 0 0 0 0 .15 0 0 0 .45 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.card{background:var(--glass);border:1px solid var(--glass-brd);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);box-shadow:var(--glass-sh)}
+.phead{background:radial-gradient(520px 260px at 100% 0,rgba(254,215,50,.2),transparent 70%),radial-gradient(480px 260px at 38% 130%,rgba(254,0,116,.1),transparent 70%),var(--glass);border:1px solid var(--glass-brd);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);box-shadow:var(--glass-sh)}
+.prog:hover{box-shadow:var(--glass-sh),0 26px 50px -30px rgba(254,0,116,.55)}
+/* things that sit inside a panel: translucent, no second blur */
+.skill,.pf,.fp-ic,.fp-file,.bene{background:rgba(255,255,255,.76);border:1px solid rgba(255,255,255,.9);box-shadow:0 6px 16px -10px rgba(90,20,60,.22)}
+.bene .bic,.notif .nic{background:linear-gradient(140deg,rgba(254,215,50,.26),rgba(254,0,116,.12));border:1px solid rgba(255,255,255,.9)}
+.consent,.qr-box,.fp-drop{background:rgba(255,255,255,.66);border-color:rgba(255,255,255,.9)}
+.dim,.lv{background:rgba(255,255,255,.78)}
+.dim{border-color:rgba(255,255,255,.9)}
+.locked-note{background:rgba(254,215,50,.2);border-color:rgba(254,215,50,.5)}
+.meter,.seats,.skill .bar,.track i{background:rgba(40,16,36,.08)}
+.st-wait,.cred.none{background:rgba(40,16,36,.07)}
+.hrow:hover{background:rgba(255,255,255,.4)}
+.notif.unread{background:rgba(254,0,116,.05)}
+.ptype{background:rgba(12,9,14,.55);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+/* tier bar */
+.tierbar{background:rgba(40,16,36,.07);border-color:rgba(255,255,255,.8)}
+.tstop{background:rgba(255,255,255,.86);border-color:rgba(255,255,255,.95);box-shadow:0 8px 20px -12px rgba(90,20,60,.35)}
+/* controls */
+.btn-ghost{background:rgba(255,255,255,.74);border:1px solid rgba(40,16,36,.1);backdrop-filter:blur(14px) saturate(1.5);-webkit-backdrop-filter:blur(14px) saturate(1.5);box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
+.chips label,.seg label{background:rgba(255,255,255,.76);border:1px solid rgba(255,255,255,.85);box-shadow:0 6px 16px -12px rgba(90,20,60,.3)}
+.seg input:checked+label{background:var(--sel)}
+.cbx span{background:rgba(255,255,255,.86)}
+#screen-register .fmt .inp{background-color:rgba(255,255,255,.86);border-color:rgba(255,255,255,.95);box-shadow:0 6px 18px -12px rgba(90,20,60,.3)}
+#screen-register .fmt .inp:focus,#screen-register .combo.open .combo-btn{border-color:#A6A2AC;box-shadow:0 0 0 4px rgba(255,255,255,.6)}
+#screen-register .fmt .inp.bad{background-color:#FFF5F9;border-color:var(--yeah-pink)}
+/* pop-overs live inside a blurred parent (nav, form card), which stops their own blur reaching the page — so they stay near-opaque */
+.notif-pop,.combo-pop{background:rgba(252,249,251,.96);border-color:rgba(255,255,255,.9);box-shadow:inset 0 1px 0 #fff,0 26px 60px -24px rgba(60,10,40,.5)}
+/* modal — the blur moves to a pseudo layer so the card's own blur can see through to the page */
+.modal{background:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+.modal::before{content:"";position:absolute;inset:0;background:rgba(14,6,14,.42);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.mcard{background:rgba(252,249,251,.92);border:1px solid rgba(255,255,255,.9);backdrop-filter:blur(30px) saturate(1.8);-webkit-backdrop-filter:blur(30px) saturate(1.8)}
+.mhead,.mfoot{background:rgba(252,249,251,.84);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.mclose{background:rgba(255,255,255,.6);border:1px solid var(--line)}
+.toast{background:rgba(14,10,16,.84);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(18px) saturate(1.5);-webkit-backdrop-filter:blur(18px) saturate(1.5)}
+/* login — the form column joins the brand column's dark field; the box becomes the landing page's dark glass card.
+   The tokens flip inside it so labels, rules and links follow. */
+.auth{position:relative;overflow:hidden;background:radial-gradient(34% 44% at 80% 84%,rgba(254,0,116,.32),transparent 70%),radial-gradient(28% 36% at 96% 8%,rgba(255,122,60,.22),transparent 70%),linear-gradient(180deg,#010101 0%,#1F1225 100%)}
+.auth-brand{background:none;overflow:visible}
+.auth-panel{position:relative;z-index:2;background:none}
+/* intro stage — same recipe as YEAH Portal Mobile. Bottom to top: the GIF under a pink-led CI gradient at 40%,
+   a dark frosted-glass sheet (--stage-glass), the blobs' glow, then the intro copy. The GIF covers the whole brand
+   column and bleeds --stage-bleed into the login column, where its right edge fades out behind the login card;
+   the glass fades a little later so the GIF's faded edge is still frosted. */
+.auth-brand{--stage-glass:.6;--stage-bleed:160px}
+.auth-brand .blob{z-index:1}
+.auth-brand>.login-stage{position:absolute;z-index:0;inset:0 calc(var(--stage-bleed)*-1) 0 0;
+ -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 340px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 340px),transparent)}
+.login-stage img{width:100%;height:100%;object-fit:cover;object-position:50% 45%}
+.login-stage::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,#FF7A3C 0%,#FF3D6E 28%,var(--yeah-pink) 58%,#C4006A 100%);opacity:.4}
+.auth-brand::after{content:"";position:absolute;z-index:0;inset:0 calc(var(--stage-bleed)*-1) 0 0;pointer-events:none;
+ background:rgba(10,6,12,var(--stage-glass));backdrop-filter:blur(6px) saturate(1.3);-webkit-backdrop-filter:blur(6px) saturate(1.3);
+ -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 220px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 220px),transparent)}
+.auth-box{--ink:#fff;--muted:rgba(255,255,255,.66);--line:rgba(255,255,255,.16);
+ width:min(480px,100%);padding:40px 38px 34px;border-radius:30px;color:var(--ink);
+ background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(22px) saturate(1.4);-webkit-backdrop-filter:blur(22px) saturate(1.4);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 30px 70px -28px rgba(1,1,1,.8)}
+.auth-box h2{margin-top:0}
+.auth-box .inp{background-color:rgba(255,255,255,.09);border-color:rgba(255,255,255,.14)}
+.auth-box .inp::placeholder{color:rgba(255,255,255,.46)}
+.auth-box .inp:focus{border-color:rgba(255,255,255,.5);box-shadow:0 0 0 4px rgba(255,255,255,.1)}
+.auth-box .inp.bad{background-color:rgba(254,0,116,.14)}
+.auth-box .pw-eye:hover{background:rgba(255,255,255,.1)}
+.auth-box .or{color:rgba(255,255,255,.5)}
+.auth-box .auth-link{color:#FF5AA5}
+.auth-box .auth-link:hover{color:#FF8CC0}
+.auth-box .btn-google{border-color:transparent}
+/* Thai has no case and breaks apart under wide tracking */
+html[data-lang="th"] .btn{letter-spacing:.01em}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+ .card,.phead{background:rgba(255,255,255,.9)}
+ .mcard{background:#fff}
+ .auth-box{background:rgba(30,18,34,.94)}
+}
 </style>
 </head>
 <body>
@@ -459,7 +545,6 @@ html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
     <div class="notif-pop" id="notifPop" role="dialog" aria-label="Notifications">
      <header>
       <div>
-       <span class="eyebrow" data-en="Notifications" data-th="การแจ้งเตือน">การแจ้งเตือน</span>
        <h2 data-en="What changed" data-th="มีอะไรเปลี่ยนบ้าง">มีอะไรเปลี่ยนบ้าง</h2>
       </div>
       <button class="btn btn-ghost btn-sm" id="markRead"><span data-en="Mark all read" data-th="อ่านทั้งหมดแล้ว">อ่านทั้งหมดแล้ว</span></button>
@@ -487,11 +572,11 @@ html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
  <div class="auth">
   <div class="auth-brand">
    <span class="blob b1"></span><span class="blob b2"></span>
+   <div class="login-stage" aria-hidden="true"><img src="uploads/login-stage.gif" alt="" decoding="async"></div>
    <div class="bignums">
     <div><b class="cnt" data-to="100" data-suffix="+">0</b><small data-en="activities run" data-th="กิจกรรมที่จัดไปแล้ว">กิจกรรมที่จัดไปแล้ว</small></div>
     <div><b class="cnt" data-to="500" data-suffix="+">0</b><small data-en="people have joined" data-th="ผู้เข้าร่วมที่ผ่านมา">ผู้เข้าร่วมที่ผ่านมา</small></div>
    </div>
-   <span class="eyebrow" data-en="YEAH Future Talent" data-th="YEAH Future Talent">YEAH Future Talent</span>
    <h1 data-en="From potential to proof of work." data-th="เปลี่ยนศักยภาพให้เป็นผลงานที่พิสูจน์ได้">เปลี่ยนศักยภาพให้เป็นผลงานที่พิสูจน์ได้</h1>
    <p data-en="One account for every YEAH program. Apply to bootcamps and events, collect verified evidence of what you build, and carry a credential that anyone can check." data-th="บัญชีเดียวใช้ได้กับทุกโครงการของ YEAH สมัครบูตแคมป์และกิจกรรม เก็บหลักฐานผลงานที่ผ่านการตรวจสอบ และถือ Credential ที่ใคร ๆ ก็ตรวจสอบได้">บัญชีเดียวใช้ได้กับทุกโครงการของ YEAH สมัครบูตแคมป์และกิจกรรม เก็บหลักฐานผลงานที่ผ่านการตรวจสอบ และถือ Credential ที่ใคร ๆ ก็ตรวจสอบได้</p>
    <div class="auth-steps">
@@ -503,7 +588,6 @@ html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
 
   <div class="auth-panel">
    <div class="auth-box fmt">
-    <span class="eyebrow" data-en="Member login" data-th="เข้าสู่ระบบสมาชิก">เข้าสู่ระบบสมาชิก</span>
     <h2 data-en="Welcome to YEAH" data-th="ยินดีต้อนรับสู่ YEAH">ยินดีต้อนรับสู่ YEAH</h2>
     <p class="sub" data-en="Sign in with Google, or with the email and password you signed up with." data-th="เข้าสู่ระบบด้วย Google หรือด้วยอีเมลและรหัสผ่านที่คุณใช้สมัคร">เข้าสู่ระบบด้วย Google หรือด้วยอีเมลและรหัสผ่านที่คุณใช้สมัคร</p>
 
@@ -801,7 +885,6 @@ html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
 
     <aside class="aside">
      <div class="card card-pad">
-      <span class="eyebrow" data-en="Profile completeness" data-th="ความครบถ้วนของโปรไฟล์">ความครบถ้วนของโปรไฟล์</span>
       <div style="display:flex;align-items:baseline;gap:8px;margin-top:8px"><b id="pctNum" style="font-family:var(--font-display-alt);font-size:34px;font-weight:700">0%</b><span class="hint" data-en="of required fields" data-th="ของช่องที่จำเป็น">ของช่องที่จำเป็น</span></div>
       <div class="meter"><i id="pctBar"></i></div>
       <div class="checklist" id="checklist">
@@ -850,12 +933,10 @@ html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
    <div class="hub-grid">
     <aside class="side">
      <div class="card card-pad">
-      <span class="eyebrow" data-en="Next action" data-th="สิ่งที่ต้องทำต่อ">สิ่งที่ต้องทำต่อ</span>
       <p style="font-size:13.5px;margin:8px 0 14px" data-en="Apply to one open program before 30 Sep to unlock Explorer." data-th="สมัครโครงการที่เปิดรับอย่างน้อย 1 โครงการก่อน 30 ก.ย. เพื่อปลดล็อก Explorer">สมัครโครงการที่เปิดรับอย่างน้อย 1 โครงการก่อน 30 ก.ย. เพื่อปลดล็อก Explorer</p>
       <a class="btn btn-dark btn-sm" href="#s-programs" style="width:100%"><span data-en="See programs" data-th="ดูโครงการ">ดูโครงการ</span></a>
      </div>
      <div class="card card-pad">
-      <span class="eyebrow" data-en="Profile completeness" data-th="ความครบถ้วนของโปรไฟล์">ความครบถ้วนของโปรไฟล์</span>
       <div style="display:flex;align-items:baseline;gap:8px;margin-top:6px"><b style="font-family:var(--font-display-alt);font-size:28px;font-weight:700">78%</b></div>
       <div class="meter"><i style="width:78%"></i></div>
       <span class="hint" data-en="Add a portfolio link and a photo to reach 100%." data-th="เพิ่มลิงก์ผลงานและรูปโปรไฟล์เพื่อให้ครบ 100%">เพิ่มลิงก์ผลงานและรูปโปรไฟล์เพื่อให้ครบ 100%</span>
@@ -867,7 +948,6 @@ html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
      <section class="sec" id="s-status">
       <div class="sec-top">
        <div>
-        <span class="eyebrow" data-en="Member status" data-th="สถานะสมาชิก">สถานะสมาชิก</span>
         <h2 data-en="You are a General Member. Explorer is one application away." data-th="คุณเป็นสมาชิกทั่วไป อีกหนึ่งใบสมัครก็ถึง Explorer">คุณเป็นสมาชิกทั่วไป อีกหนึ่งใบสมัครก็ถึง Explorer</h2>
         <p data-en="Levels move on verified evidence, not on time spent." data-th="ระดับจะขยับตามหลักฐานที่ผ่านการตรวจสอบ ไม่ใช่ตามเวลาที่อยู่กับเรา">ระดับจะขยับตามหลักฐานที่ผ่านการตรวจสอบ ไม่ใช่ตามเวลาที่อยู่กับเรา</p>
        </div>
@@ -885,7 +965,6 @@ html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
 
        <div class="tier-panel">
         <div>
-         <span class="eyebrow" id="tierEyebrow">ระดับปัจจุบันของคุณ</span>
          <h3 id="tierName" style="font-size:22px;margin:4px 0 12px">สมาชิกทั่วไป (General Member)</h3>
          <p class="muted" id="tierDesc" style="font-size:13.5px;margin-bottom:16px">ระดับตั้งต้นที่ทุกคนได้รับทันทีที่ลงทะเบียนเสร็จ เมื่อใบสมัครแรกได้รับการตอบรับ ระดับของคุณจะขยับเป็น Explorer</p>
          <div class="locked-note" id="lockedNote">
@@ -907,7 +986,6 @@ html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
        <div style="border-top:1px solid var(--line);margin-top:26px;padding-top:22px">
         <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:14px">
          <div>
-          <span class="eyebrow" data-en="Skill snapshot" data-th="ภาพรวมทักษะ">ภาพรวมทักษะ</span>
           <p class="hint" style="margin-top:4px" data-en="+1 is added only after a mentor or partner verifies your evidence." data-th="คะแนน +1 จะเพิ่มก็ต่อเมื่อ mentor หรือพาร์ตเนอร์ตรวจสอบหลักฐานของคุณแล้วเท่านั้น">คะแนน +1 จะเพิ่มก็ต่อเมื่อ mentor หรือพาร์ตเนอร์ตรวจสอบหลักฐานของคุณแล้วเท่านั้น</p>
          </div>
          <button class="btn btn-ghost btn-sm" data-modal="evidence"><i class="ic" data-lucide="upload"></i><span data-en="Submit evidence" data-th="ส่งหลักฐาน">ส่งหลักฐาน</span></button>
@@ -927,7 +1005,6 @@ html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
      <section class="sec" id="s-programs">
       <div class="sec-top">
        <div>
-        <span class="eyebrow" data-en="Open now" data-th="เปิดรับอยู่ตอนนี้">เปิดรับอยู่ตอนนี้</span>
         <h2 data-en="Programs you can apply to" data-th="โครงการที่คุณสมัครได้">โครงการที่คุณสมัครได้</h2>
         <p data-en="Events, bootcamps and build projects. Eligibility is shown per level." data-th="อีเวนต์ บูตแคมป์ และโปรเจกต์ลงมือทำ เงื่อนไขระดับแสดงอยู่ในแต่ละการ์ด">อีเวนต์ บูตแคมป์ และโปรเจกต์ลงมือทำ เงื่อนไขระดับแสดงอยู่ในแต่ละการ์ด</p>
        </div>
@@ -945,7 +1022,6 @@ html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
      <section class="sec" id="s-apps">
       <div class="sec-top">
        <div>
-        <span class="eyebrow" data-en="Application status" data-th="สถานะใบสมัคร">สถานะใบสมัคร</span>
         <h2 data-en="My applications" data-th="ใบสมัครของฉัน">ใบสมัครของฉัน</h2>
        </div>
       </div>
@@ -975,7 +1051,6 @@ html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
      <section class="sec" id="s-history">
       <div class="sec-top">
        <div>
-        <span class="eyebrow" data-en="Activity history" data-th="ประวัติการเข้าร่วม">ประวัติการเข้าร่วม</span>
         <h2 data-en="Programs you have taken part in" data-th="โครงการที่คุณเคยเข้าร่วม">โครงการที่คุณเคยเข้าร่วม</h2>
         <p data-en="Verified items add +1 to a skill dimension and can be attached to a credential." data-th="รายการที่ผ่านการตรวจสอบจะเพิ่ม +1 ในมิติทักษะ และใช้แนบกับ Credential ได้">รายการที่ผ่านการตรวจสอบจะเพิ่ม +1 ในมิติทักษะ และใช้แนบกับ Credential ได้</p>
        </div>
@@ -1017,7 +1092,6 @@ html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
      <section class="sec" id="s-portfolio">
       <div class="sec-top">
        <div>
-        <span class="eyebrow" data-en="Portfolio preview" data-th="ตัวอย่างผลงาน">ตัวอย่างผลงาน</span>
         <h2 data-en="Evidence you have uploaded" data-th="หลักฐานที่คุณอัปโหลดไว้">หลักฐานที่คุณอัปโหลดไว้</h2>
         <p data-en="You choose what is private, link-only, or public on your shared profile." data-th="คุณเลือกเองว่าจะให้เป็นส่วนตัว แชร์ด้วยลิงก์ หรือเปิดสาธารณะบนโปรไฟล์ที่แชร์">คุณเลือกเองว่าจะให้เป็นส่วนตัว แชร์ด้วยลิงก์ หรือเปิดสาธารณะบนโปรไฟล์ที่แชร์</p>
        </div>
@@ -1040,7 +1114,7 @@ html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
 <!-- ============ MODALS ============ -->
 <div class="modal" id="m-terms"><div class="mcard">
  <button class="mclose" data-close><i class="ic" data-lucide="x"></i></button>
- <div class="mhead"><span class="eyebrow">PDPA · pdpa-2026-09-v1</span><h3 data-en="Terms and privacy notice" data-th="ข้อกำหนดและประกาศความเป็นส่วนตัว">ข้อกำหนดและประกาศความเป็นส่วนตัว</h3></div>
+ <div class="mhead"><h3 data-en="Terms and privacy notice" data-th="ข้อกำหนดและประกาศความเป็นส่วนตัว">ข้อกำหนดและประกาศความเป็นส่วนตัว</h3></div>
  <div class="mbody">
   <h4 data-en="What we collect" data-th="ข้อมูลที่เราเก็บ">ข้อมูลที่เราเก็บ</h4>
   <p data-en="Your name, birthday, contact details, study or work information, province, and how you heard about us. Your Google ID is stored as the key to your record." data-th="ชื่อ วันเกิด ข้อมูลติดต่อ ข้อมูลการศึกษาหรือการทำงาน จังหวัด และช่องทางที่คุณรู้จักเรา ระบบเก็บ Google ID ไว้เป็นกุญแจของระเบียนข้อมูลคุณ">ชื่อ วันเกิด ข้อมูลติดต่อ ข้อมูลการศึกษาหรือการทำงาน จังหวัด และช่องทางที่คุณรู้จักเรา ระบบเก็บ Google ID ไว้เป็นกุญแจของระเบียนข้อมูลคุณ</p>
@@ -1060,7 +1134,7 @@ html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
 
 <div class="modal" id="m-forgot" role="dialog" aria-labelledby="forgotTitle"><div class="mcard" style="width:min(480px,100%)">
  <button class="mclose" data-close aria-label="Close"><i class="ic" data-lucide="x"></i></button>
- <div class="mhead"><span class="eyebrow" data-en="Reset password" data-th="ตั้งรหัสผ่านใหม่">ตั้งรหัสผ่านใหม่</span><h3 id="forgotTitle" data-en="Forgot your password?" data-th="ลืมรหัสผ่าน?">ลืมรหัสผ่าน?</h3></div>
+ <div class="mhead"><h3 id="forgotTitle" data-en="Forgot your password?" data-th="ลืมรหัสผ่าน?">ลืมรหัสผ่าน?</h3></div>
  <form class="mbody fmt" id="forgotForm" novalidate>
   <p data-en="Enter the email you signed up with. If it matches an account, we will send a link to set a new password. The link works for 30 minutes." data-th="กรอกอีเมลที่ใช้สมัคร หากตรงกับบัญชีในระบบ เราจะส่งลิงก์สำหรับตั้งรหัสผ่านใหม่ไปให้ ลิงก์ใช้ได้ 30 นาที">กรอกอีเมลที่ใช้สมัคร หากตรงกับบัญชีในระบบ เราจะส่งลิงก์สำหรับตั้งรหัสผ่านใหม่ไปให้ ลิงก์ใช้ได้ 30 นาที</p>
   <div class="field" style="margin-top:14px">
@@ -1074,7 +1148,7 @@ html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
 
 <div class="modal" id="m-apply"><div class="mcard wide">
  <button class="mclose" data-close><i class="ic" data-lucide="x"></i></button>
- <div class="mhead"><span class="eyebrow" id="ap_type">bootcamp</span><h3 id="ap_title">—</h3><p class="hint" id="ap_dates" style="margin-top:6px"></p></div>
+ <div class="mhead"><h3 id="ap_title">—</h3><p class="hint" id="ap_dates" style="margin-top:6px"></p></div>
  <div class="mbody">
   <div style="aspect-ratio:16/6;background:#D9D9D9;border-radius:16px;display:flex;align-items:center;justify-content:center;color:#B0B0B0;margin-bottom:18px"><i class="ic" data-lucide="image" style="width:30px;height:30px"></i></div>
   <p id="ap_desc" style="margin-bottom:16px"></p>
@@ -1114,7 +1188,7 @@ html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
 
 <div class="modal" id="m-evidence"><div class="mcard">
  <button class="mclose" data-close><i class="ic" data-lucide="x"></i></button>
- <div class="mhead"><span class="eyebrow" data-en="Activity and evidence" data-th="กิจกรรมและหลักฐาน">กิจกรรมและหลักฐาน</span><h3 data-en="Submit evidence" data-th="ส่งหลักฐาน">ส่งหลักฐาน</h3></div>
+ <div class="mhead"><h3 data-en="Submit evidence" data-th="ส่งหลักฐาน">ส่งหลักฐาน</h3></div>
  <div class="mbody">
   <div class="hint warn" style="margin-bottom:18px" data-en="Points are added only after the activity's mentor or partner verifies this. Submitting moves it to Pending." data-th="คะแนนจะเพิ่มหลังจาก mentor หรือพาร์ตเนอร์ของกิจกรรมตรวจสอบแล้วเท่านั้น เมื่อกดส่งสถานะจะเป็น Pending">คะแนนจะเพิ่มหลังจาก mentor หรือพาร์ตเนอร์ของกิจกรรมตรวจสอบแล้วเท่านั้น เมื่อกดส่งสถานะจะเป็น Pending</div>
   <form id="evForm">
@@ -1155,7 +1229,7 @@ html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
 
 <div class="modal" id="m-editprofile"><div class="mcard">
  <button class="mclose" data-close><i class="ic" data-lucide="x"></i></button>
- <div class="mhead"><span class="eyebrow" data-en="Profile details" data-th="ข้อมูลโปรไฟล์">ข้อมูลโปรไฟล์</span><h3 data-en="Edit your details" data-th="แก้ไขข้อมูลของคุณ">แก้ไขข้อมูลของคุณ</h3></div>
+ <div class="mhead"><h3 data-en="Edit your details" data-th="แก้ไขข้อมูลของคุณ">แก้ไขข้อมูลของคุณ</h3></div>
  <div class="mbody">
   <form id="editForm">
    <div class="grid2" style="margin:10px 0 16px">
@@ -1198,7 +1272,7 @@ html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
 
 <div class="modal" id="m-share"><div class="mcard">
  <button class="mclose" data-close><i class="ic" data-lucide="x"></i></button>
- <div class="mhead"><span class="eyebrow" data-en="Public profile" data-th="โปรไฟล์สาธารณะ">โปรไฟล์สาธารณะ</span><h3 data-en="Share what you choose" data-th="แชร์เฉพาะสิ่งที่คุณเลือก">แชร์เฉพาะสิ่งที่คุณเลือก</h3></div>
+ <div class="mhead"><h3 data-en="Share what you choose" data-th="แชร์เฉพาะสิ่งที่คุณเลือก">แชร์เฉพาะสิ่งที่คุณเลือก</h3></div>
  <div class="mbody">
   <div class="field"><label for="shareUrl" data-en="Your link" data-th="ลิงก์ของคุณ">ลิงก์ของคุณ</label>
    <div style="display:flex;gap:10px"><input class="inp" id="shareUrl" readonly value="https://yeah.or.th/p/nicha-s-4182"><button class="btn btn-dark btn-sm" id="copyShare" style="flex:none"><i class="ic" data-lucide="copy"></i><span data-en="Copy" data-th="คัดลอก">คัดลอก</span></button></div>
@@ -1225,7 +1299,7 @@ html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
 
 <div class="modal" id="m-appdetail"><div class="mcard">
  <button class="mclose" data-close><i class="ic" data-lucide="x"></i></button>
- <div class="mhead"><span class="eyebrow">application_id · APP-2026-0311</span><h3>YEAH Future Talent · AI Product Track</h3></div>
+ <div class="mhead"><h3>YEAH Future Talent · AI Product Track</h3></div>
  <div class="mbody">
   <div style="display:flex;flex-direction:column;gap:0">
    <div class="notif"><span class="nic"><i class="ic" data-lucide="check"></i></span><div><b data-en="Submitted" data-th="ส่งใบสมัครแล้ว">ส่งใบสมัครแล้ว</b><p>14 ก.ย. 2026 · 21:04</p></div></div>
@@ -1712,7 +1786,6 @@ var curTier=0,MY_TIER=0;
 function renderTier(i){
  curTier=i;var T=TIERS[i];
  window.MC_TIER=i;if(window.mcSetTier)mcSetTier(i);
- document.getElementById('tierEyebrow').textContent=i===MY_TIER?t('ระดับปัจจุบันของคุณ','Your current tier'):(i<MY_TIER?t('ระดับที่ผ่านมาแล้ว','A tier you have passed'):t('ระดับที่ยังล็อกอยู่','A locked tier'));
  document.getElementById('tierName').textContent=t(T.name_th,T.name_en);
  document.getElementById('tierDesc').textContent=t(T.d_th,T.d_en);
  document.getElementById('lockedNote').style.display=(i===MY_TIER)?'flex':'none';
@@ -1804,7 +1877,6 @@ setInterval(tick,30000);
 document.addEventListener('click',function(e){
  var b=e.target.closest('[data-apply]');if(!b)return;
  var p=PROGRAMS.filter(function(x){return x.id===b.getAttribute('data-apply')})[0];if(!p)return;
- document.getElementById('ap_type').textContent=p.type+' · '+p.id;
  document.getElementById('ap_title').textContent=t(p.title,p.title_en);
  document.getElementById('ap_dates').textContent=t(p.start,p.start_en)+' – '+t(p.end,p.end_en)+' · '+p.place;
  document.getElementById('ap_desc').textContent=t(p.desc,p.desc_en);

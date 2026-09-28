@@ -281,7 +281,12 @@ html[data-auth="email"] .acct-row{grid-template-columns:repeat(3,1fr)}
 /* member status */
 .status-card{padding:28px 30px 34px}
 .tierbar{margin:54px 12px 0;position:relative;height:14px;border-radius:999px;background:#EFEFEF;border:1px solid #E2E2E2}
-.tierbar .fill{position:absolute;inset:0;right:auto;width:0;border-radius:999px;background:var(--grad);transition:width .6s var(--ease)}
+.tierbar .fill{position:absolute;inset:0;right:auto;width:var(--fill,0%);border-radius:999px;background:var(--grad);transition:width .6s var(--ease)}
+/* a rocket rides the tip of the fill as its arrowhead, same as the mobile tier meter; its exhaust overlaps the fill by 4px.
+   It comes before the stops in the markup, so a stop always paints over it. */
+.t-rocket{position:absolute;top:50%;left:var(--fill,0%);width:40px;height:40px;transform:translate(-5px,-50%);overflow:visible;pointer-events:none;
+ fill:#fff;stroke:var(--yeah-pink);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 6px rgba(254,0,116,.45));transition:left .6s var(--ease)}
+@media (prefers-reduced-motion:reduce){.tierbar .fill,.t-rocket{transition:none}}
 .tstop{position:absolute;top:50%;left:calc(var(--p)*1%);transform:translate(-50%,-50%);width:50px;height:50px;border-radius:50%;border:1.5px solid #E2E2E2;background:#fff;color:#B0B0B0;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .22s var(--ease)}
 .tstop .ic{width:20px;height:20px}
 .tstop span{position:absolute;top:58px;left:50%;transform:translateX(-50%);font-family:var(--font-display-alt);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#9A9A9A;white-space:nowrap}
@@ -954,8 +959,9 @@ html[data-lang="th"] .btn{letter-spacing:.01em}
       </div>
 
       <div class="card status-card">
-       <div class="tierbar">
+       <div class="tierbar" id="tierBar">
         <div class="fill" id="tierFill"></div>
+        <svg class="t-rocket" viewBox="0 0 24 24" aria-hidden="true"><g transform="rotate(45 12 12)"><path d="M4 13a8 8 0 0 1 7 7a6 6 0 0 0 3-5a9 9 0 0 0 6-8a3 3 0 0 0-3-3a9 9 0 0 0-8 6a6 6 0 0 0-5 3"/><path d="M7 14a6 6 0 0 0-3 6a6 6 0 0 0 6-3"/><circle cx="15" cy="9" r="1"/></g></svg>
         <button class="tstop now locked" style="--p:0" data-t="0"><i class="ic" data-lucide="lock"></i><small data-en="You are here" data-th="คุณอยู่ตรงนี้">คุณอยู่ตรงนี้</small><span>General</span></button>
         <button class="tstop" style="--p:25" data-t="1"><i class="ic" data-lucide="compass"></i><span>Explorer</span></button>
         <button class="tstop" style="--p:50" data-t="2"><i class="ic" data-lucide="hammer"></i><span>Builder</span></button>
@@ -1783,6 +1789,8 @@ var TIERS=[
      ['graduation-cap','เครือข่ายศิษย์เก่าและพาร์ตเนอร์','Alumni and partner network','แนะนำถึงตัวโดยตรง','Direct introductions']],lock:true}
 ];
 var curTier=0,MY_TIER=0;
+/* share of the steps to the next level already done (the locked note's 1/3); the fill runs this far past the member's stop */
+var TIER_STEPS=1/3;
 function renderTier(i){
  curTier=i;var T=TIERS[i];
  window.MC_TIER=i;if(window.mcSetTier)mcSetTier(i);
@@ -1803,7 +1811,7 @@ function renderTier(i){
   s.style.outline=(j===i&&i!==MY_TIER)?'3px solid rgba(254,215,50,.8)':'none';
   s.style.outlineOffset='3px';
  });
- document.getElementById('tierFill').style.width=(MY_TIER/4*100)+'%';
+ document.getElementById('tierBar').style.setProperty('--fill',Math.min(100,(MY_TIER+TIER_STEPS)/4*100)+'%');
  icons(g);
 }
 document.querySelectorAll('.tstop').forEach(function(s){s.addEventListener('click',function(){renderTier(+s.getAttribute('data-t'))})});

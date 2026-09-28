@@ -232,6 +232,13 @@ html[data-auth="email"] .only-google{display:none!important}
 .rstop.sel{outline:3px solid rgba(254,215,50,.85);outline-offset:2px}
 .meter{height:9px;border-radius:99px;background:#EDEDED;overflow:hidden;margin:10px 0 8px}
 .meter i{display:block;height:100%;background:var(--grad);border-radius:99px}
+/* tier progress: a rocket rides the tip of the fill as its arrowhead; its exhaust overlaps the fill by 3px.
+   The white body hides the track behind it, and it stops at the right edge instead of flying off the card. */
+.meter-rocket{position:relative;overflow:visible;margin:14px 0 12px}
+.meter-rocket i{width:var(--p);transition:width .6s var(--ease)}
+.m-rocket{position:absolute;top:50%;left:min(var(--p),calc(100% - 29px));width:32px;height:32px;transform:translate(-4px,-50%);overflow:visible;pointer-events:none;
+ fill:#fff;stroke:var(--yeah-pink);stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 5px rgba(254,0,116,.45));transition:left .6s var(--ease)}
+@media (prefers-reduced-motion:reduce){.meter-rocket i,.m-rocket{transition:none}}
 .locked-note{display:flex;gap:12px;padding:16px;border-radius:16px;background:var(--yeah-yellow-100);border:1px solid var(--yeah-yellow-300);margin-top:14px}
 .locked-note .ic{width:20px;height:20px;color:#8A6D00;flex:none}
 .locked-note b{display:block;font-family:var(--font-display);font-size:14px;margin-bottom:4px}
@@ -742,7 +749,7 @@ html[data-lang="th"] .btn{letter-spacing:.01em}
    <div class="card" style="padding:16px;margin-bottom:14px">
     <div style="display:flex;justify-content:space-between;font-size:12.5px"><b id="tierName">สมาชิกทั่วไป (General Member)</b></div>
     <p class="hint" id="tierDesc" style="margin-top:6px">ระดับตั้งต้นที่ทุกคนได้รับทันทีที่ลงทะเบียนเสร็จ เมื่อใบสมัครแรกได้รับการตอบรับ ระดับของคุณจะขยับเป็น Explorer</p>
-    <div class="meter"><i style="width:8%"></i></div>
+    <div class="meter meter-rocket" style="--p:8%"><i></i><svg class="m-rocket" viewBox="0 0 24 24" aria-hidden="true"><g transform="rotate(45 12 12)"><path d="M4 13a8 8 0 0 1 7 7a6 6 0 0 0 3-5a9 9 0 0 0 6-8a3 3 0 0 0-3-3a9 9 0 0 0-8 6a6 6 0 0 0-5 3"/><path d="M7 14a6 6 0 0 0-3 6a6 6 0 0 0 6-3"/><circle cx="15" cy="9" r="1"/></g></svg></div>
     <div id="beneList" style="margin-top:6px"></div>
     <div class="locked-note" id="lockedNote">
      <i class="ic" data-lucide="lock"></i>

@@ -194,6 +194,9 @@ html[data-auth="email"] .only-google{display:none!important}
 .summary b{font-weight:500;text-align:right;word-break:break-word}
 /* ===== 03 hub ===== */
 .hub{padding-bottom:40px;min-height:100vh}
+/* program banner — full-bleed above the membership card (cancels the tab's padding) */
+.hub-banner{display:block;margin:-18px calc(var(--pad) * -1) 18px;aspect-ratio:390/586;background:none;border:0;border-radius:0}
+.hub-banner object{display:block;width:100%;height:100%;pointer-events:none}
 /* membership card — first thing in the member-status tab */
 .card-block{margin:0 0 22px}
 .card-block .memcard{width:100%;max-width:420px;margin:0 auto}
@@ -479,9 +482,23 @@ html[data-lang="th"] .btn{letter-spacing:.01em}
  .card,.acc,.prog,.summary,.consent-box,.rstop:not(.now){background:rgba(255,255,255,.9)}
  .sheet-card{background:rgba(30,18,34,.94)}
 }
+/* ---------- footer ---------- */
+.footer{background:var(--yeah-black);color:rgba(255,255,255,.75);padding:44px var(--pad) 26px}
+.foot-top{display:flex;flex-direction:column;gap:22px;align-items:flex-start}
+.foot-logo{height:38px;width:auto}
+.foot-note{font-size:12px;line-height:1.6;color:rgba(255,255,255,.55)}
+.socials{display:flex;gap:10px;flex-wrap:wrap}
+.soc{width:42px;height:42px;border-radius:999px;background:#3A3A3E;border:.5px solid rgba(255,255,255,.85);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 8px 20px -8px rgba(255,255,255,.28);transition:transform .14s var(--ease),box-shadow .14s var(--ease)}
+.soc:hover{transform:translateY(-4px);box-shadow:0 12px 26px -8px rgba(255,255,255,.4)}
+.soc .ic{width:18px;height:18px}
+.soc svg{stroke:url(#icoGrad);stroke-width:2}
+.foot-bottom{margin-top:28px;padding-top:16px;border-top:1px solid rgba(255,255,255,.14);display:flex;flex-direction:column;gap:8px;font-size:11.5px;color:rgba(255,255,255,.5)}
+.foot-bottom a{color:rgba(255,255,255,.7);font-size:11.5px}
+.foot-bottom a:hover{color:var(--yeah-yellow)}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="icoGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FED732"></stop><stop offset=".55" stop-color="#FF7A3C"></stop><stop offset="1" stop-color="#FE0074"></stop></linearGradient></defs></svg>
 
 <header class="top">
  <button class="burger" id="burger" aria-label="Open menu" aria-controls="hmenu" aria-expanded="false"><i class="ic" data-lucide="menu"></i></button>
@@ -729,6 +746,8 @@ html[data-lang="th"] .btn{letter-spacing:.01em}
  <div class="hub">
   <!-- tab: status -->
   <section class="tab on" data-tab="status">
+   <!-- program banner: YEAH Future Talent cohort 1 (object so the SVG can load its Google Fonts) -->
+   <div class="hub-banner"><object data="uploads/yeah_future_talent_banner_mobile%282%29.svg" type="image/svg+xml" aria-label="YEAH Future Talent รุ่นที่ 1 เปิดรับสมัครแล้ว"></object></div>
    <div class="card-block">
     <h1 class="sr" data-field="member.full_name" data-member-name data-th="ณิชา ศรีวัฒน์" data-en="Nicha Sriwat">ณิชา ศรีวัฒน์</h1>
     <div class="memcard" id="mcard" data-field="member.membership_level" data-tier="general">
@@ -931,6 +950,26 @@ html[data-lang="th"] .btn{letter-spacing:.01em}
   </section>
  </div>
 </main>
+
+<footer class="footer">
+ <div class="foot-top">
+  <div>
+   <img class="foot-logo" src="uploads/logo_yeah_white_label_asso.png" alt="YEAH Association">
+   <p class="foot-note" style="margin-top:14px">YEAH Association — Young Entrepreneur Assembly Hub. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Registered non-profit no. 00-0000-0000.</p>
+  </div>
+  <div class="socials">
+   <a class="soc" href="#" aria-label="Instagram"><i class="ic" data-lucide="instagram"></i></a>
+   <a class="soc" href="#" aria-label="Facebook"><i class="ic" data-lucide="facebook"></i></a>
+   <a class="soc" href="#" aria-label="X"><i class="ic" data-lucide="twitter"></i></a>
+   <a class="soc" href="#" aria-label="YouTube"><i class="ic" data-lucide="youtube"></i></a>
+   <a class="soc" href="#" aria-label="Email"><i class="ic" data-lucide="mail"></i></a>
+  </div>
+ </div>
+ <div class="foot-bottom">
+  <span>© 2026 YEAH Association. Lorem ipsum dolor sit amet.</span>
+  <span><a href="#" data-en="Privacy" data-th="ความเป็นส่วนตัว">ความเป็นส่วนตัว</a> · <a href="#" data-en="Terms" data-th="ข้อกำหนด">ข้อกำหนด</a> · <a href="#" data-en="Contact" data-th="ติดต่อเรา">ติดต่อเรา</a></span>
+ </div>
+</footer>
 
 
 <!-- ============ BOTTOM SHEETS ============ -->

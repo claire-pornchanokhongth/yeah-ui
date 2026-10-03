@@ -257,6 +257,59 @@ Credential levels follow the design brief: 01 Certificate of Participation, 02 C
 | Withdraw application | `DELETE /api/applications/{id}` | — |
 | Export history | `GET /api/members/me/participations.csv` | — |
 
+### 4b. YEAH Future Talent application (mobile only, for now)
+
+Tapping the hub banner opens a program popup; its สมัครเลย button opens a three-step application,
+and sending it lands on a waiting-list screen. The program is configured in `FT` in the mobile script
+(`program_id: PRG-FT-C1`). Only `apply_deadline` (2026-11-02 23:59 +07:00, from the banner) is real;
+capacity, program dates and the selection timeline are placeholders.
+
+**Program read model** — `FT`: `apply_deadline`, `capacity`, `seats_taken`, `starts_at`, `ends_at`,
+`eligible_levels[]`, `routing_track` ∈ `standard` \| `fast`, `evidence_required` (bool), and the dates
+`screening_test_at`, `interview_window`, `announce_at`. The popup shows slots remaining
+(`capacity - seats_taken`) and a DD:HH:MM:SS countdown. When `seats_taken >= capacity` the CTA becomes
+"join overfill queue". After the deadline the CTA is disabled. If the member's level is not in
+`eligible_levels`, the form stays closed and an inline alert offers the tier guide or other programs.
+
+**Pre-fill.** Every field the member record holds is filled in and tagged "from profile" (or "edited" once
+changed). Everything stays editable, and edits never write back to the profile. The mapping:
+`occupation_status` → `work_status` (`professional` → `employed`, otherwise `student`);
+`school_student` → `education_level: high_school` with the school list; `year_of_study` 1–4 →
+`year_1`…`year_4`, and 5 or more → `year_4_plus`; `referral_source` → `acquisition_channel`;
+`growth_goal` → `goal_statement`.
+
+`POST /api/applications`:
+
+| Field | Required | Rule |
+|---|---|---|
+| `applicant.first_name`, `.last_name` | yes | ≥ 2 chars. Pre-filled from SSO, overridable |
+| `applicant.email`, `.birthdate`, `.phone` | yes | email regex · `YYYY-MM-DD` · 10-digit Thai mobile, sent as E.164 |
+| `applicant.work_status` | yes | `student` \| `employed` |
+| `applicant.job_title` | if `employed` | free text |
+| `applicant.education_level` | yes | `high_school` \| `diploma` \| `bachelor` \| `master` \| `doctorate` |
+| `applicant.institution` (+ `institution_other`) | yes | Thai name from the school or university list, or `other` + free text |
+| `applicant.faculty_major` | yes | free text (study track for high school) |
+| `applicant.academic_year` | yes | `year_1`…`year_4` \| `year_4_plus` \| `alumnus`; high school `m4` \| `m5` \| `m6` |
+| `applicant.province` | yes | Thai province name |
+| `applicant.acquisition_channel` (+ `acquisition_detail`) | yes | the `referral_source` enum; detail required for `other` |
+| `target_skill` (+ `target_skill_other`) | yes | one of 11 skill keys, or `other` + free text |
+| `motivation`, `goal_statement` | yes | ≤ 500 chars each |
+| `attached_participations[]` | no | participation ids. Verified ones start ticked |
+| `portfolio_url` | if `evidence_required` | full URL |
+| `linkedin_url` | no | `linkedin.com/in/…` |
+| `evidence_files[]` | ≥ 1 if `evidence_required` | PDF/PNG/JPG, ≤ 10 MB each, checked before upload; send as `multipart/form-data` |
+| `pdpa_consent`, `audit_consent` | yes | both must be true before Submit enables; `consent_version` is stored as well |
+| `prefilled_fields[]`, `edited_fields[]` | — | which pre-filled values the applicant changed |
+
+On submit the server stores an **immutable snapshot** of the application and the profile as they stand at
+that moment. Expected response: `application_id`, `status: "waitlist"`, `queue_position`, `snapshot_id`.
+Leaving the form mid-way keeps it as a draft (`status: "draft"`), and the banner and popup offer to continue.
+
+The waiting-list screen counts down to `screening_test_at` (or to `announce_at` on the fast track). It shows
+the read-only snapshot, the selection track and the next dates. The screening test, interview and result
+screens are paused; a small "test · dev team only" line at the bottom of the screen is their placeholder.
+No AI score, confidence or AI-decision label appears anywhere the member can see.
+
 ---
 
 ## 5. Things the UI deliberately does not do
@@ -267,8 +320,9 @@ Credential levels follow the design brief: 01 Certificate of Participation, 02 C
 - It never enables submit on an unconsented form, and it stores the consent **version**.
 - It shows `general` as a real state, not as an empty Explorer.
 - It shows tiers by name only (General Member, Explorer, Builder, Leader, Catalyst), never with a level number.
-- Deadlines, seat counts and eligibility are read from data; the four sample programs in each file
-  (`PROGRAMS` array, top of the script block) are the only place to change them.
+- Deadlines, seat counts and eligibility are read from data. The four sample programs in each file live in
+  the `PROGRAMS` array at the top of the script block. In the mobile file, the Future Talent program behind
+  the hub banner lives in `FT` instead.
 
 ## 6. Still open
 

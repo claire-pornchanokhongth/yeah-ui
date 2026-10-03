@@ -5,8 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>YEAH Portal — Login · Register · Member Hub (Mobile)</title>
 <link rel="stylesheet" href="_ds/yeah-design-system-b0ca81dd-b5dc-493d-a727-a84faf7a457a/tokens/fonts.css">
-<!-- Prompt carries the Thai glyphs on the membership card (Poppins is Latin-only) -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600&display=swap">
+<!-- Prompt carries the Thai glyphs on the membership card (Poppins is Latin-only); the 700 italics set the
+     Future Talent popup header in the banner's type -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,400;0,500;0,600;1,700&family=Poppins:ital,wght@1,700&display=swap">
 <link rel="stylesheet" href="_ds/yeah-design-system-b0ca81dd-b5dc-493d-a727-a84faf7a457a/tokens/colors.css">
 <link rel="stylesheet" href="_ds/yeah-design-system-b0ca81dd-b5dc-493d-a727-a84faf7a457a/tokens/typography.css">
 <style>
@@ -35,7 +36,8 @@ html[data-lang="th"] .lbl{letter-spacing:.04em}
 .hint.warn{color:#8A6D00;background:var(--yeah-yellow-100);border:1px solid var(--yeah-yellow-300);border-radius:10px;padding:10px 12px}
 .req{color:var(--yeah-pink)}
 .screen{display:none}
-html[data-screen="login"] #s-login,html[data-screen="register"] #s-register,html[data-screen="hub"] #s-hub{display:block}
+html[data-screen="login"] #s-login,html[data-screen="register"] #s-register,html[data-screen="hub"] #s-hub,
+html[data-screen="ftapply"] #s-ftapply,html[data-screen="ftdone"] #s-ftdone{display:block}
 /* ===== buttons ===== */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:var(--tap);padding:0 22px;border-radius:999px;border:none;font-family:var(--font-display-alt);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:transform .14s var(--ease),opacity .14s}
 .btn .ic{width:17px;height:17px}
@@ -151,9 +153,9 @@ html[data-lang="th"] .or{letter-spacing:.03em}
 .fmt .hint{font-size:13px;line-height:1.55}
 /* the wizard sits on the grey page background, where grey pills vanish — its fields go white
    with a hairline so the typing area reads clearly */
-#s-register .fmt .inp,#s-register .fmt .picker{background-color:#fff;border-color:#DEDDE3}
-#s-register .fmt .inp:focus{border-color:#A6A2AC}
-#s-register .fmt .inp.bad{background-color:#FFF5F9;border-color:var(--yeah-pink)}
+#s-register .fmt .inp,#s-register .fmt .picker,#s-ftapply .fmt .inp,#s-ftapply .fmt .picker{background-color:#fff;border-color:#DEDDE3}
+#s-register .fmt .inp:focus,#s-ftapply .fmt .inp:focus{border-color:#A6A2AC}
+#s-register .fmt .inp.bad,#s-ftapply .fmt .inp.bad{background-color:#FFF5F9;border-color:var(--yeah-pink)}
 .picker>span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .btn-auth{min-height:54px;font-family:inherit;font-size:16px;font-weight:600;letter-spacing:0;text-transform:none}
 .sheet-card .btn-google{border-color:#E3E3E3;font-size:16px;border-radius:999px}
@@ -436,6 +438,15 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opa
 .card,.prog{border-radius:24px}.acc{border-radius:22px}
 .rstop.now{background:var(--sel);border-color:rgba(255,255,255,.14)}
 .rstop.done{border-color:rgba(0,164,107,.5)}
+/* tier cards: past = solid grey, current = solid pink, upcoming = solid white */
+html .rstop{background:#fff;border:1.5px solid transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+html .rstop .ic,html .rstop b{color:#3A3A3E}
+html .rstop.done{background:#D4D4D8;border-color:transparent}
+html .rstop.done .ic,html .rstop.done b{color:#4A4A4F}
+html .rstop.now{background:#FE0074;border-color:transparent}
+html .rstop.now .ic{color:var(--yeah-yellow)}
+html .rstop.now b{color:#fc5e03}
+html .rstop b{font-weight:700}
 /* things that sit inside a panel: translucent, no second blur */
 .skill,.pf,.bene .bic,.fp-ic{background:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.9);box-shadow:0 6px 16px -10px rgba(90,20,60,.22)}
 .bene .bic{background:linear-gradient(140deg,rgba(254,215,50,.26),rgba(254,0,116,.12));border-color:rgba(255,255,255,.9)}
@@ -449,7 +460,7 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opa
 .chips label,.opt label{background:rgba(255,255,255,.76);border:1px solid rgba(255,255,255,.85);backdrop-filter:blur(12px) saturate(1.5);-webkit-backdrop-filter:blur(12px) saturate(1.5);box-shadow:0 6px 16px -12px rgba(90,20,60,.3)}
 .opt input:checked+label{background:var(--sel)}
 .cbx span{background:rgba(255,255,255,.86)}
-#s-register .fmt .inp,#s-register .fmt .picker{background-color:rgba(255,255,255,.86);border-color:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 6px 18px -12px rgba(90,20,60,.3)}
+#s-register .fmt .inp,#s-register .fmt .picker,#s-ftapply .fmt .inp,#s-ftapply .fmt .picker{background-color:rgba(255,255,255,.86);border-color:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 6px 18px -12px rgba(90,20,60,.3)}
 /* bars */
 .top{background:rgba(8,6,10,.78);backdrop-filter:blur(20px) saturate(1.6);-webkit-backdrop-filter:blur(20px) saturate(1.6)}
 .wiz-top{background:rgba(255,255,255,.74);border-bottom:1px solid rgba(255,255,255,.7);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur)}
@@ -488,13 +499,263 @@ html[data-lang="th"] .btn{letter-spacing:.01em}
 .foot-logo{height:38px;width:auto}
 .foot-note{font-size:12px;line-height:1.6;color:rgba(255,255,255,.55)}
 .socials{display:flex;gap:10px;flex-wrap:wrap}
-.soc{width:42px;height:42px;border-radius:999px;background:#3A3A3E;border:.5px solid rgba(255,255,255,.85);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 8px 20px -8px rgba(255,255,255,.28);transition:transform .14s var(--ease),box-shadow .14s var(--ease)}
+.soc{width:42px;height:42px;border-radius:999px;background:#3A3A3E;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 8px 20px -8px rgba(255,255,255,.28);transition:transform .14s var(--ease),box-shadow .14s var(--ease)}
 .soc:hover{transform:translateY(-4px);box-shadow:0 12px 26px -8px rgba(255,255,255,.4)}
 .soc .ic{width:18px;height:18px}
 .soc svg{stroke:url(#icoGrad);stroke-width:2}
 .foot-bottom{margin-top:28px;padding-top:16px;border-top:1px solid rgba(255,255,255,.14);display:flex;flex-direction:column;gap:8px;font-size:11.5px;color:rgba(255,255,255,.5)}
 .foot-bottom a{color:rgba(255,255,255,.7);font-size:11.5px}
 .foot-bottom a:hover{color:var(--yeah-yellow)}
+/* ===== 03a–c YEAH Future Talent: hub banner → program popup → application → waiting list ===== */
+#ftModal [hidden],#s-ftapply [hidden],#s-ftdone [hidden],.hub-banner [hidden]{display:none!important}
+/* the banner is the trigger. Once there is a draft or an application, a status pill sits exactly over the
+   artwork's own สมัครเลย button (rect 75,414 · 240×52 in the 390×586 artwork) */
+.hub-banner{position:relative;width:calc(100% + var(--pad) * 2);padding:0;cursor:pointer;color:inherit;transition:filter .14s var(--ease)}
+.hub-banner:active{filter:brightness(.94)}
+.hub-banner:focus-visible{outline:3px solid var(--yeah-yellow);outline-offset:-6px}
+.ft-chip{position:absolute;left:19.231%;top:70.648%;width:61.538%;height:8.874%;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;
+ font-family:'Prompt',var(--font-display);font-size:min(4.4vw,18px);font-weight:700;white-space:nowrap;box-shadow:0 10px 24px -10px rgba(90,0,40,.6)}
+.ft-chip .ic{width:18px;height:18px}
+.ft-chip.wait{background:#FEF3C7;color:#B45309}
+.ft-chip.draft{background:#F1F5F9;color:#475569}
+/* popup: a near-full-height sheet over a dimmed hub; the page underneath stops scrolling */
+.ftm{position:fixed;inset:0;z-index:66;visibility:hidden;transition:visibility 0s linear .34s}
+.ftm.on{visibility:visible;transition:none}
+.ftm-bg{position:absolute;inset:0;background:rgba(14,6,14,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;transition:opacity .28s var(--ease)}
+.ftm.on .ftm-bg{opacity:1}
+.ftm-panel{position:absolute;left:0;right:0;bottom:0;top:max(12px,env(safe-area-inset-top));max-width:560px;margin:0 auto;display:flex;flex-direction:column;overflow:hidden;
+ border-radius:26px 26px 0 0;background:rgba(250,246,248,.98);box-shadow:0 -24px 60px -30px rgba(1,1,1,.55);transform:translateY(100%);transition:transform .34s var(--ease)}
+.ftm.on .ftm-panel{transform:none}
+@media (prefers-reduced-motion:reduce){.ftm-panel,.ftm-bg{transition:none}}
+.ftm-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.ftm-grab{position:absolute;top:8px;left:50%;z-index:3;width:44px;height:5px;margin-left:-22px;border-radius:99px;background:rgba(255,255,255,.6)}
+.ftm-x{position:absolute;top:14px;right:14px;z-index:3;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(10,6,12,.4);color:#fff;
+ backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.ftm-x .ic{width:20px;height:20px}
+.ftm-x:focus-visible{outline:2.5px solid var(--yeah-yellow);outline-offset:2px}
+/* header: the banner's own field, type and illustration */
+.ftm-hero{position:relative;overflow:hidden;color:#fff;
+ background:radial-gradient(circle 300px at 100% 0,#FCB846,rgba(251,106,92,.7) 45%,rgba(248,6,123,0)),radial-gradient(circle 230px at 0 72%,rgba(251,79,104,.55),rgba(248,6,123,0)),#F8067B}
+.ftm-head{padding:40px 64px 0 var(--pad);transform:rotate(-3deg);transform-origin:0 100%}
+.ftm-kicker{font-family:'Prompt',var(--font-display);font-style:italic;font-weight:700;font-size:24px;line-height:1.2;text-shadow:0 3px 10px rgba(120,0,50,.3)}
+.ftm-kicker.closed{color:#FFE0EE}
+#ftmTitle{margin-top:4px;font-family:'Poppins',var(--font-display);font-style:italic;font-weight:700;font-size:40px;line-height:1.02;letter-spacing:-.035em;color:#FFF95E;
+ text-shadow:0 0 2px #FFFBB0,0 0 10px rgba(255,236,0,.75),0 0 24px rgba(255,180,0,.45)}
+.ftm-cohort{display:inline-block;position:relative;margin-left:10px;padding:7px 11px 6px;border-radius:10px;background:#000;vertical-align:8px;transform:rotate(-2deg);
+ font-family:'Prompt',var(--font-display);font-style:italic;font-weight:700;font-size:16px;line-height:1;letter-spacing:0;color:#FC8803;text-shadow:none}
+.ftm-cohort::after{content:"";position:absolute;left:10px;bottom:-9px;border:5px solid transparent;border-top:6px solid #000;border-left:7px solid #000}
+.ftm-tag{margin-top:12px;font-family:'Prompt',var(--font-display);font-style:italic;font-weight:700;font-size:15.5px;line-height:1.45;color:#FFC27A;
+ text-shadow:0 0 8px rgba(255,140,40,.45)}
+.ftm-tag span{display:block}
+.ftm-art{display:block;width:100%;aspect-ratio:390/126;object-fit:cover;object-position:50% 100%;margin-top:4px;
+ -webkit-mask-image:linear-gradient(180deg,transparent,#000 40%);mask-image:linear-gradient(180deg,transparent,#000 40%)}
+.ftm-body{padding:18px var(--pad) 28px}
+.ftm-why{list-style:none;display:flex;flex-direction:column;gap:10px}
+.ftm-why li{display:flex;align-items:center;gap:12px;font-size:14px;font-weight:500;line-height:1.4}
+.ftm-why .bic{width:38px;height:38px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(140deg,rgba(254,215,50,.32),rgba(254,0,116,.14))}
+.ftm-why .bic .ic{width:18px;height:18px;color:var(--yeah-pink)}
+.ftm-sec{margin-top:24px}
+.ftm-sec>h3{display:flex;align-items:center;gap:10px;font-size:17px;font-weight:600;margin-bottom:10px}
+.ftm-trk{margin-left:auto;font-family:var(--font-display-alt);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:999px;background:var(--sel);color:var(--yeah-yellow)}
+.ftm-card,.ftm-tile{background:#fff;border:1px solid rgba(40,16,36,.08);border-radius:20px;box-shadow:0 10px 26px -18px rgba(90,20,60,.35)}
+.ftm-card{padding:16px}
+.ftm-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ftm-tile{padding:14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.ftm-tile>b{font-family:var(--font-display);font-size:17px;font-weight:600;line-height:1.25;margin-top:4px}
+.ftm-tile>small{font-size:12px;color:var(--muted);line-height:1.45}
+.ftm-pill{align-self:flex-start;margin-top:6px;padding:3px 9px;border-radius:999px;background:rgba(40,16,36,.06);font-weight:600;color:var(--ink)!important}
+#ftmCapTile>b{font-family:var(--font-display-alt);font-size:28px;font-weight:700;line-height:1}
+.ftm-of{font-size:15px;color:var(--muted)}
+#ftmCapTile .seats{margin:6px 0 4px}
+#ftmCapTile.warn{background:#FEF3C7;border-color:#F5C451}
+#ftmCapTile.warn>b,#ftmCapTile.warn small{color:#B45309}
+/* DD:HH:MM:SS — dark tiles, yellow digits */
+.ftm-cdtile{grid-column:1/-1;gap:8px}
+.ft-cd{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.ft-cd>div{border-radius:14px;padding:10px 4px 8px;text-align:center;background:var(--sel);color:#fff}
+.ft-cd b{display:block;font-family:var(--font-display-alt);font-size:27px;font-weight:700;line-height:1;color:var(--yeah-yellow);font-variant-numeric:tabular-nums}
+.ft-cd small{display:block;margin-top:5px;font-size:10.5px;color:rgba(255,255,255,.7)}
+.ftm-closed{display:none;font-family:var(--font-display);font-size:20px;font-weight:600;color:var(--yeah-pink)}
+.ftm-cdtile.closed{background:#FFF1F6;border:1.5px solid var(--yeah-pink)}
+.ftm-cdtile.closed .ft-cd{display:none}
+.ftm-cdtile.closed .ftm-closed{display:block}
+.ftm-min{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin-bottom:14px}
+.ftm-min .lbl{flex-basis:100%}
+.ftm-tier{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:var(--sel);color:#fff;font-size:13px;font-weight:600}
+.ftm-tier .ic{width:14px;height:14px;color:var(--yeah-yellow)}
+.ftm-you{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:600}
+.ftm-you .ic{width:15px;height:15px}
+.ftm-you.ok{color:#00734B}.ftm-you.no{color:#B45309}
+.ftm-req{list-style:none;display:flex;flex-direction:column;gap:9px;margin-top:9px}
+.ftm-req li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.5}
+.ftm-req .ic{width:18px;height:18px;flex:none;margin-top:2px;color:var(--yeah-pink)}
+.ftm-req.none li{color:var(--muted)}
+.ftm-req.none .ic{color:var(--ok)}
+/* selection roadmap — numbered, joined by a rule */
+.ftm-road{list-style:none}
+.ftm-road li{position:relative;display:grid;grid-template-columns:32px 1fr;gap:12px;padding-bottom:16px}
+.ftm-road li:last-child{padding-bottom:0}
+.ftm-road li::before{content:"";position:absolute;left:15px;top:34px;bottom:2px;width:2px;border-radius:2px;background:rgba(40,16,36,.12)}
+.ftm-road li:last-child::before{display:none}
+.ftm-road .n{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;border:1.5px solid rgba(40,16,36,.14);font-family:var(--font-display-alt);font-size:13px;font-weight:700}
+.ftm-road li:first-child .n{background:var(--grad);border-color:transparent}
+.ftm-road b{display:block;padding-top:5px;font-family:var(--font-display);font-size:14.5px;font-weight:600;line-height:1.35}
+.ftm-road small{font-size:12px;color:var(--muted)}
+.ftm-foot{display:flex;gap:10px;flex:none;padding:12px var(--pad) calc(12px + env(safe-area-inset-bottom));background:rgba(255,255,255,.9);border-top:1px solid var(--line)}
+.ftm-foot .btn{flex:1;padding:0 14px}
+.ftm-foot #ftmCta{flex:1.8}
+.btn.ft-outline{background:#fff;border:1.5px solid var(--ink);color:var(--ink);backdrop-filter:none;-webkit-backdrop-filter:none}
+#ftmCta[disabled]{opacity:.5;cursor:not-allowed;pointer-events:auto;transform:none}
+/* ineligible tier: an inline alert over the footer, the form stays closed */
+.ft-alert{position:absolute;left:12px;right:12px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:4;display:flex;gap:12px;padding:16px 14px 16px 16px;border-radius:20px;
+ background:#FFFBEB;border:1.5px solid #F5C451;box-shadow:0 18px 40px -16px rgba(1,1,1,.45);animation:ftUp .26s var(--ease)}
+.ft-alert:focus{outline:none}
+@keyframes ftUp{from{opacity:0;transform:translateY(10px)}}
+.ft-alert-ic{width:38px;height:38px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#FEF3C7;color:#B45309}
+.ft-alert-ic .ic{width:19px;height:19px}
+.ft-alert b{display:block;font-family:var(--font-display);font-size:15px;font-weight:600;margin-bottom:4px;padding-right:28px}
+.ft-alert p{font-size:13px;color:#5C4A24}
+.ft-alert-act{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.ft-alert-x{position:absolute;top:8px;right:8px;width:36px;height:36px;border:none;border-radius:50%;background:none;color:#8A6D00;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.ft-alert-x .ic{width:17px;height:17px}
+/* application form — the registration wizard's frame, three steps */
+.ft-apphead{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.ft-apphead .nback{flex:none}
+.ft-apptitle{flex:1;min-width:0}
+.ft-apptitle .lbl{display:block;color:var(--yeah-pink)}
+.ft-apptitle b{display:block;font-family:var(--font-display);font-size:16px;font-weight:600;line-height:1.3}
+.ft-stepn{font-family:var(--font-display-alt);font-size:12px;font-weight:700;color:var(--muted)}
+.ftstep{display:none;padding:20px var(--pad) 10px;animation:slideIn .28s var(--ease)}
+.ftstep.on{display:block}
+.ftstep h2{font-size:23px;font-weight:600;margin:2px 0 6px}
+.ftstep>p.intro{font-size:13.5px;color:var(--muted);margin-bottom:16px}
+.ft-grp{display:flex;align-items:center;gap:12px;margin:26px 0 14px;font-family:var(--font-display-alt);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#4A4A4A}
+html[data-lang="th"] .ft-grp{letter-spacing:.04em}
+.ft-grp::after{content:"";flex:1;height:1px;background:rgba(40,16,36,.12)}
+.ft-notice{display:flex;gap:12px;padding:14px 16px;border-radius:18px;background:rgba(254,215,50,.2);border:1px solid rgba(254,215,50,.55)}
+.ft-notice>.ic{width:20px;height:20px;flex:none;margin-top:2px;color:#8A6D00}
+.ft-notice b{display:block;font-family:var(--font-display);font-size:14.5px;font-weight:600;margin-bottom:3px}
+.ft-notice p{font-size:13px;color:#5C4A12}
+.field.cond.on{display:flex}
+.opt.ft-two{grid-template-columns:1fr 1fr}
+/* "from profile" / "edited" tag on pre-filled labels */
+.ft-pf{display:inline-flex;align-items:center;gap:4px;margin-left:8px;padding:2px 9px 2px 7px;border-radius:999px;vertical-align:2px;white-space:nowrap;
+ background:rgba(0,164,107,.12);color:#00734B;font-family:'Poppins','Noto Sans Thai',sans-serif;font-size:11px;font-weight:600;letter-spacing:0;line-height:1.5}
+.ft-pf.edit{background:rgba(40,16,36,.07);color:var(--muted)}
+.ft-pf .ic{width:12px;height:12px}
+/* field states: hover, focus (shared), valid, invalid */
+#s-ftapply .fmt .inp:hover:not(:focus):not(.bad):not(.good){border-color:#C9C5CD}
+#s-ftapply .fmt .inp.good{border-color:rgba(0,164,107,.6)}
+#s-ftapply .field.has-err .picker{border-color:var(--yeah-pink);background-color:#FFF5F9}
+#s-ftapply .field.has-err .chips label,#s-ftapply .field.has-err .opt label{border-color:rgba(254,0,116,.55)}
+.ft-msg{display:block;font-size:12.5px;font-weight:500;line-height:1.5;color:var(--yeah-pink)}
+.ft-count{display:flex;justify-content:space-between;gap:12px}
+.ft-count b{flex:none;font-weight:600;font-variant-numeric:tabular-nums}
+.ft-count b.near{color:var(--yeah-pink)}
+.ft-reqtag{display:inline-block;margin-left:8px;padding:2px 9px;border-radius:999px;background:var(--yeah-pink);color:#fff;font-size:11px;font-weight:600;vertical-align:2px}
+.ft-reqtag.opt{background:rgba(40,16,36,.08);color:var(--muted)}
+/* YEAH history pulled from the account; each row toggles whether it goes with the application */
+.ft-acts{padding:0 14px 0 16px;margin-bottom:6px}
+.ft-acts .row{cursor:pointer}
+.ft-acts .row .cbx{margin-left:auto}
+.ft-acts .row h4{font-size:14px}
+.ft-acts-n{display:block;margin:2px 0 18px}
+.ft-empty{padding:16px 0;font-size:13px;color:var(--muted)}
+/* evidence upload: dropzone, then one row per file with progress, size check and remove */
+.ft-drop{position:relative}
+.ft-drop input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.ft-drop input:focus-visible+.fp-drop{outline:2.5px solid var(--yeah-pink);outline-offset:2px}
+.ft-drop.drag .fp-drop{border-color:var(--yeah-pink);background:#FFF5F9}
+#s-ftapply .fp-drop{padding:18px 16px;background:rgba(255,255,255,.7)}
+.ft-files{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.ft-files:empty{display:none}
+.ft-file{display:flex;align-items:center;gap:10px;padding:10px 8px 10px 12px;border-radius:14px;background:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.95);box-shadow:0 6px 16px -12px rgba(90,20,60,.3)}
+.ft-file .fm{flex:1;min-width:0}
+.ft-file b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13.5px;font-weight:600}
+.ft-file small{display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--muted)}
+.ft-file small .ic{width:13px;height:13px;flex:none}
+.ft-file.ok small{color:#00734B}
+.ft-file.big,.ft-file.type{background:#FFF5F9;border-color:rgba(254,0,116,.4)}
+.ft-file.big small,.ft-file.type small{color:var(--yeah-pink)}
+.ft-prog{display:block;height:5px;margin-top:6px;border-radius:99px;background:rgba(40,16,36,.08);overflow:hidden}
+.ft-prog i{display:block;height:100%;width:0;background:var(--grad);transition:width .14s linear}
+.ft-file:not(.up) .ft-prog{display:none}
+.ft-noev{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;margin-bottom:18px}
+.ft-noev>.ic{width:20px;height:20px;flex:none;color:var(--ok);margin-top:2px}
+.ft-noev b{display:block;font-size:14px;font-weight:600;margin-bottom:6px}
+.ft-linkbtn{border:none;background:none;padding:0;min-height:36px;color:var(--yeah-pink);font-size:13px;font-weight:600;cursor:pointer}
+.ft-edit{display:flex;flex-wrap:wrap;gap:4px 18px;margin:8px 2px 0}
+.ft-snapnote{display:flex;gap:12px;margin:16px 0 8px;padding:15px 16px;border-radius:18px;background:var(--sel);color:#fff}
+.ft-snapnote>.ic{width:20px;height:20px;flex:none;margin-top:2px;color:var(--yeah-yellow)}
+.ft-snapnote b{display:block;font-size:13.5px;font-weight:600;margin-bottom:3px}
+.ft-snapnote p{font-size:12.5px;line-height:1.6;color:rgba(255,255,255,.76)}
+/* submit: disabled + spinner while the snapshot is written */
+.spin{display:inline-block;width:16px;height:16px;flex:none;border-radius:50%;border:2.5px solid rgba(21,21,21,.25);border-top-color:#151515;animation:ftSpin .7s linear infinite}
+@keyframes ftSpin{to{transform:rotate(360deg)}}
+#ftSubmit.loading{opacity:.82}
+html[data-screen="ftapply"] .toast{bottom:calc(84px + env(safe-area-inset-bottom))}
+/* waiting list / screening countdown */
+.ft-done{padding:18px var(--pad) 36px;min-height:100vh}
+.ft-pad{padding:18px 16px;margin-top:14px}
+.ft-ok{padding:26px 20px 22px;text-align:center}
+.ft-ok-ic{width:64px;height:64px;margin:0 auto 14px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--grad);box-shadow:0 12px 26px -12px rgba(254,0,116,.8)}
+.ft-ok-ic .ic{width:30px;height:30px;color:#151515}
+.ft-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;font-family:var(--font-display-alt);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+html[data-lang="th"] .ft-badge{letter-spacing:.02em}
+.ft-badge .ic{width:13px;height:13px}
+.ft-badge-wait,.st-ftwait{background:#FEF3C7;color:#B45309}
+.ft-ok h1{font-size:25px;font-weight:600;margin:12px 0 8px}
+.ft-ok>p{font-size:13.5px;color:var(--muted)}
+.ft-queue{display:inline-flex;align-items:baseline;gap:6px;margin-top:14px;padding:8px 14px;border-radius:999px;background:rgba(40,16,36,.06);font-size:12.5px}
+.ft-queue b{font-family:var(--font-display-alt);font-size:17px}
+.ft-cdcard{margin-top:14px;padding:20px 16px 18px;border-radius:24px;color:#fff;overflow:hidden;position:relative;
+ background:radial-gradient(70% 60% at 100% 0,rgba(255,122,60,.42),transparent 70%),radial-gradient(60% 60% at 0 100%,rgba(254,0,116,.4),transparent 70%),linear-gradient(170deg,#1F1225,#0B0A0D);
+ box-shadow:0 24px 50px -28px rgba(1,1,1,.7)}
+.ft-cdcard .lbl{color:var(--yeah-yellow)}
+.ft-cdcard .ft-cd{margin:12px 0 12px}
+.ft-cdcard .ft-cd>div{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14)}
+.ft-cdcard .ft-cd b{font-size:32px}
+.ft-cdcard h2{display:none;margin:10px 0 8px;font-size:22px;font-weight:600;color:#fff}
+.ft-cdcard.zero .ft-cd{display:none}
+.ft-cdcard.zero h2{display:block}
+.ft-cdfoot{font-family:var(--font-display);font-size:15px;font-weight:600}
+.ft-cdnote{margin-top:6px;font-size:12.5px;color:rgba(255,255,255,.7)}
+.ft-h{font-size:17px;font-weight:600;margin-bottom:14px}
+/* pathway tracker: done ✓ · current ● · later ○ */
+.ft-track{list-style:none;display:grid;grid-template-columns:repeat(var(--n,4),1fr)}
+.ft-track li{position:relative;text-align:center;padding:0 2px}
+.ft-track li::before{content:"";position:absolute;top:14px;left:-50%;right:50%;height:3px;background:rgba(40,16,36,.1)}
+.ft-track li:first-child::before{display:none}
+.ft-track li.done::before,.ft-track li.now::before{background:var(--grad)}
+.ft-track .dot{position:relative;z-index:1;width:30px;height:30px;margin:0 auto 8px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid rgba(40,16,36,.16)}
+.ft-track .dot .ic{width:15px;height:15px}
+.ft-track li.done .dot{background:var(--sel);border-color:transparent;color:var(--yeah-yellow)}
+.ft-track li.now .dot{background:#FEF3C7;border-color:#B45309}
+.ft-track li.now .dot::after{content:"";width:10px;height:10px;border-radius:50%;background:#B45309;animation:ftPulse 1.6s ease-in-out infinite}
+@keyframes ftPulse{50%{transform:scale(.6);opacity:.6}}
+@media (prefers-reduced-motion:reduce){.ft-track li.now .dot::after{animation:none}}
+.ft-track small{display:block;font-size:11px;line-height:1.35;color:var(--muted)}
+.ft-track li.now small{color:var(--ink);font-weight:600}
+.ft-snap header{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.ft-snap header h2{flex:1;font-size:17px;font-weight:600}
+.ft-ro{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;color:var(--muted)}
+.ft-ro .ic{width:13px;height:13px}
+.ft-stamp{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;margin-bottom:8px}
+.ft-snap .pd b{max-width:62%}
+.ft-snap .pd span{font-family:inherit;font-size:12.5px}
+.ft-fname{display:block}
+.ft-next{list-style:none}
+.ft-next li{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.ft-next li:last-child{border-bottom:none;padding-bottom:2px}
+.ft-next .nic{width:36px;height:36px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(140deg,rgba(254,215,50,.3),rgba(254,0,116,.12))}
+.ft-next .nic .ic{width:17px;height:17px;color:var(--yeah-pink)}
+.ft-next b{display:block;font-family:var(--font-display);font-size:14px;font-weight:600;line-height:1.35}
+.ft-next p{font-size:12.5px;color:var(--muted);line-height:1.5}
+.ft-done-act{display:flex;flex-direction:column;gap:10px;margin-top:20px}
+/* dev-only hook into the next (paused) screens — deliberately quiet */
+.ft-test{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 6px;margin-top:26px;padding-top:12px;border-top:1px dashed rgba(40,16,36,.16);font-size:11px;color:#8E8A94}
+.ft-test .ic{width:13px;height:13px}
+.ft-test button{border:none;background:none;padding:6px 2px;color:#8E8A94;font-size:11px;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
 </style>
 </head>
 <body>
@@ -746,8 +1007,13 @@ html[data-lang="th"] .btn{letter-spacing:.01em}
  <div class="hub">
   <!-- tab: status -->
   <section class="tab on" data-tab="status">
-   <!-- program banner: YEAH Future Talent cohort 1 (object so the SVG can load its Google Fonts) -->
-   <div class="hub-banner"><object data="uploads/yeah_future_talent_banner_mobile%282%29.svg" type="image/svg+xml" aria-label="YEAH Future Talent รุ่นที่ 1 เปิดรับสมัครแล้ว"></object></div>
+   <!-- program banner: YEAH Future Talent cohort 1 (object so the SVG can load its Google Fonts).
+        Tapping anywhere on it opens the program popup (03a below) -->
+   <button type="button" class="hub-banner" id="ftBanner" data-program-id="PRG-FT-C1" aria-haspopup="dialog" aria-controls="ftModal">
+    <object data="uploads/yeah_future_talent_banner_mobile%282%29.svg" type="image/svg+xml" tabindex="-1" aria-hidden="true"></object>
+    <span class="sr" data-en="YEAH Future Talent cohort 1 is open. See the details and apply" data-th="YEAH Future Talent รุ่นที่ 1 เปิดรับสมัครแล้ว ดูรายละเอียดและสมัคร">YEAH Future Talent รุ่นที่ 1 เปิดรับสมัครแล้ว ดูรายละเอียดและสมัคร</span>
+    <span class="ft-chip" id="ftBannerChip" hidden></span>
+   </button>
    <div class="card-block">
     <h1 class="sr" data-field="member.full_name" data-member-name data-th="ณิชา ศรีวัฒน์" data-en="Nicha Sriwat">ณิชา ศรีวัฒน์</h1>
     <div class="memcard" id="mcard" data-field="member.membership_level" data-tier="general">
@@ -948,6 +1214,315 @@ html[data-lang="th"] .btn{letter-spacing:.01em}
     <button class="btn btn-ghost btn-full" id="signOut"><i class="ic" data-lucide="log-out"></i><span data-en="Sign out" data-th="ออกจากระบบ">ออกจากระบบ</span></button>
    </div>
   </section>
+ </div>
+</main>
+
+<!-- ============ 03a MEMBER HUB · FUTURE TALENT PROGRAM POPUP (tap the hub banner) ============ -->
+<div class="ftm" id="ftModal" role="dialog" aria-modal="true" aria-labelledby="ftmTitle" aria-hidden="true" data-program-id="PRG-FT-C1">
+ <div class="ftm-bg" data-ftm-close></div>
+ <article class="ftm-panel">
+  <span class="ftm-grab" aria-hidden="true"></span>
+  <button type="button" class="ftm-x" id="ftmX" data-ftm-close data-aria-th="ปิด" data-aria-en="Close" aria-label="ปิด"><i class="ic" data-lucide="x"></i></button>
+  <div class="ftm-scroll" id="ftmScroll">
+   <header class="ftm-hero">
+    <div class="ftm-head">
+     <p class="ftm-kicker" id="ftmKicker">เปิดรับสมัครแล้ว</p>
+     <h2 id="ftmTitle">YEAH Future Talent<span class="sr"> Program</span><span class="ftm-cohort" data-en="Cohort 1" data-th="รุ่นที่ 1">รุ่นที่ 1</span></h2>
+     <p class="ftm-tag"><span data-en="Grow with direction," data-th="เติบโตอย่างมีทิศทาง">เติบโตอย่างมีทิศทาง</span><span data-en="through mentoring and real work" data-th="ด้วยคำแนะนำและผลงานจริง">ด้วยคำแนะนำและผลงานจริง</span></p>
+    </div>
+    <img class="ftm-art" src="uploads/yeah_future_talent_banner_mobile%282%29.svg" alt="" decoding="async">
+   </header>
+   <div class="ftm-body">
+    <ul class="ftm-why">
+     <li><span class="bic"><i class="ic" data-lucide="target"></i></span><span data-en="Set goals and reach them, step by step" data-th="กำหนดเป้าหมาย และบรรลุผลลัพธ์อย่างเป็นระบบ">กำหนดเป้าหมาย และบรรลุผลลัพธ์อย่างเป็นระบบ</span></li>
+     <li><span class="bic"><i class="ic" data-lucide="trending-up"></i></span><span data-en="Keep growing at every stage" data-th="เติบโตอย่างต่อเนื่องในทุกย่างก้าว">เติบโตอย่างต่อเนื่องในทุกย่างก้าว</span></li>
+     <li><span class="bic"><i class="ic" data-lucide="hand-heart"></i></span><span data-en="Support through every change" data-th="แรงสนับสนุนในทุกการเปลี่ยนแปลง">แรงสนับสนุนในทุกการเปลี่ยนแปลง</span></li>
+    </ul>
+
+    <section class="ftm-sec">
+     <h3 data-en="At a glance" data-th="ภาพรวมโครงการ">ภาพรวมโครงการ</h3>
+     <div class="ftm-grid">
+      <div class="ftm-tile" data-field="program.starts_at">
+       <span class="lbl" data-en="Program dates" data-th="ระยะเวลาโครงการ">ระยะเวลาโครงการ</span>
+       <b id="ftmStart"></b>
+       <small><span data-en="to" data-th="ถึง">ถึง</span> <span id="ftmEnd"></span></small>
+       <small class="ftm-pill" id="ftmWeeks"></small>
+      </div>
+      <div class="ftm-tile" id="ftmCapTile" data-field="program.capacity">
+       <span class="lbl" data-en="Slots remaining" data-th="ที่ว่างคงเหลือ">ที่ว่างคงเหลือ</span>
+       <b><span id="ftmCapLeft"></span><span class="ftm-of"> / <span id="ftmCapTotal"></span></span></b>
+       <div class="seats"><i id="ftmCapBar"></i></div>
+       <small id="ftmCapNote"></small>
+      </div>
+      <div class="ftm-tile ftm-cdtile" id="ftmCdBox" data-field="program.apply_deadline">
+       <span class="lbl" data-en="Applications close in" data-th="ปิดรับสมัครใน">ปิดรับสมัครใน</span>
+       <div class="ft-cd" id="ftmCd" role="timer" aria-live="off">
+        <div><b>00</b><small data-en="days" data-th="วัน">วัน</small></div><div><b>00</b><small data-en="hrs" data-th="ชม.">ชม.</small></div><div><b>00</b><small data-en="min" data-th="นาที">นาที</small></div><div><b>00</b><small data-en="sec" data-th="วินาที">วินาที</small></div>
+       </div>
+       <p class="ftm-closed" data-en="Registration closed" data-th="ปิดรับสมัครแล้ว">ปิดรับสมัครแล้ว</p>
+       <small id="ftmCdFoot"></small>
+      </div>
+     </div>
+    </section>
+
+    <section class="ftm-sec">
+     <h3 data-en="Who can apply" data-th="คุณสมบัติผู้สมัคร">คุณสมบัติผู้สมัคร</h3>
+     <div class="ftm-card">
+      <div class="ftm-min">
+       <span class="lbl" data-en="Minimum tier" data-th="ระดับขั้นต่ำ">ระดับขั้นต่ำ</span>
+       <span class="ftm-tier"><i class="ic" data-lucide="award"></i><span id="ftmMinTier"></span></span>
+       <span class="ftm-you" id="ftmYou"></span>
+      </div>
+      <span class="lbl" data-en="Tiers that can apply" data-th="ระดับที่สมัครได้">ระดับที่สมัครได้</span>
+      <div class="elig-row" id="ftmLevels"></div>
+      <span class="lbl" style="display:block;margin-top:18px" data-en="Evidence to attach" data-th="หลักฐานที่ต้องแนบตอนสมัคร">หลักฐานที่ต้องแนบตอนสมัคร</span>
+      <ul class="ftm-req" id="ftmReq"></ul>
+     </div>
+    </section>
+
+    <section class="ftm-sec">
+     <h3><span data-en="How selection works" data-th="ขั้นตอนการคัดเลือก">ขั้นตอนการคัดเลือก</span><span class="ftm-trk" id="ftmTrack"></span></h3>
+     <ol class="ftm-road" id="ftmRoad"></ol>
+    </section>
+   </div>
+  </div>
+
+  <div class="ft-alert" id="ftAlert" role="alert" tabindex="-1" hidden>
+   <span class="ft-alert-ic"><i class="ic" data-lucide="triangle-alert"></i></span>
+   <div>
+    <b data-en="Your tier can't apply yet" data-th="ระดับของคุณยังสมัครโครงการนี้ไม่ได้">ระดับของคุณยังสมัครโครงการนี้ไม่ได้</b>
+    <p id="ftAlertMsg"></p>
+    <div class="ft-alert-act">
+     <button type="button" class="btn btn-dark btn-sm" id="ftUpgrade"><span data-en="See how to move up a tier" data-th="ดูเกณฑ์การเลื่อนระดับ">ดูเกณฑ์การเลื่อนระดับ</span></button>
+     <button type="button" class="btn btn-ghost btn-sm" id="ftExplore"><span data-en="Programs you can apply to" data-th="ดูโครงการที่คุณสมัครได้">ดูโครงการที่คุณสมัครได้</span></button>
+    </div>
+   </div>
+   <button type="button" class="ft-alert-x" id="ftAlertX" data-aria-th="ปิดข้อความ" data-aria-en="Dismiss" aria-label="ปิดข้อความ"><i class="ic" data-lucide="x"></i></button>
+  </div>
+
+  <footer class="ftm-foot">
+   <button type="button" class="btn btn-ghost" data-ftm-close><span data-en="Cancel" data-th="ยกเลิก">ยกเลิก</span></button>
+   <button type="button" class="btn btn-grad" id="ftmCta"><span id="ftmCtaTx">สมัครเลย</span><i class="ic" data-lucide="arrow-right"></i></button>
+  </footer>
+ </article>
+</div>
+
+<!-- ============ 03b MEMBER HUB · FUTURE TALENT APPLICATION (from the popup's สมัครเลย) ============
+     Pre-filled from the member record (FT_MEMBER in the script, or what was just entered at registration);
+     anything the record does not hold is left for the applicant. -->
+<main class="screen" id="s-ftapply" data-program-id="PRG-FT-C1">
+ <div class="reg">
+  <div class="wiz-top">
+   <div class="ft-apphead">
+    <button type="button" class="nback" id="ftExit" data-aria-th="ออกและบันทึกร่าง" data-aria-en="Exit and save draft" aria-label="ออกและบันทึกร่าง"><i class="ic" data-lucide="x"></i></button>
+    <div class="ft-apptitle"><span class="lbl">YEAH Future Talent · <span data-en="Cohort 1" data-th="รุ่นที่ 1">รุ่นที่ 1</span></span><b id="ftStepTitle">ข้อมูลผู้สมัคร</b></div>
+    <span class="ft-stepn" id="ftStepN">1/3</span>
+   </div>
+   <div class="wiz-bar"><i id="ftBar"></i></div>
+  </div>
+
+  <form id="ftForm" class="fmt" novalidate>
+   <!-- step 1: who is applying — almost all of it comes from the member record -->
+   <section class="ftstep on" data-ftstep="1">
+    <h2 data-en="Check your details" data-th="ตรวจข้อมูลของคุณ">ตรวจข้อมูลของคุณ</h2>
+    <p class="intro" id="ftPreNote"></p>
+    <div class="ft-notice" role="note">
+     <i class="ic" data-lucide="info"></i>
+     <div>
+      <b data-en="Identity check" data-th="ตรวจสอบข้อมูลยืนยันตัวตน">ตรวจสอบข้อมูลยืนยันตัวตน</b>
+      <p class="only-google" data-en="We pre-filled your details from your Google account. Check that your first name, last name and email match your official ID before you submit — they go on your certificate." data-th="เรากรอกข้อมูลจากบัญชี Google ของคุณไว้ให้ กรุณาตรวจชื่อจริง นามสกุล และอีเมล ให้ตรงกับบัตรประชาชนหรือเอกสารทางการก่อนส่งใบสมัคร เพราะจะใช้ออกใบรับรองของคุณ">เรากรอกข้อมูลจากบัญชี Google ของคุณไว้ให้ กรุณาตรวจชื่อจริง นามสกุล และอีเมล ให้ตรงกับบัตรประชาชนหรือเอกสารทางการก่อนส่งใบสมัคร เพราะจะใช้ออกใบรับรองของคุณ</p>
+      <p class="only-email" data-en="We pre-filled your details from your member profile. Check that your first name, last name and email match your official ID before you submit — they go on your certificate." data-th="เรากรอกข้อมูลจากโปรไฟล์สมาชิกของคุณไว้ให้ กรุณาตรวจชื่อจริง นามสกุล และอีเมล ให้ตรงกับบัตรประชาชนหรือเอกสารทางการก่อนส่งใบสมัคร เพราะจะใช้ออกใบรับรองของคุณ">เรากรอกข้อมูลจากโปรไฟล์สมาชิกของคุณไว้ให้ กรุณาตรวจชื่อจริง นามสกุล และอีเมล ให้ตรงกับบัตรประชาชนหรือเอกสารทางการก่อนส่งใบสมัคร เพราะจะใช้ออกใบรับรองของคุณ</p>
+     </div>
+    </div>
+
+    <p class="ft-grp"><span data-en="Identity and contact" data-th="ตัวตนและการติดต่อ">ตัวตนและการติดต่อ</span></p>
+    <div class="field" data-ff="first_name"><label for="fa_first_name"><span data-en="First name" data-th="ชื่อจริง">ชื่อจริง</span> <span class="req">*</span></label>
+     <input class="inp" id="fa_first_name" name="first_name" autocomplete="given-name" data-ph-en="As on your ID card" data-ph-th="ตามบัตรประชาชน" placeholder="ตามบัตรประชาชน"></div>
+    <div class="field" data-ff="last_name"><label for="fa_last_name"><span data-en="Last name" data-th="นามสกุล">นามสกุล</span> <span class="req">*</span></label>
+     <input class="inp" id="fa_last_name" name="last_name" autocomplete="family-name" data-ph-en="As on your ID card" data-ph-th="ตามบัตรประชาชน" placeholder="ตามบัตรประชาชน"></div>
+    <div class="field" data-ff="email"><label for="fa_email"><span data-en="Email" data-th="อีเมล">อีเมล</span> <span class="req">*</span></label>
+     <input class="inp" type="email" id="fa_email" name="email" inputmode="email" autocomplete="email" placeholder="you@example.com"></div>
+    <div class="field" data-ff="birthdate"><label for="fa_birthdate"><span data-en="Birth date" data-th="วันเกิด">วันเกิด</span> <span class="req">*</span></label>
+     <input class="inp" type="date" id="fa_birthdate" name="birthdate" max="2014-01-01"></div>
+    <div class="field" data-ff="phone"><label for="fa_phone"><span data-en="Mobile" data-th="เบอร์มือถือ">เบอร์มือถือ</span> <span class="req">*</span></label>
+     <input class="inp" type="tel" id="fa_phone" name="phone" inputmode="tel" autocomplete="tel" placeholder="08x-xxx-xxxx"></div>
+
+    <p class="ft-grp"><span data-en="Study and work" data-th="การศึกษาและการทำงาน">การศึกษาและการทำงาน</span></p>
+    <div class="field" data-ff="work_status"><label><span data-en="Right now you are" data-th="สถานะปัจจุบัน">สถานะปัจจุบัน</span> <span class="req">*</span></label>
+     <div class="opt ft-two">
+      <input type="radio" name="work_status" id="fa_ws_s" value="student"><label for="fa_ws_s"><i class="ic" data-lucide="graduation-cap"></i><span data-en="Student" data-th="กำลังศึกษา">กำลังศึกษา</span></label>
+      <input type="radio" name="work_status" id="fa_ws_e" value="employed"><label for="fa_ws_e"><i class="ic" data-lucide="briefcase"></i><span data-en="Employed" data-th="ทำงานแล้ว">ทำงานแล้ว</span></label>
+     </div></div>
+    <div class="field cond" data-ff="job_title"><label for="fa_job_title"><span data-en="Department / job title" data-th="แผนก / ตำแหน่งงาน">แผนก / ตำแหน่งงาน</span> <span class="req">*</span></label>
+     <input class="inp" id="fa_job_title" name="job_title" data-ph-en="e.g. Marketing · Content Strategist" data-ph-th="เช่น Marketing · Content Strategist" placeholder="เช่น Marketing · Content Strategist"></div>
+    <div class="field" data-ff="education_level"><label><span data-en="Education level" data-th="ระดับการศึกษา">ระดับการศึกษา</span> <span class="req">*</span></label>
+     <div class="chips">
+      <input type="radio" name="education_level" id="fa_el_hs" value="high_school"><label for="fa_el_hs"><span data-en="High school" data-th="มัธยมปลาย">มัธยมปลาย</span></label>
+      <input type="radio" name="education_level" id="fa_el_dip" value="diploma"><label for="fa_el_dip"><span data-en="Diploma" data-th="ปวส. / อนุปริญญา">ปวส. / อนุปริญญา</span></label>
+      <input type="radio" name="education_level" id="fa_el_ba" value="bachelor"><label for="fa_el_ba"><span data-en="Bachelor's" data-th="ปริญญาตรี">ปริญญาตรี</span></label>
+      <input type="radio" name="education_level" id="fa_el_ma" value="master"><label for="fa_el_ma"><span data-en="Master's" data-th="ปริญญาโท">ปริญญาโท</span></label>
+      <input type="radio" name="education_level" id="fa_el_phd" value="doctorate"><label for="fa_el_phd"><span data-en="Doctorate" data-th="ปริญญาเอก">ปริญญาเอก</span></label>
+     </div></div>
+    <div class="field" data-ff="institution"><label><span id="faInstLbl" data-en="University / institution" data-th="มหาวิทยาลัย / สถานศึกษา">มหาวิทยาลัย / สถานศึกษา</span> <span class="req">*</span></label>
+     <input type="hidden" name="institution" id="fa_institution">
+     <button type="button" class="picker" id="faInstBtn" data-sheet="pick" data-target="fa_institution" data-src="inst:uni" data-title="เลือกมหาวิทยาลัย / สถานศึกษา" data-title-en="Choose your university" data-empty-th="ค้นหาหรือเลือก" data-empty-en="Search or select"><span class="ph" data-en="Search or select" data-th="ค้นหาหรือเลือก">ค้นหาหรือเลือก</span><i class="ic" data-lucide="chevron-down"></i></button>
+     <div class="cond other-name" id="fa_institution_other_wrap">
+      <input class="inp" id="fa_institution_other" name="institution_other" data-ph-en="The institution's full name" data-ph-th="ชื่อเต็มของสถานศึกษา" placeholder="ชื่อเต็มของสถานศึกษา">
+      <span class="hint" data-en="Required — we could not find it in the list." data-th="จำเป็น — ไม่พบชื่อนี้ในรายการ">จำเป็น — ไม่พบชื่อนี้ในรายการ</span>
+     </div></div>
+    <div class="field" data-ff="faculty_major"><label for="fa_faculty_major"><span id="faFacLbl" data-en="Faculty / major" data-th="คณะ / สาขาวิชา">คณะ / สาขาวิชา</span> <span class="req">*</span></label>
+     <input class="inp" id="fa_faculty_major" name="faculty_major" data-ph-en="e.g. Computer Engineering" data-ph-th="เช่น วิศวกรรมคอมพิวเตอร์" placeholder="เช่น วิศวกรรมคอมพิวเตอร์"></div>
+    <div class="field" data-ff="academic_year"><label><span data-en="Year of study" data-th="ชั้นปี">ชั้นปี</span> <span class="req">*</span></label>
+     <div class="chips" id="faYears"></div></div>
+
+    <p class="ft-grp"><span data-en="Location and referral" data-th="ที่อยู่และช่องทาง">ที่อยู่และช่องทาง</span></p>
+    <div class="field" data-ff="province"><label><span data-en="Province of residence" data-th="จังหวัดที่พักอาศัย">จังหวัดที่พักอาศัย</span> <span class="req">*</span></label>
+     <input type="hidden" name="province" id="fa_province">
+     <button type="button" class="picker" data-sheet="pick" data-target="fa_province" data-src="provinces" data-search="1" data-title="เลือกจังหวัด" data-title-en="Choose your province" data-empty-th="เลือก" data-empty-en="Select"><span class="ph" data-en="Select" data-th="เลือก">เลือก</span><i class="ic" data-lucide="chevron-down"></i></button></div>
+    <div class="field" data-ff="acquisition_channel"><label><span data-en="How did you hear about YEAH?" data-th="คุณรู้จัก YEAH จากช่องทางไหน">คุณรู้จัก YEAH จากช่องทางไหน</span> <span class="req">*</span></label>
+     <div class="chips">
+      <input type="radio" name="acquisition_channel" id="fa_ch1" value="facebook"><label for="fa_ch1">Facebook</label>
+      <input type="radio" name="acquisition_channel" id="fa_ch2" value="tiktok"><label for="fa_ch2">TikTok</label>
+      <input type="radio" name="acquisition_channel" id="fa_ch3" value="instagram"><label for="fa_ch3">Instagram</label>
+      <input type="radio" name="acquisition_channel" id="fa_ch4" value="friend"><label for="fa_ch4"><span data-en="A friend" data-th="เพื่อนแนะนำ">เพื่อนแนะนำ</span></label>
+      <input type="radio" name="acquisition_channel" id="fa_ch5" value="event"><label for="fa_ch5"><span data-en="At an event" data-th="เจอในงานอีเวนต์">เจอในงานอีเวนต์</span></label>
+      <input type="radio" name="acquisition_channel" id="fa_ch6" value="university"><label for="fa_ch6"><span data-en="University" data-th="มหาวิทยาลัย">มหาวิทยาลัย</span></label>
+      <input type="radio" name="acquisition_channel" id="fa_ch7" value="other"><label for="fa_ch7"><span data-en="Other" data-th="อื่น ๆ">อื่น ๆ</span></label>
+     </div></div>
+    <div class="field cond" data-ff="acquisition_detail"><label for="fa_acquisition_detail"><span data-en="Where did you find YEAH?" data-th="เจอ YEAH จากที่ไหน">เจอ YEAH จากที่ไหน</span> <span class="req">*</span></label>
+     <input class="inp" id="fa_acquisition_detail" name="acquisition_detail" data-ph-en="e.g. a LINE group, a podcast" data-ph-th="เช่น กลุ่ม LINE, พอดแคสต์" placeholder="เช่น กลุ่ม LINE, พอดแคสต์"></div>
+   </section>
+
+   <!-- step 2: the program's own questions, plus what the account already shows about them -->
+   <section class="ftstep" data-ftstep="2">
+    <h2 data-en="Why this program, why you" data-th="ทำไมโครงการนี้ถึงใช่สำหรับคุณ">ทำไมโครงการนี้ถึงใช่สำหรับคุณ</h2>
+    <p class="intro" data-en="In your own words. Short and specific is enough — there are no right answers." data-th="ตอบด้วยภาษาของคุณเอง สั้น ๆ แต่ชัดเจนก็พอ ไม่มีคำตอบที่ถูกหรือผิด">ตอบด้วยภาษาของคุณเอง สั้น ๆ แต่ชัดเจนก็พอ ไม่มีคำตอบที่ถูกหรือผิด</p>
+    <div class="field" data-ff="target_skill"><label><span data-en="Main skill you want to build" data-th="ทักษะหลักที่อยากพัฒนา">ทักษะหลักที่อยากพัฒนา</span> <span class="req">*</span></label>
+     <input type="hidden" name="target_skill" id="fa_target_skill">
+     <button type="button" class="picker" data-sheet="pick" data-target="fa_target_skill" data-src="ftskills" data-search="1" data-title="ทักษะหลักที่อยากพัฒนา" data-title-en="Main skill you want to build" data-empty-th="ค้นหาหรือเลือก" data-empty-en="Search or select"><span class="ph" data-en="Search or select" data-th="ค้นหาหรือเลือก">ค้นหาหรือเลือก</span><i class="ic" data-lucide="chevron-down"></i></button>
+     <span class="hint" data-en="The one skill you most want to grow during the program." data-th="เลือกทักษะเดียวที่คุณอยากเก่งขึ้นที่สุดระหว่างโครงการ">เลือกทักษะเดียวที่คุณอยากเก่งขึ้นที่สุดระหว่างโครงการ</span></div>
+    <div class="field cond" data-ff="target_skill_other"><label for="fa_target_skill_other"><span data-en="Name the skill" data-th="ระบุทักษะ">ระบุทักษะ</span> <span class="req">*</span></label>
+     <input class="inp" id="fa_target_skill_other" name="target_skill_other" data-ph-en="e.g. Supply chain analytics" data-ph-th="เช่น Supply chain analytics" placeholder="เช่น Supply chain analytics"></div>
+    <div class="field" data-ff="motivation"><label for="fa_motivation"><span data-en="Why are you applying?" data-th="ทำไมคุณถึงสมัคร">ทำไมคุณถึงสมัคร</span> <span class="req">*</span></label>
+     <textarea class="inp" id="fa_motivation" name="motivation" maxlength="500" rows="5" data-ph-en="Your background, and what made you apply now" data-ph-th="เล่าพื้นฐานของคุณ และอะไรทำให้อยากสมัครตอนนี้" placeholder="เล่าพื้นฐานของคุณ และอะไรทำให้อยากสมัครตอนนี้"></textarea>
+     <span class="hint ft-count"><span data-en="Up to 500 characters." data-th="ไม่เกิน 500 ตัวอักษร">ไม่เกิน 500 ตัวอักษร</span><b data-count="fa_motivation">0/500</b></span></div>
+    <div class="field" data-ff="goal_statement"><label for="fa_goal_statement"><span data-en="What do you want to achieve by the end?" data-th="เมื่อจบโครงการ คุณอยากได้อะไร">เมื่อจบโครงการ คุณอยากได้อะไร</span> <span class="req">*</span></label>
+     <textarea class="inp" id="fa_goal_statement" name="goal_statement" maxlength="500" rows="4" data-ph-en="e.g. One prototype that real users have tried" data-ph-th="เช่น มี prototype หนึ่งชิ้นที่ผู้ใช้จริงได้ลองใช้" placeholder="เช่น มี prototype หนึ่งชิ้นที่ผู้ใช้จริงได้ลองใช้"></textarea>
+     <span class="hint ft-count"><span data-en="Up to 500 characters." data-th="ไม่เกิน 500 ตัวอักษร">ไม่เกิน 500 ตัวอักษร</span><b data-count="fa_goal_statement">0/500</b></span></div>
+
+    <p class="ft-grp"><span data-en="Your YEAH history and work" data-th="ประวัติกับ YEAH และผลงาน">ประวัติกับ YEAH และผลงาน</span></p>
+    <p class="hint" style="margin:-4px 0 10px" data-en="Pulled from your member account. Untick anything you don't want to attach." data-th="ดึงมาจากบัญชีสมาชิกของคุณ เอาเครื่องหมายออกได้ถ้าไม่อยากแนบรายการไหน">ดึงมาจากบัญชีสมาชิกของคุณ เอาเครื่องหมายออกได้ถ้าไม่อยากแนบรายการไหน</p>
+    <div class="card ft-acts" id="faActs" data-field="participations[]"></div>
+    <span class="hint ft-acts-n" id="faActsN"></span>
+    <div class="field" data-ff="portfolio_url"><label for="fa_portfolio_url"><span data-en="Portfolio or work link" data-th="ลิงก์พอร์ตโฟลิโอหรือผลงาน">ลิงก์พอร์ตโฟลิโอหรือผลงาน</span> <span class="req" id="faPfReq">*</span></label>
+     <input class="inp" type="url" id="fa_portfolio_url" name="portfolio_url" inputmode="url" autocomplete="url" placeholder="https://">
+     <span class="hint" id="faPfHint"></span></div>
+    <div class="field" data-ff="linkedin_url"><label for="fa_linkedin_url">LinkedIn <span class="muted" data-en="(optional)" data-th="(ไม่บังคับ)">(ไม่บังคับ)</span></label>
+     <input class="inp" type="url" id="fa_linkedin_url" name="linkedin_url" inputmode="url" placeholder="https://www.linkedin.com/in/…"></div>
+   </section>
+
+   <!-- step 3: evidence, review, consent, snapshot -->
+   <section class="ftstep" data-ftstep="3">
+    <h2 data-en="Attach evidence and confirm" data-th="แนบหลักฐานและยืนยัน">แนบหลักฐานและยืนยัน</h2>
+    <p class="intro" data-en="Check everything once more — a sent application can't be edited." data-th="ตรวจทานอีกครั้งก่อนส่ง เพราะใบสมัครที่ส่งแล้วแก้ไขไม่ได้">ตรวจทานอีกครั้งก่อนส่ง เพราะใบสมัครที่ส่งแล้วแก้ไขไม่ได้</p>
+    <!-- evidence_required: false → this card, with the dropzone folded away behind its button -->
+    <div class="card ft-noev" id="faEvOpt" hidden>
+     <i class="ic" data-lucide="circle-check"></i>
+     <div><b data-en="No evidence documents are required for initial submission." data-th="ไม่ต้องแนบหลักฐานในการสมัครรอบแรก">ไม่ต้องแนบหลักฐานในการสมัครรอบแรก</b>
+      <button type="button" class="ft-linkbtn" id="faEvMore" data-en="Attach files anyway (optional)" data-th="แนบไฟล์เพิ่มเติม (ไม่บังคับ)">แนบไฟล์เพิ่มเติม (ไม่บังคับ)</button></div>
+    </div>
+    <div class="field" data-ff="evidence" id="faEv">
+     <label><span data-en="Supporting evidence" data-th="หลักฐานประกอบการสมัคร">หลักฐานประกอบการสมัคร</span><span class="ft-reqtag" id="faEvTag"></span></label>
+     <div class="ft-drop" id="ftDrop">
+      <input type="file" id="fa_files" multiple accept=".pdf,.png,.jpg,.jpeg,application/pdf,image/png,image/jpeg">
+      <label for="fa_files" class="fp-drop"><span class="fp-ic"><i class="ic" data-lucide="upload"></i></span><span><b data-en="Tap to choose files, or drop them here" data-th="แตะเพื่อเลือกไฟล์ หรือลากมาวาง">แตะเพื่อเลือกไฟล์ หรือลากมาวาง</b><small data-en="PDF, PNG, JPG · up to 10 MB each" data-th="PDF, PNG, JPG · ไม่เกิน 10 MB ต่อไฟล์">PDF, PNG, JPG · ไม่เกิน 10 MB ต่อไฟล์</small></span></label>
+     </div>
+     <ul class="ft-files" id="ftFiles" aria-live="polite"></ul>
+     <span class="hint" data-en="For example your latest transcript, or a piece of your work." data-th="เช่น ใบแสดงผลการเรียนล่าสุด หรือไฟล์ผลงานของคุณ">เช่น ใบแสดงผลการเรียนล่าสุด หรือไฟล์ผลงานของคุณ</span>
+    </div>
+
+    <p class="ft-grp"><span data-en="Review before sending" data-th="ตรวจทานก่อนส่ง">ตรวจทานก่อนส่ง</span></p>
+    <div class="summary" id="ftSummary"></div>
+    <div class="ft-edit">
+     <button type="button" class="ft-linkbtn" data-ftgo="1" data-en="Edit your details" data-th="แก้ไขข้อมูลผู้สมัคร">แก้ไขข้อมูลผู้สมัคร</button>
+     <button type="button" class="ft-linkbtn" data-ftgo="2" data-en="Edit your answers" data-th="แก้ไขคำตอบ">แก้ไขคำตอบ</button>
+    </div>
+
+    <div class="consent-box" style="margin-top:18px">
+     <span class="cbx"><input type="checkbox" id="fa_pdpa" name="pdpa_consent"><span></span></span>
+     <div>
+      <label for="fa_pdpa"><b data-en="I allow YEAH to collect and use this application's data to select participants." data-th="ข้าพเจ้ายินยอมให้ YEAH เก็บและใช้ข้อมูลในใบสมัครนี้เพื่อคัดเลือกผู้เข้าร่วมโครงการ">ข้าพเจ้ายินยอมให้ YEAH เก็บและใช้ข้อมูลในใบสมัครนี้เพื่อคัดเลือกผู้เข้าร่วมโครงการ</b></label>
+      <p class="hint"><span data-en="Required." data-th="จำเป็นต้องยินยอม">จำเป็นต้องยินยอม</span> <a href="#" data-sheet="terms" data-en="Read the PDPA notice" data-th="อ่านประกาศ PDPA">อ่านประกาศ PDPA</a></p>
+     </div>
+    </div>
+    <div class="consent-box">
+     <span class="cbx"><input type="checkbox" id="fa_audit" name="audit_consent"><span></span></span>
+     <div>
+      <label for="fa_audit"><b data-en="I allow YEAH's review team and verification systems to check the details and evidence I submit." data-th="ข้าพเจ้ายินยอมให้ทีมคัดเลือกของ YEAH และระบบตรวจสอบ ตรวจสอบข้อมูลและหลักฐานที่ส่งมา">ข้าพเจ้ายินยอมให้ทีมคัดเลือกของ YEAH และระบบตรวจสอบ ตรวจสอบข้อมูลและหลักฐานที่ส่งมา</b></label>
+      <p class="hint" data-en="Required." data-th="จำเป็นต้องยินยอม">จำเป็นต้องยินยอม</p>
+     </div>
+    </div>
+    <div class="ft-snapnote">
+     <i class="ic" data-lucide="lock"></i>
+     <div><b data-en="Profile snapshot policy" data-th="นโยบายสำเนาโปรไฟล์">นโยบายสำเนาโปรไฟล์</b>
+      <p data-en="Submitting saves a permanent copy of your current profile details for review. Editing your member profile later will not change this application." data-th="เมื่อกดส่ง ระบบจะบันทึกสำเนาข้อมูลโปรไฟล์ของคุณ ณ ตอนนั้นไว้ถาวรเพื่อใช้พิจารณา การแก้ไขโปรไฟล์สมาชิกภายหลังจะไม่เปลี่ยนใบสมัครที่ส่งไปแล้ว">เมื่อกดส่ง ระบบจะบันทึกสำเนาข้อมูลโปรไฟล์ของคุณ ณ ตอนนั้นไว้ถาวรเพื่อใช้พิจารณา การแก้ไขโปรไฟล์สมาชิกภายหลังจะไม่เปลี่ยนใบสมัครที่ส่งไปแล้ว</p></div>
+    </div>
+    <p class="hint" id="ftSubmitHint"></p>
+   </section>
+  </form>
+
+  <div class="wiz-foot">
+   <button type="button" class="btn btn-ghost back" id="ftBack" data-aria-th="ย้อนกลับ" data-aria-en="Back" aria-label="ย้อนกลับ"><i class="ic" data-lucide="arrow-left"></i></button>
+   <button type="button" class="btn btn-grad" id="ftNext"><span data-en="Continue" data-th="ถัดไป">ถัดไป</span><i class="ic" data-lucide="arrow-right"></i></button>
+   <button type="button" class="btn btn-grad" id="ftSubmit" style="display:none" disabled><span class="spin" hidden></span><span id="ftSubmitTx" data-en="Submit application" data-th="ส่งใบสมัคร">ส่งใบสมัคร</span></button>
+  </div>
+ </div>
+</main>
+
+<!-- ============ 03c MEMBER HUB · FUTURE TALENT WAITING LIST + SCREENING COUNTDOWN (after submit) ============
+     The member-facing journey ends here this sprint. Screening test, interview and result screens are
+     paused; the quiet "test" line at the bottom is the dev team's hook into them. -->
+<main class="screen" id="s-ftdone" data-program-id="PRG-FT-C1">
+ <div class="ft-done">
+  <section class="card ft-ok" aria-labelledby="ftDoneTitle">
+   <span class="ft-ok-ic"><i class="ic" data-lucide="check"></i></span>
+   <span class="ft-badge ft-badge-wait" data-field="application.status"><i class="ic" data-lucide="hourglass"></i><span id="ftDoneBadge"></span></span>
+   <h1 id="ftDoneTitle"></h1>
+   <p id="ftDoneSub"></p>
+   <p class="ft-queue" id="ftDoneQueue" data-field="application.queue_position"></p>
+  </section>
+
+  <section class="ft-cdcard" id="ftDoneCdCard">
+   <span class="lbl" id="ftDoneCdLbl"></span>
+   <h2 id="ftDoneCdZero"></h2>
+   <div class="ft-cd" id="ftDoneCd" role="timer" aria-live="off">
+    <div><b>00</b><small data-en="days" data-th="วัน">วัน</small></div><div><b>00</b><small data-en="hrs" data-th="ชม.">ชม.</small></div><div><b>00</b><small data-en="min" data-th="นาที">นาที</small></div><div><b>00</b><small data-en="sec" data-th="วินาที">วินาที</small></div>
+   </div>
+   <p class="ft-cdfoot" id="ftDoneCdFoot"></p>
+   <p class="ft-cdnote" id="ftDoneCdNote"></p>
+  </section>
+
+  <section class="card ft-pad">
+   <h2 class="ft-h" data-en="Where you are" data-th="ขั้นตอนของคุณ">ขั้นตอนของคุณ</h2>
+   <ol class="ft-track" id="ftDoneTrack"></ol>
+  </section>
+
+  <section class="card ft-pad ft-snap" data-field="application.snapshot">
+   <header><h2 data-en="Application snapshot" data-th="สำเนาใบสมัคร">สำเนาใบสมัคร</h2><span class="ft-ro"><i class="ic" data-lucide="lock"></i><span data-en="Read-only" data-th="อ่านอย่างเดียว">อ่านอย่างเดียว</span></span></header>
+   <p class="ft-stamp" id="ftDoneStamp" data-field="application.submitted_at"></p>
+   <div id="ftDoneSnap"></div>
+  </section>
+
+  <section class="card ft-pad">
+   <h2 class="ft-h" data-en="What happens next" data-th="ขั้นต่อไป">ขั้นต่อไป</h2>
+   <ul class="ft-next" id="ftDoneNext"></ul>
+  </section>
+
+  <div class="ft-done-act">
+   <button type="button" class="btn btn-grad btn-full" id="ftHome"><span data-en="Back to dashboard" data-th="กลับสู่หน้าหลัก">กลับสู่หน้าหลัก</span></button>
+   <button type="button" class="btn btn-ghost btn-full" id="ftStatus"><span data-en="View application status" data-th="ดูสถานะใบสมัคร">ดูสถานะใบสมัคร</span></button>
+  </div>
+  <p class="ft-test"><i class="ic" data-lucide="flask-conical"></i><span data-en="Test · dev team only ·" data-th="ทดสอบ · สำหรับทีมพัฒนา ·">ทดสอบ · สำหรับทีมพัฒนา ·</span><button type="button" id="ftTestNext" data-en="see the next screen →" data-th="ดูหน้าจอถัดไป →">ดูหน้าจอถัดไป →</button></p>
  </div>
 </main>
 
@@ -1246,7 +1821,7 @@ function applyLang(){
  ['flagCur','hflagCur'].forEach(function(id){document.getElementById(id).className='flag flag-'+LANG});
  ['langBtn','hlangBtn'].forEach(function(id){document.getElementById(id).setAttribute('aria-label',LANG==='th'?'Switch to English':'เปลี่ยนเป็นภาษาไทย')});
  document.getElementById('f_locale').value=LANG;
- renderTier(curTier);renderPrograms();renderSummary();refreshPickers();
+ renderTier(curTier);renderPrograms();renderSummary();refreshPickers();ftRenderAll();
  if(window.mcRender)mcRender();
  try{localStorage.setItem('yeah-lang',LANG)}catch(e){}
 }
@@ -1342,7 +1917,12 @@ document.getElementById('signOut').addEventListener('click',function(){showScree
 
 /* ---------- toast ---------- */
 var toastEl=document.getElementById('toast'),toastMsg=document.getElementById('toastMsg'),toastT;
-function toast(m){toastMsg.textContent=m;toastEl.classList.add('on');clearTimeout(toastT);toastT=setTimeout(function(){toastEl.classList.remove('on')},3200)}
+/* ic swaps the tick for another icon, e.g. circle-alert on a "still to fill" warning */
+function toast(m,ic){
+ var i=toastEl.querySelector('.ic'),n=ic||'circle-check';
+ if(i.getAttribute('data-lucide')!==n){i.setAttribute('data-lucide',n);i.removeAttribute('data-done');i.innerHTML='';icons(toastEl)}
+ toastMsg.textContent=m;toastEl.classList.add('on');clearTimeout(toastT);toastT=setTimeout(function(){toastEl.classList.remove('on')},3200);
+}
 
 /* ---------- bottom sheets ---------- */
 var scrim=document.getElementById('scrim');
@@ -1450,7 +2030,7 @@ function drawInst(q,list){
  h+='<button type="button" class="pick-other"><i class="ic" data-lucide="pencil-line"></i><span>'+INST.esc(t('อื่น ๆ (กรุณาระบุ)','Other (please specify)'))+'</span></button>';
  list.innerHTML=h;list.scrollTop=0;
  var field=pickBtn.getAttribute('data-target'),wrap=document.getElementById(field+'_other_wrap'),other=document.getElementById(field+'_other'),lbl=pickBtn.querySelector('span');
- function done(){lbl.classList.remove('ph');lbl.removeAttribute('data-en');lbl.removeAttribute('data-th');pickBtn.classList.add('filled');closeSheets();validateStep();renderSummary()}
+ function done(){lbl.classList.remove('ph');lbl.removeAttribute('data-en');lbl.removeAttribute('data-th');pickBtn.classList.add('filled');pickTarget.dispatchEvent(new Event('change',{bubbles:true}));closeSheets();validateStep();renderSummary()}
  list.querySelectorAll('button[data-i]').forEach(function(b){b.addEventListener('click',function(){
   var r=res.list[+b.getAttribute('data-i')];pickTarget.value=r.th;pickBtn._row=r;pickBtn._other=false;
   lbl.textContent=INST.label(r,LANG==='en');wrap.classList.remove('on');other.value='';done();
@@ -1478,6 +2058,8 @@ function drawPick(q){
    pickTarget.value=r[0];
    var lbl=pickBtn.querySelector('span');lbl.textContent=optLabel(r);lbl.classList.remove('ph');lbl.removeAttribute('data-en');lbl.removeAttribute('data-th');
    pickBtn.classList.add('filled');
+   /* hidden inputs fire no events of their own — forms that care (the Future Talent application) listen for this */
+   pickTarget.dispatchEvent(new Event('change',{bubbles:true}));
    closeSheets();validateStep();renderSummary();
   });
   list.appendChild(b);
@@ -1540,8 +2122,12 @@ document.getElementById('wizBack').addEventListener('click',function(){goStep(ST
 regForm.addEventListener('input',validateStep);
 regForm.addEventListener('change',function(){validateStep();renderSummary()});
 document.getElementById('pdpa_consent').addEventListener('change',validateStep);
+/* the notice opens from registration and from the Future Talent application; Accept ticks the box on whichever is showing */
 document.getElementById('acceptTerms').addEventListener('click',function(){
- document.getElementById('pdpa_consent').checked=true;closeSheets();validateStep();toast(t('บันทึกความยินยอมแล้ว','Consent recorded'));
+ var ft=document.documentElement.getAttribute('data-screen')==='ftapply';
+ document.getElementById(ft?'fa_pdpa':'pdpa_consent').checked=true;closeSheets();
+ if(ft)ftSync();else validateStep();
+ toast(t('บันทึกความยินยอมแล้ว','Consent recorded'));
 });
 var STATUS_BLOCK={school_student:'blockSchool',university_student:'blockStudent',professional:'blockPro'};
 document.querySelectorAll('input[name="occupation_status"]').forEach(function(r){r.addEventListener('change',function(){
@@ -1626,6 +2212,7 @@ function renderSummary(){
 document.getElementById('wizSubmit').addEventListener('click',function(){
  var body=memberPayload();if(body.password)body.password='[redacted]';
  console.log('POST /api/members',body);
+ ftFromRegistration(body);
  setMemberName(val('first_name')+' '+val('last_name'),val('first_name_en')+' '+val('last_name_en'));
  showScreen('hub');
  toast(t('ยินดีต้อนรับ คุณเป็นสมาชิกทั่วไป (General Member) แล้ว','Welcome — you are a General Member now'));
@@ -1672,7 +2259,7 @@ function renderTier(i){
   return '<button class="rstop'+(j===MY_TIER?' now':'')+(j<MY_TIER?' done':'')+(j===i&&i!==MY_TIER?' sel':'')+'" data-t="'+j+'">'+
    '<i class="ic" data-lucide="'+x.icon+'"></i><b>'+x.label+'</b></button>';
  }).join('');
- rail.querySelectorAll('.rstop').forEach(function(b){b.addEventListener('click',function(){renderTier(+b.getAttribute('data-t'))})});
+ rail.querySelectorAll('.rstop').forEach(function(b){b.addEventListener('click',function(){setMyTier(+b.getAttribute('data-t'))})});
  document.getElementById('tierName').textContent=t(T.name_th,T.name_en);
  document.getElementById('tierDesc').textContent=t(T.d_th,T.d_en);
  document.getElementById('lockedNote').style.display=i===MY_TIER?'flex':'none';
@@ -1680,6 +2267,15 @@ function renderTier(i){
   return '<div class="bene"><span class="bic"><i class="ic" data-lucide="'+b[0]+'"></i></span><div><b>'+t(b[1],b[2])+'</b></div></div>';
  }).join('');
  icons(document.querySelector('section[data-tab="status"]'));
+}
+
+/* prototype: tapping a tier simulates the member having reached it (past = grey, current = pink, upcoming = white) */
+function setMyTier(j){
+ MY_TIER=j;MEMBER_LEVEL=['general','1','2','3','4'][j];
+ renderTier(j);renderPrograms();
+ if(typeof renderSummary==='function')renderSummary();
+ if(typeof refreshPickers==='function')refreshPickers();
+ if(typeof ftRenderAll==='function')ftRenderAll();
 }
 
 /* ---------- programs + countdown ---------- */
@@ -1892,16 +2488,610 @@ document.querySelectorAll('[data-saveqr]').forEach(function(b){b.addEventListene
 document.addEventListener('click',function(e){if(e.target.closest('[data-sheet="share"]'))renderShareQr()});
 document.getElementById('withdrawApp').addEventListener('click',function(){closeSheets();toast(t('ถอนใบสมัครแล้ว','Application withdrawn'))});
 
-/* ---------- init — ?screen=login|register|hub&tab=status|programs|history|profile ---------- */
-/* &mode=email opens registration as the manual "Sign up" wizard (empty, with password fields) */
+/* ---------- 03a–c YEAH Future Talent: hub banner → program popup → application → waiting list ----------
+   One program, configured in FT. The deadline is the banner's (2 พ.ย. 2569); the other dates, the capacity
+   and the selection timeline are placeholders until the program team confirms them.
+   Test switches: &ft=detail opens the popup on the hub · &ft_state=full|closed|ineligible · &ft_track=fast ·
+   &ft_evidence=0 (evidence_required: false) · &ft_profile=sparse (Google sign-in only, nothing else on record) ·
+   &screen=ftapply[&ftstep=1–3] · &screen=ftdone (with a sample submission) */
+var FT={id:'PRG-FT-C1',type:'bootcamp',
+ deadline:'2026-11-02T23:59:59+07:00',screening:'2026-11-09T10:00:00+07:00',interview:['2026-11-16','2026-11-20'],
+ announce:'2026-11-27',fast_announce:'2026-11-16',start:'2026-12-07',end:'2027-03-07',weeks:13,
+ capacity:100,taken:63,levels:['general','1','2','3','4'],track:'standard',evidence_required:true};
+/* what the member record already holds — the same values the profile tab shows */
+var FT_MEMBER={first_name:'ณิชา',last_name:'ศรีวัฒน์',email:'nicha.sri@gmail.com',birthdate:'2005-03-14',phone:'+66812345678',
+ occupation_status:'university_student',university:'จุฬาลงกรณ์มหาวิทยาลัย',faculty:'วิศวกรรมคอมพิวเตอร์',year_of_study:3,education_level:'bachelor',
+ province:'กรุงเทพมหานคร',referral_source:'friend',growth_goal:'อยากมีผลงานจริงในพอร์ตก่อนจบปี 4',portfolio_url:'',linkedin_url:'',
+ participations:[
+  {id:'PT-2026-0442',title:'Creative Media Clinic',date:'2026-08-30',role:['ผู้เข้าร่วม · 1 วัน','Participant · 1 day'],verified:true},
+  {id:'PT-2026-0391',title:'Founders Meetup · August',date:'2026-08-12',role:['ผู้เข้าร่วม · 3 ชั่วโมง','Participant · 3 hours'],verified:true},
+  {id:'PT-2026-0377',title:'AI Prototyping Bootcamp · C2',date:'2026-07-26',role:['สมาชิกทีม · 6 สัปดาห์','Team member · 6 weeks'],verified:true},
+  {id:'PT-2026-0344',title:'Talent Clinic · Bangkok',date:'2026-07-08',role:['ผู้เข้าร่วม · 1 วัน','Participant · 1 day'],verified:false}]};
+/* &ft_profile=sparse — signed in with Google and nothing more: a handle for a name, no study details */
+var FT_SPARSE={first_name:'Nicha',last_name:'S.',email:'nicha.sri@gmail.com',participations:[]};
+SRC.ftskills=[['product_design','Product Design','Product Design'],['ux_research','UX Research','UX Research'],
+ ['software_engineering','Software Engineering','Software Engineering'],['ai_ml','AI / Machine Learning','AI / Machine Learning'],
+ ['data_analytics','Data Analytics','Data Analytics'],['product_management','Product Management','Product Management'],
+ ['growth_marketing','Growth Marketing','Growth Marketing'],['content_brand','Content และแบรนด์','Content & Brand'],
+ ['business_development','Business Development','Business Development'],['entrepreneurship','การเป็นผู้ประกอบการ','Entrepreneurship'],
+ ['finance','การเงินและการลงทุน','Finance & Investment'],['other','อื่น ๆ (ระบุเอง)','Other (type it in)']];
+var FT_YEARS={uni:[['year_1','ปี 1','Year 1'],['year_2','ปี 2','Year 2'],['year_3','ปี 3','Year 3'],['year_4','ปี 4','Year 4'],['year_4_plus','มากกว่าปี 4','Year 4+'],['alumnus','จบการศึกษาแล้ว','Alumnus']],
+ school:[['m4','ม.4','Grade 10'],['m5','ม.5','Grade 11'],['m6','ม.6','Grade 12']]};
+var FT_STEPS=[['ข้อมูลผู้สมัคร','About you'],['ใบสมัคร','Your application'],['หลักฐานและยืนยัน','Evidence and consent']];
+var FT_LV=['general','1','2','3','4'],FT_MO=[['ม.ค.','Jan'],['ก.พ.','Feb'],['มี.ค.','Mar'],['เม.ย.','Apr'],['พ.ค.','May'],['มิ.ย.','Jun'],['ก.ค.','Jul'],['ส.ค.','Aug'],['ก.ย.','Sep'],['ต.ค.','Oct'],['พ.ย.','Nov'],['ธ.ค.','Dec']];
+var ftMember=FT_MEMBER,ftStarted=false,ftDraft=false,ftBusy=false,ftEvOpen=false,ftApp=null,ftStep=1,ftPre={},ftTouched={},ftFiles=[],ftFileSeq=0,ftReturn=null;
+var ftForm=document.getElementById('ftForm'),ftm=document.getElementById('ftModal');
+function fe(id){return document.getElementById(id)}
+function fesc(v){return INST.esc(v==null?'':v)}
+
+/* dates read on Bangkok's clock whatever the device's zone; Thai uses Buddhist-era years, like the banner */
+function ftD(iso){return new Date(new Date(iso.length===10?iso+'T00:00:00+07:00':iso).getTime()+7*3600000)}
+function ftDate(iso,L){var d=ftD(iso),m=FT_MO[d.getUTCMonth()];return (L||LANG)==='en'?d.getUTCDate()+' '+m[1]+' '+d.getUTCFullYear():d.getUTCDate()+' '+m[0]+' '+(d.getUTCFullYear()+543)}
+function ftTime(iso){var d=ftD(iso);return pad(d.getUTCHours())+':'+pad(d.getUTCMinutes())}
+function ftRange(a,b){var x=ftD(a),y=ftD(b);return x.getUTCMonth()===y.getUTCMonth()?x.getUTCDate()+'–'+ftDate(b):ftDate(a)+' – '+ftDate(b)}
+function ftLeft(iso){return new Date(iso).getTime()-Date.now()}
+function ftCdSet(box,ms){
+ var s=Math.max(0,Math.floor(ms/1000)),v=[Math.floor(s/86400),Math.floor(s%86400/3600),Math.floor(s%3600/60),s%60];
+ box.querySelectorAll('b').forEach(function(b,i){b.textContent=pad(v[i])});
+ box.setAttribute('aria-label',t(v[0]+' วัน '+v[1]+' ชั่วโมง '+v[2]+' นาที',v[0]+' days '+v[1]+' hours '+v[2]+' minutes'));
+}
+function ftClosed(){return ftLeft(FT.deadline)<=0}
+function ftFull(){return FT.taken>=FT.capacity}
+function ftEligible(){return FT.levels.indexOf(MEMBER_LEVEL)>-1}
+function ftMinTier(){for(var i=0;i<FT_LV.length;i++)if(FT.levels.indexOf(FT_LV[i])>-1)return LEVEL_LABEL[FT_LV[i]];return ''}
+/* what the waiting-list countdown runs to: the screening test, or (fast track) the result date */
+function ftTarget(){return FT.track==='fast'?FT.fast_announce+'T12:00:00+07:00':FT.screening}
+
+/* ----- 03a popup ----- */
+function ftRoadSteps(){
+ var send=[t('ส่งใบสมัคร','Send your application'),t('ภายใน ','By ')+ftDate(FT.deadline)];
+ return FT.track==='fast'
+  ?[send,[t('ทีม YEAH พิจารณาโดยตรง','YEAH direct review'),t('ไม่มีแบบทดสอบและสัมภาษณ์','No test or interview')],[t('ประกาศผล','Final acceptance'),ftDate(FT.fast_announce)]]
+  :[send,[t('รอแบบทดสอบคัดกรอง (Waiting list)','Waiting list, then a screening test'),t('แบบทดสอบออนไลน์ ','Online test, ')+ftDate(FT.screening)],
+    [t('แบบทดสอบ / สัมภาษณ์','Assessment / interview'),ftRange(FT.interview[0],FT.interview[1])],[t('ประกาศผล','Final acceptance'),ftDate(FT.announce)]];
+}
+function ftRenderModal(){
+ var closed=ftClosed(),full=ftFull(),left=Math.max(0,FT.capacity-FT.taken),ok=ftEligible();
+ var k=fe('ftmKicker');k.textContent=closed?t('ปิดรับสมัครแล้ว','Applications closed'):t('เปิดรับสมัครแล้ว','Applications open');k.classList.toggle('closed',closed);
+ fe('ftmStart').textContent=ftDate(FT.start);fe('ftmEnd').textContent=ftDate(FT.end);fe('ftmWeeks').textContent=t(FT.weeks+' สัปดาห์',FT.weeks+' weeks');
+ fe('ftmCapLeft').textContent=left;fe('ftmCapTotal').textContent=FT.capacity;fe('ftmCapBar').style.width=(left/FT.capacity*100)+'%';
+ fe('ftmCapTile').classList.toggle('warn',full);
+ fe('ftmCapNote').textContent=full?t('เต็มแล้ว ใบสมัครใหม่จะเข้าคิวสำรอง','Full — new applications join the overfill queue'):t('จากทั้งหมด '+FT.capacity+' ที่','Out of '+FT.capacity+' in total');
+ fe('ftmCdBox').classList.toggle('closed',closed);ftCdSet(fe('ftmCd'),ftLeft(FT.deadline));
+ fe('ftmCdFoot').textContent=(closed?t('หมดเขตเมื่อ ','Closed on '):t('ปิดรับ ','Closes '))+ftDate(FT.deadline)+t(' เวลา '+ftTime(FT.deadline)+' น.',', '+ftTime(FT.deadline));
+ fe('ftmMinTier').textContent=ftMinTier();
+ var you=fe('ftmYou');you.className='ftm-you '+(ok?'ok':'no');
+ you.innerHTML='<i class="ic" data-lucide="'+(ok?'circle-check':'circle-alert')+'"></i>'+fesc(ok?t('ระดับของคุณสมัครได้','Your tier can apply'):t('ระดับของคุณยังไม่ถึงเกณฑ์','Your tier is below this'));
+ fe('ftmLevels').innerHTML=FT_LV.map(function(l){
+  var yes=FT.levels.indexOf(l)>-1;
+  return '<span class="lv'+(yes?' yes':'')+(yes&&l===MEMBER_LEVEL?' me':'')+'"><i></i>'+(l==='general'?'General':LEVEL_LABEL[l])+'</span>';
+ }).join('');
+ var req=fe('ftmReq');req.classList.toggle('none',!FT.evidence_required);
+ req.innerHTML=(FT.evidence_required
+  ?[['link',t('ลิงก์พอร์ตโฟลิโอหรือผลงาน 1 ชิ้น','A portfolio link, or one piece of your work')],['file-text',t('ใบแสดงผลการเรียนล่าสุด (PDF, PNG หรือ JPG ไม่เกิน 10 MB)','Your latest transcript (PDF, PNG or JPG, up to 10 MB)')]]
+  :[['circle-check',t('ไม่ต้องแนบหลักฐานในการสมัครรอบแรก','No evidence documents are required for initial submission')]])
+  .map(function(r){return '<li><i class="ic" data-lucide="'+r[0]+'"></i><span>'+fesc(r[1])+'</span></li>'}).join('');
+ fe('ftmTrack').textContent=FT.track==='fast'?'Fast track':'Standard track';
+ fe('ftmRoad').innerHTML=ftRoadSteps().map(function(s,i){return '<li><span class="n">'+(i+1)+'</span><div><b>'+fesc(s[0])+'</b><small>'+fesc(s[1])+'</small></div></li>'}).join('');
+ ftCta();icons(ftm);
+}
+/* the CTA follows the program and the member: apply · continue a draft · overfill queue · closed · already applied */
+function ftCta(){
+ var b=fe('ftmCta'),m=ftApp?'status':ftClosed()?'closed':ftDraft?'resume':ftFull()?'overfill':'apply';
+ b.setAttribute('data-mode',m);b.disabled=m==='closed';
+ b.className='btn '+(m==='overfill'?'btn-ghost ft-outline':'btn-grad');
+ fe('ftmCtaTx').textContent={apply:t('สมัครเลย','Apply now'),resume:t('สมัครต่อ','Continue application'),overfill:t('เต็มแล้ว · เข้าคิวสำรอง','Capacity full · join overfill queue'),
+  closed:t('ปิดรับสมัครแล้ว','Registration closed'),status:t('ดูสถานะใบสมัคร','View application status')}[m];
+}
+function ftOpen(){
+ ftReturn=document.activeElement;ftAlert(false);ftRenderModal();
+ ftm.classList.add('on');ftm.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';fe('ftmScroll').scrollTop=0;
+ setTimeout(function(){fe('ftmX').focus({preventScroll:true})},60);
+}
+function ftClose(leaving){
+ if(!ftm.classList.contains('on'))return;
+ ftm.classList.remove('on');ftm.setAttribute('aria-hidden','true');document.body.style.overflow='';ftAlert(false);
+ if(!leaving&&ftReturn&&ftReturn.focus)ftReturn.focus({preventScroll:true});
+}
+function ftAlert(on){
+ var a=fe('ftAlert');a.hidden=!on;if(!on)return;
+ fe('ftAlertMsg').textContent=t('โครงการนี้รับสมาชิกระดับ '+ftMinTier()+' ขึ้นไป ตอนนี้คุณเป็น '+LEVEL_LABEL[MEMBER_LEVEL],
+  'This program requires '+ftMinTier()+' or higher. Your current tier is '+LEVEL_LABEL[MEMBER_LEVEL]+'.');
+ icons(a);a.focus();
+}
+fe('ftBanner').addEventListener('click',ftOpen);
+ftm.addEventListener('click',function(e){if(e.target.closest('[data-ftm-close]'))ftClose()});
+document.addEventListener('keydown',function(e){
+ if(!ftm.classList.contains('on'))return;
+ if(e.key==='Escape'){ftClose();return}
+ if(e.key!=='Tab')return;
+ var f=[].filter.call(ftm.querySelectorAll('button,[href]'),function(x){return !x.disabled&&x.offsetParent!==null});
+ if(e.shiftKey&&document.activeElement===f[0]){e.preventDefault();f[f.length-1].focus()}
+ else if(!e.shiftKey&&document.activeElement===f[f.length-1]){e.preventDefault();f[0].focus()}
+});
+fe('ftmCta').addEventListener('click',function(){
+ var m=this.getAttribute('data-mode');
+ if(m==='closed')return;
+ if(m==='status'){ftClose(true);showScreen('ftdone');ftRenderDone();return}
+ if(!ftEligible()){ftAlert(true);return}
+ ftClose(true);ftOpenForm();
+});
+fe('ftAlertX').addEventListener('click',function(){ftAlert(false);fe('ftmCta').focus()});
+fe('ftUpgrade').addEventListener('click',function(){ftClose(true);goTab('status');setTimeout(function(){fe('tierRail').scrollIntoView({behavior:'smooth',block:'center'})},60)});
+fe('ftExplore').addEventListener('click',function(){ftClose(true);goTab('programs')});
+
+/* ----- 03b application form ----- */
+function fv(n){
+ var els=ftForm.querySelectorAll('[name="'+n+'"]');if(!els.length)return '';
+ if(els[0].type==='radio'){var c=ftForm.querySelector('[name="'+n+'"]:checked');return c?c.value:''}
+ if(els[0].type==='checkbox')return els[0].checked;
+ return (els[0].value||'').trim();
+}
+function ftWrap(n){return ftForm.querySelector('[data-ff="'+n+'"]')}
+function ftPhone(v){var e=phoneE164(v);return /^\+66\d{9}$/.test(e)?'0'+e.slice(3,5)+'-'+e.slice(5,8)+'-'+e.slice(8):v}
+/* member record → application fields. Whatever the record lacks stays empty for the applicant */
+function ftMap(p){
+ var os=p.occupation_status,yr='';
+ if(os==='school_student')yr={m4:'m4',m5:'m5',m6:'m6'}[p.grade_level]||'';
+ else if(p.year_of_study)yr=+p.year_of_study>4?'year_4_plus':'year_'+p.year_of_study;
+ return {first_name:p.first_name,last_name:p.last_name,email:p.email,birthdate:p.birthdate,phone:p.phone?ftPhone(p.phone):'',
+  work_status:os?(os==='professional'?'employed':'student'):'',job_title:p.job_title,
+  education_level:os==='school_student'?'high_school':p.education_level,institution:os==='school_student'?p.school:p.university,
+  faculty_major:p.faculty,academic_year:yr,province:p.province,acquisition_channel:p.referral_source,acquisition_detail:p.referral_detail,
+  goal_statement:p.growth_goal,portfolio_url:p.portfolio_url,linkedin_url:p.linkedin_url};
+}
+/* someone who registered in this session applies with what they just entered */
+function ftFromRegistration(p){
+ var a=p.academic||{},pr=p.professional||{};
+ ftMember={first_name:p.first_name,last_name:p.last_name,email:p.email,birthdate:p.birthdate,phone:p.phone,occupation_status:p.occupation_status,
+  education_level:a.education_level,year_of_study:a.year_of_study,grade_level:a.grade_level,
+  university:a.university==='other'?a.university_other:a.university,school:a.school==='other'?a.school_other:a.school,faculty:a.faculty,
+  job_title:pr.department_field,province:p.province,referral_source:p.referral_source,referral_detail:p.referral_detail,growth_goal:p.growth_goal,participations:[]};
+ ftStarted=false;
+}
+function ftSetVal(n,v){
+ if(v==null||v==='')return false;
+ var els=ftForm.querySelectorAll('[name="'+n+'"]');if(!els.length)return false;
+ if(els[0].type==='radio'){var r=ftForm.querySelector('[name="'+n+'"][value="'+v+'"]');if(!r)return false;r.checked=true;return true}
+ els[0].value=v;return true;
+}
+function ftPickBtn(id){return ftForm.querySelector('.picker[data-target="'+id+'"]')}
+function ftFillPick(id,v,label){
+ var b=ftPickBtn(id),s=b.querySelector('span');fe(id).value=v;
+ s.className='';s.removeAttribute('data-th');s.removeAttribute('data-en');s.textContent=label;b.classList.add('filled');
+}
+function ftClearPick(id){
+ var b=ftPickBtn(id),s=b.querySelector('span'),w=fe(id+'_other_wrap'),th=b.getAttribute('data-empty-th'),en=b.getAttribute('data-empty-en');
+ fe(id).value='';b._row=null;b._other=false;b.classList.remove('filled');
+ s.className='ph';s.setAttribute('data-th',th);s.setAttribute('data-en',en);s.textContent=t(th,en);
+ if(w){w.classList.remove('on');fe(id+'_other').value=''}
+}
+/* the record's institution is matched against the school or university list; a name not on it becomes "other" + the name */
+function ftFillInst(name){
+ var b=fe('faInstBtn'),r=INST.search(b.getAttribute('data-src').slice(5),name,8,false).list.filter(function(x){return x.th===name})[0];
+ if(r){ftFillPick('fa_institution',r.th,INST.label(r,LANG==='en'));b._row=r;b._other=false;return}
+ ftFillPick('fa_institution','other',t('อื่น ๆ (กรุณาระบุ)','Other (please specify)'));b._row=null;b._other=true;
+ fe('fa_institution_other').value=name;fe('fa_institution_other_wrap').classList.add('on');
+}
+function ftPrefill(){
+ var m=ftMap(ftMember);
+ ftForm.reset();ftPre={};ftTouched={};ftFiles=[];ftEvOpen=false;ftRenderFiles();
+ ['fa_institution','fa_province','fa_target_skill'].forEach(ftClearPick);
+ ftForm.querySelectorAll('.has-err,.bad,.good').forEach(function(x){x.classList.remove('has-err','bad','good')});
+ ftForm.querySelectorAll('.ft-msg,.ft-pf').forEach(function(x){x.remove()});
+ function put(k){if(ftSetVal(k,m[k]))ftPre[k]=fv(k)}
+ /* education level first: it decides the institution list and the year options */
+ ['first_name','last_name','email','birthdate','phone','work_status','job_title','education_level'].forEach(put);
+ ftLevel(false);
+ if(m.institution){ftFillInst(m.institution);ftPre.institution=fv('institution')}
+ ['faculty_major','academic_year','acquisition_channel','acquisition_detail','goal_statement','portfolio_url','linkedin_url'].forEach(put);
+ if(m.province){ftFillPick('fa_province',m.province,labelOf('provinces',m.province));ftPre.province=m.province}
+ ftActs();ftConds();ftEvidenceMode();ftStarted=true;ftGo(1);
+}
+/* high school swaps the university list for schools, the major for a study track, and the years for ม.4–6 */
+function ftLevel(reset){
+ var hs=fv('education_level')==='high_school',b=fe('faInstBtn'),src=hs?'inst:school':'inst:uni';
+ if(b.getAttribute('data-src')!==src){
+  b.setAttribute('data-src',src);
+  b.setAttribute('data-title',hs?'เลือกโรงเรียน / สถานศึกษา':'เลือกมหาวิทยาลัย / สถานศึกษา');
+  b.setAttribute('data-title-en',hs?'Choose your school':'Choose your university');
+  if(reset)ftClearPick('fa_institution');
+ }
+ ftLbl('faInstLbl',hs?['โรงเรียน / สถานศึกษา','School']:['มหาวิทยาลัย / สถานศึกษา','University / institution']);
+ ftLbl('faFacLbl',hs?['แผนการเรียน','Study track']:['คณะ / สาขาวิชา','Faculty / major']);
+ var f=fe('fa_faculty_major'),ph=hs?['เช่น วิทย์–คณิต','e.g. Science–Maths']:['เช่น วิศวกรรมคอมพิวเตอร์','e.g. Computer Engineering'];
+ f.setAttribute('data-ph-th',ph[0]);f.setAttribute('data-ph-en',ph[1]);f.placeholder=t(ph[0],ph[1]);
+ ftYears();
+}
+function ftLbl(id,p){var el=fe(id);el.setAttribute('data-th',p[0]);el.setAttribute('data-en',p[1]);el.textContent=t(p[0],p[1])}
+function ftYears(){
+ var key=fv('education_level')==='high_school'?'school':'uni',box=fe('faYears'),cur=fv('academic_year');
+ if(box.getAttribute('data-set')===key)return;
+ box.setAttribute('data-set',key);
+ box.innerHTML=FT_YEARS[key].map(function(r,i){return '<input type="radio" name="academic_year" id="fa_y'+i+'" value="'+r[0]+'"><label for="fa_y'+i+'" data-th="'+r[1]+'" data-en="'+r[2]+'">'+t(r[1],r[2])+'</label>'}).join('');
+ var c=box.querySelector('[value="'+cur+'"]');if(c)c.checked=true;
+}
+function ftConds(){
+ [['job_title',fv('work_status')==='employed'],['acquisition_detail',fv('acquisition_channel')==='other'],['target_skill_other',fv('target_skill')==='other']]
+  .forEach(function(c){ftWrap(c[0]).classList.toggle('on',c[1])});
+}
+/* YEAH history pulled from the account — verified items start ticked */
+function ftActs(){
+ var box=fe('faActs'),P=ftMember.participations||[];
+ if(!P.length){var e=['ยังไม่มีประวัติกิจกรรมกับ YEAH ไม่เป็นไร ใบสมัครแรกเริ่มได้เลย','No YEAH activity on your record yet — that is fine for a first application.'];
+  box.innerHTML='<p class="ft-empty" data-th="'+e[0]+'" data-en="'+e[1]+'">'+t(e[0],e[1])+'</p>';return}
+ box.innerHTML=P.map(function(p){
+  var d=ftD(p.date),mo=FT_MO[d.getUTCMonth()];
+  return '<label class="row" data-participation-id="'+p.id+'"><span class="dblock"><b>'+pad(d.getUTCDate())+'</b><small data-th="'+mo[0]+'" data-en="'+mo[1]+'">'+t(mo[0],mo[1])+'</small></span>'+
+   '<div style="flex:1;min-width:0"><h4>'+fesc(p.title)+'</h4><p class="role" data-th="'+fesc(p.role[0])+'" data-en="'+fesc(p.role[1])+'">'+fesc(t(p.role[0],p.role[1]))+'</p>'+
+   (p.verified?'<span class="st st-verified"><i class="ic" data-lucide="badge-check"></i>Verified</span>':'<span class="st st-pending"><i class="ic" data-lucide="clock"></i>Pending verify</span>')+'</div>'+
+   '<span class="cbx"><input type="checkbox" name="attached_participations" value="'+p.id+'"'+(p.verified?' checked':'')+' aria-label="'+fesc(p.title)+'"><span></span></span></label>';
+ }).join('');
+ icons(box);
+}
+function ftEvidenceMode(){
+ var req=FT.evidence_required,tag=fe('faEvTag');
+ tag.className='ft-reqtag'+(req?'':' opt');tag.textContent=req?t('จำเป็น','Required'):t('ไม่บังคับ','Optional');
+ fe('faEvOpt').hidden=req;fe('faEv').hidden=!req&&!ftEvOpen;fe('faEvMore').hidden=ftEvOpen;
+ fe('faPfReq').hidden=!req;
+ fe('faPfHint').textContent=ftPre.portfolio_url?'':t('ยังไม่มีในโปรไฟล์ของคุณ ลิงก์ที่ใส่ตรงนี้ใช้กับใบสมัครนี้เท่านั้น','Not on your profile yet. A link added here is used for this application only.');
+}
+fe('faEvMore').addEventListener('click',function(){ftEvOpen=true;ftEvidenceMode();fe('fa_files').focus()});
+
+/* [name, step, kind, applies-when] — validation, the "still to fill" count and the step gates all read this */
+var FT_FIELDS=[
+ ['first_name',1,'name'],['last_name',1,'name'],['email',1,'email'],['birthdate',1,'date'],['phone',1,'phone'],
+ ['work_status',1,'choice'],['job_title',1,'text',function(){return fv('work_status')==='employed'}],
+ ['education_level',1,'choice'],['institution',1,'inst'],['faculty_major',1,'text'],['academic_year',1,'choice'],
+ ['province',1,'choice'],['acquisition_channel',1,'choice'],['acquisition_detail',1,'text',function(){return fv('acquisition_channel')==='other'}],
+ ['target_skill',2,'choice'],['target_skill_other',2,'text',function(){return fv('target_skill')==='other'}],
+ ['motivation',2,'text'],['goal_statement',2,'text'],
+ ['portfolio_url',2,'url',function(){return FT.evidence_required}],['linkedin_url',2,'linkedin',function(){return false}],
+ ['evidence',3,'files']];
+var FT_URL=/^https?:\/\/[^\s.\/]+\.\S{2,}$/i,FT_GOOD=/^(name|email|phone|url|linkedin)$/;
+function ftF(n){return FT_FIELDS.filter(function(f){return f[0]===n})[0]}
+/* gate: true when a step is being left or the form sent — only then does an upload still running count against it */
+function ftErr(f,gate){
+ var k=f[2],need=!f[3]||f[3]();
+ if(k==='files'){
+  if(ftFiles.some(function(x){return x.state==='up'}))return gate?t('รอให้อัปโหลดเสร็จก่อน','Wait for the upload to finish'):'';
+  return FT.evidence_required&&!ftFiles.some(function(x){return x.state==='ok'})?t('แนบไฟล์อย่างน้อย 1 ไฟล์','Attach at least one file'):'';
+ }
+ var v=fv(f[0]);
+ if(!v)return !need?'':k==='choice'||k==='inst'?t('เลือกหนึ่งข้อ','Choose one'):k==='date'?t('เลือกวันเกิด','Pick your birth date'):t('จำเป็นต้องกรอก','Required');
+ if(k==='name'&&v.length<2)return t('กรอกอย่างน้อย 2 ตัวอักษร','Use at least 2 characters');
+ if(k==='email'&&!EMAIL_RE.test(v))return t('รูปแบบอีเมลไม่ถูกต้อง','Enter a valid email address');
+ if(k==='phone'&&!phoneOk(v))return t('กรอกเบอร์มือถือ 10 หลัก เช่น 081-234-5678','Enter a 10-digit mobile number, e.g. 081-234-5678');
+ if(k==='url'&&!FT_URL.test(v))return t('ใส่ลิงก์เต็ม เช่น https://behance.net/ชื่อของคุณ','Use a full link, e.g. https://behance.net/your-name');
+ if(k==='linkedin'&&!LI_RE.test(v))return t('ใช้ลิงก์โปรไฟล์ในรูปแบบ linkedin.com/in/ชื่อของคุณ','Use your profile link, like linkedin.com/in/your-name');
+ if(k==='inst'&&v==='other'&&!fv('institution_other'))return t('พิมพ์ชื่อสถานศึกษา','Type the institution name');
+ return '';
+}
+function ftShow(n,gate){
+ var f=ftF(n),w=ftWrap(n);if(!f||!w)return;
+ var msg=ftErr(f,gate),m=w.querySelector('.ft-msg'),inp=w.querySelector('input.inp,textarea.inp');
+ if(msg){if(!m){m=document.createElement('span');m.className='ft-msg';m.id='ftmsg_'+n;w.appendChild(m)}m.textContent=msg}
+ else if(m)m.remove();
+ w.classList.toggle('has-err',!!msg);
+ if(inp){
+  inp.classList.toggle('bad',!!msg);inp.classList.toggle('good',!msg&&FT_GOOD.test(f[2])&&!!inp.value.trim());
+  if(msg){inp.setAttribute('aria-invalid','true');inp.setAttribute('aria-describedby','ftmsg_'+n)}else{inp.removeAttribute('aria-invalid');inp.removeAttribute('aria-describedby')}
+ }
+}
+/* "from profile" until the applicant changes it, then "edited" */
+function ftTags(){
+ Object.keys(ftPre).forEach(function(n){
+  var w=ftWrap(n);if(!w)return;
+  var lb=w.querySelector('label'),g=lb.querySelector('.ft-pf'),v=fv(n);
+  if(!v){if(g)g.remove();return}
+  var ed=v!==ftPre[n],key=(ed?'e':'p')+LANG;
+  if(g&&g.getAttribute('data-k')===key)return;
+  if(!g){g=document.createElement('span');lb.appendChild(g)}
+  g.setAttribute('data-k',key);g.className='ft-pf'+(ed?' edit':'');
+  g.innerHTML='<i class="ic" data-lucide="'+(ed?'pencil':'user-check')+'"></i>'+fesc(ed?t('แก้ไขแล้ว','Edited'):t('จากโปรไฟล์','From profile'));
+  icons(g);
+ });
+}
+function ftSync(){
+ if(!ftStarted)return;
+ ftTags();
+ var pre=Object.keys(ftPre).length,miss=FT_FIELDS.filter(function(f){return f[1]<3&&ftErr(f)}).length;
+ fe('ftPreNote').textContent=!pre?t('กรอกข้อมูล '+miss+' ช่องด้านล่างเพื่อสมัคร','Fill in the '+miss+' fields below to apply.')
+  :miss?t('เรากรอกจากโปรไฟล์ของคุณให้แล้ว '+pre+' ช่อง ตรวจให้ถูกต้อง แล้วกรอกที่เหลืออีก '+miss+' ช่อง','We filled in '+pre+' fields from your profile. Check them, then complete the other '+miss+'.')
+  :t('เรากรอกจากโปรไฟล์ของคุณให้แล้ว '+pre+' ช่อง ครบแล้ว แค่ตรวจให้ถูกต้อง','We filled in '+pre+' fields from your profile. Everything is there — just check it.');
+ ftForm.querySelectorAll('[data-count]').forEach(function(b){var n=fe(b.getAttribute('data-count')).value.length;b.textContent=n+'/500';b.classList.toggle('near',n>450)});
+ var all=(ftMember.participations||[]).length,on=ftForm.querySelectorAll('[name="attached_participations"]:checked').length;
+ fe('faActsN').textContent=all?t('แนบ '+on+' จาก '+all+' กิจกรรม','Attaching '+on+' of '+all):'';
+ var ok=fe('fa_pdpa').checked&&fe('fa_audit').checked;
+ fe('ftSubmit').disabled=!ok||ftBusy;
+ fe('ftSubmitHint').textContent=!ok?t('ติ๊กช่องยินยอมทั้งสองช่องเพื่อเปิดปุ่มส่งใบสมัคร','Tick both consent boxes to enable Submit.')
+  :FT_FIELDS.some(function(f){return ftErr(f)})?t('ยังมีช่องที่ไม่ครบ กดส่งเพื่อไปที่ช่องนั้น','Something still needs you — tap Submit to jump to it.'):t('พร้อมส่งแล้ว','Ready to send.');
+ if(ftStep===3)ftSummary();
+}
+/* errors show once a field has been left (or a choice made), and clear live as soon as it is fixed */
+ftForm.addEventListener('input',ftOnEdit);
+ftForm.addEventListener('change',ftOnEdit);
+function ftOnEdit(e){
+ var el=e.target,n=el.name;
+ if(!n||el.type==='file')return;
+ if(n==='institution_other')n='institution';
+ if(n==='education_level'&&e.type==='change')ftLevel(true);
+ if(e.type==='change'&&(el.type==='radio'||el.type==='hidden'))ftTouched[n]=1;
+ ftConds();
+ if(ftTouched[n])ftShow(n);
+ ftSync();
+}
+ftForm.addEventListener('focusout',function(e){
+ var el=e.target,n=el.name;
+ if(!n||!/^(text|email|tel|url|date|textarea)$/.test(el.type))return;
+ if(n==='institution_other')n='institution';
+ var v=el.value.trim();
+ if(n==='phone'&&phoneOk(v))el.value=ftPhone(v);
+ if(el.type==='url'&&v&&!/^https?:\/\//i.test(v))el.value='https://'+v;
+ if(v)ftTouched[n]=1;
+ if(ftTouched[n]){ftShow(n);ftSync()}
+});
+function ftGo(n){
+ ftStep=Math.max(1,Math.min(3,n));
+ ftForm.querySelectorAll('.ftstep').forEach(function(s){s.classList.toggle('on',+s.getAttribute('data-ftstep')===ftStep)});
+ fe('ftBar').style.width=(ftStep/3*100)+'%';
+ fe('ftStepTitle').textContent=t(FT_STEPS[ftStep-1][0],FT_STEPS[ftStep-1][1]);
+ fe('ftStepN').textContent=ftStep+'/3';
+ fe('ftBack').style.display=ftStep===1?'none':'';
+ fe('ftNext').style.display=ftStep===3?'none':'';
+ fe('ftSubmit').style.display=ftStep===3?'':'none';
+ if(document.documentElement.getAttribute('data-screen')==='ftapply')window.scrollTo(0,0);
+ ftSync();icons(fe('s-ftapply'));
+}
+/* step gate: flag every problem on the step, then take the applicant to the first one */
+function ftGate(steps){
+ for(var i=0;i<steps.length;i++){
+  var s=steps[i],bad=FT_FIELDS.filter(function(f){return f[1]===s&&ftErr(f,1)});
+  if(!bad.length)continue;
+  var moved=ftStep!==s;if(moved)ftGo(s);
+  bad.forEach(function(f){ftTouched[f[0]]=1;ftShow(f[0],1)});
+  var w=ftWrap(bad[0][0]);
+  setTimeout(function(){
+   w.scrollIntoView({behavior:'smooth',block:'center'});
+   var x=w.querySelector('input.inp:not([type=hidden]),textarea,.picker');if(x&&x.offsetParent)x.focus({preventScroll:true});
+  },moved?80:0);
+  toast(bad.length>1?t('ยังขาดอีก '+bad.length+' ช่อง','Still '+bad.length+' fields to fix'):t('ยังขาดอีก 1 ช่อง','One field still needs you'),'circle-alert');
+  return false;
+ }
+ return true;
+}
+fe('ftNext').addEventListener('click',function(){if(ftGate([ftStep]))ftGo(ftStep+1)});
+fe('ftBack').addEventListener('click',function(){ftGo(ftStep-1)});
+ftForm.addEventListener('click',function(e){var b=e.target.closest('[data-ftgo]');if(b)ftGo(+b.getAttribute('data-ftgo'))});
+function ftOpenForm(){
+ if(!ftStarted)ftPrefill();
+ ftDraft=false;ftBannerChip();showScreen('ftapply');ftGo(ftStep);
+}
+/* leaving keeps everything in place as a draft (status: draft) — the banner and popup offer to continue */
+fe('ftExit').addEventListener('click',function(){
+ ftDraft=true;ftBannerChip();showScreen('hub');goTab('status');
+ toast(t('บันทึกร่างไว้แล้ว แตะแบนเนอร์เพื่อสมัครต่อ','Draft saved — tap the banner to continue'));
+});
+
+/* evidence files: type and size are checked before anything uploads; each row shows progress and can be removed */
+var FT_TYPES=/\.(pdf|png|jpe?g)$/i,FT_MAX=10*1024*1024;
+function ftSize(n){return n<1048576?Math.max(1,Math.round(n/1024))+' KB':(n/1048576).toFixed(1)+' MB'}
+function ftAddFiles(list){
+ [].forEach.call(list,function(f){
+  var x={id:++ftFileSeq,name:f.name,size:f.size,type:f.type,progress:0,state:!FT_TYPES.test(f.name)?'type':f.size>FT_MAX?'big':'up'};
+  ftFiles.push(x);if(x.state==='up')ftUpload(x);
+ });
+ fe('fa_files').value='';ftTouched.evidence=1;ftRenderFiles();ftShow('evidence');ftSync();
+}
+/* stands in for the multipart upload — progress is what XHR's upload.onprogress would report */
+function ftUpload(x){
+ var tm=setInterval(function(){
+  if(ftFiles.indexOf(x)<0)return clearInterval(tm);
+  x.progress=Math.min(100,x.progress+8+Math.random()*16);
+  if(x.progress<100)return ftFileRow(x);
+  clearInterval(tm);x.state='ok';ftFileRow(x,true);ftShow('evidence');ftSync();
+ },140);
+}
+function ftRenderFiles(){
+ var ul=fe('ftFiles');ul.innerHTML='';
+ ftFiles.forEach(function(x){var li=document.createElement('li');li.id='ftf'+x.id;ul.appendChild(li);ftFileRow(x,true)});
+}
+function ftFileRow(x,full){
+ var li=fe('ftf'+x.id);if(!li)return;
+ var pct=Math.round(x.progress);
+ li.className='ft-file '+x.state;
+ if(full){
+  li.innerHTML='<span class="fp-ic"><i class="ic" data-lucide="'+(/\.pdf$/i.test(x.name)?'file-text':'image')+'"></i></span><span class="fm"><b></b><small></small><span class="ft-prog"><i></i></span></span>'+
+   '<button type="button" class="fp-x" aria-label="'+fesc(t('ลบไฟล์ ','Remove ')+x.name)+'"><i class="ic" data-lucide="x"></i></button>';
+  li.querySelector('b').textContent=x.name;
+  li.querySelector('.fp-x').addEventListener('click',function(){ftFiles.splice(ftFiles.indexOf(x),1);ftRenderFiles();ftShow('evidence');ftSync()});
+ }
+ var st={up:['',t('กำลังอัปโหลด '+pct+'%','Uploading '+pct+'%')],ok:['circle-check',t('อัปโหลดแล้ว · ไม่เกิน 10 MB','Uploaded · under 10 MB')],
+  big:['circle-alert',t('ใหญ่เกิน 10 MB จึงไม่ได้อัปโหลด','Over 10 MB — not uploaded')],type:['circle-alert',t('รองรับเฉพาะ PDF, PNG, JPG','PDF, PNG or JPG only')]}[x.state];
+ li.querySelector('small').innerHTML=(st[0]?'<i class="ic" data-lucide="'+st[0]+'"></i>':'')+fesc(ftSize(x.size)+' · '+st[1]);
+ li.querySelector('.ft-prog i').style.width=pct+'%';
+ if(full||st[0])icons(li);
+}
+fe('fa_files').addEventListener('change',function(){if(this.files.length)ftAddFiles(this.files)});
+(function(){
+ var d=fe('ftDrop');
+ ['dragenter','dragover'].forEach(function(ev){d.addEventListener(ev,function(e){e.preventDefault();d.classList.add('drag')})});
+ d.addEventListener('dragleave',function(){d.classList.remove('drag')});
+ d.addEventListener('drop',function(e){e.preventDefault();d.classList.remove('drag');if(e.dataTransfer.files.length)ftAddFiles(e.dataTransfer.files)});
+})();
+
+function ftChoice(n){var c=ftForm.querySelector('[name="'+n+'"]:checked');return c?c.nextElementSibling.textContent.trim():''}
+function ftSkill(v,other){return v==='other'?(other||t('อื่น ๆ','Other')):labelOf('ftskills',v)}
+function ftSummary(){
+ var files=ftFiles.filter(function(x){return x.state==='ok'}),acts=ftForm.querySelectorAll('[name="attached_participations"]:checked').length,inst=fv('institution');
+ var rows=[
+  [t('ชื่อ-นามสกุล','Full name'),(fv('first_name')+' '+fv('last_name')).trim()],[t('อีเมล','Email'),fv('email')],
+  [t('เบอร์มือถือ','Mobile'),fv('phone')],[t('วันเกิด','Birth date'),fv('birthdate')],
+  [t('สถานะ','Status'),[ftChoice('work_status'),fv('work_status')==='employed'?fv('job_title'):''].filter(Boolean).join(' · ')],
+  [t('การศึกษา','Education'),[ftChoice('education_level'),inst==='other'?fv('institution_other'):inst?fe('faInstBtn').querySelector('span').textContent:'',fv('faculty_major'),ftChoice('academic_year')].filter(Boolean).join(' · ')],
+  [t('จังหวัด','Province'),fv('province')?labelOf('provinces',fv('province')):''],
+  [t('ทักษะเป้าหมาย','Target skill'),fv('target_skill')?ftSkill(fv('target_skill'),fv('target_skill_other')):''],
+  [t('กิจกรรมที่แนบ','Attached activities'),acts?t(acts+' รายการ',acts+(acts>1?' items':' item')):t('ไม่มี','None')],
+  [t('ไฟล์แนบ','Attached files'),files.length?files.map(function(x){return x.name}).join(', '):t('ไม่มี','None')]];
+ fe('ftSummary').innerHTML=rows.map(function(r){return '<div><span>'+fesc(r[0])+'</span><b>'+fesc(r[1]||'—')+'</b></div>'}).join('');
+}
+function ftPayload(){
+ var inst=fv('institution');
+ return {program_id:FT.id,participant_id:'YEAH-M-004182',routing_track:FT.track,queue:ftFull()?'overfill':'main',
+  applicant:{first_name:fv('first_name'),last_name:fv('last_name'),email:fv('email'),birthdate:fv('birthdate'),phone:phoneE164(fv('phone')),
+   work_status:fv('work_status'),job_title:fv('work_status')==='employed'?fv('job_title'):null,
+   education_level:fv('education_level'),institution:inst,institution_other:inst==='other'?fv('institution_other'):null,
+   faculty_major:fv('faculty_major'),academic_year:fv('academic_year'),province:fv('province'),
+   acquisition_channel:fv('acquisition_channel'),acquisition_detail:fv('acquisition_channel')==='other'?fv('acquisition_detail'):null},
+  target_skill:fv('target_skill'),target_skill_other:fv('target_skill')==='other'?fv('target_skill_other'):null,
+  motivation:fv('motivation'),goal_statement:fv('goal_statement'),
+  attached_participations:[].map.call(ftForm.querySelectorAll('[name="attached_participations"]:checked'),function(c){return c.value}),
+  portfolio_url:fv('portfolio_url')||null,linkedin_url:fv('linkedin_url')||null,
+  evidence_files:ftFiles.filter(function(x){return x.state==='ok'}).map(function(x){return {name:x.name,size:x.size,type:x.type}}),
+  prefilled_fields:Object.keys(ftPre),edited_fields:Object.keys(ftPre).filter(function(n){return fv(n)!==ftPre[n]}),
+  pdpa_consent:true,consent_version:'pdpa-2026-09-v1',audit_consent:true,status:'submitted',submitted_at:new Date().toISOString()};
+}
+/* submit: disabled with a spinner while the server writes the snapshot, so it can't be sent twice */
+fe('ftSubmit').addEventListener('click',function(){
+ if(this.disabled||!ftGate([1,2,3]))return;
+ var b=this,tx=fe('ftSubmitTx'),spin=b.querySelector('.spin'),body=ftPayload();
+ function label(th,en){tx.setAttribute('data-th',th);tx.setAttribute('data-en',en);tx.textContent=t(th,en)}
+ ftBusy=true;b.disabled=true;b.classList.add('loading');spin.hidden=false;fe('ftBack').style.display='none';
+ label('กำลังสร้างสำเนาใบสมัคร…','Generating application snapshot…');
+ console.log('POST /api/applications',body);
+ setTimeout(function(){
+  var over=ftFull();
+  ftApp={id:'APP-2026-0417',submitted_at:new Date(),overfill:over,queue:over?FT.taken-FT.capacity+1:FT.taken+1,track:FT.track,
+   name:body.applicant.first_name+' '+body.applicant.last_name,email:body.applicant.email,skill:body.target_skill,skill_other:body.target_skill_other,
+   files:body.evidence_files.map(function(f){return f.name})};
+  FT.taken++;ftBusy=false;b.classList.remove('loading');spin.hidden=true;label('ส่งใบสมัคร','Submit application');
+  ftMarkApplied();showScreen('ftdone');ftRenderDone();
+ },1600);
+});
+
+/* ----- 03c waiting list + screening countdown ----- */
+function ftRenderDone(){
+ var a=ftApp;if(!a)return;
+ var fast=a.track==='fast',tg=ftTarget(),zero=ftLeft(tg)<=0,email=a.email;
+ fe('ftDoneBadge').textContent=fast?t('YEAH พิจารณาโดยตรง','YEAH direct review'):t('รอพิจารณา · Waiting list','YEAH review · Waiting list');
+ fe('ftDoneTitle').textContent=a.overfill?t('คุณอยู่ในคิวสำรองแล้ว','You are in the overfill queue'):fast?t('ใบสมัครของคุณเข้าคิวพิจารณาแล้ว','You are in the review queue'):t('คุณอยู่ในรายชื่อรอคัดเลือกแล้ว','You are on the waiting list');
+ fe('ftDoneSub').textContent=t('เราบันทึกสำเนาโปรไฟล์และใบสมัครของคุณแล้ว และส่งเข้าคิวให้คณะกรรมการพิจารณา','We saved a snapshot of your profile and application and queued it for the selection committee.')+
+  (a.overfill?t(' ที่นั่งรอบแรกเต็มแล้ว เราจะพิจารณาคิวสำรองตามลำดับเมื่อมีที่ว่าง',' First-round places are full, so the overfill queue is reviewed in order as places open.'):'');
+ fe('ftDoneQueue').innerHTML=a.overfill?fesc(t('ลำดับในคิวสำรอง','Overfill queue position'))+' <b>#'+a.queue+'</b>'
+  :fesc(t('ลำดับคิวพิจารณา','Review queue position'))+' <b>#'+a.queue+'</b> '+fesc(t('จาก '+FT.capacity+' ที่','of '+FT.capacity));
+ fe('ftDoneCdCard').classList.toggle('zero',zero);
+ fe('ftDoneCdLbl').textContent=fast?t('ประกาศผลใน','Results in'):t('แบบทดสอบคัดกรองเปิดใน','Screening test opens in');
+ fe('ftDoneCdZero').textContent=fast?t('ประกาศผลแล้ว','Results are out'):t('แบบทดสอบคัดกรองเปิดแล้ว','The screening test is open');
+ fe('ftDoneCdFoot').textContent=fast?ftDate(FT.fast_announce)+t(' · ทีม YEAH พิจารณาโดยตรง',' · reviewed directly by YEAH')
+  :ftDate(FT.screening)+t(' · '+ftTime(FT.screening)+' น. · ทำออนไลน์ในพอร์ทัล',' · '+ftTime(FT.screening)+' · online in the portal');
+ fe('ftDoneCdNote').textContent=zero?t('ตรวจอีเมลและการแจ้งเตือนในพอร์ทัลของคุณ','Check your email and portal notifications.')
+  :fast?t('เราจะแจ้งผลทาง '+email+' และในพอร์ทัล','We will send the result to '+email+' and to your portal.')
+  :t('ลิงก์แบบทดสอบจะส่งไปที่ '+email+' และแจ้งเตือนในพอร์ทัล 1 วันก่อนสอบ','We will send the test link to '+email+' and to your portal a day before.');
+ ftCdSet(fe('ftDoneCd'),ftLeft(tg));
+ var steps=fast?[[t('ส่งใบสมัคร','Submitted'),'done'],[t('YEAH พิจารณาโดยตรง','YEAH direct review'),'now'],[t('ผลสุดท้าย','Final decision'),'']]
+  :[[t('ส่งใบสมัคร','Submitted'),'done'],[t('รอพิจารณา / Waiting list','YEAH review / waiting list'),'now'],[t('ทดสอบ / สัมภาษณ์','Assessment / interview'),''],[t('ผลสุดท้าย','Final decision'),'']];
+ var tr=fe('ftDoneTrack');tr.style.setProperty('--n',steps.length);
+ tr.innerHTML=steps.map(function(s){return '<li class="'+s[1]+'"'+(s[1]==='now'?' aria-current="step"':'')+'><span class="dot">'+(s[1]==='done'?'<i class="ic" data-lucide="check"></i>':'')+'</span><small>'+fesc(s[0])+'</small></li>'}).join('');
+ var d=a.submitted_at,ymd=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()),hm=pad(d.getHours())+':'+pad(d.getMinutes());
+ fe('ftDoneStamp').textContent=t('ส่งเมื่อ '+ymd+' เวลา '+hm+' น.','Submitted on '+ymd+' at '+hm);
+ fe('ftDoneSnap').innerHTML=[[t('เลขที่ใบสมัคร','Application ID'),fesc(a.id)],[t('ชื่อ-นามสกุล','Full name'),fesc(a.name)],[t('อีเมลหลัก','Primary email'),fesc(a.email)],
+  [t('ทักษะเป้าหมาย','Target skill'),fesc(ftSkill(a.skill,a.skill_other))],
+  [t('ไฟล์แนบ','Attached files'),a.files.length?a.files.map(function(n){return '<span class="ft-fname">'+fesc(n)+'</span>'}).join(''):fesc(t('ไม่มี','None'))]]
+  .map(function(r){return '<div class="pd"><span>'+fesc(r[0])+'</span><b>'+r[1]+'</b></div>'}).join('');
+ var res=fast?FT.fast_announce:FT.announce,next=[['mail',t('ติดตามทางอีเมลและการแจ้งเตือน','Watch your email and notifications'),fesc(t('ทุกความคืบหน้าส่งไปที่ '+email+' และกระดิ่งในพอร์ทัล','Every update goes to '+email+' and the bell in your portal'))]];
+ if(!fast)next.push(['clipboard-check',t('แบบทดสอบคัดกรอง ','Screening test, ')+ftDate(FT.screening),fesc(t('ทำออนไลน์ในพอร์ทัล เวลา '+ftTime(FT.screening)+' น.','Online in the portal at '+ftTime(FT.screening)))],
+  ['mic',t('ทดสอบ / สัมภาษณ์ ','Assessment / interview, ')+ftRange(FT.interview[0],FT.interview[1]),fesc(t('สำหรับผู้ที่ผ่านการคัดกรอง','For applicants who pass screening'))]);
+ next.push(['megaphone',t('ประกาศผล ','Results, ')+ftDate(res),fesc(t('ประกาศในพอร์ทัลและทางอีเมล','In the portal and by email'))],
+  ['circle-help',t('มีคำถาม?','Questions?'),'<button type="button" class="ft-linkbtn" id="ftFaq">'+fesc(t('อ่านคำถามที่พบบ่อยของโครงการ','Read the program FAQ'))+'</button>']);
+ fe('ftDoneNext').innerHTML=next.map(function(n){return '<li><span class="nic"><i class="ic" data-lucide="'+n[0]+'"></i></span><div><b>'+fesc(n[1])+'</b><p>'+n[2]+'</p></div></li>'}).join('');
+ icons(fe('s-ftdone'));
+}
+/* after submit the hub follows: banner chip, a row in Applications, a notification */
+function ftMarkApplied(){
+ var a=ftApp,d=ftD(a.submitted_at.toISOString()),day=d.getUTCDate(),mo=FT_MO[d.getUTCMonth()],list=document.querySelector('[data-field="applications[]"]');
+ ftDraft=false;ftBannerChip();
+ if(fe('ftHistRow')||!list)return;
+ var r=document.createElement('div');r.className='row';r.id='ftHistRow';r.style.cursor='pointer';
+ r.setAttribute('data-application-id',a.id);r.setAttribute('data-program-id',FT.id);
+ r.innerHTML='<div style="flex:1"><h4>YEAH Future Talent · <span data-th="รุ่นที่ 1" data-en="Cohort 1">'+t('รุ่นที่ 1','Cohort 1')+'</span></h4>'+
+  '<p class="role">bootcamp · <span data-th="ส่งเมื่อ '+day+' '+mo[0]+'" data-en="applied '+day+' '+mo[1]+'">'+t('ส่งเมื่อ '+day+' '+mo[0],'applied '+day+' '+mo[1])+'</span></p>'+
+  '<span class="st st-ftwait"><i class="ic" data-lucide="hourglass"></i>Waiting list</span>'+
+  '<div class="track"><i class="on"></i><i class="on"></i><i></i>'+(a.track==='fast'?'':'<i></i>')+'</div></div><i class="ic" data-lucide="chevron-right" style="color:#C4C4C4"></i>';
+ r.addEventListener('click',function(){showScreen('ftdone');ftRenderDone()});
+ list.insertBefore(r,list.firstChild);
+ var c=document.querySelector('#mtabs button[data-tab="history"] .cnt');if(c)c.textContent=+c.textContent+1;
+ var fast=a.track==='fast',nb=fast?['ทีม YEAH จะพิจารณาและประกาศผล '+ftDate(FT.fast_announce,'th'),'YEAH reviews it directly. Results on '+ftDate(FT.fast_announce,'en')+'.']
+  :['คุณอยู่ในรายชื่อรอคัดเลือก แบบทดสอบคัดกรองเปิด '+ftDate(FT.screening,'th'),'You are on the waiting list. The screening test opens '+ftDate(FT.screening,'en')+'.'];
+ var n=document.createElement('div');n.className='nrow unread';
+ n.innerHTML='<span class="nic"><i class="ic" data-lucide="hourglass"></i></span><div class="ntx"><div class="nhd">'+
+  '<b data-th="ได้รับใบสมัคร YEAH Future Talent รุ่นที่ 1 แล้ว" data-en="We received your YEAH Future Talent application">'+t('ได้รับใบสมัคร YEAH Future Talent รุ่นที่ 1 แล้ว','We received your YEAH Future Talent application')+'</b>'+
+  '<time data-th="เมื่อสักครู่" data-en="now">'+t('เมื่อสักครู่','now')+'</time></div><p data-th="'+nb[0]+'" data-en="'+nb[1]+'">'+t(nb[0],nb[1])+'</p></div>';
+ var nl=document.querySelector('#npage .nlist');nl.insertBefore(n,nl.firstChild);
+ notifBtn.classList.remove('read');fe('markRead').disabled=false;
+ icons(list);icons(nl);
+}
+function ftBannerChip(){
+ var c=fe('ftBannerChip'),s=ftApp?['wait','hourglass',t('สมัครแล้ว · รอพิจารณา','Applied · waiting list')]:ftDraft?['draft','pencil',t('สมัครต่อจากร่าง','Continue your draft')]:null;
+ c.hidden=!s;if(!s)return;
+ c.className='ft-chip '+s[0];c.innerHTML='<i class="ic" data-lucide="'+s[1]+'"></i>'+fesc(s[2]);icons(c);
+}
+fe('ftHome').addEventListener('click',function(){showScreen('hub');goTab('status')});
+fe('ftStatus').addEventListener('click',function(){showScreen('hub');goTab('history')});
+fe('s-ftdone').addEventListener('click',function(e){if(e.target.closest('#ftFaq'))toast(t('หน้าคำถามที่พบบ่อยของโครงการยังไม่พร้อม','The program FAQ page is not ready yet'))});
+/* dev hook into the paused screens (screening test, interview, result) */
+fe('ftTestNext').addEventListener('click',function(){toast(t('พักไว้ก่อน: หน้าแบบทดสอบคัดกรอง สัมภาษณ์ และประกาศผล จะออกแบบแยก','Paused: the screening test, interview and result screens come later'))});
+/* one clock for both countdowns; a zero crossing re-renders into the closed / open state */
+setInterval(function(){
+ if(ftm.classList.contains('on')){if(ftClosed()!==fe('ftmCdBox').classList.contains('closed'))ftRenderModal();else ftCdSet(fe('ftmCd'),ftLeft(FT.deadline))}
+ if(ftApp&&document.documentElement.getAttribute('data-screen')==='ftdone'){
+  var l=ftLeft(ftTarget());if((l<=0)!==fe('ftDoneCdCard').classList.contains('zero'))ftRenderDone();else ftCdSet(fe('ftDoneCd'),l);
+ }
+},1000);
+function ftRenderAll(){
+ document.querySelectorAll('[data-aria-en]').forEach(function(el){el.setAttribute('aria-label',t(el.getAttribute('data-aria-th'),el.getAttribute('data-aria-en')))});
+ ftEvidenceMode();ftBannerChip();
+ if(ftm.classList.contains('on'))ftRenderModal();
+ fe('ftStepTitle').textContent=t(FT_STEPS[ftStep-1][0],FT_STEPS[ftStep-1][1]);
+ ftForm.querySelectorAll('.has-err').forEach(function(w){ftShow(w.getAttribute('data-ff'))});
+ ftRenderFiles();ftSync();
+ if(ftApp)ftRenderDone();
+}
+function ftSetup(qs){
+ var st=qs.get('ft_state');
+ if(st==='full')FT.taken=FT.capacity;
+ if(st==='closed')FT.deadline=new Date(Date.now()-60000).toISOString();
+ if(st==='ineligible')FT.levels=['3','4'];
+ if(qs.get('ft_track')==='fast')FT.track='fast';
+ if(qs.get('ft_evidence')==='0')FT.evidence_required=false;
+ if(qs.get('ft_profile')==='sparse')ftMember=FT_SPARSE;
+ ftPrefill();
+}
+function ftRoute(qs,screen){
+ if(screen==='hub'&&qs.get('ft')==='detail')ftOpen();
+ if(screen==='ftapply')ftGo(+qs.get('ftstep')||1);
+ if(screen==='ftdone'&&!ftApp){
+  /* a sample submission built from the pre-filled form, so the page can be opened directly */
+  var over=ftFull();
+  ftApp={id:'APP-2026-0417',submitted_at:new Date(),overfill:over,queue:over?FT.taken-FT.capacity+1:FT.taken+1,track:FT.track,
+   name:(fv('first_name')+' '+fv('last_name')).trim(),email:fv('email'),skill:'product_design',skill_other:null,
+   files:FT.evidence_required?['transcript-2569.pdf','portfolio-thaifarm-ai.pdf']:[]};
+  FT.taken++;ftMarkApplied();ftRenderDone();
+ }
+}
+
+/* ---------- init — ?screen=login|register|hub|ftapply|ftdone&tab=status|programs|history|profile ---------- */
+/* &mode=email opens registration as the manual "Sign up" wizard (empty, with password fields);
+   the Future Talent switches (&ft=, &ft_state=, …) are listed above FT */
 var qs=new URLSearchParams(location.search),qScreen=qs.get('screen'),qTab=qs.get('tab');
 setAuthMode(qs.get('mode')==='email'?'email':'google');
+ftSetup(qs);
 applyLang();goStep(1);renderTier(0);renderPrograms();icons();countUp();
-if(['login','register','hub'].indexOf(qScreen)>-1)showScreen(qScreen);
+if(['login','register','hub','ftapply','ftdone'].indexOf(qScreen)>-1)showScreen(qScreen);
 if(qTab)goTab(qTab);
+ftRoute(qs,qScreen);
 /* &tier=general|explorer|builder|leader|catalyst (or 0–4) previews that tier and its card */
 var qTier=qs.get('tier'),tierKeys=['general','explorer','builder','leader','catalyst'];
-if(qTier!==null){var ti=tierKeys.indexOf(qTier);if(ti<0&&/^[0-4]$/.test(qTier))ti=+qTier;if(ti>-1)renderTier(ti)}
+if(qTier!==null){var ti=tierKeys.indexOf(qTier);if(ti<0&&/^[0-4]$/.test(qTier))ti=+qTier;if(ti>-1)setMyTier(ti)}
 if(qs.get('step'))goStep(+qs.get('step'));
 if(qs.get('notif')==='1'&&qScreen==='hub')openNotif();
 if(qs.get('share')==='1'&&qScreen==='hub'){openSheet('share');renderShareQr()}

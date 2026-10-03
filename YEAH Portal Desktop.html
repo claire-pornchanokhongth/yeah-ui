@@ -475,6 +475,16 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opa
 /* tier bar */
 .tierbar{background:rgba(40,16,36,.07);border-color:rgba(255,255,255,.8)}
 .tstop{background:rgba(255,255,255,.86);border-color:rgba(255,255,255,.95);box-shadow:0 8px 20px -12px rgba(90,20,60,.35)}
+/* tier stops: same palette as the mobile tier cards — past = solid grey, current = solid pink, upcoming = solid white */
+html .tstop{background:#fff;border-color:transparent;box-shadow:none}
+html .tstop .ic{color:#3A3A3E;opacity:1}
+html .tstop span{color:#3A3A3E;font-weight:800}
+html .tstop.done{background:#D4D4D8}
+html .tstop.done .ic,html .tstop.done span{color:#4A4A4F}
+html .tstop.now{background:#FE0074;box-shadow:0 0 0 7px rgba(254,0,116,.2)}
+html .tstop.now .ic{color:var(--yeah-yellow)}
+html .tstop.now span{color:#fc5e03}
+html .tstop small{color:#FE0074;font-weight:800;font-size:11px}
 /* controls */
 .btn-ghost{background:rgba(255,255,255,.74);border:1px solid rgba(40,16,36,.1);backdrop-filter:blur(14px) saturate(1.5);-webkit-backdrop-filter:blur(14px) saturate(1.5);box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
 .chips label,.seg label{background:rgba(255,255,255,.76);border:1px solid rgba(255,255,255,.85);box-shadow:0 6px 16px -12px rgba(90,20,60,.3)}
@@ -537,7 +547,7 @@ html[data-lang="th"] .btn{letter-spacing:.01em}
 .foot-logo{height:44px;width:auto}
 .foot-note{font-size:12.5px;line-height:1.65;color:rgba(255,255,255,.55);max-width:520px}
 .socials{display:flex;gap:12px;flex-wrap:wrap}
-.soc{width:44px;height:44px;border-radius:999px;background:#3A3A3E;border:.5px solid rgba(255,255,255,.85);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 8px 20px -8px rgba(255,255,255,.28);transition:transform .14s var(--ease),box-shadow .14s var(--ease)}
+.soc{width:44px;height:44px;border-radius:999px;background:#3A3A3E;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 8px 20px -8px rgba(255,255,255,.28);transition:transform .14s var(--ease),box-shadow .14s var(--ease)}
 .soc:hover{transform:translateY(-4px);box-shadow:0 12px 26px -8px rgba(255,255,255,.4)}
 .soc .ic{width:19px;height:19px}
 .soc svg{stroke:url(#icoGrad);stroke-width:2}
@@ -602,9 +612,9 @@ html[data-lang="th"] .btn{letter-spacing:.01em}
    <h1 data-en="From potential to proof of work." data-th="เปลี่ยนศักยภาพให้เป็นผลงานที่พิสูจน์ได้">เปลี่ยนศักยภาพให้เป็นผลงานที่พิสูจน์ได้</h1>
    <p data-en="One account for every YEAH program. Apply to bootcamps and events, collect verified evidence of what you build, and carry a credential that anyone can check." data-th="บัญชีเดียวใช้ได้กับทุกโครงการของ YEAH สมัครบูตแคมป์และกิจกรรม เก็บหลักฐานผลงานที่ผ่านการตรวจสอบ และถือ Credential ที่ใคร ๆ ก็ตรวจสอบได้">บัญชีเดียวใช้ได้กับทุกโครงการของ YEAH สมัครบูตแคมป์และกิจกรรม เก็บหลักฐานผลงานที่ผ่านการตรวจสอบ และถือ Credential ที่ใคร ๆ ก็ตรวจสอบได้</p>
    <div class="auth-steps">
-    <div><i class="n">1</i><span data-en="Sign in with Google, or sign up with your email." data-th="เข้าสู่ระบบด้วย Google หรือสมัครด้วยอีเมลของคุณ">เข้าสู่ระบบด้วย Google หรือสมัครด้วยอีเมลของคุณ</span></div>
-    <div><i class="n">2</i><span data-en="Fill your profile once — about 3 minutes." data-th="กรอกโปรไฟล์ครั้งเดียว ใช้เวลาราว 3 นาที">กรอกโปรไฟล์ครั้งเดียว ใช้เวลาราว 3 นาที</span></div>
-    <div><i class="n">3</i><span data-en="Apply to a program and move from General Member to Explorer." data-th="สมัครเข้าโครงการเพื่อขยับจาก General Member ไปสู่ Explorer">สมัครเข้าโครงการเพื่อขยับจาก General Member ไปสู่ Explorer</span></div>
+    <div><i class="n">1</i><span data-en="Sign in with your Google account or Email." data-th="เข้าสู่ระบบด้วยบัญชี Google หรืออีเมลของคุณ">เข้าสู่ระบบด้วยบัญชี Google หรืออีเมลของคุณ</span></div>
+    <div><i class="n">2</i><span data-en="Fill in your profile." data-th="กรอกโปรไฟล์">กรอกโปรไฟล์</span></div>
+    <div><i class="n">3</i><span data-en="Apply to programs and get more benefits." data-th="สมัครเข้าโครงการต่าง ๆ เพื่อรับสิทธิประโยชน์ที่มากขึ้น">สมัครเข้าโครงการต่าง ๆ เพื่อรับสิทธิประโยชน์ที่มากขึ้น</span></div>
    </div>
   </div>
 
@@ -981,7 +991,7 @@ html[data-lang="th"] .btn{letter-spacing:.01em}
        <div class="tierbar" id="tierBar">
         <div class="fill" id="tierFill"></div>
         <svg class="t-rocket" viewBox="0 0 24 24" aria-hidden="true"><g transform="rotate(45 12 12)"><path d="M4 13a8 8 0 0 1 7 7a6 6 0 0 0 3-5a9 9 0 0 0 6-8a3 3 0 0 0-3-3a9 9 0 0 0-8 6a6 6 0 0 0-5 3"/><path d="M7 14a6 6 0 0 0-3 6a6 6 0 0 0 6-3"/><circle cx="15" cy="9" r="1"/></g></svg>
-        <button class="tstop now locked" style="--p:0" data-t="0"><i class="ic" data-lucide="lock"></i><small data-en="You are here" data-th="คุณอยู่ตรงนี้">คุณอยู่ตรงนี้</small><span>General</span></button>
+        <button class="tstop now locked" style="--p:0" data-t="0"><i class="ic" data-lucide="lock"></i><span>General</span></button>
         <button class="tstop" style="--p:25" data-t="1"><i class="ic" data-lucide="compass"></i><span>Explorer</span></button>
         <button class="tstop" style="--p:50" data-t="2"><i class="ic" data-lucide="hammer"></i><span>Builder</span></button>
         <button class="tstop" style="--p:75" data-t="3"><i class="ic" data-lucide="flag"></i><span>Leader</span></button>
@@ -1849,13 +1859,24 @@ function renderTier(i){
   s.classList.toggle('now',j===MY_TIER);
   s.classList.toggle('done',j<MY_TIER);
   s.classList.toggle('locked',j>MY_TIER);
+  var h=s.querySelector('small');if(h)h.remove();
+  if(j===MY_TIER){h=document.createElement('small');h.textContent=t('คุณอยู่ตรงนี้','You are here');s.insertBefore(h,s.querySelector('span'))}
   s.style.outline=(j===i&&i!==MY_TIER)?'3px solid rgba(254,215,50,.8)':'none';
   s.style.outlineOffset='3px';
  });
  document.getElementById('tierBar').style.setProperty('--fill',Math.min(100,(MY_TIER+TIER_STEPS)/4*100)+'%');
  icons(g);
 }
-document.querySelectorAll('.tstop').forEach(function(s){s.addEventListener('click',function(){renderTier(+s.getAttribute('data-t'))})});
+document.querySelectorAll('.tstop').forEach(function(s){s.addEventListener('click',function(){setMyTier(+s.getAttribute('data-t'))})});
+
+/* prototype: tapping a tier simulates the member having reached it (past = grey, current = pink, upcoming = white) */
+function setMyTier(j){
+ MY_TIER=j;MEMBER_LEVEL=['general','1','2','3','4'][j];
+ renderTier(j);renderPrograms();
+ if(typeof renderSummary==='function')renderSummary();
+ if(typeof refreshPickers==='function')refreshPickers();
+ if(typeof ftRenderAll==='function')ftRenderAll();
+}
 
 /* ---------- member hub: programs + countdown ---------- */
 var deadlines={};
@@ -2102,7 +2123,7 @@ applyLang();renderTier(0);renderPrograms();icons();update();countUp();
 if(['login','register','hub'].indexOf(qScreen)>-1)showScreen(qScreen);
 /* &tier=general|explorer|builder|leader|catalyst (or 0–4) opens the hub previewing that tier and its card */
 var qTier=qs.get('tier'),tierKeys=['general','explorer','builder','leader','catalyst'];
-if(qTier!==null){var ti=tierKeys.indexOf(qTier);if(ti<0&&/^[0-4]$/.test(qTier))ti=+qTier;if(ti>-1)renderTier(ti)}
+if(qTier!==null){var ti=tierKeys.indexOf(qTier);if(ti<0&&/^[0-4]$/.test(qTier))ti=+qTier;if(ti>-1)setMyTier(ti)}
 if(qs.get('share')==='1'&&qScreen==='hub'){openModal('share');renderShareQr()}
 /* &launch=1 auto-plays the key-unlock transition once. The beat before it fires lets the
    login screen paint first, so the frames preview shows what you are transitioning FROM. */

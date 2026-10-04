@@ -453,7 +453,7 @@ html .rstop.done{background:#D4D4D8;border-color:transparent}
 html .rstop.done .ic,html .rstop.done b{color:#4A4A4F}
 html .rstop.now{background:#FE0074;border-color:transparent}
 html .rstop.now .ic{color:var(--yeah-yellow)}
-html .rstop.now b{color:#fc5e03}
+html .rstop.now b{color:#FED732}
 html .rstop b{font-weight:700}
 /* things that sit inside a panel: translucent, no second blur */
 .skill,.pf,.bene .bic,.fp-ic{background:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.9);box-shadow:0 6px 16px -10px rgba(90,20,60,.22)}
@@ -507,7 +507,7 @@ html[data-lang="th"] .btn{letter-spacing:.01em}
 .foot-note{font-size:12px;line-height:1.6;color:rgba(255,255,255,.55)}
 .socials{display:flex;gap:10px;flex-wrap:wrap}
 .soc{width:42px;height:42px;border-radius:999px;background:#3A3A3E;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 8px 20px -8px rgba(255,255,255,.28);transition:transform .14s var(--ease),box-shadow .14s var(--ease)}
-.soc:hover{transform:translateY(-4px);box-shadow:0 12px 26px -8px rgba(255,255,255,.4)}
+.soc:hover{box-shadow:0 12px 26px -8px rgba(255,255,255,.4)}
 .soc .ic{width:18px;height:18px}
 .soc svg{stroke:url(#icoGrad);stroke-width:2}
 .foot-bottom{margin-top:28px;padding-top:16px;border-top:1px solid rgba(255,255,255,.14);display:flex;flex-direction:column;gap:8px;font-size:11.5px;color:rgba(255,255,255,.5)}
@@ -548,6 +548,7 @@ html[data-lang="th"] .btn{letter-spacing:.01em}
 .ftd-body{padding:24px var(--pad) 0}
 .ftd-sec+.ftd-sec{margin-top:26px}
 .ftd-sec>h2{font-size:17px;font-weight:600;margin-bottom:10px}
+.ftd-lead{margin:-2px 0 14px;font-size:14px;line-height:1.75;color:#4A4A4F}
 .ftd-card,.ftd-tile{background:#fff;border:1px solid rgba(40,16,36,.08);border-radius:20px;box-shadow:0 10px 26px -18px rgba(90,20,60,.35)}
 .ftd-card{padding:16px}
 /* the two stat tiles match: label, big figure, a second line, then the fine print pinned to the bottom */
@@ -581,7 +582,7 @@ html[data-lang="th"] .btn{letter-spacing:.01em}
 .ftd-you .ic{width:17px;height:17px;flex:none}
 .ftd-you.ok{color:#00734B}.ftd-you.no{color:#B45309}
 .ftd-tiers{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 18px}
-.ftd-tier{display:inline-flex;align-items:center;gap:7px;padding:8px 12px 8px 10px;border-radius:10px;background:var(--yeah-black);color:var(--yeah-yellow);
+.ftd-tier{display:inline-flex;align-items:center;gap:7px;padding:8px 12px 8px 10px;border-radius:999px;background:var(--yeah-pink);color:#FED732;
  font-family:var(--font-display-alt);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
 .ftd-tier .ic{width:15px;height:15px}
 .ftd-req{list-style:none;display:flex;flex-direction:column;gap:9px;margin-top:9px}
@@ -852,10 +853,10 @@ html[data-lang="th"] .ft-badge{letter-spacing:.02em}
     <h2 data-en="Who are you?" data-th="แนะนำตัว">แนะนำตัว</h2>
     <p class="intro only-google" data-en="Name comes from your Google account. Change it if your university record says something else." data-th="ข้อมูลบางส่วนจะถูกมาจากบัญชี Google ของคุณ กรุณาตรวจสอบ">ข้อมูลบางส่วนจะถูกมาจากบัญชี Google ของคุณ กรุณาตรวจสอบ</p>
     <p class="intro only-email" data-en="Use your name as it appears on your ID or student record." data-th="กรอกชื่อตามบัตรประชาชนหรือทะเบียนสถานศึกษา">กรอกชื่อตามบัตรประชาชนหรือทะเบียนสถานศึกษา</p>
-    <div class="field"><label for="first_name"><span data-en="First name" data-th="ชื่อจริง">ชื่อจริง</span> <span class="req">*</span></label><input class="inp" id="first_name" name="first_name" value="ณิชา" autocomplete="given-name" data-ph-en="e.g. ณิชา" data-ph-th="เช่น ณิชา" placeholder="เช่น ณิชา"></div>
-    <div class="field"><label for="last_name"><span data-en="Surname" data-th="นามสกุล">นามสกุล</span> <span class="req">*</span></label><input class="inp" id="last_name" name="last_name" value="ศรีวัฒน์" autocomplete="family-name" data-ph-en="e.g. ศรีวัฒน์" data-ph-th="เช่น ศรีวัฒน์" placeholder="เช่น ศรีวัฒน์"></div>
-    <div class="field"><label for="first_name_en"><span data-en="First name in English" data-th="ชื่อจริงภาษาอังกฤษ">ชื่อจริงภาษาอังกฤษ</span> <span class="req">*</span></label><input class="inp" id="first_name_en" name="first_name_en" placeholder="Nicha" autocomplete="off" autocapitalize="words" spellcheck="false" lang="en"><span class="hint" id="enNameHint" data-en="English letters only, as on your passport or student ID. Used on your card and profile when the site is in English." data-th="ใช้ตัวอักษรภาษาอังกฤษตามพาสปอร์ตหรือบัตรนักศึกษา ใช้บนบัตรสมาชิกและโปรไฟล์เมื่อเปิดเว็บเป็นภาษาอังกฤษ">ใช้ตัวอักษรภาษาอังกฤษตามพาสปอร์ตหรือบัตรนักศึกษา ใช้บนบัตรสมาชิกและโปรไฟล์เมื่อเปิดเว็บเป็นภาษาอังกฤษ</span></div>
-    <div class="field"><label for="last_name_en"><span data-en="Surname in English" data-th="นามสกุลภาษาอังกฤษ">นามสกุลภาษาอังกฤษ</span> <span class="req">*</span></label><input class="inp" id="last_name_en" name="last_name_en" placeholder="Sriwat" autocomplete="off" autocapitalize="words" spellcheck="false" lang="en"><span class="hint" id="enNameHint" data-en="English letters only, as on your passport or student ID. Used on your card and profile when the site is in English." data-th="ใช้ตัวอักษรภาษาอังกฤษตามพาสปอร์ตหรือบัตรนักศึกษา ใช้บนบัตรสมาชิกและโปรไฟล์เมื่อเปิดเว็บเป็นภาษาอังกฤษ">ใช้ตัวอักษรภาษาอังกฤษตามพาสปอร์ตหรือบัตรนักศึกษา ใช้บนบัตรสมาชิกและโปรไฟล์เมื่อเปิดเว็บเป็นภาษาอังกฤษ</span></div>
+    <div class="field"><label for="first_name"><span data-en="Name (Thai)" data-th="ชื่อจริง (ภาษาไทย)">ชื่อจริง (ภาษาไทย)</span> <span class="req">*</span></label><input class="inp" id="first_name" name="first_name" value="ณิชา" autocomplete="given-name" data-ph-en="e.g. ณิชา" data-ph-th="เช่น ณิชา" placeholder="เช่น ณิชา"></div>
+    <div class="field"><label for="last_name"><span data-en="Surname (Thai)" data-th="นามสกุล (ภาษาไทย)">นามสกุล (ภาษาไทย)</span> <span class="req">*</span></label><input class="inp" id="last_name" name="last_name" value="ศรีวัฒน์" autocomplete="family-name" data-ph-en="e.g. ศรีวัฒน์" data-ph-th="เช่น ศรีวัฒน์" placeholder="เช่น ศรีวัฒน์"></div>
+    <div class="field"><label for="first_name_en"><span data-en="Name (English)" data-th="ชื่อจริง (ภาษาอังกฤษ)">ชื่อจริง (ภาษาอังกฤษ)</span> <span class="req">*</span></label><input class="inp" id="first_name_en" name="first_name_en" placeholder="Nicha" autocomplete="off" autocapitalize="words" spellcheck="false" lang="en"><span class="hint" id="enNameHint" data-en="English letters only, as on your passport or student ID. Used on your card and profile when the site is in English." data-th="ใช้ตัวอักษรภาษาอังกฤษตามพาสปอร์ตหรือบัตรนักศึกษา ใช้บนบัตรสมาชิกและโปรไฟล์เมื่อเปิดเว็บเป็นภาษาอังกฤษ">ใช้ตัวอักษรภาษาอังกฤษตามพาสปอร์ตหรือบัตรนักศึกษา ใช้บนบัตรสมาชิกและโปรไฟล์เมื่อเปิดเว็บเป็นภาษาอังกฤษ</span></div>
+    <div class="field"><label for="last_name_en"><span data-en="Surname (English)" data-th="นามสกุล (ภาษาอังกฤษ)">นามสกุล (ภาษาอังกฤษ)</span> <span class="req">*</span></label><input class="inp" id="last_name_en" name="last_name_en" placeholder="Sriwat" autocomplete="off" autocapitalize="words" spellcheck="false" lang="en"><span class="hint" id="enNameHint" data-en="English letters only, as on your passport or student ID. Used on your card and profile when the site is in English." data-th="ใช้ตัวอักษรภาษาอังกฤษตามพาสปอร์ตหรือบัตรนักศึกษา ใช้บนบัตรสมาชิกและโปรไฟล์เมื่อเปิดเว็บเป็นภาษาอังกฤษ">ใช้ตัวอักษรภาษาอังกฤษตามพาสปอร์ตหรือบัตรนักศึกษา ใช้บนบัตรสมาชิกและโปรไฟล์เมื่อเปิดเว็บเป็นภาษาอังกฤษ</span></div>
     <div class="field"><label for="birthdate"><span data-en="Birthday" data-th="วันเกิด">วันเกิด</span> <span class="req">*</span></label><input class="inp" type="date" id="birthdate" name="birthdate" max="2014-01-01"><span class="hint" data-en="Used for age-banded program eligibility only." data-th="ใช้ดูเกณฑ์อายุของโครงการเท่านั้น">ใช้ดูเกณฑ์อายุของโครงการเท่านั้น</span></div>
    </section>
 
@@ -887,7 +888,7 @@ html[data-lang="th"] .ft-badge{letter-spacing:.02em}
     <p class="intro" data-en="The next questions change to match your answer." data-th="กรุณาระบุสถานะทางการศึกษาหรือการงานของคุณ">กรุณาระบุสถานะทางการศึกษาหรือการงานของคุณ</p>
     <div class="opt" style="margin-bottom:20px">
      <input type="radio" name="occupation_status" id="os_school" value="school_student">
-     <label for="os_school"><i class="ic" data-lucide="backpack"></i><span data-en="School student" data-th="นักเรียน">นักเรียน</span></label>
+     <label for="os_school"><i class="ic" data-lucide="backpack"></i><span data-en="High school student" data-th="นักเรียน">นักเรียน</span></label>
      <input type="radio" name="occupation_status" id="os_uni" value="university_student">
      <label for="os_uni"><i class="ic" data-lucide="graduation-cap"></i><span data-en="University student" data-th="นักศึกษา">นักศึกษา</span></label>
      <input type="radio" name="occupation_status" id="os_pro" value="professional">
@@ -1234,7 +1235,8 @@ html[data-lang="th"] .ft-badge{letter-spacing:.02em}
 
  <div class="ftd-body">
   <section class="ftd-sec">
-   <h2 data-en="At a glance" data-th="ภาพรวมโครงการ">ภาพรวมโครงการ</h2>
+   <h2 data-en="Overall of this program" data-th="ภาพรวมโครงการ">ภาพรวมโครงการ</h2>
+   <p class="ftd-lead" data-en="YEAH Future Talent is an action-based development program designed to transform individual ambitions into tangible achievements through a structured growth ecosystem. Participants embark on a guided journey where they define core goals, track progress via tangible checkpoints, log regular growth evidence, complete essential courses, and receive direct mentorship to build a verified portfolio and earn recognized certification." data-th="YEAH Future Talent คือแพลตฟอร์มการเรียนรู้และพัฒนาศักยภาพรูปแบบใหม่ที่ออกแบบมาเพื่อเปลี่ยนเป้าหมายของคุณให้กลายเป็นความสำเร็จที่แท้จริง ผ่านระบบนิเวศการเรียนรู้แบบลงมือทำ (Action-Based Learning Ecosystem) โดยโครงการนี้จะพาผู้เข้าร่วมออกเดินทางบนเส้นทางพัฒนาตนเองที่มีโครงสร้างชัดเจน ตั้งแต่การตั้งเป้าหมาย การสร้างหลักฐานการเติบโต การเรียนรู้ผ่านคอร์สบังคับ ไปจนถึงการรับคำแนะนำจากเมนเทอร์ผู้เชี่ยวชาญ เพื่อสร้างผลงานและรับเกียรติบัตรที่ผ่านการรับการรับรอง">YEAH Future Talent คือแพลตฟอร์มการเรียนรู้และพัฒนาศักยภาพรูปแบบใหม่ที่ออกแบบมาเพื่อเปลี่ยนเป้าหมายของคุณให้กลายเป็นความสำเร็จที่แท้จริง ผ่านระบบนิเวศการเรียนรู้แบบลงมือทำ (Action-Based Learning Ecosystem) โดยโครงการนี้จะพาผู้เข้าร่วมออกเดินทางบนเส้นทางพัฒนาตนเองที่มีโครงสร้างชัดเจน ตั้งแต่การตั้งเป้าหมาย การสร้างหลักฐานการเติบโต การเรียนรู้ผ่านคอร์สบังคับ ไปจนถึงการรับคำแนะนำจากเมนเทอร์ผู้เชี่ยวชาญ เพื่อสร้างผลงานและรับเกียรติบัตรที่ผ่านการรับการรับรอง</p>
    <div class="ftd-grid">
     <div class="ftd-tile" data-field="program.duration_weeks">
      <span class="lbl" data-en="Program length" data-th="ระยะเวลาโครงการ">ระยะเวลาโครงการ</span>
@@ -1244,7 +1246,7 @@ html[data-lang="th"] .ft-badge{letter-spacing:.02em}
     </div>
     <div class="ftd-tile" id="ftdCapTile" data-field="program.capacity">
      <span class="lbl" data-en="Slots remaining" data-th="ที่ว่างคงเหลือ">ที่ว่างคงเหลือ</span>
-     <b class="ftd-big"><span id="ftdCapLeft"></span><span class="ftd-of"> / <span id="ftdCapTotal"></span></span></b>
+     <b class="ftd-big" id="ftdCapLeft"></b>
      <div class="seats"><i id="ftdCapBar"></i></div>
      <small id="ftdCapNote"></small>
     </div>
@@ -1260,7 +1262,7 @@ html[data-lang="th"] .ft-badge{letter-spacing:.02em}
   </section>
 
   <section class="ftd-sec">
-   <h2 data-en="Who can apply" data-th="คุณสมบัติผู้สมัคร">คุณสมบัติผู้สมัคร</h2>
+   <h2 data-en="Requirements" data-th="คุณสมบัติผู้สมัคร">คุณสมบัติผู้สมัคร</h2>
    <div class="ftd-card">
     <p class="ftd-you" id="ftdYou"></p>
     <span class="lbl" data-en="Tiers that can apply" data-th="ระดับที่สมัครได้">ระดับที่สมัครได้</span>
@@ -1271,7 +1273,7 @@ html[data-lang="th"] .ft-badge{letter-spacing:.02em}
   </section>
 
   <section class="ftd-sec">
-   <h2 data-en="How selection works" data-th="ขั้นตอนการคัดเลือก">ขั้นตอนการคัดเลือก</h2>
+   <h2 data-en="Selection Process" data-th="ขั้นตอนการคัดเลือก">ขั้นตอนการคัดเลือก</h2>
    <ol class="ftd-road" id="ftdRoad"></ol>
   </section>
 
@@ -1312,19 +1314,23 @@ html[data-lang="th"] .ft-badge{letter-spacing:.02em}
   <form id="ftForm" class="fmt" novalidate>
    <!-- step 1: who is applying — almost all of it comes from the member record -->
    <section class="ftstep on" data-ftstep="1">
-    <h2 data-en="Check your details" data-th="ตรวจข้อมูลของคุณ">ตรวจข้อมูลของคุณ</h2>
+    <h2 data-en="Check your details" data-th="ตรวจสอบข้อมูลของคุณ">ตรวจสอบข้อมูลของคุณ</h2>
     <div class="ft-notice" role="note">
      <i class="ic" data-lucide="info"></i>
      <div>
-      <p data-en="Check that your first name, last name and email match your national ID or an official document before you submit — they will be printed on your certificate." data-th="กรุณาตรวจสอบชื่อจริง นามสกุล และอีเมล ให้ตรงกับบัตรประชาชนหรือเอกสารทางการก่อนส่งใบสมัคร เนื่องจากจะถูกนำไปใช้ในใบรับรองของคุณ">กรุณาตรวจสอบชื่อจริง นามสกุล และอีเมล ให้ตรงกับบัตรประชาชนหรือเอกสารทางการก่อนส่งใบสมัคร เนื่องจากจะถูกนำไปใช้ในใบรับรองของคุณ</p>
+      <p data-en="Please verify that your first name, last name, and email address match your national ID card or official documents before submitting your application, as this information will be used on your certificate." data-th="กรุณาตรวจสอบชื่อจริง นามสกุล และอีเมล ให้ตรงกับบัตรประชาชนหรือเอกสารทางการก่อนส่งใบสมัคร เนื่องจากจะถูกนำไปใช้ในใบรับรองของคุณ">กรุณาตรวจสอบชื่อจริง นามสกุล และอีเมล ให้ตรงกับบัตรประชาชนหรือเอกสารทางการก่อนส่งใบสมัคร เนื่องจากจะถูกนำไปใช้ในใบรับรองของคุณ</p>
      </div>
     </div>
 
     <p class="ft-grp"><span data-en="Identity and contact" data-th="ข้อมูลส่วนตัวและช่องทางการติดต่อ">ข้อมูลส่วนตัวและช่องทางการติดต่อ</span></p>
-    <div class="field" data-ff="first_name"><label for="fa_first_name"><span data-en="First name" data-th="ชื่อจริง">ชื่อจริง</span> <span class="req">*</span></label>
+    <div class="field" data-ff="first_name"><label for="fa_first_name"><span data-en="Name (Thai)" data-th="ชื่อจริง (ภาษาไทย)">ชื่อจริง (ภาษาไทย)</span> <span class="req">*</span></label>
      <input class="inp" id="fa_first_name" name="first_name" autocomplete="given-name" data-ph-en="As on your ID card" data-ph-th="ตามบัตรประชาชน" placeholder="ตามบัตรประชาชน"></div>
-    <div class="field" data-ff="last_name"><label for="fa_last_name"><span data-en="Last name" data-th="นามสกุล">นามสกุล</span> <span class="req">*</span></label>
+    <div class="field" data-ff="last_name"><label for="fa_last_name"><span data-en="Surname (Thai)" data-th="นามสกุล (ภาษาไทย)">นามสกุล (ภาษาไทย)</span> <span class="req">*</span></label>
      <input class="inp" id="fa_last_name" name="last_name" autocomplete="family-name" data-ph-en="As on your ID card" data-ph-th="ตามบัตรประชาชน" placeholder="ตามบัตรประชาชน"></div>
+    <div class="field" data-ff="first_name_en"><label for="fa_first_name_en"><span data-en="Name (English)" data-th="ชื่อจริง (ภาษาอังกฤษ)">ชื่อจริง (ภาษาอังกฤษ)</span> <span class="req">*</span></label>
+     <input class="inp" id="fa_first_name_en" name="first_name_en" autocomplete="off" autocapitalize="words" spellcheck="false" lang="en" placeholder="Nicha"></div>
+    <div class="field" data-ff="last_name_en"><label for="fa_last_name_en"><span data-en="Surname (English)" data-th="นามสกุล (ภาษาอังกฤษ)">นามสกุล (ภาษาอังกฤษ)</span> <span class="req">*</span></label>
+     <input class="inp" id="fa_last_name_en" name="last_name_en" autocomplete="off" autocapitalize="words" spellcheck="false" lang="en" placeholder="Sriwat"></div>
     <div class="field" data-ff="email"><label for="fa_email"><span data-en="Email" data-th="อีเมล">อีเมล</span> <span class="req">*</span></label>
      <input class="inp" type="email" id="fa_email" name="email" inputmode="email" autocomplete="email" placeholder="you@example.com"></div>
     <div class="field" data-ff="birthdate"><label for="fa_birthdate"><span data-en="Birth date" data-th="วันเกิด">วันเกิด</span> <span class="req">*</span></label>
@@ -1335,14 +1341,18 @@ html[data-lang="th"] .ft-badge{letter-spacing:.02em}
     <p class="ft-grp"><span data-en="Study and work" data-th="การศึกษาและการทำงาน">สถานะการศึกษาและการทำงาน</span></p>
     <div class="field" data-ff="work_status"><label><span data-en="Right now you are" data-th="สถานะปัจจุบัน">สถานะปัจจุบัน</span> <span class="req">*</span></label>
      <div class="opt ft-two">
-      <input type="radio" name="work_status" id="fa_ws_s" value="student"><label for="fa_ws_s"><i class="ic" data-lucide="graduation-cap"></i><span data-en="Student" data-th="กำลังศึกษา">กำลังศึกษา</span></label>
-      <input type="radio" name="work_status" id="fa_ws_e" value="employed"><label for="fa_ws_e"><i class="ic" data-lucide="briefcase"></i><span data-en="Employed" data-th="ทำงานแล้ว">ทำงานแล้ว</span></label>
+      <input type="radio" name="work_status" id="fa_ws_s" value="student"><label for="fa_ws_s"><i class="ic" data-lucide="graduation-cap"></i><span data-en="Studying" data-th="กำลังศึกษา">กำลังศึกษา</span></label>
+      <input type="radio" name="work_status" id="fa_ws_e" value="employed"><label for="fa_ws_e"><i class="ic" data-lucide="briefcase"></i><span data-en="Graduated / Employed" data-th="จบแล้ว / ทำงานแล้ว">จบแล้ว / ทำงานแล้ว</span></label>
      </div></div>
-    <div class="field cond" data-ff="job_title"><label for="fa_job_title"><span data-en="Department / job title" data-th="แผนก / ตำแหน่งงาน">แผนก / ตำแหน่งงาน</span> <span class="req">*</span></label>
-     <input class="inp" id="fa_job_title" name="job_title" data-ph-en="e.g. Marketing · Content Strategist" data-ph-th="เช่น Marketing · Content Strategist" placeholder="เช่น Marketing · Content Strategist"></div>
-    <div class="field" data-ff="education_level"><label><span data-en="Education level" data-th="ระดับการศึกษา">ระดับการศึกษา</span> <span class="req">*</span></label>
+    <div class="field cond" data-ff="job_title"><label for="fa_job_title"><span data-en="Department / job title (job seekers, please enter &quot;-&quot;)" data-th="แผนก / ตำแหน่งงาน (สำหรับผู้ที่กำลังหางาน กรุณาใส่ &quot;-&quot;)">แผนก / ตำแหน่งงาน (สำหรับผู้ที่กำลังหางาน กรุณาใส่ &quot;-&quot;)</span> <span class="req">*</span></label>
+     <input class="inp" id="fa_job_title" name="job_title" data-ph-en="e.g. Marketing, Content Strategist" data-ph-th="เช่น Marketing, Content Strategist" placeholder="เช่น Marketing, Content Strategist"></div>
+    <div class="field cond" data-ff="organisation"><label for="fa_organisation"><span data-en="Company / organisation (freelancers and job seekers, please enter &quot;-&quot;)" data-th="บริษัท / องค์กร (สำหรับฟรีแลนซ์และผู้ที่กำลังหางาน กรุณาใส่ &quot;-&quot;)">บริษัท / องค์กร (สำหรับฟรีแลนซ์และผู้ที่กำลังหางาน กรุณาใส่ &quot;-&quot;)</span> <span class="req">*</span></label>
+     <input class="inp" id="fa_organisation" name="organisation" autocomplete="organization"></div>
+    <div class="field cond" data-ff="years_experience"><label><span data-en="Years of experience" data-th="ประสบการณ์ทำงาน (ปี)">ประสบการณ์ทำงาน (ปี)</span> <span class="req">*</span></label>
+     <div class="chips"><input type="radio" name="years_experience" id="fa_ye0" value="0-2"><label for="fa_ye0"><span data-en="0–2 years" data-th="0–2 ปี">0–2 ปี</span></label><input type="radio" name="years_experience" id="fa_ye1" value="3-5"><label for="fa_ye1"><span data-en="3–5 years" data-th="3–5 ปี">3–5 ปี</span></label><input type="radio" name="years_experience" id="fa_ye2" value="6-9"><label for="fa_ye2"><span data-en="6–9 years" data-th="6–9 ปี">6–9 ปี</span></label><input type="radio" name="years_experience" id="fa_ye3" value="10+"><label for="fa_ye3"><span data-en="10+ years" data-th="10 ปีขึ้นไป">10 ปีขึ้นไป</span></label></div></div>
+    <div class="field" data-ff="education_level"><label><span data-en="Highest education level" data-th="ระดับการศึกษาสูงสุด">ระดับการศึกษาสูงสุด</span> <span class="req">*</span></label>
      <div class="chips">
-      <input type="radio" name="education_level" id="fa_el_hs" value="high_school"><label for="fa_el_hs"><span data-en="High school" data-th="มัธยมปลาย">มัธยมปลาย</span></label>
+      <input type="radio" name="education_level" id="fa_el_hs" value="high_school"><label for="fa_el_hs"><span data-en="High school" data-th="มัธยม">มัธยม</span></label>
       <input type="radio" name="education_level" id="fa_el_dip" value="diploma"><label for="fa_el_dip"><span data-en="Diploma" data-th="ปวส. / อนุปริญญา">ปวส. / อนุปริญญา</span></label>
       <input type="radio" name="education_level" id="fa_el_ba" value="bachelor"><label for="fa_el_ba"><span data-en="Bachelor's" data-th="ปริญญาตรี">ปริญญาตรี</span></label>
       <input type="radio" name="education_level" id="fa_el_ma" value="master"><label for="fa_el_ma"><span data-en="Master's" data-th="ปริญญาโท">ปริญญาโท</span></label>
@@ -1379,23 +1389,23 @@ html[data-lang="th"] .ft-badge{letter-spacing:.02em}
 
    <!-- step 2: the program's own questions, plus what the account already shows about them -->
    <section class="ftstep" data-ftstep="2">
-    <h2 data-en="Why this program, why you" data-th="ทำไมโครงการนี้ถึงเหมาะกับคุณ">ทำไมโครงการนี้ถึงเหมาะกับคุณ</h2>
-    <p class="intro" data-en="In your own words. Short and specific is enough — there are no right answers." data-th="กรุณาใส่คำตอบที่ชัดเจน และเป็นตัวตนของคุณ ไม่มีคำตอบที่ถูกหรือผิด">กรุณาใส่คำตอบที่ชัดเจน และเป็นตัวตนของคุณ ไม่มีคำตอบที่ถูกหรือผิด</p>
+    <h2 data-en="Why is this program right for you" data-th="ทำไมโครงการนี้ถึงเหมาะกับคุณ">ทำไมโครงการนี้ถึงเหมาะกับคุณ</h2>
+    <p class="intro" data-en="Please provide a clear answer that reflects who you are. There is no right or wrong answer." data-th="กรุณาใส่คำตอบที่ชัดเจน และเป็นตัวตนของคุณ ไม่มีคำตอบที่ถูกหรือผิด">กรุณาใส่คำตอบที่ชัดเจน และเป็นตัวตนของคุณ ไม่มีคำตอบที่ถูกหรือผิด</p>
     <div class="field" data-ff="target_skill"><label><span data-en="Main skill you want to build" data-th="ทักษะหลักที่อยากพัฒนา">ทักษะหลักที่อยากพัฒนา</span> <span class="req">*</span></label>
      <input type="hidden" name="target_skill" id="fa_target_skill">
      <button type="button" class="picker" data-sheet="pick" data-target="fa_target_skill" data-src="ftskills" data-search="1" data-title="ทักษะหลักที่อยากพัฒนา" data-title-en="Main skill you want to build" data-empty-th="ค้นหาหรือเลือก" data-empty-en="Search or select"><span class="ph" data-en="Search or select" data-th="ค้นหาหรือเลือก">ค้นหาหรือเลือก</span><i class="ic" data-lucide="chevron-down"></i></button>
      <span class="hint" data-en="The one skill you most want to grow during the program." data-th="เลือกทักษะเดียวที่คุณอยากเก่งขึ้นที่สุดระหว่างโครงการ">เลือกทักษะเดียวที่คุณอยากเก่งขึ้นที่สุดระหว่างโครงการ</span></div>
     <div class="field cond" data-ff="target_skill_other"><label for="fa_target_skill_other"><span data-en="Name the skill" data-th="ระบุทักษะ">ระบุทักษะ</span> <span class="req">*</span></label>
      <input class="inp" id="fa_target_skill_other" name="target_skill_other" data-ph-en="e.g. Supply chain analytics" data-ph-th="เช่น Supply chain analytics" placeholder="เช่น Supply chain analytics"></div>
-    <div class="field" data-ff="motivation"><label for="fa_motivation"><span data-en="Why are you applying?" data-th="ทำไมคุณจึงสนใจสมัครโครงการนี้">ทำไมคุณจึงสนใจสมัครโครงการนี้</span> <span class="req">*</span></label>
-     <textarea class="inp" id="fa_motivation" name="motivation" maxlength="500" rows="5" data-ph-en="Your background, and what made you apply now" data-ph-th="เล่าเรื่องราวและแรงบันดาลใจของคุณให้เราได้รู้จักคุณมากขึ้น" placeholder="เล่าเรื่องราวและแรงบันดาลใจของคุณให้เราได้รู้จักคุณมากขึ้น"></textarea>
+    <div class="field" data-ff="motivation"><label for="fa_motivation"><span data-en="Why are you interested in applying for this program?" data-th="ทำไมคุณจึงสนใจสมัครโครงการนี้">ทำไมคุณจึงสนใจสมัครโครงการนี้</span> <span class="req">*</span></label>
+     <textarea class="inp" id="fa_motivation" name="motivation" maxlength="500" rows="5" data-ph-en="Tell us your story and what inspires you so we can get to know you better." data-ph-th="เล่าเรื่องราวและแรงบันดาลใจของคุณให้เราได้รู้จักคุณมากขึ้น" placeholder="เล่าเรื่องราวและแรงบันดาลใจของคุณให้เราได้รู้จักคุณมากขึ้น"></textarea>
      <span class="hint ft-count"><span data-en="Up to 500 characters." data-th="ไม่เกิน 500 ตัวอักษร">ไม่เกิน 500 ตัวอักษร</span><b data-count="fa_motivation">0/500</b></span></div>
-    <div class="field" data-ff="goal_statement"><label for="fa_goal_statement"><span data-en="What do you want to achieve by the end?" data-th="เมื่อจบโครงการ คุณอยากได้อะไร">เมื่อจบโครงการ คุณอยากได้อะไร</span> <span class="req">*</span></label>
+    <div class="field" data-ff="goal_statement"><label for="fa_goal_statement"><span data-en="What do you want to achieve by the end of this program?" data-th="เมื่อจบโครงการ คุณอยากได้อะไร">เมื่อจบโครงการ คุณอยากได้อะไร</span> <span class="req">*</span></label>
      <textarea class="inp" id="fa_goal_statement" name="goal_statement" maxlength="500" rows="4" data-ph-en="e.g. One prototype that real users have tried" data-ph-th="เช่น มี prototype หนึ่งชิ้นที่ผู้ใช้จริงได้ลองใช้" placeholder="เช่น มี prototype หนึ่งชิ้นที่ผู้ใช้จริงได้ลองใช้"></textarea>
      <span class="hint ft-count"><span data-en="Up to 500 characters." data-th="ไม่เกิน 500 ตัวอักษร">ไม่เกิน 500 ตัวอักษร</span><b data-count="fa_goal_statement">0/500</b></span></div>
 
-    <p class="ft-grp"><span data-en="Your YEAH history and work" data-th="ประวัติกับ YEAH และผลงาน">ประวัติกับ YEAH และผลงาน</span></p>
-    <p class="hint" style="margin:-4px 0 10px" data-en="Verified activities from your member account. All of them are sent with your application." data-th="รายการกิจกรรมต่าง ๆ ที่คุณเคยเข้าร่วมและผ่านการรับรอง">รายการกิจกรรมต่าง ๆ ที่คุณเคยเข้าร่วมและผ่านการรับรอง</p>
+    <p class="ft-grp"><span data-en="Your YEAH past contributions to YEAH" data-th="ประวัติและผลงานกับ YEAH">ประวัติและผลงานกับ YEAH</span></p>
+    <p class="hint" style="margin:-4px 0 10px" data-en="Verified activities from your member account." data-th="รายการกิจกรรมต่าง ๆ ที่คุณเคยเข้าร่วมและผ่านการรับรอง">รายการกิจกรรมต่าง ๆ ที่คุณเคยเข้าร่วมและผ่านการรับรอง</p>
     <div class="card ft-acts" id="faActs" data-field="participations[]"></div>
     <span class="hint ft-acts-n" id="faActsN"></span>
     <div class="field" data-ff="portfolio_url"><label for="fa_portfolio_url"><span data-en="Portfolio or work link" data-th="ลิงก์พอร์ตโฟลิโอหรือผลงาน">ลิงก์พอร์ตโฟลิโอหรือผลงาน</span> <span class="req" id="faPfReq">*</span></label>
@@ -1408,7 +1418,7 @@ html[data-lang="th"] .ft-badge{letter-spacing:.02em}
    <!-- step 3: evidence, review, consent, snapshot -->
    <section class="ftstep" data-ftstep="3">
     <h2 data-en="Attach evidence and confirm" data-th="แนบหลักฐานและยืนยัน">แนบหลักฐานและยืนยัน</h2>
-    <p class="intro" data-en="Check everything once more — a sent application can't be edited." data-th="กรุณาตรวจทานให้เรียบร้อย เนื่องจากไม่สามารถแก้ไขได้ในภายหลัง">กรุณาตรวจทานให้เรียบร้อย เนื่องจากไม่สามารถแก้ไขได้ในภายหลัง</p>
+    <p class="intro" data-en="Please review carefully. This cannot be amended later." data-th="กรุณาตรวจทานให้เรียบร้อย เนื่องจากไม่สามารถแก้ไขได้ในภายหลัง">กรุณาตรวจทานให้เรียบร้อย เนื่องจากไม่สามารถแก้ไขได้ในภายหลัง</p>
     <!-- evidence_required: false → this card, with the dropzone folded away behind its button -->
     <div class="card ft-noev" id="faEvOpt" hidden>
      <i class="ic" data-lucide="circle-check"></i>
@@ -1422,7 +1432,7 @@ html[data-lang="th"] .ft-badge{letter-spacing:.02em}
       <label for="fa_files" class="fp-drop"><span class="fp-ic"><i class="ic" data-lucide="upload"></i></span><span><b data-en="Tap to choose files, or drop them here" data-th="กรุณาเลือกไฟล์">กรุณาเลือกไฟล์</b><small data-en="PDF, PNG, JPG · up to 10 MB each" data-th="PDF, PNG, JPG · ไม่เกิน 10 MB ต่อไฟล์">PDF, PNG, JPG · ไม่เกิน 10 MB ต่อไฟล์</small></span></label>
      </div>
      <ul class="ft-files" id="ftFiles" aria-live="polite"></ul>
-     <span class="hint" data-en="For example your latest transcript, or a piece of your work." data-th="เช่น ใบแสดงผลการเรียนล่าสุด หรือไฟล์ผลงานของคุณ">เช่น ใบแสดงผลการเรียนล่าสุด หรือไฟล์ผลงานของคุณ</span>
+     <span class="hint" data-en="e.g. your latest transcript or CV/Resume." data-th="เช่น ใบแสดงผลการเรียนล่าสุด หรือ CV/Resume ของคุณ">เช่น ใบแสดงผลการเรียนล่าสุด หรือ CV/Resume ของคุณ</span>
     </div>
 
     <p class="ft-grp"><span data-en="Review before sending" data-th="กรุณาตรวจทานก่อนส่ง">กรุณาตรวจทานก่อนส่ง</span></p>
@@ -1495,7 +1505,7 @@ html[data-lang="th"] .ft-badge{letter-spacing:.02em}
   </section>
 
   <section class="card ft-pad">
-   <h2 class="ft-h" data-en="What happens next" data-th="ขั้นต่อไป">ขั้นต่อไป</h2>
+   <h2 class="ft-h" data-en="What happens next" data-th="ขั้นตอนต่อไป">ขั้นตอนต่อไป</h2>
    <ul class="ft-next" id="ftDoneNext"></ul>
   </section>
 
@@ -1626,8 +1636,8 @@ html[data-lang="th"] .ft-badge{letter-spacing:.02em}
  <header><h3 data-en="Edit your details" data-th="แก้ไขข้อมูลของคุณ">แก้ไขข้อมูลของคุณ</h3></header>
  <div class="body">
   <form id="editForm">
-   <div class="field"><label><span data-en="Name (Thai)" data-th="ชื่อ-นามสกุล (ไทย)">ชื่อ-นามสกุล (ไทย)</span></label><input class="inp" value="ณิชา ศรีวัฒน์" readonly disabled></div>
-   <div class="field"><label><span data-en="Name (English)" data-th="ชื่อ-นามสกุล (อังกฤษ)">ชื่อ-นามสกุล (อังกฤษ)</span></label><input class="inp" value="Nicha Sriwat" readonly disabled></div>
+   <div class="field"><label><span data-en="Name-Surname (Thai)" data-th="ชื่อ-นามสกุล (ไทย)">ชื่อ-นามสกุล (ไทย)</span></label><input class="inp" value="ณิชา ศรีวัฒน์" readonly disabled></div>
+   <div class="field"><label><span data-en="Name-Surname (English)" data-th="ชื่อ-นามสกุล (อังกฤษ)">ชื่อ-นามสกุล (อังกฤษ)</span></label><input class="inp" value="Nicha Sriwat" readonly disabled></div>
    <div class="field"><label><span data-en="Birthdate" data-th="วันเกิด">วันเกิด</span></label><input class="inp" value="14 มี.ค. 2548" readonly disabled></div>
    <div class="field"><label><span data-en="Email" data-th="อีเมล">อีเมล</span></label><input class="inp" value="nicha.sri@gmail.com" readonly disabled></div>
    <div class="field"><label for="e_phone">phone</label><input class="inp" type="tel" id="e_phone" name="phone" value="081-234-5678"></div>
@@ -1637,6 +1647,16 @@ html[data-lang="th"] .ft-badge{letter-spacing:.02em}
    <div class="field"><label for="e_fac">faculty</label><input class="inp" id="e_fac" name="faculty" value="วิศวกรรมคอมพิวเตอร์"></div>
    <div class="field"><label for="e_year"><span data-en="Year of study" data-th="ชั้นปี">ชั้นปี</span></label><select class="inp" id="e_year" name="year_of_study"></select></div>
    <div class="field"><label for="e_edu"><span data-en="Education level" data-th="ระดับการศึกษา">ระดับการศึกษา</span></label><select class="inp" id="e_edu" name="education_level"></select></div>
+   </div>
+   <div id="eSchoolBlock">
+   <div class="field"><label for="e_school"><span data-en="School" data-th="โรงเรียน / สถานศึกษา">โรงเรียน / สถานศึกษา</span></label><input class="inp" id="e_school" name="school" value="โรงเรียนเตรียมอุดมศึกษา"></div>
+   <div class="field"><label for="e_grade"><span data-en="Grade" data-th="ระดับชั้น">ระดับชั้น</span></label><select class="inp" id="e_grade" name="grade_level"></select></div>
+   </div>
+   <div id="eProBlock">
+   <div class="field"><label for="e_emp"><span data-en="Employment type" data-th="ประเภทการทำงาน">ประเภทการทำงาน</span></label><select class="inp" id="e_emp" name="employment_type"></select></div>
+   <div class="field"><label for="e_dept"><span data-en="Department / field" data-th="แผนก / สายงาน">แผนก / สายงาน</span></label><input class="inp" id="e_dept" name="department_field" value="Marketing"></div>
+   <div class="field"><label for="e_org"><span data-en="Organisation" data-th="องค์กร">องค์กร</span></label><input class="inp" id="e_org" name="organisation" value="-"></div>
+   <div class="field"><label for="e_exp"><span data-en="Years of experience" data-th="ประสบการณ์ (ปี)">ประสบการณ์ (ปี)</span></label><select class="inp" id="e_exp" name="years_experience"></select></div>
    </div>
    <div class="field"><label for="e_prov"><span data-en="Province" data-th="จังหวัด">จังหวัด</span></label><select class="inp" id="e_prov" name="province"></select></div>
    <div class="field"><label for="e_track"><span data-en="Track you are curious about" data-th="สายที่คุณสนใจ">สายที่คุณสนใจ</span></label><select class="inp" id="e_track" name="track_interest"></select><input class="inp" id="e_track_other" name="track_interest_other" maxlength="100" style="display:none;margin-top:8px" data-ph-en="Tell us which track you are interested in" data-ph-th="ระบุสายที่คุณสนใจ" placeholder="ระบุสายที่คุณสนใจ"></div>
@@ -1877,7 +1897,7 @@ loginEmail.addEventListener('input',loginReady);loginPw.addEventListener('input'
 document.getElementById('emailForm').addEventListener('submit',function(e){
  e.preventDefault();if(loginBtn.disabled)return;
  console.log('POST /api/auth/login',{provider:'email',email:loginEmail.value.trim(),password:'[redacted]'});
- var go=function(){loginPw.value='';loginReady();showScreen('hub');toast(t('ยินดีต้อนรับกลับ','Welcome back'))};
+ var go=function(){loginPw.value='';loginReady();showScreen('hub');toast(t('ยินดีต้อนรับ','Welcome back'))};
  if(window.yeahLaunch)window.yeahLaunch(go,'signin');else go();
 });
 
@@ -2184,7 +2204,7 @@ function renderSummary(){
   [t('วันเกิด','Birthday'),val('birthdate')||'—'],
   [t('อีเมล','Email'),val('email')||'—'],
   [t('เบอร์','Mobile'),val('phone')?phoneE164(val('phone')):'—'],
-  [t('สถานะ','Status'),os?{school_student:t('นักเรียน','School student'),university_student:t('นักศึกษา','University student'),professional:t('คนทำงาน','Professional')}[os]:'—']
+  [t('สถานะ','Status'),os?{school_student:t('นักเรียน','High school student'),university_student:t('นักศึกษา','University student'),professional:t('คนทำงาน','Working professional')}[os]:'—']
  ];
  function inst(f){var v=val(f);return v==='other'?(val(f+'_other')||'—'):(v||'—')}
  var GRADE={m1:'ม.1',m2:'ม.2',m3:'ม.3',m4:'ม.4',m5:'ม.5',m6:'ม.6',voc1:'ปวช.1',voc2:'ปวช.2',voc3:'ปวช.3'};
@@ -2412,12 +2432,15 @@ function fillProfile(o){
   rows.forEach(function(r){var o=document.createElement('option');if(typeof r==='string')r=[r,r,r];
    o.value=r[0];o.setAttribute('data-th',r[1]);o.setAttribute('data-en',r[2]||r[1]);o.textContent=r[1];s.appendChild(o)});
   s.value=cur}
- fill('e_occ',[['university_student','นักศึกษา','University student'],['school_student','นักเรียน','School student'],['professional','คนทำงาน','Working professional']],'university_student');
+ fill('e_occ',[['university_student','นักศึกษา','University student'],['school_student','นักเรียน','High school student'],['professional','คนทำงาน','Working professional']],'university_student');
  var yrs=[];for(var i=1;i<=8;i++)yrs.push([String(i),'ปี '+i,'Year '+i]);
  fill('e_year',yrs,'3');fill('e_edu',SRC.edu,'bachelor');fill('e_prov',SRC.provinces,'กรุงเทพมหานคร');fill('e_track',SRC.tracks,'ai_genai');
  (function(){var sel=document.getElementById('e_track'),inp=document.getElementById('e_track_other');sel.addEventListener('change',function(){inp.style.display=sel.value==='other'?'':'none';if(sel.value!=='other')inp.value=''})})();
+ fill('e_grade',[['m1','ม.1','Grade 7'],['m2','ม.2','Grade 8'],['m3','ม.3','Grade 9'],['m4','ม.4','Grade 10'],['m5','ม.5','Grade 11'],['m6','ม.6','Grade 12'],['voc1','ปวช.1','Voc. 1'],['voc2','ปวช.2','Voc. 2'],['voc3','ปวช.3','Voc. 3']],'m4');
+ fill('e_emp',SRC.emp,'full_time');fill('e_exp',SRC.exp,'3-5');
  var occ=document.getElementById('e_occ');
- function tog(){document.getElementById('eUniBlock').style.display=occ.value==='university_student'?'':'none'}
+ /* each status has its own institution / workplace and year / experience fields */
+ function tog(){[['eUniBlock','university_student'],['eSchoolBlock','school_student'],['eProBlock','professional']].forEach(function(b){document.getElementById(b[0]).style.display=occ.value===b[1]?'':'none'})}
  occ.addEventListener('change',tog);tog();
 })();
 document.getElementById('editSave').addEventListener('click',function(){
@@ -2486,7 +2509,7 @@ var FT={id:'PRG-FT-C1',type:'bootcamp',
  announce:'2026-11-27',fast_announce:'2026-11-16',start:'2026-12-07',end:'2027-03-07',weeks:13,
  capacity:100,taken:63,levels:['general','1','2','3','4'],track:'standard',evidence_required:true};
 /* what the member record already holds — the same values the profile tab shows */
-var FT_MEMBER={first_name:'ณิชา',last_name:'ศรีวัฒน์',email:'nicha.sri@gmail.com',birthdate:'2005-03-14',phone:'+66812345678',
+var FT_MEMBER={first_name:'ณิชา',last_name:'ศรีวัฒน์',first_name_en:'Nicha',last_name_en:'Sriwat',email:'nicha.sri@gmail.com',birthdate:'2005-03-14',phone:'+66812345678',
  occupation_status:'university_student',university:'จุฬาลงกรณ์มหาวิทยาลัย',faculty:'วิศวกรรมคอมพิวเตอร์',year_of_study:3,education_level:'bachelor',
  province:'กรุงเทพมหานคร',referral_source:'friend',growth_goal:'อยากมีผลงานจริงในพอร์ตก่อนจบปี 4',portfolio_url:'',linkedin_url:'',
  participations:[
@@ -2497,8 +2520,9 @@ var FT_MEMBER={first_name:'ณิชา',last_name:'ศรีวัฒน์',em
 /* &ft_profile=sparse — signed in with Google and nothing more: a handle for a name, no study details */
 var FT_SPARSE={first_name:'Nicha',last_name:'S.',email:'nicha.sri@gmail.com',participations:[]};
 SRC.ftskills=SRC.tracks.filter(function(x){return x[0]!==''});
-var FT_YEARS={uni:[['year_1','ปี 1','Year 1'],['year_2','ปี 2','Year 2'],['year_3','ปี 3','Year 3'],['year_4','ปี 4','Year 4'],['year_4_plus','มากกว่าปี 4','Year 4+'],['alumnus','จบการศึกษาแล้ว','Alumnus']],
- school:[['m4','ม.4','Grade 10'],['m5','ม.5','Grade 11'],['m6','ม.6','Grade 12']]};
+/* year / grade choices are the sign-up form's: ม.1–ม.6 and ปวช.1–3 for school, ปี 1–8 for university */
+var FT_YEARS={uni:[1,2,3,4,5,6,7,8].map(function(n){return ['year_'+n,'ปี '+n,'Year '+n]}),
+ school:[['m1','ม.1','M.1'],['m2','ม.2','M.2'],['m3','ม.3','M.3'],['m4','ม.4','M.4'],['m5','ม.5','M.5'],['m6','ม.6','M.6'],['voc1','ปวช.1','Voc. 1'],['voc2','ปวช.2','Voc. 2'],['voc3','ปวช.3','Voc. 3']]};
 var FT_STEPS=[['ข้อมูลผู้สมัคร','About you'],['ใบสมัคร','Your application'],['หลักฐานและยืนยัน','Evidence and consent']];
 var FT_LV=['general','1','2','3','4'],FT_MO=[['ม.ค.','Jan'],['ก.พ.','Feb'],['มี.ค.','Mar'],['เม.ย.','Apr'],['พ.ค.','May'],['มิ.ย.','Jun'],['ก.ค.','Jul'],['ส.ค.','Aug'],['ก.ย.','Sep'],['ต.ค.','Oct'],['พ.ย.','Nov'],['ธ.ค.','Dec']];
 var ftMember=FT_MEMBER,ftStarted=false,ftDraft=false,ftBusy=false,ftEvOpen=false,ftApp=null,ftStep=1,ftPre={},ftTouched={},ftFiles=[],ftFileSeq=0;
@@ -2526,22 +2550,22 @@ function ftTarget(){return FT.track==='fast'?FT.fast_announce+'T12:00:00+07:00':
 
 /* ----- 03a program page ----- */
 function ftRoadSteps(){
- var send=[t('ส่งใบสมัคร','Send your application'),t('ภายใน ','By ')+ftDate(FT.deadline)];
+ var send=[t('ยื่นใบสมัคร','Submit your application'),t('ภายใน ','By ')+ftDate(FT.deadline)];
  return FT.track==='fast'
-  ?[send,[t('ทีม YEAH พิจารณาโดยตรง','YEAH direct review'),t('ไม่มีแบบทดสอบและสัมภาษณ์','No test or interview')],[t('ประกาศผล','Final acceptance'),ftDate(FT.fast_announce)]]
-  :[send,[t('รอแบบทดสอบคัดกรอง (Waiting list)','Waiting list, then a screening test'),t('แบบทดสอบออนไลน์ ','Online test, ')+ftDate(FT.screening)],
-    [t('แบบทดสอบ / สัมภาษณ์','Assessment / interview'),ftRange(FT.interview[0],FT.interview[1])],[t('ประกาศผล','Final acceptance'),ftDate(FT.announce)]];
+  ?[send,[t('ทีม YEAH พิจารณาโดยตรง','YEAH direct review'),t('ไม่มีแบบทดสอบและสัมภาษณ์','No test or interview')],[t('ประกาศผล','Final Acceptance'),ftDate(FT.fast_announce)]]
+  :[send,[t('แบบทดสอบคัดกรอง (Waiting List)','Screening Test (Waiting List)'),t('แบบทดสอบออนไลน์ ','Online test, ')+ftDate(FT.screening)],
+    [t('แบบทดสอบ / สัมภาษณ์','Assessment / Interview'),ftRange(FT.interview[0],FT.interview[1])],[t('ประกาศผล','Final Acceptance'),ftDate(FT.announce)]];
 }
 function ftRenderDetail(){
  var closed=ftClosed(),full=ftFull(),left=Math.max(0,FT.capacity-FT.taken),ok=ftEligible();
  var k=fe('ftdKicker');k.textContent=closed?t('ปิดรับสมัครแล้ว','Applications closed'):t('เปิดรับสมัครแล้ว','Applications open');k.classList.toggle('closed',closed);
  fe('ftdWeeks').textContent=FT.weeks;
- fe('ftdPeriod').innerHTML='<span class="nw">'+ftDate(FT.start)+'</span>'+t(' ถึง ',' to ')+'<span class="nw">'+ftDate(FT.end)+'</span>';
- fe('ftdCapLeft').textContent=left;fe('ftdCapTotal').textContent=FT.capacity;fe('ftdCapBar').style.width=(left/FT.capacity*100)+'%';
+ fe('ftdPeriod').innerHTML='<span class="nw">'+ftDate(FT.start)+'</span>'+t(' - ',' - ')+'<span class="nw">'+ftDate(FT.end)+'</span>';
+ fe('ftdCapLeft').textContent=left;fe('ftdCapBar').style.width=(left/FT.capacity*100)+'%';
  fe('ftdCapTile').classList.toggle('warn',full);
- fe('ftdCapNote').textContent=full?t('เต็มแล้ว ใบสมัครใหม่จะเข้าคิวสำรอง','Full — new applications join the overfill queue'):t('จากทั้งหมด '+FT.capacity+' ที่','Out of '+FT.capacity+' in total');
+ fe('ftdCapNote').textContent=full?t('เต็มแล้ว ใบสมัครใหม่จะเข้าคิวสำรอง','Full — new applications join the overfill queue'):t('จากทั้งหมด '+FT.capacity+' ที่','Out of '+FT.capacity+' slots');
  fe('ftdCdBox').classList.toggle('closed',closed);ftCdSet(fe('ftdCd'),ftLeft(FT.deadline));
- fe('ftdCdFoot').textContent=(closed?t('หมดเขตเมื่อ ','Closed on '):t('ปิดรับ ','Closes '))+ftDate(FT.deadline)+t(' เวลา '+ftTime(FT.deadline)+' น.',', '+ftTime(FT.deadline));
+ fe('ftdCdFoot').textContent=(closed?t('หมดเขตเมื่อ ','Closed on '):t('ปิดรับ ','Closes '))+ftDate(FT.deadline)+t(' เวลา '+ftTime(FT.deadline)+' น. (ICT)',', '+ftTime(FT.deadline)+' (ICT)');
  var you=fe('ftdYou');you.className='ftd-you '+(ok?'ok':'no');
  you.innerHTML='<i class="ic" data-lucide="'+(ok?'circle-check':'circle-alert')+'"></i>'+fesc(ok?t('ระดับของคุณสมัครได้','Your tier can apply'):t('ระดับของคุณยังไม่ถึงเกณฑ์','Your tier is below this'));
  /* only the tiers that can apply, with the tier rail's icons */
@@ -2598,10 +2622,10 @@ function ftPhone(v){var e=phoneE164(v);return /^\+66\d{9}$/.test(e)?'0'+e.slice(
 /* member record → application fields. Whatever the record lacks stays empty for the applicant */
 function ftMap(p){
  var os=p.occupation_status,yr='';
- if(os==='school_student')yr={m4:'m4',m5:'m5',m6:'m6'}[p.grade_level]||'';
- else if(p.year_of_study)yr=+p.year_of_study>4?'year_4_plus':'year_'+p.year_of_study;
- return {first_name:p.first_name,last_name:p.last_name,email:p.email,birthdate:p.birthdate,phone:p.phone?ftPhone(p.phone):'',
-  work_status:os?(os==='professional'?'employed':'student'):'',job_title:p.job_title,
+ if(os==='school_student')yr=p.grade_level||'';
+ else if(p.year_of_study)yr='year_'+p.year_of_study;
+ return {first_name:p.first_name,last_name:p.last_name,first_name_en:p.first_name_en,last_name_en:p.last_name_en,email:p.email,birthdate:p.birthdate,phone:p.phone?ftPhone(p.phone):'',
+  work_status:os?(os==='professional'?'employed':'student'):'',job_title:p.job_title,organisation:p.organisation,years_experience:p.years_experience,
   education_level:os==='school_student'?'high_school':p.education_level,institution:os==='school_student'?p.school:p.university,
   faculty_major:p.faculty,academic_year:yr,province:p.province,acquisition_channel:p.referral_source,acquisition_detail:p.referral_detail,
   goal_statement:p.growth_goal,portfolio_url:p.portfolio_url,linkedin_url:p.linkedin_url};
@@ -2609,10 +2633,10 @@ function ftMap(p){
 /* someone who registered in this session applies with what they just entered */
 function ftFromRegistration(p){
  var a=p.academic||{},pr=p.professional||{};
- ftMember={first_name:p.first_name,last_name:p.last_name,email:p.email,birthdate:p.birthdate,phone:p.phone,occupation_status:p.occupation_status,
+ ftMember={first_name:p.first_name,last_name:p.last_name,first_name_en:p.first_name_en,last_name_en:p.last_name_en,email:p.email,birthdate:p.birthdate,phone:p.phone,occupation_status:p.occupation_status,
   education_level:a.education_level,year_of_study:a.year_of_study,grade_level:a.grade_level,
   university:a.university==='other'?a.university_other:a.university,school:a.school==='other'?a.school_other:a.school,faculty:a.faculty,
-  job_title:pr.department_field,province:p.province,referral_source:p.referral_source,referral_detail:p.referral_detail,growth_goal:p.growth_goal,participations:[]};
+  job_title:pr.department_field,organisation:pr.organisation,years_experience:pr.years_experience,province:p.province,referral_source:p.referral_source,referral_detail:p.referral_detail,growth_goal:p.growth_goal,participations:[]};
  ftStarted=false;
 }
 function ftSetVal(n,v){
@@ -2647,7 +2671,7 @@ function ftPrefill(){
  ftForm.querySelectorAll('.ft-msg,.ft-pf').forEach(function(x){x.remove()});
  function put(k){if(ftSetVal(k,m[k]))ftPre[k]=fv(k)}
  /* education level first: it decides the institution list and the year options */
- ['first_name','last_name','email','birthdate','phone','work_status','job_title','education_level'].forEach(put);
+ ['first_name','last_name','first_name_en','last_name_en','email','birthdate','phone','work_status','job_title','organisation','years_experience','education_level'].forEach(put);
  ftLevel(false);
  if(m.institution){ftFillInst(m.institution);ftPre.institution=fv('institution')}
  ['faculty_major','academic_year','acquisition_channel','acquisition_detail','goal_statement','portfolio_url','linkedin_url'].forEach(put);
@@ -2678,8 +2702,10 @@ function ftYears(){
  var c=box.querySelector('[value="'+cur+'"]');if(c)c.checked=true;
 }
 function ftConds(){
- [['job_title',fv('work_status')==='employed'],['acquisition_detail',fv('acquisition_channel')==='other'],['target_skill_other',fv('target_skill')==='other']]
+ [['job_title',fv('work_status')==='employed'],['organisation',fv('work_status')==='employed'],['years_experience',fv('work_status')==='employed'],['acquisition_detail',fv('acquisition_channel')==='other'],['target_skill_other',fv('target_skill')==='other']]
   .forEach(function(c){ftWrap(c[0]).classList.toggle('on',c[1])});
+ /* graduated / employed applicants have no year of study */
+ ftWrap('academic_year').hidden=fv('work_status')==='employed';
 }
 /* YEAH history pulled from the account: every verified activity is sent, newest first, so this is a read-only list */
 function ftActList(){return (ftMember.participations||[]).filter(function(p){return p.verified})}
@@ -2701,21 +2727,22 @@ function ftEvidenceMode(){
  tag.className=req?'req':'ft-reqtag opt';tag.textContent=req?'*':t('ไม่บังคับ','Optional');
  fe('faEvOpt').hidden=req;fe('faEv').hidden=!req&&!ftEvOpen;fe('faEvMore').hidden=ftEvOpen;
  fe('faPfReq').hidden=!req;
- fe('faPfHint').textContent=ftPre.portfolio_url?'':t('ยังไม่มีในโปรไฟล์ของคุณ ลิงก์ที่ใส่ตรงนี้ใช้กับใบสมัครนี้เท่านั้น','Not on your profile yet. A link added here is used for this application only.');
+ fe('faPfHint').textContent=ftPre.portfolio_url?'':t('ยังไม่มีในโปรไฟล์ของคุณ','Not on your profile yet.');
 }
 fe('faEvMore').addEventListener('click',function(){ftEvOpen=true;ftEvidenceMode();fe('fa_files').focus()});
 
 /* [name, step, kind, applies-when] — validation, the "still to fill" count and the step gates all read this */
 var FT_FIELDS=[
- ['first_name',1,'name'],['last_name',1,'name'],['email',1,'email'],['birthdate',1,'date'],['phone',1,'phone'],
+ ['first_name',1,'name'],['last_name',1,'name'],['first_name_en',1,'enname'],['last_name_en',1,'enname'],['email',1,'email'],['birthdate',1,'date'],['phone',1,'phone'],
  ['work_status',1,'choice'],['job_title',1,'text',function(){return fv('work_status')==='employed'}],
- ['education_level',1,'choice'],['institution',1,'inst'],['faculty_major',1,'text'],['academic_year',1,'choice'],
+ ['organisation',1,'text',function(){return fv('work_status')==='employed'}],['years_experience',1,'choice',function(){return fv('work_status')==='employed'}],
+ ['education_level',1,'choice'],['institution',1,'inst'],['faculty_major',1,'text'],['academic_year',1,'choice',function(){return fv('work_status')!=='employed'}],
  ['province',1,'choice'],['acquisition_channel',1,'choice'],['acquisition_detail',1,'text',function(){return fv('acquisition_channel')==='other'}],
  ['target_skill',2,'choice'],['target_skill_other',2,'text',function(){return fv('target_skill')==='other'}],
  ['motivation',2,'text'],['goal_statement',2,'text'],
  ['portfolio_url',2,'url',function(){return FT.evidence_required}],['linkedin_url',2,'linkedin',function(){return false}],
  ['evidence',3,'files']];
-var FT_URL=/^https?:\/\/[^\s.\/]+\.\S{2,}$/i,FT_GOOD=/^(name|email|phone|url|linkedin)$/;
+var FT_URL=/^https?:\/\/[^\s.\/]+\.\S{2,}$/i,FT_GOOD=/^(name|enname|email|phone|url|linkedin)$/;
 function ftF(n){return FT_FIELDS.filter(function(f){return f[0]===n})[0]}
 /* gate: true when a step is being left or the form sent — only then does an upload still running count against it */
 function ftErr(f,gate){
@@ -2726,6 +2753,7 @@ function ftErr(f,gate){
  }
  var v=fv(f[0]);
  if(!v)return !need?'':k==='choice'||k==='inst'?t('เลือกหนึ่งข้อ','Choose one'):k==='date'?t('เลือกวันเกิด','Pick your birth date'):t('จำเป็นต้องกรอก','Required');
+ if(k==='enname'&&!latinName(v))return t('ใช้ตัวอักษรภาษาอังกฤษเท่านั้น','Use English letters only');
  if(k==='name'&&v.length<2)return t('กรอกอย่างน้อย 2 ตัวอักษร','Use at least 2 characters');
  if(k==='email'&&!EMAIL_RE.test(v))return t('รูปแบบอีเมลไม่ถูกต้อง','Enter a valid email address');
  if(k==='phone'&&!phoneOk(v))return t('กรอกเบอร์มือถือ 10 หลัก เช่น 081-234-5678','Enter a 10-digit mobile number, e.g. 081-234-5678');
@@ -2765,13 +2793,13 @@ function ftSync(){
  ftTags();
  ftForm.querySelectorAll('[data-count]').forEach(function(b){var n=fe(b.getAttribute('data-count')).value.length;b.textContent=n+'/500';b.classList.toggle('near',n>450)});
  var all=ftActList().length;
- fe('faActsN').textContent=all?t('ทั้งหมด '+all+' กิจกรรม','All '+all+' activities'):'';
+ fe('faActsN').textContent=all?t('ทั้งหมด '+all+' กิจกรรม',all+' activities in total'):'';
  var ok=fe('fa_pdpa').checked&&fe('fa_audit').checked,
   stepOk=!FT_FIELDS.some(function(f){return f[1]===ftStep&&ftErr(f,1)}),allOk=!FT_FIELDS.some(function(f){return ftErr(f,1)});
  fe('ftNext').disabled=!stepOk;
  fe('ftSubmit').disabled=!ok||!allOk||ftBusy;
  fe('ftSubmitHint').textContent=!allOk?t('คุณยังใส่ข้อมูลไม่ครบ','Some information is still missing.')
-  :!ok?t('กรุณาให้ความยินยอมทั้งสองช่องเพื่อเปิดปุ่มส่งใบสมัคร','Please tick both consent boxes to enable Submit.'):t('พร้อมส่งแล้ว','Ready to send.');
+  :!ok?t('กรุณาให้ความยินยอมทั้งสองช่องเพื่อส่งใบสมัคร','Please check both consent boxes to submit the application.'):t('พร้อมส่งแล้ว','Ready to send.');
  if(ftStep===3)ftSummary();
 }
 /* errors show once a field has been left (or a choice made), and clear live as soon as it is fixed */
@@ -2891,10 +2919,10 @@ function ftSkill(v,other){return v==='other'?(other||t('อื่น ๆ','Other
 function ftSummary(){
  var files=ftFiles.filter(function(x){return x.state==='ok'}),acts=ftActList().length,inst=fv('institution');
  var rows=[
-  [t('ชื่อ-นามสกุล','Full name'),(fv('first_name')+' '+fv('last_name')).trim()],[t('อีเมล','Email'),fv('email')],
+  [t('ชื่อ-นามสกุล (ไทย)','Name-Surname (Thai)'),(fv('first_name')+' '+fv('last_name')).trim()],[t('ชื่อ-นามสกุล (อังกฤษ)','Name-Surname (English)'),(fv('first_name_en')+' '+fv('last_name_en')).trim()],[t('อีเมล','Email'),fv('email')],
   [t('เบอร์มือถือ','Mobile'),fv('phone')],[t('วันเกิด','Birth date'),fv('birthdate')],
-  [t('สถานะ','Status'),[ftChoice('work_status'),fv('work_status')==='employed'?fv('job_title'):''].filter(Boolean).join(' · ')],
-  [t('การศึกษา','Education'),[ftChoice('education_level'),inst==='other'?fv('institution_other'):inst?fe('faInstBtn').querySelector('span').textContent:'',fv('faculty_major'),ftChoice('academic_year')].filter(Boolean).join(' · ')],
+  [t('สถานะ','Status'),[ftChoice('work_status')].concat(fv('work_status')==='employed'?[fv('job_title'),fv('organisation'),ftChoice('years_experience')]:[]).filter(Boolean).join(' · ')],
+  [t('การศึกษา','Education'),[ftChoice('education_level'),inst==='other'?fv('institution_other'):inst?fe('faInstBtn').querySelector('span').textContent:'',fv('faculty_major'),fv('work_status')==='employed'?'':ftChoice('academic_year')].filter(Boolean).join(' · ')],
   [t('จังหวัด','Province'),fv('province')?labelOf('provinces',fv('province')):''],
   [t('ทักษะเป้าหมาย','Target skill'),fv('target_skill')?ftSkill(fv('target_skill'),fv('target_skill_other')):''],
   [t('กิจกรรมที่แนบ','Attached activities'),acts?t(acts+' รายการ',acts+(acts>1?' items':' item')):t('ไม่มี','None')],
@@ -2904,10 +2932,10 @@ function ftSummary(){
 function ftPayload(){
  var inst=fv('institution');
  return {program_id:FT.id,participant_id:'YEAH-M-004182',routing_track:FT.track,queue:ftFull()?'overfill':'main',
-  applicant:{first_name:fv('first_name'),last_name:fv('last_name'),email:fv('email'),birthdate:fv('birthdate'),phone:phoneE164(fv('phone')),
-   work_status:fv('work_status'),job_title:fv('work_status')==='employed'?fv('job_title'):null,
+  applicant:{first_name:fv('first_name'),last_name:fv('last_name'),first_name_en:fv('first_name_en'),last_name_en:fv('last_name_en'),email:fv('email'),birthdate:fv('birthdate'),phone:phoneE164(fv('phone')),
+   work_status:fv('work_status'),job_title:fv('work_status')==='employed'?fv('job_title'):null,organisation:fv('work_status')==='employed'?fv('organisation'):null,years_experience:fv('work_status')==='employed'?fv('years_experience'):null,
    education_level:fv('education_level'),institution:inst,institution_other:inst==='other'?fv('institution_other'):null,
-   faculty_major:fv('faculty_major'),academic_year:fv('academic_year'),province:fv('province'),
+   faculty_major:fv('faculty_major'),academic_year:fv('work_status')==='employed'?null:fv('academic_year'),province:fv('province'),
    acquisition_channel:fv('acquisition_channel'),acquisition_detail:fv('acquisition_channel')==='other'?fv('acquisition_detail'):null},
   target_skill:fv('target_skill'),target_skill_other:fv('target_skill')==='other'?fv('target_skill_other'):null,
   motivation:fv('motivation'),goal_statement:fv('goal_statement'),
@@ -2930,11 +2958,28 @@ fe('ftSubmit').addEventListener('click',function(){
   ftApp={id:'APP-2026-0417',submitted_at:new Date(),overfill:over,queue:over?FT.taken-FT.capacity+1:FT.taken+1,track:FT.track,
    name:body.applicant.first_name+' '+body.applicant.last_name,email:body.applicant.email,skill:body.target_skill,skill_other:body.target_skill_other,
    files:body.evidence_files.map(function(f){return f.name})};
+  ftSaveProfile(body.applicant);
   FT.taken++;ftBusy=false;b.classList.remove('loading');spin.hidden=true;label('ส่งใบสมัคร','Submit application');
   ftMarkApplied();showScreen('ftdone');ftRenderDone();
  },1600);
 });
 
+/* company and years of experience asked here also fill the member profile, for anyone who had not given them yet */
+function ftSaveProfile(a){
+ if(a.work_status!=='employed')return;
+ var up={};
+ if(!ftPre.organisation&&a.organisation)up.organisation=a.organisation;
+ if(!ftPre.years_experience&&a.years_experience)up.years_experience=a.years_experience;
+ if(!ftPre.job_title&&a.job_title)up.department_field=a.job_title;
+ if(!Object.keys(up).length)return;
+ console.log('PATCH /api/members/me',up);
+ if(up.organisation)ftMember.organisation=up.organisation;
+ if(up.years_experience)ftMember.years_experience=up.years_experience;
+ if(up.department_field&&!ftMember.job_title)ftMember.job_title=up.department_field;
+ var eo=document.getElementById('e_org'),ee=document.getElementById('e_exp'),ed=document.getElementById('e_dept');
+ if(eo&&up.organisation)eo.value=up.organisation;if(ee&&up.years_experience)ee.value=up.years_experience;if(ed&&up.department_field)ed.value=up.department_field;
+ if(typeof hubMeta==='function')hubMeta();
+}
 /* ----- 03c waiting list + screening countdown ----- */
 function ftRenderDone(){
  var a=ftApp;if(!a)return;
@@ -2946,13 +2991,13 @@ function ftRenderDone(){
  fe('ftDoneCdLbl').textContent=fast?t('ประกาศผลใน','Results in'):t('แบบทดสอบคัดกรองจะเปิดใน','Screening test opens in');
  fe('ftDoneCdZero').textContent=fast?t('ประกาศผลแล้ว','Results are out'):t('แบบทดสอบคัดกรองเปิดแล้ว','The screening test is open');
  fe('ftDoneCdFoot').textContent=fast?ftDate(FT.fast_announce)+t(' · ทีม YEAH พิจารณาโดยตรง',' · reviewed directly by YEAH')
-  :ftDate(FT.screening)+t(' ('+ftTime(FT.screening)+' น.)',' ('+ftTime(FT.screening)+')');
+  :ftDate(FT.screening)+t(' ('+ftTime(FT.screening)+' น. ICT)',' ('+ftTime(FT.screening)+' ICT)');
  fe('ftDoneCdNote').textContent=zero?t('ตรวจอีเมลและการแจ้งเตือนในพอร์ทัลของคุณ','Check your email and portal notifications.')
   :fast?t('เราจะแจ้งผลทาง '+email+' และในพอร์ทัล','We will send the result to '+email+' and to your portal.')
   :t('ลิงก์แบบทดสอบจะส่งไปที่ '+email+' และระบบแจ้งเตือน 1 วันก่อนสอบ','We will send the test link to '+email+' and to your portal a day before.');
  ftCdSet(fe('ftDoneCd'),ftLeft(tg));
  var steps=fast?[[t('ส่งใบสมัคร','Submitted'),'done'],[t('YEAH พิจารณาโดยตรง','YEAH direct review'),'now'],[t('ผลสุดท้าย','Final decision'),'']]
-  :[[t('ส่งใบสมัคร','Submitted'),'done'],[t('รอพิจารณา / Waiting list','YEAH review / waiting list'),'now'],[t('ทดสอบ / สัมภาษณ์','Assessment / interview'),''],[t('ผลสุดท้าย','Final decision'),'']];
+  :[[t('ส่งใบสมัคร','Submitted'),'done'],[t('รอพิจารณา / Waiting List','YEAH Review / Waiting List'),'now'],[t('ทดสอบ / สัมภาษณ์','Assessment / Interview'),''],[t('ผลสุดท้าย','Final Decision'),'']];
  var tr=fe('ftDoneTrack');tr.style.setProperty('--n',steps.length);
  tr.innerHTML=steps.map(function(s){return '<li class="'+s[1]+'"'+(s[1]==='now'?' aria-current="step"':'')+'><span class="dot">'+(s[1]==='done'?'<i class="ic" data-lucide="check"></i>':'')+'</span><small>'+fesc(s[0])+'</small></li>'}).join('');
  var d=a.submitted_at,ymd=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()),hm=pad(d.getHours())+':'+pad(d.getMinutes());
@@ -2961,10 +3006,10 @@ function ftRenderDone(){
   [t('ทักษะเป้าหมาย','Target skill'),fesc(ftSkill(a.skill,a.skill_other))],
   [t('ไฟล์แนบ','Attached files'),a.files.length?a.files.map(function(n){return '<span class="ft-fname">'+fesc(n)+'</span>'}).join(''):fesc(t('ไม่มี','None'))]]
   .map(function(r){return '<div class="pd"><span>'+fesc(r[0])+'</span><b>'+r[1]+'</b></div>'}).join('');
- var res=fast?FT.fast_announce:FT.announce,next=[['mail',t('ติดตามความคืบหน้าผ่านทางอีเมลและการแจ้งเตือน','Watch your email and notifications'),fesc(t('ทุกความคืบหน้าจะถูกส่งไปที่ '+email+' และการแจ้งเตือนในพอร์ทัล','Every update goes to '+email+' and the bell in your portal'))]];
- if(!fast)next.push(['clipboard-check',t('แบบทดสอบคัดกรอง ','Screening test, ')+ftDate(FT.screening),fesc(t('ทำแบบทดสอบออนไลน์ในพอร์ทัล เวลา '+ftTime(FT.screening)+' น.','Online in the portal at '+ftTime(FT.screening)))],
-  ['mic',t('การทดสอบ และการสัมภาษณ์ ','Assessment / interview, ')+ftRange(FT.interview[0],FT.interview[1]),fesc(t('สำหรับผู้ที่ผ่านการคัดกรอง','For applicants who pass screening'))]);
- next.push(['megaphone',t('ประกาศผลในวันที่ ','Result Announcement, ')+ftDate(res),fesc(t('ประกาศในพอร์ทัลและทางอีเมล','In the portal and by email'))],
+ var res=fast?FT.fast_announce:FT.announce,next=[['mail',t('ติดตามความคืบหน้าผ่านทางอีเมลและการแจ้งเตือน','Watch your email and notifications'),fesc(t('ทุกความคืบหน้าจะถูกส่งไปที่ '+email+' และการแจ้งเตือนในพอร์ทัล','Every update goes to '+email+' and your portal notifications'))]];
+ if(!fast)next.push(['clipboard-check',t('แบบทดสอบคัดกรอง (','Screening Test (')+ftDate(FT.screening)+')',fesc(t('ทำแบบทดสอบออนไลน์ในพอร์ทัล เวลา '+ftTime(FT.screening)+' น. (ICT)','Online in the portal at '+ftTime(FT.screening)+' (ICT)'))],
+  ['mic',t('การทดสอบ และการสัมภาษณ์ (','Assessment / Interview (')+ftRange(FT.interview[0],FT.interview[1])+')',fesc(t('สำหรับผู้ที่ผ่านการคัดกรอง','For applicants who pass screening'))]);
+ next.push(['megaphone',t('ประกาศผลในวันที่ (','Result Announcement (')+ftDate(res)+')',fesc(t('ประกาศในพอร์ทัลและทางอีเมล','In the portal and by email'))],
   ['circle-help',t('FAQ','FAQ'),'<button type="button" class="ft-linkbtn" id="ftFaq">'+fesc(t('อ่านคำถามที่พบบ่อยของโครงการ','Read the program FAQ'))+'</button>']);
  fe('ftDoneNext').innerHTML=next.map(function(n){return '<li><span class="nic"><i class="ic" data-lucide="'+n[0]+'"></i></span><div><b>'+fesc(n[1])+'</b><p>'+n[2]+'</p></div></li>'}).join('');
  icons(fe('s-ftdone'));
@@ -2993,6 +3038,11 @@ function ftMarkApplied(){
  notifBtn.classList.remove('read');fe('markRead').disabled=false;
  icons(list);icons(nl);
 }
+/* the banner artwork follows the page language (the Thai and English files carry their own lettering) */
+function ftBannerArt(){
+ var o=document.querySelector('#ftBanner object'),u='uploads/yeah_future_talent_banner_mobile'+(LANG==='en'?'_en':'%282%29')+'.svg';
+ if(o.getAttribute('data')!==u)o.setAttribute('data',u);
+}
 function ftBannerChip(){
  var c=fe('ftBannerChip'),s=ftApp?['wait','hourglass',t('สมัครแล้ว · รอพิจารณา','Applied · waiting list')]:ftDraft?['draft','pencil',t('สมัครต่อจากร่าง','Continue your draft')]:null;
  c.hidden=!s;if(!s)return;
@@ -3012,7 +3062,7 @@ setInterval(function(){
 },1000);
 function ftRenderAll(){
  document.querySelectorAll('[data-aria-en]').forEach(function(el){el.setAttribute('aria-label',t(el.getAttribute('data-aria-th'),el.getAttribute('data-aria-en')))});
- ftEvidenceMode();ftBannerChip();
+ ftEvidenceMode();ftBannerChip();ftBannerArt();
  if(document.documentElement.getAttribute('data-screen')==='ftdetail')ftRenderDetail();
  fe('ftStepTitle').textContent=t(FT_STEPS[ftStep-1][0],FT_STEPS[ftStep-1][1]);
  ftForm.querySelectorAll('.has-err').forEach(function(w){ftShow(w.getAttribute('data-ff'))});

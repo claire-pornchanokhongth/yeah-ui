@@ -88,7 +88,9 @@ html:not([data-screen="hub"]) .bell{display:none}
 /* ===== buttons ===== */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 26px;border-radius:999px;border:none;font-family:var(--font-display-alt);font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:transform .14s var(--ease),box-shadow .14s var(--ease),background .14s}
 .btn .ic{width:17px;height:17px}
-.btn-grad{background:var(--grad);color:#151515;box-shadow:0 12px 26px -12px rgba(254,0,116,.7)}
+.btn-grad{background:#FE0074;color:#fff;box-shadow:0 12px 26px -12px rgba(254,0,116,.7)}
+/* solid pink; only share-profile, sign-in and submit-application keep the gradient */
+.btn-grad[data-sheet="share"],.btn-grad[data-modal="share"],.btn-grad#ftSubmit,.btn-grad#applySubmit,.btn-grad#emailSubmit{background:var(--grad);color:#151515}
 .btn-grad:hover{transform:translateY(-2px);box-shadow:0 18px 34px -14px rgba(254,0,116,.8)}
 .btn-dark{background:var(--yeah-black);color:#fff}
 .btn-dark:hover{transform:translateY(-2px)}
@@ -116,6 +118,9 @@ textarea.inp{min-height:96px;resize:vertical}
 .hint.err{color:var(--yeah-pink);font-weight:500}
 .hint.warn{color:#8A6D00;background:var(--yeah-yellow-100);border:1px solid var(--yeah-yellow-300);border-radius:10px;padding:8px 11px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid2>.field>.inp{margin-top:auto}
+.grid2.top{align-items:start}
+.grid2.top>.field>.inp{margin-top:0}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
 /* segmented choice */
@@ -587,7 +592,7 @@ html[data-lang="th"] .btn{letter-spacing:.01em}
       <div class="notif"><span class="nic"><i class="ic" data-lucide="clock"></i></span><div><b data-en="Pitch Night #12 closes in 3 days" data-th="Pitch Night #12 ปิดรับใน 3 วัน">Pitch Night #12 ปิดรับใน 3 วัน</b><p data-en="You are number 4 on the waitlist." data-th="คุณอยู่ลำดับสำรองที่ 4">คุณอยู่ลำดับสำรองที่ 4</p></div><time>3 ว.</time></div>
       <div class="notif"><span class="nic"><i class="ic" data-lucide="megaphone"></i></span><div><b data-en="New program open: YEAH Future Talent · Cohort 3" data-th="โครงการใหม่เปิดรับ: YEAH Future Talent · Cohort 3">โครงการใหม่เปิดรับ: YEAH Future Talent · Cohort 3</b><p data-en="Applications are open now. See the details and apply." data-th="เปิดรับสมัครแล้ว ดูรายละเอียดและสมัครได้เลย">เปิดรับสมัครแล้ว ดูรายละเอียดและสมัครได้เลย</p></div><time>4 ว.</time></div>
       <div class="notif"><span class="nic"><i class="ic" data-lucide="user"></i></span><div><b data-en="Your profile is 78% complete" data-th="โปรไฟล์ของคุณครบ 78% แล้ว">โปรไฟล์ของคุณครบ 78% แล้ว</b><p data-en="Add a portfolio link and a photo to reach 100%." data-th="เพิ่มลิงก์ผลงานและรูปโปรไฟล์เพื่อให้ครบ 100%">เพิ่มลิงก์ผลงานและรูปโปรไฟล์เพื่อให้ครบ 100%</p></div><time>4 ว.</time></div>
-      <div class="notif"><span class="nic"><i class="ic" data-lucide="party-popper"></i></span><div><b data-en="Welcome to YEAH" data-th="ยินดีต้อนรับสู่ YEAH">ยินดีต้อนรับสู่ YEAH</b><p data-en="You are a General Member now. Your level moves on verified evidence." data-th="คุณเป็นสมาชิกทั่วไป (General Member) แล้ว ระดับจะขยับตามหลักฐานที่ผ่านการตรวจสอบ">คุณเป็นสมาชิกทั่วไป (General Member) แล้ว ระดับจะขยับตามหลักฐานที่ผ่านการตรวจสอบ</p></div><time>4 ว.</time></div>
+      <div class="notif"><span class="nic"><i class="ic" data-lucide="party-popper"></i></span><div><b data-en="Welcome to YEAH Member Portal" data-th="ยินดีต้อนรับสู่ YEAH Member Portal">ยินดีต้อนรับสู่ YEAH Member Portal</b><p data-en="You are a General Member now. Your level moves on verified evidence." data-th="คุณเป็นสมาชิกทั่วไป (General Member) แล้ว ระดับจะขยับตามหลักฐานที่ผ่านการตรวจสอบ">คุณเป็นสมาชิกทั่วไป (General Member) แล้ว ระดับจะขยับตามหลักฐานที่ผ่านการตรวจสอบ</p></div><time>4 ว.</time></div>
      </div>
     </div>
    </div>
@@ -609,8 +614,8 @@ html[data-lang="th"] .btn{letter-spacing:.01em}
     <div><b class="cnt" data-to="100" data-suffix="+">0</b><small data-en="activities run" data-th="กิจกรรมที่จัดไปแล้ว">กิจกรรมที่จัดไปแล้ว</small></div>
     <div><b class="cnt" data-to="500" data-suffix="+">0</b><small data-en="people have joined" data-th="ผู้เข้าร่วมที่ผ่านมา">ผู้เข้าร่วมที่ผ่านมา</small></div>
    </div>
-   <h1 data-en="From potential to proof of work." data-th="เปลี่ยนศักยภาพให้เป็นผลงานที่พิสูจน์ได้">เปลี่ยนศักยภาพให้เป็นผลงานที่พิสูจน์ได้</h1>
-   <p data-en="One account for every YEAH program. Apply to bootcamps and events, collect verified evidence of what you build, and carry a credential that anyone can check." data-th="บัญชีเดียวใช้ได้กับทุกโครงการของ YEAH สมัครบูตแคมป์และกิจกรรม เก็บหลักฐานผลงานที่ผ่านการตรวจสอบ และถือ Credential ที่ใคร ๆ ก็ตรวจสอบได้">บัญชีเดียวใช้ได้กับทุกโครงการของ YEAH สมัครบูตแคมป์และกิจกรรม เก็บหลักฐานผลงานที่ผ่านการตรวจสอบ และถือ Credential ที่ใคร ๆ ก็ตรวจสอบได้</p>
+   <h1 data-en="From Potential to Proof of Work" data-th="จากศักยภาพสู่ผลงานที่พิสูจน์ได้">จากศักยภาพสู่ผลงานที่พิสูจน์ได้</h1>
+   <p data-en="Apply, collect verified evidence, and carry a credential anyone can check." data-th="สมัครกิจกรรม เก็บหลักฐานผลงานที่ผ่านการตรวจสอบ และได้รับการรับรองที่ใคร ๆ ก็ตรวจสอบได้">สมัครกิจกรรม เก็บหลักฐานผลงานที่ผ่านการตรวจสอบ และได้รับการรับรองที่ใคร ๆ ก็ตรวจสอบได้</p>
    <div class="auth-steps">
     <div><i class="n">1</i><span data-en="Sign in with your Google account or Email." data-th="เข้าสู่ระบบด้วยบัญชี Google หรืออีเมลของคุณ">เข้าสู่ระบบด้วยบัญชี Google หรืออีเมลของคุณ</span></div>
     <div><i class="n">2</i><span data-en="Fill in your profile." data-th="กรอกโปรไฟล์">กรอกโปรไฟล์</span></div>
@@ -620,7 +625,7 @@ html[data-lang="th"] .btn{letter-spacing:.01em}
 
   <div class="auth-panel">
    <div class="auth-box fmt">
-    <h2 data-en="Welcome to YEAH" data-th="ยินดีต้อนรับสู่ YEAH">ยินดีต้อนรับสู่ YEAH</h2>
+    <h2 data-en="Welcome to YEAH Member Portal" data-th="ยินดีต้อนรับสู่ YEAH Member Portal">ยินดีต้อนรับสู่ YEAH Member Portal</h2>
     <p class="sub" data-en="Sign in with Google, or with the email and password you signed up with." data-th="เข้าสู่ระบบด้วย Google หรือด้วยอีเมลและรหัสผ่านที่คุณใช้สมัคร">เข้าสู่ระบบด้วย Google หรือด้วยอีเมลและรหัสผ่านที่คุณใช้สมัคร</p>
 
     <button class="btn btn-google" id="googleBtn">
@@ -674,7 +679,7 @@ html[data-lang="th"] .btn{letter-spacing:.01em}
      <!-- ---- group 1 ---- -->
      <section class="fs" id="g-identity">
       <div class="fs-head"><span class="n">1</span><div><h3 data-en="Identity" data-th="ข้อมูลส่วนตัว">ข้อมูลส่วนตัว</h3></div></div>
-      <p class="sub only-google" data-en="Name and email come from your Google account. Edit them if your legal or university record differs." data-th="ชื่อและอีเมลดึงมาจากบัญชี Google แก้ไขได้หากต่างจากชื่อตามเอกสารหรือทะเบียนมหาวิทยาลัย">ชื่อและอีเมลดึงมาจากบัญชี Google แก้ไขได้หากต่างจากชื่อตามเอกสารหรือทะเบียนมหาวิทยาลัย</p>
+      <p class="sub only-google" data-en="Name and email come from your Google account. Edit them if your legal or university record differs." data-th="ข้อมูลบางส่วนจะถูกมาจากบัญชี Google ของคุณ กรุณาตรวจสอบ">ข้อมูลบางส่วนจะถูกมาจากบัญชี Google ของคุณ กรุณาตรวจสอบ</p>
       <p class="sub only-email" data-en="Use your name as it appears on your ID or student record. Your email and password become your sign-in." data-th="กรอกชื่อตามบัตรประชาชนหรือทะเบียนสถานศึกษา อีเมลและรหัสผ่านจะใช้สำหรับเข้าสู่ระบบ">กรอกชื่อตามบัตรประชาชนหรือทะเบียนสถานศึกษา อีเมลและรหัสผ่านจะใช้สำหรับเข้าสู่ระบบ</p>
       <div class="grid2">
        <div class="field">
@@ -778,7 +783,7 @@ html[data-lang="th"] .btn{letter-spacing:.01em}
 
       <!-- นักศึกษา: ปวส. / bachelor / graduate -->
       <div class="cond" id="blockStudent" style="margin-top:20px">
-       <div class="grid2">
+       <div class="grid2 top">
         <div class="field">
          <span class="lbl" id="university_lbl"><span data-en="University / institution" data-th="มหาวิทยาลัย / สถานศึกษา">มหาวิทยาลัย / สถานศึกษา</span> <span class="req">*</span></span>
          <div class="combo" data-kind="uni" data-for="university">
@@ -837,13 +842,13 @@ html[data-lang="th"] .btn{letter-spacing:.01em}
         </div>
         <div class="field">
          <label for="department_field"><span data-en="Department / field" data-th="แผนก / สายงาน">แผนก / สายงาน</span> <span class="req">*</span></label>
-         <input class="inp" id="department_field" name="department_field" data-req-group="professional" data-ph-en="e.g. Product, Marketing, Data" data-ph-th="เช่น Product, Marketing, Data" placeholder="เช่น Product, Marketing, Data">
+         <input class="inp" id="department_field" name="department_field" data-req-group="professional">
         </div>
        </div>
        <div class="grid2" style="margin-top:18px">
         <div class="field">
-         <label for="organisation"><span data-en="Organisation" data-th="องค์กร">องค์กร</span></label>
-         <input class="inp" id="organisation" name="organisation" data-ph-en="Optional" data-ph-th="ไม่บังคับ" placeholder="ไม่บังคับ">
+         <label for="organisation"><span data-en='Organisation (freelancers and job seekers, please enter "-")' data-th='องค์กร (สำหรับฟรีแลนซ์และผู้ที่กำลังหางาน กรุณาใส่ "-")'>องค์กร (สำหรับฟรีแลนซ์และผู้ที่กำลังหางาน กรุณาใส่ "-")</span> <span class="req">*</span></label>
+         <input class="inp" id="organisation" name="organisation" data-req-group="professional">
         </div>
         <div class="field">
          <label for="years_experience"><span data-en="Years of experience" data-th="ประสบการณ์ (ปี)">ประสบการณ์ (ปี)</span></label>
@@ -859,7 +864,7 @@ html[data-lang="th"] .btn{letter-spacing:.01em}
      <!-- ---- group 3 ---- -->
      <section class="fs" id="g-about">
       <div class="fs-head"><span class="n">3</span><div><h3 data-en="Where you are from" data-th="ที่อยู่และการรู้จักเรา">ที่อยู่และการรู้จักเรา</h3></div></div>
-      <div class="grid2">
+      <div class="grid2 top">
        <div class="field">
         <label for="province"><span data-en="Province of residence" data-th="จังหวัดที่พักอาศัย">จังหวัดที่พักอาศัย</span> <span class="req">*</span></label>
         <select class="inp" id="province" name="province" required><option value="" data-en="Select" data-th="เลือก">เลือก</option></select>
@@ -868,11 +873,24 @@ html[data-lang="th"] .btn{letter-spacing:.01em}
         <label for="track_interest"><span data-en="Track you are curious about" data-th="สายที่คุณสนใจ">สายที่คุณสนใจ</span></label>
         <select class="inp" id="track_interest" name="track_interest">
          <option value="" data-en="Not sure yet" data-th="ยังไม่แน่ใจ">ยังไม่แน่ใจ</option>
-         <option value="ai_product">AI Product</option>
-         <option value="business_growth" data-en="Business &amp; Growth" data-th="ธุรกิจและการเติบโต">ธุรกิจและการเติบโต</option>
-         <option value="creative_media" data-en="Creative &amp; Media" data-th="ครีเอทีฟและสื่อ">ครีเอทีฟและสื่อ</option>
-         <option value="social_impact" data-en="Social Impact" data-th="ผลกระทบทางสังคม">ผลกระทบทางสังคม</option>
+         <option value="ai_genai" data-en="AI &amp; Generative AI Application" data-th="แอปพลิเคชัน AI และ Generative AI">แอปพลิเคชัน AI และ Generative AI</option>
+         <option value="data_analytics" data-en="Data Analytics" data-th="การวิเคราะห์ข้อมูล">การวิเคราะห์ข้อมูล</option>
+         <option value="complex_problem_solving" data-en="Complex Problem Solving" data-th="การแก้ปัญหาที่ซับซ้อน">การแก้ปัญหาที่ซับซ้อน</option>
+         <option value="cybersecurity" data-en="Cybersecurity &amp; Data Protection" data-th="ความมั่นคงปลอดภัยไซเบอร์และการคุ้มครองข้อมูล">ความมั่นคงปลอดภัยไซเบอร์และการคุ้มครองข้อมูล</option>
+         <option value="business_analytics" data-en="Business Analytics" data-th="การวิเคราะห์ธุรกิจ">การวิเคราะห์ธุรกิจ</option>
+         <option value="cloud_computing" data-en="Cloud Computing &amp; Architecture" data-th="คลาวด์คอมพิวติ้งและสถาปัตยกรรม">คลาวด์คอมพิวติ้งและสถาปัตยกรรม</option>
+         <option value="digital_product_mgmt" data-en="Digital Product Management" data-th="การบริหารผลิตภัณฑ์ดิจิทัล">การบริหารผลิตภัณฑ์ดิจิทัล</option>
+         <option value="business_consultant" data-en="Business Consultant" data-th="ที่ปรึกษาธุรกิจ">ที่ปรึกษาธุรกิจ</option>
+         <option value="management_consultant" data-en="Management Consultant" data-th="ที่ปรึกษาด้านการบริหารจัดการ">ที่ปรึกษาด้านการบริหารจัดการ</option>
+         <option value="esg_sustainability" data-en="ESG &amp; Sustainability Strategy" data-th="กลยุทธ์ ESG และความยั่งยืน">กลยุทธ์ ESG และความยั่งยืน</option>
+         <option value="marketing_plan" data-en="Marketing Plan &amp; Strategy" data-th="แผนและกลยุทธ์การตลาด">แผนและกลยุทธ์การตลาด</option>
+         <option value="influencer_creator" data-en="Influencer &amp; Creator Strategy" data-th="กลยุทธ์อินฟลูเอนเซอร์และครีเอเตอร์">กลยุทธ์อินฟลูเอนเซอร์และครีเอเตอร์</option>
+         <option value="investing_wealth" data-en="Investing &amp; Wealth Management" data-th="การลงทุนและการบริหารความมั่งคั่ง">การลงทุนและการบริหารความมั่งคั่ง</option>
+         <option value="other" data-en="Other (please specify)" data-th="อื่น ๆ (กรุณาระบุ)">อื่น ๆ (กรุณาระบุ)</option>
         </select>
+        <div class="cond" id="track_interest_other_wrap" style="margin-top:12px">
+         <input class="inp" id="track_interest_other" name="track_interest_other" maxlength="100" data-ph-en="Tell us which track you are interested in" data-ph-th="ระบุสายที่คุณสนใจ" placeholder="ระบุสายที่คุณสนใจ">
+        </div>
        </div>
       </div>
       <div class="field" style="margin-top:18px">
@@ -1308,8 +1326,8 @@ html[data-lang="th"] .btn{letter-spacing:.01em}
      <div class="field"><label for="e_year"><span data-en="Year of study" data-th="ชั้นปี">ชั้นปี</span></label><select class="inp" id="e_year" name="year_of_study"></select></div><div class="field"><label for="e_edu"><span data-en="Education level" data-th="ระดับการศึกษา">ระดับการศึกษา</span></label><select class="inp" id="e_edu" name="education_level"></select></div>
     </div>
    </div>
-   <div class="grid2" style="margin-top:16px">
-    <div class="field"><label for="e_prov"><span data-en="Province" data-th="จังหวัด">จังหวัด</span></label><select class="inp" id="e_prov" name="province"></select></div><div class="field"><label for="e_track"><span data-en="Track you are curious about" data-th="สายที่คุณสนใจ">สายที่คุณสนใจ</span></label><select class="inp" id="e_track" name="track_interest"></select></div>
+   <div class="grid2 top" style="margin-top:16px">
+    <div class="field"><label for="e_prov"><span data-en="Province" data-th="จังหวัด">จังหวัด</span></label><select class="inp" id="e_prov" name="province"></select></div><div class="field"><label for="e_track"><span data-en="Track you are curious about" data-th="สายที่คุณสนใจ">สายที่คุณสนใจ</span></label><select class="inp" id="e_track" name="track_interest"></select><input class="inp" id="e_track_other" name="track_interest_other" maxlength="100" style="display:none;margin-top:8px" data-ph-en="Tell us which track you are interested in" data-ph-th="ระบุสายที่คุณสนใจ" placeholder="ระบุสายที่คุณสนใจ"></div>
    </div>
    <div class="field" style="margin-top:16px"><label for="e_goal">growth_goal</label><textarea class="inp" id="e_goal" name="growth_goal" maxlength="300">อยากมีผลงานจริงในพอร์ตก่อนจบปี 4</textarea></div>
    <div class="field" style="margin-top:16px"><label for="e_cv">resume_file</label>
@@ -1672,6 +1690,10 @@ document.querySelectorAll('input[name="occupation_status"]').forEach(function(r)
  closeCombos();update();
 })});
 function setGroupRequired(g,on){document.querySelectorAll('[data-req-group="'+g+'"]').forEach(function(el){if(on)el.setAttribute('required','required');else el.removeAttribute('required')})}
+document.getElementById('track_interest').addEventListener('change',function(){
+ var o=this.value==='other';document.getElementById('track_interest_other_wrap').classList.toggle('on',o);
+ if(!o)document.getElementById('track_interest_other').value='';update();
+});
 document.querySelectorAll('input[name="referral_source"]').forEach(function(r){r.addEventListener('change',function(){
  document.getElementById('refOther').classList.toggle('on',r.value==='other');update();
 })});
@@ -1743,6 +1765,7 @@ function groupDone(k){
  if(k==='identity'&&isEmailMode()&&!pwOk())return false;
  if(k==='identity'&&!(latinName(val('first_name_en'))&&latinName(val('last_name_en'))))return false;
  if(k==='about'&&val('referral_source')==='other'&&!val('referral_detail'))return false;
+ if(k==='about'&&val('track_interest')==='other'&&!val('track_interest_other'))return false;
  return need.every(function(n){return !!val(n)});
 }
 function update(){
@@ -1781,6 +1804,7 @@ function memberPayload(){
   province:val('province')||null,
   referral_source:val('referral_source')||null,
   track_interest:val('track_interest')||null,
+  track_interest_other:val('track_interest')==='other'?val('track_interest_other'):null,
   growth_goal:val('growth_goal')||null,
   membership_level:'general',
   locale:LANG,
@@ -2035,7 +2059,8 @@ document.getElementById('e_li').addEventListener('input',liOk);
   var op=document.createElement('option');op.value=o[0];op.setAttribute('data-th',o[1]);op.setAttribute('data-en',o[2]);op.textContent=o[1];occ.appendChild(op)});
  var yr=document.getElementById('e_year');
  for(var i=1;i<=8;i++){var op=document.createElement('option');op.value=i;op.setAttribute('data-th','ปี '+i);op.setAttribute('data-en','Year '+i);op.textContent='ปี '+i;yr.appendChild(op)}
- clone('education_level','e_edu','bachelor');clone('province','e_prov');clone('track_interest','e_track','ai_product');
+ clone('education_level','e_edu','bachelor');clone('province','e_prov');clone('track_interest','e_track','ai_genai');
+ (function(){var sel=document.getElementById('e_track'),inp=document.getElementById('e_track_other');sel.addEventListener('change',function(){inp.style.display=sel.value==='other'?'':'none';if(sel.value!=='other')inp.value=''})})();
  occ.value='university_student';yr.value='3';
  function tog(){document.getElementById('eUniBlock').style.display=occ.value==='university_student'?'':'none'}
  occ.addEventListener('change',tog);tog();

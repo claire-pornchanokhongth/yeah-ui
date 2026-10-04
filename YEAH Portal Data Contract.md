@@ -259,14 +259,14 @@ Credential levels follow the design brief: 01 Certificate of Participation, 02 C
 
 ### 4b. YEAH Future Talent application (mobile only, for now)
 
-Tapping the hub banner opens a program popup; its สมัครเลย button opens a three-step application,
+Tapping the hub banner opens the program page (`?screen=ftdetail`); its สมัครเลย button opens a three-step application,
 and sending it lands on a waiting-list screen. The program is configured in `FT` in the mobile script
 (`program_id: PRG-FT-C1`). Only `apply_deadline` (2026-11-02 23:59 +07:00, from the banner) is real;
 capacity, program dates and the selection timeline are placeholders.
 
 **Program read model** — `FT`: `apply_deadline`, `capacity`, `seats_taken`, `starts_at`, `ends_at`,
 `eligible_levels[]`, `routing_track` ∈ `standard` \| `fast`, `evidence_required` (bool), and the dates
-`screening_test_at`, `interview_window`, `announce_at`. The popup shows slots remaining
+`screening_test_at`, `interview_window`, `announce_at`. The program page shows slots remaining
 (`capacity - seats_taken`) and a DD:HH:MM:SS countdown. When `seats_taken >= capacity` the CTA becomes
 "join overfill queue". After the deadline the CTA is disabled. If the member's level is not in
 `eligible_levels`, the form stays closed and an inline alert offers the tier guide or other programs.
@@ -303,7 +303,7 @@ changed). Everything stays editable, and edits never write back to the profile. 
 
 On submit the server stores an **immutable snapshot** of the application and the profile as they stand at
 that moment. Expected response: `application_id`, `status: "waitlist"`, `queue_position`, `snapshot_id`.
-Leaving the form mid-way keeps it as a draft (`status: "draft"`), and the banner and popup offer to continue.
+Leaving the form mid-way keeps it as a draft (`status: "draft"`), and the banner and program page offer to continue.
 
 The waiting-list screen counts down to `screening_test_at` (or to `announce_at` on the fast track). It shows
 the read-only snapshot, the selection track and the next dates. The screening test, interview and result

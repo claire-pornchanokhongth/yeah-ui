@@ -310,6 +310,45 @@ the read-only snapshot, the selection track and the next dates. The screening te
 screens are paused; a small "test · dev team only" line at the bottom of the screen is their placeholder.
 No AI score, confidence or AI-decision label appears anywhere the member can see.
 
+### 4c. YEAH Future Talent screening test (desktop only, for now)
+
+When `screening_test_at` arrives, members on the waiting list get **one notification** under the bell. It
+carries a "take it on a computer" notice, and it changes as the attempt moves on. Tapping it goes to:
+
+| Attempt state | Notification | Opens |
+|---|---|---|
+| `not_started` | "Your screening test is open", with the closing time | test details (`?screen=ftinfo`) |
+| `in_progress` | "Continue your screening test", with the question and the time left | the question the member was on (`?screen=ftexam`) |
+| `submitted` | "We received your test answers", with the results time | the receipt (`?screen=ftsent`) |
+
+The member goes through these screens: test details (the terms must be ticked) → practice with a guided tour (`?screen=ftprac`,
+never sent to the server) → get ready (`?screen=ftready`) → the test → answers received. On a phone the same notification opens a page that says the test is only available on desktop
+(`YEAH Portal Mobile.html?screen=fttest`; `&ft_test=open` adds the notification), and nothing else. The test lives in `FTT` in the desktop script. It opens at
+`screening_test_at`. Its parts, question counts, 60-minute duration, closing time (2026-11-09 23:59 +07:00)
+and results time (2026-11-13 18:00 +07:00) are placeholders. The prototype holds one sample question.
+
+**Test read model** — `test_id`, `opens_at`, `closes_at`, `duration_minutes`, `results_at`,
+`terms_version`, `parts[]` (`key`, `name_th`, `name_en`, `question_count`). Every question is multiple
+choice: `id`, `part`, `text_th`, `text_en`, four `options[]`. The answer key never goes to the browser.
+
+| Action | Endpoint | Body → response |
+|---|---|---|
+| Start | `POST /api/tests/{test_id}/attempts` | `application_id`, `terms_version` → `attempt_id`, `started_at`, `ends_at`, `questions[]` |
+| Save an answer | `PUT /api/attempts/{attempt_id}/answers/{question_id}` | `choice` (0–3), `answered_at`. Sent on every pick, so leaving loses nothing |
+| Interruption | `POST /api/attempts/{attempt_id}/events` | `type: "disconnect"`, `question_index`. There is no exit button; this is logged when the connection drops or the tab closes |
+| Resume | `GET /api/attempts/{attempt_id}` | → `answers{}`, `question_index`, `ends_at` |
+| Submit | `POST /api/attempts/{attempt_id}/submit` | `auto_submitted` (bool) → `submitted_at`, `answered_count` |
+
+**Rules.** The server sets `ends_at = min(started_at + duration, closes_at)` and the browser counts down to
+it. The timer does not pause when the member leaves. At `ends_at` the server submits whatever is saved, and the
+browser does the same if it is open. There is one attempt per application. After submitting, the member sees
+the answered count, the time used and the results time, but no score. The applications row and the banner
+pill switch to the PRD's purple Assessment / Interview Pending style once the test opens.
+
+**Test switches** (desktop): `&ft_test=open|progress|sent` sets up a sample application in that state;
+`&ft_secs=90` starts the test with 90 seconds left, so you can see the 1-minute warning and the auto-submit; `&tour=0`
+skips the practice tour. On the waiting-list screen, the quiet "prototype only" link opens the test.
+
 ---
 
 ## 5. Things the UI deliberately does not do

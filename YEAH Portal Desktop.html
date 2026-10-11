@@ -583,6 +583,8 @@ html[data-screen="ftdetail"] #screen-ftdetail,html[data-screen="ftapply"] #scree
 .ft-chip .ic{width:1.05em;height:1.05em}
 .ft-chip.wait{background:#FEF3C7;color:#B45309}
 .ft-chip.draft{background:#F1F5F9;color:#475569}
+.ft-chip.assess{background:#F3E8FF;color:#6B21A8}
+.ft-chip.assess .ic{margin-right:0}
 /* program page: the banner's header with its artwork on the right, the details, then ยกเลิก / สมัครเลย above the site footer */
 .ftd-hero{position:relative;overflow:hidden;color:#fff;
  background:radial-gradient(circle 560px at 100% 0,#FCB846,rgba(251,106,92,.7) 45%,rgba(248,6,123,0)),radial-gradient(circle 420px at 0 85%,rgba(251,79,104,.55),rgba(248,6,123,0)),#F8067B}
@@ -835,6 +837,177 @@ html[data-lang="th"] .ft-grp{letter-spacing:.04em}
 /* thin hairline on the boxes inside the application form, for contrast on the glass card */
 #screen-ftapply .ft-summary,#screen-ftapply .ft-consent,#screen-ftapply .ft-acts,#screen-ftapply .ft-noev,#screen-ftapply .ft-file{border-color:rgba(40,16,36,.16)}
 @media (max-width:1180px){.ftd-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ftd-cols,.ft-done-grid{grid-template-columns:1fr}}
+/* dev-only hook into the screens after the waiting list — deliberately quiet (same as YEAH Portal Mobile) */
+.ft-test{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 6px;margin-top:26px;padding-top:12px;border-top:1px dashed rgba(40,16,36,.16);font-size:11px;color:#8E8A94}
+.ft-test .ic{width:13px;height:13px}
+.ft-test #tpJump{display:inline-flex;gap:6px;margin-left:6px}
+.ft-test button{border:none;background:none;padding:6px 2px;color:#8E8A94;font-size:11px;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+/* ===== 03d YEAH Future Talent screening test (desktop only): bell → test details → practice + tour → get ready → test → answers received ===== */
+html[data-screen="ftinfo"] #screen-ftinfo,html[data-screen="ftready"] #screen-ftready,html[data-screen="ftsent"] #screen-ftsent,
+html[data-screen="ftprac"] #screen-ftplay,html[data-screen="ftexam"] #screen-ftplay{display:block}
+#screen-ftinfo [hidden],#screen-ftplay [hidden],#screen-ftready [hidden],#screen-ftsent [hidden],#m-fttsubmit [hidden],.tour[hidden],.tour [hidden],.ft-test[hidden]{display:none!important}
+/* practice and the test run full-window: the test bar stands in for the site nav, and the footer goes */
+html[data-screen="ftprac"] .nav,html[data-screen="ftexam"] .nav,html[data-screen="ftprac"] .footer,html[data-screen="ftexam"] .footer{display:none}
+html:not([data-screen="ftprac"]) .only-prac,html:not([data-screen="ftexam"]) .only-exam{display:none!important}
+/* submitting the test keeps the gradient, like submitting the application */
+.btn-grad#tpSubmit,.btn-grad#fttSubGo,.btn-grad#tpNext{background:var(--grad);color:#151515}
+#fttSubGo[disabled]{opacity:.82}
+/* the test's notification: one item that follows the attempt — open · in progress · sent */
+.notif.ftt-notif{cursor:pointer;transition:background .14s var(--ease)}
+.notif.ftt-notif:hover{background:rgba(254,0,116,.08)}
+.notif.ftt-notif:focus-visible{outline:2.5px solid var(--yeah-pink);outline-offset:-3px}
+.ftt-desk{display:flex;gap:7px;align-items:flex-start;margin-top:8px;padding:7px 10px;border-radius:10px;background:#FEF3C7;color:#8A4B06;font-size:11.5px;font-weight:500;line-height:1.45}
+.ftt-desk .ic{width:14px;height:14px;flex:none;margin-top:1px}
+.ftt-go{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:7px 14px;border-radius:999px;background:var(--yeah-pink);color:#fff;font-size:12px;font-weight:600}
+.ftt-go .ic{width:14px;height:14px}
+.ftt-notif[data-state="sent"] .ftt-go{background:rgba(40,16,36,.08);color:var(--ink)}
+/* PRD status matrix: Assessment / Interview Pending — purple */
+.st-assess{background:#F3E8FF;color:#6B21A8}
+/* test details */
+.tt-sub{margin-top:8px;font-size:14px;color:var(--muted)}
+.tt-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.tt-tile{display:flex;flex-direction:column;min-width:0;padding:18px 20px;border-radius:18px;background:rgba(255,255,255,.66);border:1px solid rgba(40,16,36,.12)}
+.tt-val{display:flex;flex-direction:column}
+#ttTiles .tt-val,#trTiles .tt-val{flex-direction:row;align-items:baseline;gap:8px}
+#ttTiles .tt-val small,#trTiles .tt-val small{margin-top:0}
+.tt-tile b{margin-top:10px;font-family:var(--font-display-alt);font-size:36px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.tt-tile b.tx{font-family:var(--font-display);font-size:21px;font-weight:600;line-height:1.25;padding-top:6px}
+.tt-tile small{margin-top:6px;font-size:13px;color:var(--muted)}
+.tt-sec{margin-top:34px}
+.tt-sec>h2{font-size:20px;font-weight:600;margin-bottom:14px}
+.tt-parts{list-style:none;border-radius:18px;overflow:hidden;background:rgba(255,255,255,.66);border:1px solid rgba(40,16,36,.12)}
+.tt-parts li{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px 20px;border-bottom:1px solid var(--line)}
+.tt-parts li:last-child{border-bottom:none}
+.tt-parts .n{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--sel);color:var(--yeah-yellow);font-family:var(--font-display-alt);font-size:13px;font-weight:700}
+.tt-parts b{display:block;font-family:var(--font-display);font-size:15px;font-weight:600;line-height:1.35}
+.tt-parts small{font-size:12.5px;color:var(--muted)}
+.tt-parts em{font-style:normal;font-family:var(--font-display-alt);font-size:14px;font-weight:700;white-space:nowrap}
+.tt-parts li.tot{grid-template-columns:minmax(0,1fr) auto;background:rgba(40,16,36,.04);font-size:13.5px;font-weight:600}
+.tt-terms{padding:14px 22px 14px 44px;border-radius:18px;background:rgba(255,255,255,.66);border:1px solid rgba(40,16,36,.16)}
+.tt-terms li{padding:5px 0 5px 4px;font-size:14px;line-height:1.6}
+.tt-terms li::marker{font-family:var(--font-display-alt);font-weight:700;color:var(--yeah-pink)}
+.tt-foot .btn{margin-left:auto;min-width:270px}
+.reg-grid.tt-one{grid-template-columns:minmax(0,1fr)}
+.tt-win .ft-cd{margin:12px 0}
+.tt-win .ft-cd b{font-size:30px}
+.tt-win .ft-cdfoot{font-size:15px}
+.tt-sys{gap:12px}
+.tt-sys div{font-size:13px}
+.tt-sys em{margin-left:auto;font-style:normal;font-size:12px;color:var(--muted)}
+.checklist div.bad{color:var(--ink)}.checklist div.bad .ic{color:var(--yeah-pink)}
+/* the player — one component for practice and the real test */
+.tp-bar{position:sticky;top:0;z-index:50;height:76px;background:rgba(8,6,10,.86);backdrop-filter:blur(20px) saturate(1.6);-webkit-backdrop-filter:blur(20px) saturate(1.6);border-bottom:1px solid rgba(255,255,255,.12);color:#fff}
+.tp-bar>.wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px;height:100%}
+.tp-id{display:flex;align-items:center;gap:16px;min-width:0}
+.tp-id>div{min-width:0;padding-left:16px;border-left:1px solid rgba(255,255,255,.2)}
+.tp-id b{display:block;font-family:var(--font-display);font-size:14.5px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tp-tag{display:inline-block;margin-top:3px;padding:2px 9px;border-radius:999px;background:var(--yeah-yellow);color:#151515;font-size:11px;font-weight:600}
+html[data-screen="ftexam"] .tp-tag{background:var(--yeah-pink);color:#fff}
+.tp-prog{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:260px;padding:6px 12px;border-radius:16px}
+.tp-prog>div{display:flex;align-items:baseline;gap:10px;white-space:nowrap}
+.tp-prog b{font-family:var(--font-display);font-size:16px;font-weight:600;color:#fff}
+.tp-prog small{font-size:12.5px;color:rgba(255,255,255,.72)}
+.tp-pbar{display:block;width:100%;height:5px;border-radius:99px;background:rgba(255,255,255,.16);overflow:hidden}
+.tp-pbar i{display:block;height:100%;width:0;background:var(--grad);transition:width .3s var(--ease)}
+.tp-right{justify-self:end;display:flex;align-items:center;gap:10px}
+.tp-timer{display:inline-flex;align-items:center;gap:9px;height:46px;padding:0 18px 0 14px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);transition:background .2s,border-color .2s}
+.tp-timer .ic{width:19px;height:19px;color:var(--yeah-yellow)}
+.tp-timer b{font-family:var(--font-display-alt);font-size:22px;font-weight:700;line-height:1;color:var(--yeah-yellow);font-variant-numeric:tabular-nums}
+.tp-timer small{font-size:11.5px;color:rgba(255,255,255,.72)}
+.tp-timer.warn{background:#FEF3C7;border-color:#F5C451}.tp-timer.warn b,.tp-timer.warn .ic{color:#B45309}.tp-timer.warn small{color:#8A4B06}
+/* submit dialog: one plain white card, no dividers; the warning and the buttons sit in the middle */
+#m-fttsubmit .mcard{background:#fff;backdrop-filter:none;-webkit-backdrop-filter:none}
+#m-fttsubmit .mhead,#m-fttsubmit .mfoot{background:#fff;border:0;backdrop-filter:none;-webkit-backdrop-filter:none}
+#m-fttsubmit .mhead{padding-bottom:0}
+#m-fttsubmit .mbody{padding:14px 28px 6px;text-align:center}
+#m-fttsubmit .mfoot{justify-content:center;padding:18px 28px 28px}
+#m-fttsubmit .tt-miss{text-align:left}
+.mbody p.tt-final{margin-top:18px;font-size:20px;font-weight:700;line-height:1.5;color:var(--yeah-pink)}
+.tp-timer.last{background:#ED1515;border-color:transparent;animation:tpBeat 1s ease-in-out infinite}.tp-timer.last b,.tp-timer.last .ic,.tp-timer.last small{color:#FFE0E3}
+.tp-timer.crit{background:var(--yeah-pink);border-color:transparent;animation:tpBeat 1s ease-in-out infinite}.tp-timer.crit b,.tp-timer.crit .ic,.tp-timer.crit small{color:#fff}
+@keyframes tpBeat{50%{box-shadow:0 0 0 7px rgba(254,0,116,.25)}}
+@media (prefers-reduced-motion:reduce){.tp-timer.crit{animation:none}}
+.tp-body{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:24px;align-items:start;padding:28px 0 32px}
+.tp-q{padding:30px 36px 28px}
+.tp-qhead{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.tp-qhead .lbl{color:var(--yeah-pink)}
+.tp-saved{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted)}
+.tp-saved .ic{width:15px;height:15px}
+.tp-saved .spin{width:13px;height:13px;border-width:2px}
+.tp-saved.ok{color:#00734B}
+.tp-qn{margin-top:18px;font-family:var(--font-display-alt);font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+html[data-lang="th"] .tp-qn{letter-spacing:.02em}
+#tpQText{margin-top:6px;max-width:62ch;font-size:22px;font-weight:600;line-height:1.5;letter-spacing:-.01em}
+#tpQText:focus{outline:none}
+.tp-opts{display:flex;flex-direction:column;gap:12px;margin-top:26px}
+.tp-opts input{position:absolute;opacity:0;pointer-events:none}
+.tp-opts label{display:flex;align-items:center;gap:16px;min-height:64px;padding:12px 20px 12px 14px;border-radius:18px;background:rgba(255,255,255,.8);border:1.5px solid rgba(40,16,36,.12);box-shadow:0 6px 16px -12px rgba(90,20,60,.3);cursor:pointer;font-size:16px;transition:border-color .14s var(--ease),background .14s var(--ease)}
+.tp-opts label:hover{border-color:rgba(254,0,116,.45)}
+.tp-key{width:38px;height:38px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid rgba(40,16,36,.18);background:#fff;font-family:var(--font-display-alt);font-size:14px;font-weight:700;color:var(--ink)}
+.tp-opts input:checked+label{background:var(--sel);border-color:transparent;color:#fff;box-shadow:0 14px 28px -16px rgba(1,1,1,.8)}
+.tp-opts input:checked+label .tp-key{background:var(--yeah-yellow);border-color:transparent;color:#151515}
+.tp-opts input:focus-visible+label{box-shadow:0 0 0 3px rgba(254,215,50,.75)}
+.tp-foot{display:flex;justify-content:space-between;gap:12px;margin-top:28px}
+.tp-foot .btn{min-width:180px}
+.tp-try{display:flex;gap:12px;margin-bottom:22px;padding:14px 18px;border-radius:16px;background:rgba(254,215,50,.2);border:1px solid rgba(254,215,50,.55)}
+.tp-try .ic{width:19px;height:19px;flex:none;margin-top:2px;color:#8A6D00}
+.tp-try p{font-size:13.5px;color:#5C4A12}
+.tp-side{position:sticky;top:100px;display:flex;flex-direction:column;gap:12px}
+.tp-nav{padding:22px 22px 20px}
+.tp-nav h3{font-size:16px;font-weight:600}
+.tp-gh{display:block;margin:14px 0 8px;font-family:var(--font-display-alt);font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+html[data-lang="th"] .tp-gh{letter-spacing:.03em}
+.tp-cells{display:grid;grid-template-columns:repeat(5,34px);justify-content:space-between;row-gap:10px}
+#tpGrid>.tp-cells:first-child{margin-top:14px}
+.tp-cell{width:34px;height:34px;padding:0;border-radius:50%;border:2px solid rgba(40,16,36,.14);background:#fff;color:#3A3A3E;font-family:var(--font-display-alt);font-size:13px;font-weight:700;cursor:pointer;transition:border-color .14s var(--ease)}
+.tp-cell:hover{border-color:var(--yeah-pink)}
+.tp-cell.ans{background:#4A4A4F;border-color:#4A4A4F;color:#E4E4E7}
+.tp-cell.cur,.tp-cell.cur:hover{border-color:var(--yeah-pink)}
+.tp-cell:focus-visible{outline:2.5px solid var(--yeah-yellow);outline-offset:2px}
+.tp-legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+.tp-legend span{display:inline-flex;align-items:center;gap:6px}
+.tp-legend i{width:14px;height:14px;border-radius:50%;border:2px solid rgba(40,16,36,.2);background:#fff}
+.tp-legend i.ans{background:#4A4A4F;border-color:#4A4A4F}
+.tp-legend i.cur{border:2px solid var(--yeah-pink)}
+.tp-side>.btn{width:100%}
+.tp-side>.hint{text-align:center}
+.tp-help{display:flex;flex-direction:column;align-items:flex-start;padding:10px 20px}
+.tp-help .ft-linkbtn{display:inline-flex;align-items:center;gap:8px}
+.tp-help .ft-linkbtn .ic{width:16px;height:16px}
+#screen-ftplay .ft-test{margin:0 0 28px}
+/* guided tour over the practice: a spotlight on one control, and a card that explains it */
+.tour{position:fixed;inset:0;z-index:95}
+.tour-hole.none{box-shadow:0 0 0 9999px rgba(14,6,14,.62)}
+.tour-hole{position:fixed;border-radius:18px;pointer-events:none;box-shadow:0 0 0 3px var(--yeah-yellow),0 0 0 9999px rgba(14,6,14,.62);transition:left .3s var(--ease),top .3s var(--ease),width .3s var(--ease),height .3s var(--ease)}
+.tour-tip{position:fixed;width:400px;padding:20px 22px 18px;border-radius:22px;background:rgba(252,249,251,.97);border:1px solid rgba(255,255,255,.9);box-shadow:0 30px 70px -24px rgba(1,1,1,.7);transition:left .3s var(--ease),top .3s var(--ease)}
+.tour-tip:focus{outline:none}
+.tour-tip .lbl{color:var(--yeah-pink)}
+.tour-tip h3{margin-top:6px;font-size:18px;font-weight:600}
+.tour-tip p{margin-top:6px;font-size:13.5px;line-height:1.6;color:#3E3E3E}
+.tour-act{display:flex;align-items:center;gap:8px;margin-top:16px}
+.tour-act .auth-link{margin-right:auto;font-size:13.5px;white-space:nowrap}
+.tour-act .btn{white-space:nowrap;flex:none}
+@media (prefers-reduced-motion:reduce){.tour-hole,.tour-tip{transition:none}}
+/* get ready */
+.tt-ready{padding:44px 0 90px}
+.tt-ready-card{max-width:880px;margin:0 auto;padding:38px 44px 32px}
+.tt-ready-top{display:flex;gap:22px;align-items:center}
+.tt-ready-top .lbl{color:var(--yeah-pink)}
+.tt-ready-top h1{font-size:32px;font-weight:600;margin:6px 0 8px}
+.tt-ready-top p{max-width:58ch;font-size:14.5px;color:var(--muted)}
+.tt-ready .tt-tiles{margin-top:28px}
+#trTiles{grid-template-columns:repeat(3,minmax(0,1fr))}
+.tt-ready h2{margin:30px 0 16px;font-size:19px;font-weight:600}
+.tt-ready-act{display:flex;align-items:center;gap:12px;margin-top:28px;padding-top:24px;border-top:1px solid var(--line)}
+.tt-ready-act .auth-link{margin-right:auto;font-size:14.5px}
+.tt-ready-act #trGo{min-width:250px}
+/* answers received */
+#tsResCard h2{display:block;margin:12px 0 4px;font-family:var(--font-display-alt);font-size:40px;font-weight:700;line-height:1.1;color:var(--yeah-yellow)}
+/* submit / leave dialogs */
+.tt-miss{display:flex;gap:12px;margin:14px 0 10px;padding:14px 16px;border-radius:16px;background:#FFFBEB;border:1.5px solid #F5C451}
+.tt-miss>.ic{width:20px;height:20px;flex:none;margin-top:1px;color:#B45309}
+.tt-miss b{display:block;font-size:14px;font-weight:600}
+.tt-misslist{display:flex;flex-wrap:wrap;gap:0 14px}
 </style>
 </head>
 <body>
@@ -857,7 +1030,7 @@ html[data-lang="th"] .ft-grp{letter-spacing:.04em}
     <div class="notif-pop" id="notifPop" role="dialog" aria-label="Notifications">
      <header>
       <div>
-       <h2 data-en="What changed" data-th="มีอะไรเปลี่ยนบ้าง">มีอะไรเปลี่ยนบ้าง</h2>
+       <h2 data-en="Notifications" data-th="การแจ้งเตือน">การแจ้งเตือน</h2>
       </div>
       <button class="btn btn-ghost btn-sm" id="markRead"><span data-en="Mark all read" data-th="อ่านทั้งหมดแล้ว">อ่านทั้งหมดแล้ว</span></button>
      </header>
@@ -1763,6 +1936,160 @@ html[data-lang="th"] .ft-grp{letter-spacing:.04em}
      </div>
     </div>
    </div>
+   <p class="ft-test" id="fttDev"><i class="ic" data-lucide="flask-conical"></i><span data-en="Prototype only:" data-th="เฉพาะต้นแบบ:">เฉพาะต้นแบบ:</span><button type="button" id="fttOpenNow" data-en="open the screening test now" data-th="เปิดแบบทดสอบคัดกรองตอนนี้">เปิดแบบทดสอบคัดกรองตอนนี้</button></p>
+  </div>
+ </div>
+</main>
+
+<!-- ============ 03d FUTURE TALENT · SCREENING TEST (desktop only) ============
+     The member gets in through one notification under the bell, which follows the attempt: open → in progress →
+     sent. Test details (terms must be accepted) → practice with a guided tour → get ready → the test → answers
+     received. Leaving mid-test keeps the attempt: the same notification brings the member back to the question
+     they were on, with the time that is left (the timer does not pause). -->
+<main class="screen" id="screen-ftinfo" data-test-id="TST-FT-C1-SCR">
+ <div class="reg">
+  <div class="wrap">
+   <div class="reg-head ft-apphead">
+    <div class="ft-apptitle"><span class="lbl">YEAH Future Talent (<span data-en="Cohort 1" data-th="รุ่นที่ 1">รุ่นที่ 1</span>)</span>
+     <h1 data-en="Screening Test" data-th="แบบทดสอบคัดกรอง">แบบทดสอบคัดกรอง</h1>
+     <p class="tt-sub" data-en="Please read the instructions before you start." data-th="โปรดอ่านคำชี้แจงก่อนเริ่มทำแบบทดสอบ">โปรดอ่านคำชี้แจงก่อนเริ่มทำแบบทดสอบ</p></div>
+    <button type="button" class="btn btn-ghost btn-sm" data-ftt-hub><i class="ic" data-lucide="x"></i><span data-en="Back to dashboard" data-th="กลับสู่หน้าหลัก">กลับสู่หน้าหลัก</span></button>
+   </div>
+   <div class="reg-grid tt-one">
+    <div class="card card-pad">
+     <div class="tt-tiles" id="ttTiles"></div>
+     <section class="tt-sec">
+      <h2 data-en="How the test works" data-th="วิธีทำแบบทดสอบ">วิธีทำแบบทดสอบ</h2>
+      <ul class="ftd-req" id="ttHow"></ul>
+     </section>
+     <section class="tt-sec">
+      <h2 data-en="Parts" data-th="ส่วนของแบบทดสอบ">ส่วนของแบบทดสอบ</h2>
+      <ol class="tt-parts" id="ttParts" data-field="test.parts[]"></ol>
+     </section>
+     <section class="tt-sec">
+      <h2 data-en="Test rules and terms" data-th="กติกาและข้อตกลงการทำแบบทดสอบ">กติกาและข้อตกลงการทำแบบทดสอบ</h2>
+      <ol class="tt-terms" id="ttTerms"></ol>
+      <div class="consent ft-consent">
+       <span class="cbx"><input type="checkbox" id="ttAgree" name="terms_accepted"><span></span></span>
+       <div>
+        <label for="ttAgree" data-en="I have read the instructions and accept the test rules and terms." data-th="ข้าพเจ้าได้อ่านคำชี้แจง และยอมรับกติกาและข้อตกลงการทำแบบทดสอบ">ข้าพเจ้าได้อ่านคำชี้แจง และยอมรับกติกาและข้อตกลงการทำแบบทดสอบ</label>
+        <p class="hint" data-en="Required." data-th="จำเป็นต้องยอมรับ">จำเป็นต้องยอมรับ</p>
+       </div>
+      </div>
+     </section>
+     <div class="ft-foot tt-foot">
+      <p class="hint" id="ttHint" data-en="Accept the rules and terms to continue." data-th="ยอมรับกติกาและข้อตกลงเพื่อไปต่อ">ยอมรับกติกาและข้อตกลงเพื่อไปต่อ</p>
+      <button type="button" class="btn btn-grad" id="ttGo" disabled><span data-en="Start Practice Test" data-th="เริ่มแบบทดสอบฝึกหัด">เริ่มแบบทดสอบฝึกหัด</span><i class="ic" data-lucide="arrow-right"></i></button>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</main>
+
+<!-- practice and the real test share one player; the screen (ftprac · ftexam) sets the mode -->
+<main class="screen" id="screen-ftplay" data-test-id="TST-FT-C1-SCR">
+ <header class="tp-bar">
+  <div class="wrap">
+   <div class="tp-id">
+    <img class="nav-logo" src="uploads/logo_yeah_white_label_asso.png" alt="YEAH Association">
+    <div><b data-en="YEAH Future Talent Screening Test" data-th="แบบทดสอบคัดกรอง YEAH Future Talent">แบบทดสอบคัดกรอง YEAH Future Talent</b><span class="tp-tag" id="tpTag"></span></div>
+   </div>
+   <div class="tp-prog" data-tour="progress"><div><b id="tpCount"></b></div><span class="tp-pbar"><i id="tpBar"></i></span></div>
+   <div class="tp-right">
+    <div class="tp-timer" id="tpTimer" role="timer" aria-live="off" data-tour="timer"><i class="ic" data-lucide="timer"></i><b id="tpClock">00:00</b><small data-en="left" data-th="เหลือ">เหลือ</small></div>
+    <button type="button" class="lang-btn" id="tpLang"><span class="flag flag-th" id="tpFlag"></span><span id="tpLangTx">TH</span></button>
+   </div>
+  </div>
+ </header>
+ <div class="wrap">
+  <div class="tp-body">
+   <section class="card tp-q" aria-labelledby="tpQText">
+    <div class="tp-try only-prac" id="tpTry" hidden><i class="ic" data-lucide="hand"></i><p data-en="Try the practice test to get familiar with the system." data-th="ลองทำแบบทดสอบเพื่อทำความคุ้นเคยกับระบบ">ลองทำแบบทดสอบเพื่อทำความคุ้นเคยกับระบบ</p></div>
+    <div class="tp-qhead"><span class="lbl" id="tpPart"></span><span class="tp-saved" id="tpSaved" aria-live="polite"></span></div>
+    <p class="tp-qn" id="tpQn"></p>
+    <h2 id="tpQText" tabindex="-1"></h2>
+    <div class="tp-opts" id="tpOpts" role="radiogroup" aria-labelledby="tpQText" data-tour="options"></div>
+    <div class="tp-foot" data-tour="move">
+     <button type="button" class="btn btn-ghost" id="tpPrev"><i class="ic" data-lucide="arrow-left"></i><span data-en="Back" data-th="ย้อนกลับ">ย้อนกลับ</span></button>
+     <button type="button" class="btn btn-dark" id="tpNext"><span id="tpNextTx"></span><i class="ic" data-lucide="arrow-right"></i></button>
+    </div>
+   </section>
+   <aside class="tp-side">
+    <div class="card tp-nav" data-tour="nav">
+     <h3 data-en="Questions" data-th="รายการข้อ">รายการข้อ</h3>
+     <div id="tpGrid"></div>
+     <div class="tp-legend"><span><i class="ans"></i><span data-en="Answered" data-th="ตอบแล้ว">ตอบแล้ว</span></span><span><i class="cur"></i><span data-en="Current" data-th="ข้อปัจจุบัน">ข้อปัจจุบัน</span></span><span><i></i><span data-en="Not answered" data-th="ยังไม่ตอบ">ยังไม่ตอบ</span></span></div>
+    </div>
+    <button type="button" class="btn btn-grad" id="tpSubmit" data-tour="submit"><i class="ic" data-lucide="send"></i><span id="tpSubTx"></span></button>
+    <div class="card tp-help only-prac">
+     <button type="button" class="ft-linkbtn" id="tpTour"><i class="ic" data-lucide="rotate-ccw"></i><span data-en="Replay the tour" data-th="ดูวิธีใช้งานอีกครั้ง">ดูวิธีใช้งานอีกครั้ง</span></button>
+     <button type="button" class="ft-linkbtn" id="tpSkip"><i class="ic" data-lucide="skip-forward"></i><span data-en="Skip the practice test" data-th="ข้ามแบบทดสอบฝึกหัด">ข้ามแบบทดสอบฝึกหัด</span></button>
+    </div>
+   </aside>
+  </div>
+  <p class="ft-test only-exam"><i class="ic" data-lucide="flask-conical"></i><span id="tpDev"></span><span id="tpJump"><button type="button" data-jump="301">5:01</button><button type="button" data-jump="61">1:01</button><button type="button" data-jump="11">0:11</button></span><button type="button" id="tpDrop" data-en="simulate connection lost" data-th="จำลองการหลุดจากระบบ">จำลองการหลุดจากระบบ</button></p>
+ </div>
+</main>
+
+<main class="screen" id="screen-ftready" data-test-id="TST-FT-C1-SCR">
+ <div class="tt-ready">
+  <div class="wrap">
+   <section class="card tt-ready-card" aria-labelledby="trTitle">
+    <div class="tt-ready-top">
+     <span class="ft-ok-ic"><i class="ic" data-lucide="timer"></i></span>
+     <div><span class="lbl" data-en="Real test" data-th="แบบทดสอบจริง">แบบทดสอบจริง</span>
+      <h1 id="trTitle" data-en="You're about to start the real test" data-th="กำลังจะเริ่มแบบทดสอบจริง">กำลังจะเริ่มแบบทดสอบจริง</h1>
+      <p id="trLead"></p></div>
+    </div>
+    <div class="tt-tiles" id="trTiles"></div>
+    <h2 data-en="Please review before you start" data-th="โปรดตรวจสอบก่อนเริ่มทำแบบทดสอบ">โปรดตรวจสอบก่อนเริ่มทำแบบทดสอบ</h2>
+    <ul class="ft-next" id="trList"></ul>
+    <div class="tt-ready-act">
+     <button type="button" class="auth-link" data-ftt-hub data-en="Not now, back to dashboard" data-th="ยังไม่พร้อม กลับสู่หน้าหลัก">ยังไม่พร้อม กลับสู่หน้าหลัก</button>
+     <button type="button" class="btn btn-ghost" id="trPrac"><i class="ic" data-lucide="rotate-ccw"></i><span data-en="Practice again" data-th="ฝึกอีกครั้ง">ฝึกอีกครั้ง</span></button>
+     <button type="button" class="btn btn-grad" id="trGo"><span data-en="Start the test" data-th="เริ่มทำแบบทดสอบ">เริ่มทำแบบทดสอบ</span><i class="ic" data-lucide="arrow-right"></i></button>
+    </div>
+   </section>
+  </div>
+ </div>
+</main>
+
+<main class="screen" id="screen-ftsent" data-test-id="TST-FT-C1-SCR">
+ <div class="ft-done">
+  <div class="wrap">
+   <div class="ft-done-grid">
+    <div class="ft-done-col">
+     <section class="card ft-ok" aria-labelledby="tsTitle">
+      <span class="ft-ok-ic"><i class="ic" data-lucide="check"></i></span>
+      <div><h1 id="tsTitle" data-en="We've received your answers" data-th="เราได้รับคำตอบของคุณแล้ว">เราได้รับคำตอบของคุณแล้ว</h1><p id="tsSub"></p></div>
+     </section>
+     <section class="ft-cdcard" id="tsResCard">
+      <span class="lbl" data-en="Results announced" data-th="ประกาศผล">ประกาศผล</span>
+      <h2 id="tsResDate" data-field="test.results_at"></h2>
+      <p class="ft-cdfoot" id="tsResTime"></p>
+      <p class="ft-cdnote" id="tsResNote"></p>
+     </section>
+     <section class="card ft-pad">
+      <h2 class="ft-h" data-en="Where you are" data-th="สถานะของคุณ">สถานะของคุณ</h2>
+      <ol class="ft-track" id="tsTrack"></ol>
+     </section>
+    </div>
+    <div class="ft-done-col">
+     <section class="card ft-pad ft-snap" data-field="attempt.receipt">
+      <h2 data-en="Submission receipt" data-th="หลักฐานการส่ง">หลักฐานการส่ง</h2>
+      <p class="ft-stamp" id="tsStamp" data-field="attempt.submitted_at"></p>
+      <div id="tsRows"></div>
+     </section>
+     <section class="card ft-pad">
+      <h2 class="ft-h" data-en="What happens next" data-th="ขั้นตอนต่อไป">ขั้นตอนต่อไป</h2>
+      <ul class="ft-next" id="tsNext"></ul>
+     </section>
+     <div class="ft-done-act">
+      <button type="button" class="btn btn-grad" data-ftt-hub><span data-en="Back to dashboard" data-th="กลับสู่หน้าหลัก">กลับสู่หน้าหลัก</span></button>
+     </div>
+    </div>
+   </div>
   </div>
  </div>
 </main>
@@ -2007,7 +2334,31 @@ html[data-lang="th"] .ft-grp{letter-spacing:.04em}
  <div class="mfoot"><button class="btn btn-ghost btn-sm" data-close><span data-en="Close" data-th="ปิด">ปิด</span></button><button class="btn btn-dark btn-sm" id="withdrawApp"><span data-en="Withdraw application" data-th="ถอนใบสมัคร">ถอนใบสมัคร</span></button></div>
 </div></div>
 
+<!-- screening test: confirm submit (lists what is still unanswered) · leave for now (the timer keeps running) -->
+<div class="modal" id="m-fttsubmit" role="dialog" aria-labelledby="fttSubT"><div class="mcard" style="width:min(520px,100%)">
+ <button class="mclose" data-close aria-label="Close"><i class="ic" data-lucide="x"></i></button>
+ <div class="mhead"><h3 id="fttSubT"></h3></div>
+ <div class="mbody"><div class="tt-miss" id="fttSubMiss" hidden></div><p class="hint" id="fttSubNote"></p></div>
+ <div class="mfoot"><button class="btn btn-ghost btn-sm" data-close><span data-en="Keep working" data-th="กลับไปทำต่อ">กลับไปทำต่อ</span></button><button class="btn btn-grad btn-sm" id="fttSubGo"><span class="spin" hidden></span><span id="fttSubGoTx" data-en="Submit" data-th="ส่งคำตอบ">ส่งคำตอบ</span></button></div>
+</div></div>
+
+
 <div class="toast" id="toast"><i class="ic" data-lucide="circle-check"></i><span id="toastMsg"></span></div>
+
+<!-- practice tour: spotlight + explainer card, steps in FTT_TOUR -->
+<div class="tour" id="tour" hidden>
+ <div class="tour-hole" id="tourHole"></div>
+ <div class="tour-tip" id="tourTip" role="dialog" aria-modal="true" aria-labelledby="tourT" aria-describedby="tourP" tabindex="-1">
+  <span class="lbl" id="tourN"></span>
+  <h3 id="tourT"></h3>
+  <p id="tourP"></p>
+  <div class="tour-act">
+   <button type="button" class="auth-link" id="tourSkip" data-en="Skip the tour" data-th="ข้ามวิธีใช้งาน">ข้ามวิธีใช้งาน</button>
+   <button type="button" class="btn btn-ghost btn-sm" id="tourPrev"><span data-en="Back" data-th="ย้อนกลับ">ย้อนกลับ</span></button>
+   <button type="button" class="btn btn-grad btn-sm" id="tourNext"><span id="tourNextTx"></span></button>
+  </div>
+ </div>
+</div>
 
 <!-- school + university lists for the registration pickers (shared with the mobile file) -->
 <script src="data/th-institutions.js"></script>
@@ -2889,7 +3240,11 @@ function ftAlert(on){
   'This program requires '+ftMinTier()+' or higher. Your current tier is '+LEVEL_LABEL[MEMBER_LEVEL]+'.');
  icons(a);a.scrollIntoView({behavior:'smooth',block:'center'});a.focus({preventScroll:true});
 }
-fe('ftBanner').addEventListener('click',ftShowDetail);
+/* once the test is open the pill over the banner goes to the test (the same place as its notification); the rest of the banner still opens the program page */
+fe('ftBanner').addEventListener('click',function(e){
+ if(ftt.state!=='locked'&&e.target.closest('#ftBannerChip')){fttGo(ftt.state==='progress'?'ftexam':ftt.state==='sent'?'ftsent':'ftinfo');return}
+ ftShowDetail();
+});
 fe('ftdBack').addEventListener('click',ftLeaveDetail);
 fe('ftdCancel').addEventListener('click',ftLeaveDetail);
 fe('ftdCta').addEventListener('click',function(){
@@ -3281,10 +3636,7 @@ function ftRenderDone(){
   :fast?t('เราจะแจ้งผลทาง '+email+' และในพอร์ทัล','We will send the result to '+email+' and to your portal.')
   :t('ลิงก์แบบทดสอบจะส่งไปที่ '+email+' และระบบแจ้งเตือน 1 วันก่อนสอบ','We will send the test link to '+email+' and to your portal a day before.');
  ftCdSet(fe('ftDoneCd'),ftLeft(tg));
- var steps=fast?[[t('ส่งใบสมัคร','Submitted'),'done'],[t('YEAH พิจารณาโดยตรง','YEAH direct review'),'now'],[t('ผลสุดท้าย','Final decision'),'']]
-  :[[t('ส่งใบสมัคร','Submitted'),'done'],[t('รอพิจารณา / Waiting List','YEAH Review / Waiting List'),'now'],[t('ทดสอบ / สัมภาษณ์','Assessment / Interview'),''],[t('ผลสุดท้าย','Final Decision'),'']];
- var tr=fe('ftDoneTrack');tr.style.setProperty('--n',steps.length);
- tr.innerHTML=steps.map(function(s){return '<li class="'+s[1]+'"'+(s[1]==='now'?' aria-current="step"':'')+'><span class="dot">'+(s[1]==='done'?'<i class="ic" data-lucide="check"></i>':'')+'</span><small>'+fesc(s[0])+'</small></li>'}).join('');
+ ftTrack(fe('ftDoneTrack'),fast?[[t('ส่งใบสมัคร','Submitted'),'done'],[t('YEAH พิจารณาโดยตรง','YEAH direct review'),'now'],[t('ผลสุดท้าย','Final decision'),'']]:ftStdSteps());
  var d=a.submitted_at,ymd=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()),hm=pad(d.getHours())+':'+pad(d.getMinutes());
  fe('ftDoneStamp').textContent=t('ส่งเมื่อ '+ymd+' เวลา '+hm+' น.','Submitted on '+ymd+' at '+hm);
  fe('ftDoneSnap').innerHTML=[[t('เลขที่ใบสมัคร','Application ID'),fesc(a.id)],[t('ชื่อ-นามสกุล','Full name'),fesc(a.name)],[t('อีเมล','Email'),fesc(a.email)],
@@ -3298,6 +3650,15 @@ function ftRenderDone(){
   ['circle-help',t('FAQ','FAQ'),'<button type="button" class="ft-linkbtn" id="ftFaq">'+fesc(t('อ่านคำถามที่พบบ่อยของโครงการ','Read the program FAQ'))+'</button>']);
  fe('ftDoneNext').innerHTML=next.map(function(n){return '<li><span class="nic"><i class="ic" data-lucide="'+n[0]+'"></i></span><div><b>'+fesc(n[1])+'</b><p>'+n[2]+'</p></div></li>'}).join('');
  icons(fe('screen-ftdone'));
+}
+/* standard track: once the screening test opens, the waiting list is done and Assessment / Interview is current */
+function ftStdSteps(){
+ var tst=ftt&&ftt.state!=='locked';
+ return [[t('ส่งใบสมัคร','Submitted'),'done'],[t('รอพิจารณา / Waiting List','YEAH Review / Waiting List'),tst?'done':'now'],[t('ทดสอบ / สัมภาษณ์','Assessment / Interview'),tst?'now':''],[t('ผลสุดท้าย','Final Decision'),'']];
+}
+function ftTrack(tr,steps){
+ tr.style.setProperty('--n',steps.length);
+ tr.innerHTML=steps.map(function(s){return '<li class="'+s[1]+'"'+(s[1]==='now'?' aria-current="step"':'')+'><span class="dot">'+(s[1]==='done'?'<i class="ic" data-lucide="check"></i>':'')+'</span><small>'+fesc(s[0])+'</small></li>'}).join('');
 }
 /* after submit the hub follows: banner chip, a row at the top of My applications, a notification under the bell */
 function ftMarkApplied(){
@@ -3350,7 +3711,8 @@ function ftBannerArt(){
  if(o.getAttribute('data')!==u)o.setAttribute('data',u);
 }
 function ftBannerChip(){
- var c=fe('ftBannerChip'),s=ftApp?['wait','hourglass',t('สมัครแล้ว · รอพิจารณา','Applied · waiting list')]:ftDraft?['draft','pencil',t('สมัครต่อจากร่าง','Continue your draft')]:null;
+ var tst=ftt&&ftt.state!=='locked'?{open:['calendar',t('แบบทดสอบเปิดแล้ว','Test open')],progress:['timer',t('กำลังทำแบบทดสอบ','Test in progress')],sent:['circle-check',t('ส่งแบบทดสอบแล้ว','Test sent')]}[ftt.state]:null;
+ var c=fe('ftBannerChip'),s=tst?['assess',tst[0],tst[1]]:ftApp?['wait','hourglass',t('สมัครแล้ว · รอพิจารณา','Applied · waiting list')]:ftDraft?['draft','pencil',t('สมัครต่อจากร่าง','Continue your draft')]:null;
  c.hidden=!s;if(!s)return;
  c.className='ft-chip '+s[0];c.innerHTML='<i class="ic" data-lucide="'+s[1]+'"></i>'+fesc(s[2]);icons(c);
 }
@@ -3376,6 +3738,7 @@ function ftRenderAll(){
  ftForm.querySelectorAll('.has-err').forEach(function(w){ftShow(w.getAttribute('data-ff'))});
  ftRenderFiles();ftSync();
  if(ftApp)ftRenderDone();
+ fttRenderAll();
 }
 function ftSetup(qs){
  var st=qs.get('ft_state');
@@ -3390,28 +3753,444 @@ function ftSetup(qs){
 function ftRoute(qs,screen){
  if(screen==='ftdetail')ftRenderDetail();
  if(screen==='ftapply')ftGo(+qs.get('ftstep')||1);
- if(screen==='ftdone'&&!ftApp){
-  /* a sample submission built from the pre-filled form, so the page can be opened directly */
-  var over=ftFull();
-  ftApp={id:'APP-2026-0417',submitted_at:new Date(),overfill:over,queue:over?FT.taken-FT.capacity+1:FT.taken+1,track:FT.track,
-   name:(fv('first_name')+' '+fv('last_name')).trim(),email:fv('email'),skill:'ai_genai',skill_other:null,
-   files:FT.evidence_required?['transcript-2569.pdf','portfolio-thaifarm-ai.pdf']:[]};
-  FT.taken++;ftMarkApplied();ftRenderDone();
- }
+ if(screen==='ftdone'&&!ftApp){ftSampleApp();ftRenderDone()}
+}
+/* a sample submission built from the pre-filled form, so the waiting list and the test can be opened directly */
+function ftSampleApp(){
+ if(ftApp)return;
+ var over=ftFull();
+ ftApp={id:'APP-2026-0417',submitted_at:new Date(),overfill:over,queue:over?FT.taken-FT.capacity+1:FT.taken+1,track:FT.track,
+  name:(fv('first_name')+' '+fv('last_name')).trim(),email:fv('email'),skill:'ai_genai',skill_other:null,
+  files:FT.evidence_required?['transcript-2569.pdf','portfolio-thaifarm-ai.pdf']:[]};
+ FT.taken++;ftMarkApplied();
 }
 
-/* init — ?screen=login|register|hub|ftdetail|ftapply|ftdone deep-links a single screen, used by the frames preview;
-   &mode=email opens registration as the manual "Sign up" form (empty, with password fields);
-   the Future Talent switches (&ft_state=, …) are listed above FT */
+/* ---------- 03d YEAH Future Talent screening test: bell → details → practice → get ready → test → answers received ----------
+   Desktop only for now; the mobile file will say the test needs a computer. The member gets in through one notification
+   under the bell, and it follows the attempt: open (to the details) → in progress (back to the same question; the timer
+   keeps running) → sent (to the receipt). The test is configured in FTT and opens at FT.screening. Its parts, counts,
+   duration, closing time and results time are placeholders until the program team confirms them. FTT_BANK holds one
+   sample question, enough to build the player against; FTT_PRAC holds two, so Back / Next have somewhere to go.
+   Test switches: &ft_test=open|progress|sent (with a sample application) · &screen=ftinfo|ftprac|ftready|ftexam|ftsent ·
+   &ft_secs=90 starts the real test with 90 seconds left, to see the 1-minute state and the auto-submit · &tour=0 skips
+   the practice tour */
+var FTT={id:'TST-FT-C1-SCR',minutes:60,closes:'2026-11-09T23:59:59+07:00',results_at:'2026-11-13T18:00:00+07:00',prac_seconds:180,terms_version:'ft-test-2026-11-v1',
+ parts:[{key:'logic',n:15,name:['ตรรกะและการแก้ปัญหา','Logic and problem solving'],desc:['ตัวเลข รูปแบบ และการให้เหตุผล','Numbers, patterns and reasoning']},
+  {key:'digital',n:15,name:['ความรู้ด้านดิจิทัลและ AI','Digital and AI literacy'],desc:['ความเข้าใจผลิตภัณฑ์ดิจิทัลและเครื่องมือ AI','How digital products and AI tools work']},
+  {key:'scenario',n:10,name:['สถานการณ์การทำงาน','Work scenarios'],desc:['การตัดสินใจในสถานการณ์การทำงานเป็นทีม','What you would do in real team situations']}]};
+/* what POST /api/tests/{id}/attempts returns: four choices per question, and the answer key never reaches the browser */
+var FTT_BANK=[{id:'Q-LOG-0001',part:0,
+ q:['ร้านกาแฟแห่งหนึ่งขายกาแฟได้ 120 แก้วในวันจันทร์ วันอังคารขายได้เพิ่มขึ้น 25% ส่วนวันพุธขายได้ลดลง 20% จากวันอังคาร วันพุธร้านนี้ขายได้กี่แก้ว',
+  'A café sold 120 cups on Monday. On Tuesday, sales rose 25%. On Wednesday, they fell 20% from Tuesday\'s figure. How many cups did it sell on Wednesday?'],
+ opts:[['100 แก้ว','100 cups'],['115 แก้ว','115 cups'],['120 แก้ว','120 cups'],['125 แก้ว','125 cups']]},
+ {id:'Q-LOG-0002',part:0,q:['ลำดับตัวเลข 3, 6, 12, 24, … ตัวเลขถัดไปคือข้อใด','What comes next in the sequence 3, 6, 12, 24, …?'],opts:[['30','30'],['36','36'],['48','48'],['64','64']]},
+ {id:'Q-DIG-0001',part:1,q:['ข้อใดอธิบายความหมายของ “Prompt” เมื่อใช้งานเครื่องมือ AI ได้ถูกต้องที่สุด','Which best describes a “prompt” when using an AI tool?'],opts:[['คำสั่งหรือบริบทที่เราป้อนให้ AI','The instruction or context you give the AI'],['รหัสผ่านสำหรับเข้าใช้งาน AI','The password for the AI tool'],['ไฟล์ที่ AI สร้างออกมา','The file the AI produces'],['ค่าบริการรายเดือนของ AI','The monthly fee for the AI']]},
+ {id:'Q-DIG-0002',part:1,q:['ทีมผลิตภัณฑ์ต้องการรู้ว่าผู้ใช้เลิกใช้แอปที่ขั้นตอนไหนมากที่สุด ควรดูข้อมูลใดเป็นอันดับแรก','A product team wants to know where users drop off the most. Which data should it look at first?'],opts:[['จำนวนการดาวน์โหลดทั้งหมด','Total downloads'],['อัตราผู้ใช้ที่ไปต่อในแต่ละขั้นตอน','Step-by-step conversion rates'],['จำนวนผู้ติดตามบนโซเชียล','Social media followers'],['อายุของแอป','How old the app is']]},
+ {id:'Q-SCN-0001',part:2,q:['เพื่อนร่วมทีมส่งงานช้ากว่ากำหนดและกระทบงานของคุณ คุณควรทำอะไรเป็นอันดับแรก','A teammate is late and it affects your work. What should you do first?'],opts:[['แจ้งหัวหน้าทันทีโดยไม่คุยกับเพื่อน','Tell your lead right away without talking to them'],['ถามเพื่อนว่าติดปัญหาอะไรและช่วยกันหาทางออก','Ask what is blocking them and work out a way forward'],['ทำงานของเพื่อนแทนโดยไม่บอกใคร','Do their part quietly without telling anyone'],['รอโดยไม่ทำอะไร','Wait and do nothing']]},
+ {id:'Q-SCN-0002',part:2,q:['ในประชุมทีม สมาชิกสองคนเห็นต่างกันและเวลาใกล้หมด คุณควรทำอย่างไร','In a team meeting, two members disagree and time is almost up. What do you do?'],opts:[['ตัดสินใจเลือกฝ่ายที่เสียงดังกว่า','Side with whoever is louder'],['สรุปข้อดีข้อเสียของสองทางเลือก แล้วเสนอวิธีตัดสินใจร่วมกัน','Sum up the pros and cons and propose how to decide together'],['เลื่อนเรื่องนี้ออกไปโดยไม่มีกำหนด','Postpone it with no date'],['ปล่อยให้ทั้งสองฝ่ายตัดสินกันเอง','Leave the two of them to sort it out']]}];
+var FTT_PRAC=[
+ {id:'P-01',part:-1,q:['ตัวเลขถัดไปของลำดับ 2, 4, 8, 16, … คือข้อใด','What comes next: 2, 4, 8, 16, …?'],opts:[['24','24'],['30','30'],['32','32'],['36','36']]},
+ {id:'P-02',part:-1,q:['ถ้าวันนี้เป็นวันจันทร์ อีก 10 วันจะเป็นวันอะไร','If today is Monday, what day will it be in 10 days?'],opts:[['วันพุธ','Wednesday'],['วันพฤหัสบดี','Thursday'],['วันศุกร์','Friday'],['วันเสาร์','Saturday']]}];
+var FTT_STEPS=[['อ่านรายละเอียด','Read the details'],['ฝึกทำ','Practice'],['เตรียมตัว','Get ready'],['ทำแบบทดสอบ','Take the test']];
+/* the practice tour: the control it lights up (data-tour), then its title and text */
+var FTT_TOUR=[
+ ['timer',['เวลาที่เหลือ','Time left'],['เวลานับถอยหลังของแบบทดสอบทั้งชุด เวลาจะเปลี่ยนเป็นสีเหลืองเมื่อเหลือ 5 นาที และสีชมพูเมื่อเหลือ 1 นาที เมื่อหมดเวลา ระบบจะส่งคำตอบให้อัตโนมัติ','This is the countdown for the whole test. It turns amber at 5 minutes and pink at 1 minute. At zero, your answers are sent automatically.']],
+ ['progress',['ข้อที่กำลังทำ','Your progress'],['บอกว่าคุณอยู่ข้อไหนจากทั้งหมดกี่ข้อ และแถบด้านล่างแสดงความคืบหน้าของข้อที่ตอบแล้ว','Shows which question you are on out of the total, and the bar below fills as you answer.']],
+ ['options',['เลือกคำตอบ','Pick an answer'],['คลิกตัวเลือกเพื่อตอบ หากต้องการเปลี่ยนคำตอบให้คลิกตัวเลือกอื่น ระบบจะบันทึกคำตอบให้ทันที','Click a choice to answer. Click another one to change your answer. Your answer saves automatically.']],
+ ['move',['การย้อนกลับและไปข้อถัดไป','Back and Next'],['ข้อสอบจะเลื่อนไปทีละข้อ คุณสามารถข้ามข้อที่ยังไม่แน่ใจแล้วกลับมาทำทีหลังได้หากเวลายังไม่หมด','Move one question at a time. You can skip one you are unsure of and come back to it later if time permits.']],
+ ['nav',['ไปยังข้อที่ต้องการ','Jump to any question'],['เมื่อตอบคำถามแล้ว ข้อที่ตอบแล้วจะเป็นสีทึบ คุณสามารถคลิกหมายเลขเพื่อไปยังข้อนั้นทันที','Answered questions are filled in. Click a number to go to any specific question.']],
+ ['submit',['ส่งคำตอบ','Submit'],['กดส่งคำตอบเมื่อทำเสร็จแล้ว ระบบจะแจ้งหากคุณยังทำแบบทดสอบไม่ครบก่อนการยืนยัน','Send your answers when you are ready. The system will let you know if you have not finished the test before asking for your confirmation.']],
+ ['none',['หากเกิดการขัดข้องระหว่างการทำข้อสอบ','When something goes wrong'],['ระบบจะบันทึกคำตอบไว้ แต่เวลาจะถูกเดินต่อ คุณสามารถกลับมาทำต่อได้จากแจ้งเตือนหรืออีเมลเดิมของแบบทดสอบ','Your answers will be saved, but the timer keeps running. You can come back through the same test notification or email sent.']]];
+/* the attempt as the server holds it: POST …/attempts, a PUT per answer, POST …/submit */
+var ftt={state:'locked',agreed:false,id:null,cur:0,ans:{},started:null,deadline:null,sent:null,auto:false,warned:0};
+var fttPrac={cur:0,ans:{},left:FTT.prac_seconds,running:false,toured:false};
+var fttTourOff=false,fttSecs=0,fttTourI=-1,fttSaveT;
+function fttScr(){return document.documentElement.getAttribute('data-screen')}
+function fttPracMode(){return fttScr()==='ftprac'}
+function fttQs(){return fttPracMode()?FTT_PRAC:FTT_BANK}
+function fttSt(){return fttPracMode()?fttPrac:ftt}
+function fttTotal(){return FTT.parts.reduce(function(s,p){return s+p.n},0)}
+function fttAnswered(st){return Object.keys(st.ans).length}
+function fttLeftMs(){return ftt.deadline?ftt.deadline-Date.now():FTT.minutes*60000}
+function fttClock(ms){var s=Math.max(0,Math.ceil(ms/1000));return pad(Math.floor(s/60))+':'+pad(s%60)}
+function fttWhen(iso){return ftDate(iso)+t(' เวลา '+ftTime(iso)+' น.',', '+ftTime(iso))}
+function fttEmail(){return ftApp?ftApp.email:ftMember.email}
+
+/* ----- the bell: one notification that follows the attempt ----- */
+function fttNotifLine(){
+ var n=FTT_BANK.length;
+ return {open:t('แบบทดสอบ YEAH Future Talent (รุ่นที่ 1) สามารถทำได้ถึง ','YEAH Future Talent (Cohort 1) test open until ')+fttWhen(FTT.closes),
+  progress:t('คุณหยุดไว้ที่ข้อ '+(ftt.cur+1)+' จาก '+n+' เหลือเวลา '+fttClock(fttLeftMs())+' นาที และเวลายังเดินอยู่','You stopped at question '+(ftt.cur+1)+' of '+n+' with '+fttClock(fttLeftMs())+' left. The timer is still running.'),
+  sent:t('ประกาศผล ','Results on ')+fttWhen(FTT.results_at)+t(' ทางการแจ้งเตือนและอีเมล',', here and by email.')}[ftt.state]||'';
+}
+function fttNotif(){
+ var n=fe('fttNotif');
+ if(ftt.state==='locked'){if(n)n.remove();return null}
+ if(!n){
+  n=document.createElement('div');n.id='fttNotif';n.className='notif ftt-notif';n.setAttribute('role','button');n.tabIndex=0;n.setAttribute('data-test-id',FTT.id);
+  n.addEventListener('click',fttFromBell);
+  n.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();fttFromBell()}});
+ }
+ var c={open:['clipboard-check',t('แบบทดสอบคัดกรองเปิดให้ทำแล้ว','Your screening test is open'),t('เริ่มทำแบบทดสอบ','Start the test')],
+  progress:['timer',t('ทำแบบทดสอบคัดกรองต่อ','Continue your screening test'),t('ทำต่อจากที่ค้างไว้','Continue where you left off')],
+  sent:['circle-check',t('เราได้รับคำตอบแบบทดสอบของคุณแล้ว','We received your test answers'),t('ดูหลักฐานการส่ง','View receipt')]}[ftt.state];
+ n.setAttribute('data-state',ftt.state);
+ n.innerHTML='<span class="nic"><i class="ic" data-lucide="'+c[0]+'"></i></span><div><b>'+fesc(c[1])+'</b><p>'+fesc(fttNotifLine())+'</p>'+
+  (ftt.state!=='sent'?'<span class="ftt-desk"><i class="ic" data-lucide="monitor"></i>'+fesc(t('กรุณาทำแบบทดสอบบนคอมพิวเตอร์ ระบบไม่รองรับการใช้งานบนมือถือ','Please take the test on a computer. Phones are not supported.'))+'</span>':'')+
+  '<span class="ftt-go">'+fesc(c[2])+'<i class="ic" data-lucide="arrow-right"></i></span></div><time>'+fesc(t('เมื่อสักครู่','now'))+'</time>';
+ icons(n);return n;
+}
+/* the badge counts what is unread, whatever added it */
+function fttBell(){
+ var k=document.querySelectorAll('#notifPop .notif.unread').length,bc=fe('bellCnt');
+ if(!k){if(bc)bc.remove();return}
+ if(!bc){bc=document.createElement('span');bc.className='cnt';bc.id='bellCnt';fe('navBell').appendChild(bc)}
+ bc.textContent=k;
+}
+/* quiet: change state without bumping the notification, for when the member is already looking at the test */
+function fttSetState(s,quiet){
+ ftt.state=s;
+ var n=fttNotif(),nl=document.querySelector('#notifPop .list');
+ if(n&&(!quiet||!n.parentNode)){nl.insertBefore(n,nl.firstChild);n.classList.add('unread')}
+ fttBell();fttRow();ftBannerChip();fe('fttDev').hidden=s!=='locked';
+}
+function fttFromBell(){
+ var n=fe('fttNotif');if(n)n.classList.remove('unread');fttBell();setBell(false);
+ fttGo(ftt.state==='progress'?'ftexam':ftt.state==='sent'?'ftsent':'ftinfo');
+}
+/* My applications: once the test opens, the Future Talent row takes the PRD's Assessment / Interview Pending colours */
+function fttRow(){
+ var r=fe('ftHistRow');if(!r||ftt.state==='locked')return;
+ var c={open:['calendar','Test open',['แบบทดสอบคัดกรอง · ทำได้ถึง '+ftDate(FTT.closes,'th'),'Screening test · open until '+ftDate(FTT.closes,'en')]],
+  progress:['timer','Test in progress',['กำลังทำแบบทดสอบ · ทำต่อได้จากการแจ้งเตือน','In progress · continue from the notification']],
+  sent:['circle-check','Test sent',['ส่งคำตอบแล้ว · ประกาศผล '+ftDate(FTT.results_at,'th'),'Answers sent · results on '+ftDate(FTT.results_at,'en')]]}[ftt.state];
+ r.children[1].innerHTML='<span class="st st-assess"><i class="ic" data-lucide="'+c[0]+'"></i>'+c[1]+'</span>';
+ var h=r.children[2].querySelector('small'),tr=r.children[2].querySelectorAll('.track i');
+ h.setAttribute('data-th',c[2][0]);h.setAttribute('data-en',c[2][1]);h.textContent=t(c[2][0],c[2][1]);
+ if(tr[2])tr[2].classList.add('on');
+ icons(r);
+}
+function fttGo(s){
+ if(s==='ftexam'&&ftt.state!=='progress')return;
+ showScreen(s);fttRender();
+ if(s==='ftprac')fttPracEnter();
+ if(s==='ftexam')fe('tpQText').focus({preventScroll:true});
+}
+function fttRender(){
+ var s=fttScr();
+ if(s==='ftinfo')fttRenderInfo();
+ if(s==='ftprac'||s==='ftexam')fttRenderPlay();
+ if(s==='ftready')fttRenderReady();
+ if(s==='ftsent')fttRenderSent();
+}
+/* TH ↔ EN: everything this section wrote, in the new language */
+function fttRenderAll(){
+ fttNotif();fttRow();fttRender();
+ fe('tpFlag').className='flag flag-'+LANG;fe('tpLangTx').textContent=LANG.toUpperCase();
+ fe('tpLang').setAttribute('aria-label',fe('langBtn').getAttribute('aria-label'));
+ if(fttTourI>-1)fttTour(fttTourI);
+}
+
+/* ----- test details ----- */
+function fttTiles(box,rows){box.innerHTML=rows.map(function(r){return '<div class="tt-tile"><span class="lbl">'+fesc(r[0])+'</span><div class="tt-val"><b'+(r[3]?' class="tx"':'')+'>'+fesc(r[1])+'</b>'+(r[2]?'<small>'+fesc(r[2])+'</small>':'')+'</div></div>'}).join('')}
+function fttRenderInfo(){
+ var m=FTT.minutes;
+ fttTiles(fe('ttTiles'),[[t('เวลา','Duration'),m,t('นาที','minutes')],[t('จำนวนข้อ','Questions'),fttTotal(),t('ข้อ','questions')],
+  [t('จำนวนส่วน','Parts'),FTT.parts.length,t('ส่วน','parts')],[t('รูปแบบ','Format'),t('ปรนัย','Multiple choice'),'',1]]);
+ fe('ttHow').innerHTML=[
+  ['list-checks',t('กรุณาเลือกคำตอบที่ถูกที่สุดเพียงข้อเดียวจาก 4 ตัวเลือก','Pick only the one best answer out of 4 choices.')],
+  ['arrow-left-right',t('สามารถย้อนกลับ ข้ามข้อ หรือเปลี่ยนคำตอบได้ตลอดเวลาในระหว่างการทำข้อสอบ','You are allowed to move between questions, skip, and change answers until you submit.')],
+  ['save',t('ระบบจะทำการบันทึกคำตอบของคุณให้โดยอัตโนมัติในแต่ละข้อ','Your answers save automatically each question.')],
+  ['bell-ring',t('หากคุณออกจากระบบทดสอบก่อนเวลาหมด ให้กดการแจ้งเตือนเดิมอีกครั้ง ระบบจะพากลับไปที่ข้อเดิมพร้อมเวลาที่เหลืออยู่','If you get cut off or close the window, open the same notification again. You go back to the same question with the time that is left.')],
+  ['send',t('เมื่อหมดเวลา ระบบจะส่งคำตอบที่เลือกไว้ให้อัตโนมัติ','When time runs out, the answers you picked are sent automatically.')],
+  ['monitor',t('กรุณาใช้คอมพิวเตอร์ที่มีเบราว์เซอร์ Chrome, Edge, Safari หรือ Firefox เวอร์ชันล่าสุด แบบทดสอบนี้ไม่สามารถเปิดบนมือถือได้','Please use a computer with an up-to-date Chrome, Edge, Safari or Firefox. The test is not supported on a phone.')]]
+  .map(function(r){return '<li><i class="ic" data-lucide="'+r[0]+'"></i><span>'+fesc(r[1])+'</span></li>'}).join('');
+ fe('ttParts').innerHTML=FTT.parts.map(function(p,i){
+  return '<li data-part="'+p.key+'"><span class="n">'+(i+1)+'</span><div><b>'+fesc(t('ส่วนที่ '+(i+1)+': ','Part '+(i+1)+': ')+t(p.name[0],p.name[1]))+'</b><small>'+fesc(t(p.desc[0],p.desc[1]))+'</small></div><em>'+fesc(t(p.n+' ข้อ',p.n+' questions'))+'</em></li>'}).join('');
+ fe('ttTerms').innerHTML=[
+  t('ให้ผู้ทดสอบทำแบบทดสอบด้วยตนเอง ห้ามขอความช่วยเหลือจากผู้อื่นหรือหาคำตอบจากช่องทางใด ๆ','Take the test by yourself. Do not ask for help from other people or tools.'),
+  t('ห้ามคัดลอก ถ่ายภาพ บันทึก หรือเผยแพร่ข้อสอบ ทั้งระหว่างและหลังการทดสอบ','Do not copy, photograph, record or share the questions, during or after the test.'),
+  t('ผู้สมัครแต่ละคนสามารถทำได้ 1 ครั้ง เมื่อกดส่งแล้วจะแก้ไขคำตอบไม่ได้','You get one attempt. Once you submit, your answers cannot be changed.'),
+  t('ระบบจะเก็บคำตอบไว้กับใบสมัคร และใช้เพื่อการคัดเลือกเท่านั้น ตามประกาศความเป็นส่วนตัวของ YEAH','We store your answers with your application, and use them only for selection, under the YEAH privacy notice.'),
+  t('การคัดเลือกพิจารณาผลของผู้สมัครทุกคนเป็นไปตามที่คณะกรรมการกำหนดและถือเป็นที่สิ้นสุด','The selection team reviews every result and the decision is final.'),
+  t('การฝ่าฝืนกติกามีผลให้ใบสมัครของคุณถูกยกเลิก','Breaking these rules cancel your application.')]
+  .map(function(x){return '<li>'+fesc(x)+'</li>'}).join('');
+ fe('ttAgree').checked=ftt.agreed;fttAgreeSync();
+ icons(fe('screen-ftinfo'));
+}
+function fttAgreeSync(){fe('ttGo').disabled=!ftt.agreed;fe('ttHint').hidden=ftt.agreed}
+fe('ttAgree').addEventListener('change',function(){ftt.agreed=this.checked;fttAgreeSync()});
+fe('ttGo').addEventListener('click',function(){if(ftt.agreed)fttGo('ftprac')});
+document.addEventListener('click',function(e){if(e.target.closest('[data-ftt-hub]'))ftHub()});
+
+/* ----- the player: one component, practice (ftprac) or the real test (ftexam) ----- */
+function fttRenderPlay(){
+ var prac=fttPracMode(),qs=fttQs(),st=fttSt(),q=qs[st.cur],last=st.cur===qs.length-1,P=FTT.parts[q.part];
+ fe('tpTag').textContent=prac?t('แบบทดสอบฝึกหัด (ไม่นับคะแนน)','Practice Test (no scores counted)'):t('แบบทดสอบจริง','Real test');
+ fe('tpPart').textContent=P?t('ส่วนที่ '+(q.part+1)+' จาก '+FTT.parts.length+' · ','Part '+(q.part+1)+' of '+FTT.parts.length+' · ')+t(P.name[0],P.name[1]):t('ข้อฝึกหัด','Practice question');
+ fe('tpQn').textContent=t('ข้อ '+(st.cur+1),'Question '+(st.cur+1));
+ fe('tpQText').textContent=t(q.q[0],q.q[1]);
+ var o=fe('tpOpts');o.setAttribute('data-question-id',q.id);
+ o.innerHTML=q.opts.map(function(op,i){return '<input type="radio" name="answer_choice" id="tpo'+i+'" value="'+i+'"'+(st.ans[q.id]===i?' checked':'')+'><label for="tpo'+i+'"><span class="tp-key">'+'ABCD'.charAt(i)+'</span><span>'+fesc(t(op[0],op[1]))+'</span></label>'}).join('');
+ fe('tpPrev').disabled=st.cur===0;
+ fe('tpNextTx').textContent=last?(prac?t('ส่งคำตอบฝึกหัด','Submit practice'):t('ส่งคำตอบ','Submit test')):t('ข้อถัดไป','Next');
+ fe('tpNext').className='btn '+(last?'btn-grad':'btn-dark');
+ fe('tpSubTx').textContent=prac?t('ส่งคำตอบฝึกหัด','Submit practice'):t('ส่งคำตอบ','Submit test');
+ fe('tpDev').textContent=t('ต้นแบบ: เวอร์ชันนี้มีข้อสอบตัวอย่าง '+FTT_BANK.length+' ข้อ แบบทดสอบจริงจะดึง '+fttTotal()+' ข้อจากคลังข้อสอบ','Prototype: this build has '+FTT_BANK.length+' sample question. The live test loads '+fttTotal()+' from the question bank.');
+ fttStatus();fttTimer();fttSavedTx();icons(fe('screen-ftplay'));
+}
+/* what moves as answers come in: the count, what is left, the progress bar and the question grid */
+function fttStatus(){
+ var qs=fttQs(),st=fttSt(),n=qs.length,a=fttAnswered(st),left=n-a,groups=[];
+ fe('tpCount').textContent=t('ข้อ '+(st.cur+1)+' / '+n,'Question '+(st.cur+1)+' of '+n);
+ fe('tpBar').style.width=(a/n*100)+'%';
+ qs.forEach(function(q,i){var g=groups[groups.length-1];if(!g||g.part!==q.part)groups.push(g={part:q.part,items:[]});g.items.push(i)});
+ fe('tpGrid').innerHTML=groups.map(function(g){
+  return (g.part>-1?'<span class="tp-gh">'+fesc(t('ส่วนที่ '+(g.part+1),'Part '+(g.part+1)))+'</span>':'')+'<div class="tp-cells">'+g.items.map(function(i){
+   var on=st.ans[qs[i].id]!=null,cur=i===st.cur;
+   return '<button type="button" class="tp-cell'+(on?' ans':'')+(cur?' cur':'')+'" data-q="'+i+'"'+(cur?' aria-current="true"':'')+' aria-label="'+fesc(t('ข้อ '+(i+1)+(on?' · ตอบแล้ว':''),'Question '+(i+1)+(on?', answered':'')))+'">'+(i+1)+'</button>'}).join('')+'</div>'}).join('');
+}
+/* amber, then pink: at 5 min / 1 min in the test, scaled down to 60 s / 15 s for the 3-minute practice */
+function fttTimer(){
+ var prac=fttPracMode(),s=prac?fttPrac.left:Math.ceil(fttLeftMs()/1000),warn=prac?60:300,crit=prac?15:60,el=fe('tpTimer');
+ fe('tpClock').textContent=fttClock(s*1000);
+ el.classList.toggle('warn',s<=warn&&s>crit);el.classList.toggle('crit',s<=crit&&s>10);el.classList.toggle('last',s<=10);
+ el.setAttribute('aria-label',t('เวลาที่เหลือ '+Math.floor(s/60)+' นาที '+(s%60)+' วินาที','Time left: '+Math.floor(s/60)+' minutes '+(s%60)+' seconds'));
+}
+function fttSavedTx(){
+ var s=fe('tpSaved'),any=fttAnswered(fttSt())>0;
+ s.className='tp-saved'+(any?' ok':'');
+ s.innerHTML='<i class="ic" data-lucide="'+(any?'check':'save')+'"></i>'+fesc(any?t('บันทึกคำตอบแล้ว','Answers saved'):t('บันทึกอัตโนมัติเมื่อเลือกคำตอบ','Saves when you pick an answer'));
+ icons(s);
+}
+function fttSaving(){
+ var s=fe('tpSaved');s.className='tp-saved';s.innerHTML='<span class="spin"></span>'+fesc(t('กำลังบันทึก…','Saving…'));
+ clearTimeout(fttSaveT);fttSaveT=setTimeout(fttSavedTx,600);
+}
+fe('tpOpts').addEventListener('change',function(e){
+ var st=fttSt(),q=fttQs()[st.cur],v=+e.target.value;st.ans[q.id]=v;
+ if(!fttPracMode())console.log('PUT /api/attempts/'+ftt.id+'/answers/'+q.id,{choice:v,answered_at:new Date().toISOString()});
+ fttSaving();fttStatus();
+});
+function fttMove(i){
+ var st=fttSt();st.cur=Math.max(0,Math.min(fttQs().length-1,i));fttRenderPlay();
+ var a=document.activeElement;if(!a||a===document.body||a.disabled)fe('tpQText').focus({preventScroll:true});
+}
+fe('tpPrev').addEventListener('click',function(){fttMove(fttSt().cur-1)});
+fe('tpNext').addEventListener('click',function(){var st=fttSt();if(st.cur===fttQs().length-1)fttAskSubmit();else fttMove(st.cur+1)});
+fe('tpGrid').addEventListener('click',function(e){
+ var b=e.target.closest('[data-q]');if(!b)return;var i=+b.getAttribute('data-q');fttMove(i);
+ var c=fe('tpGrid').querySelector('[data-q="'+i+'"]');if(c)c.focus();
+});
+fe('tpSubmit').addEventListener('click',fttAskSubmit);
+fe('tpLang').addEventListener('click',function(){fe('langBtn').click()});
+/* submit: say how many are answered, and offer a way back to each one that is not */
+function fttAskSubmit(){
+ var prac=fttPracMode(),qs=fttQs(),st=fttSt(),miss=[];
+ qs.forEach(function(q,i){if(st.ans[q.id]==null)miss.push(i)});
+ fe('fttSubT').textContent=prac?t('ส่งคำตอบฝึกหัด','Submit the practice'):t('ยืนยันการส่งคำตอบ','Submit your answers');
+ var box=fe('fttSubMiss');box.hidden=!miss.length;
+ box.innerHTML='<i class="ic" data-lucide="circle-alert"></i><div><b>'+fesc(t('คุณยังทำแบบทดสอบไม่ครบ','You have not finished the test'))+'</b></div>';
+ fe('fttSubNote').className=prac?'hint':'tt-final';fe('fttSubNote').textContent=prac?t('นี่คือระบบจำลองการทดสอบ ระบบจะไม่บันทึกผล','This is practice test. Nothing is recorded.'):t('จะไม่สามารถแก้ไขคำตอบได้หลังจากส่งแบบทดสอบ','Once you submit, you cannot change your answers.');
+ fe('fttSubGoTx').textContent=t('ส่งคำตอบ','Submit');
+ openModal('fttsubmit');
+}
+fe('fttSubGo').addEventListener('click',function(){
+ var b=this;
+ if(fttPracMode()){closeModals();fttPracDone(false);return}
+ b.disabled=true;b.querySelector('.spin').hidden=false;fe('fttSubGoTx').textContent=t('กำลังส่ง…','Sending…');
+ setTimeout(function(){b.disabled=false;b.querySelector('.spin').hidden=true;closeModals();fttSend(false)},900);
+});
+/* POST /api/attempts/{id}/submit — by the member, or by the clock at zero */
+function fttSend(auto){
+ if(ftt.state!=='progress')return;
+ ftt.sent=new Date(Math.min(Date.now(),ftt.deadline));ftt.auto=auto;
+ console.log('POST /api/attempts/'+ftt.id+'/submit',{auto_submitted:auto,answers:ftt.ans,submitted_at:ftt.sent.toISOString()});
+ var inTest=fttScr()==='ftexam';
+ fttSetState('sent',inTest);
+ if(inTest){showScreen('ftsent');fttRender()}
+}
+/* no exit button: the test is taken in one sitting. If it breaks off (connection lost, a technical fault, a closed tab) the answers are
+   already saved and the clock keeps running; the member comes back through the same notification or the email. The link in the
+   prototype line stands in for that. */
+function fttInterrupt(){
+ if(ftt.state!=='progress'||fttScr()!=='ftexam')return;
+ closeModals();
+ console.log('POST /api/attempts/'+ftt.id+'/events',{type:'disconnect',question_index:ftt.cur,at:new Date().toISOString()});
+ ftHub();
+ toast(t('การเชื่อมต่อขาดหาย ทำต่อได้จากการแจ้งเตือน','Connection lost. Carry on from the notification.'),'wifi-off');
+ setTimeout(function(){setBell(true)},450);
+}
+/* closing or reloading the tab mid-test gets the browser's own "leave site?" check */
+window.addEventListener('beforeunload',function(e){if(ftt.state==='progress'&&fttScr()==='ftexam'){e.preventDefault();e.returnValue=''}});
+
+/* ----- practice: the tour first (once), then a 3-minute go that is never sent ----- */
+function fttPracEnter(){
+ fe('tpTry').hidden=true;
+ if(!fttPrac.toured&&!fttTourOff)setTimeout(function(){if(fttPracMode())fttTour(0)},400);
+ else fttPracRun();
+}
+function fttPracRun(){fttPrac.running=true;fe('tpTry').hidden=false}
+function fttPracReset(){fttPrac.cur=0;fttPrac.ans={};fttPrac.left=FTT.prac_seconds;fttPrac.running=false}
+function fttPracDone(auto){
+ closeModals();fttPracReset();showScreen('ftready');fttRender();
+ toast(auto?t('หมดเวลาฝึกหัด ในแบบทดสอบจริง ระบบจะส่งคำตอบให้อัตโนมัติแบบนี้','Practice time is up. In the real test, your answers are sent automatically like this.'):t('ฝึกหัดเสร็จแล้ว ระบบไม่ได้บันทึกผล','Practice done. Nothing was recorded.'),auto?'timer':'');
+}
+fe('tpTour').addEventListener('click',function(){fttPrac.running=false;fttTour(0)});
+fe('tpSkip').addEventListener('click',function(){fttPracReset();showScreen('ftready');fttRender()});
+/* the tour: a spotlight on one control, the card beside it (below, else above, else to the side) */
+function fttTour(i){
+ var box=fe('tour');
+ if(i<0||i>=FTT_TOUR.length){
+  box.hidden=true;fttTourI=-1;fttPrac.toured=true;
+  if(fttPracMode()){fttPracRun();fe('tpQText').focus({preventScroll:true})}
+  return;
+ }
+ var s=FTT_TOUR[i];fttTourI=i;box.hidden=false;
+ fe('tourN').textContent=t('วิธีใช้งาน · ','How it works · ')+(i+1)+' / '+FTT_TOUR.length;
+ fe('tourT').textContent=t(s[1][0],s[1][1]);fe('tourP').textContent=t(s[2][0],s[2][1]);
+ fe('tourPrev').hidden=!i;
+ fe('tourNextTx').textContent=i===FTT_TOUR.length-1?t('ลองทำแบบทดสอบจำลอง','Try the practice test'):t('ถัดไป','Next');
+ fttTourPlace();fe('tourNext').focus({preventScroll:true});
+}
+function fttTourPlace(){
+ if(fttTourI<0)return;
+ var el=document.querySelector('#screen-ftplay [data-tour="'+FTT_TOUR[fttTourI][0]+'"]');
+ fe('tourHole').classList.toggle('none',!el);
+ if(!el){
+  var tp=fe('tourTip'),hl=fe('tourHole');
+  hl.style.left=hl.style.top='50%';hl.style.width=hl.style.height='0px';
+  tp.style.left=Math.max(16,(window.innerWidth-400)/2)+'px';tp.style.top='0px';
+  tp.style.top=Math.max(16,(window.innerHeight-tp.offsetHeight)/2)+'px';return
+ }
+ el.scrollIntoView({block:'nearest'});
+ var r=el.getBoundingClientRect(),p=8,g=16,hole=fe('tourHole'),tip=fe('tourTip'),tw=tip.offsetWidth,th=tip.offsetHeight,vw=window.innerWidth,vh=window.innerHeight,x,y;
+ hole.style.left=(r.left-p)+'px';hole.style.top=(r.top-p)+'px';hole.style.width=(r.width+p*2)+'px';hole.style.height=(r.height+p*2)+'px';
+ if(r.bottom+p+g+th<=vh-g){y=r.bottom+p+g;x=r.left+r.width/2-tw/2}
+ else if(r.top-p-g-th>=g){y=r.top-p-g-th;x=r.left+r.width/2-tw/2}
+ else if(r.left-p-g-tw>=g){x=r.left-p-g-tw;y=r.top+r.height/2-th/2}
+ else{x=r.right+p+g;y=r.top+r.height/2-th/2}
+ tip.style.left=Math.max(g,Math.min(vw-tw-g,x))+'px';tip.style.top=Math.max(g,Math.min(vh-th-g,y))+'px';
+}
+fe('tourNext').addEventListener('click',function(){fttTour(fttTourI+1)});
+fe('tourPrev').addEventListener('click',function(){fttTour(fttTourI-1)});
+fe('tourSkip').addEventListener('click',function(){fttTour(-1)});
+document.addEventListener('keydown',function(e){
+ if(fttTourI<0)return;
+ if(e.key==='Escape'){e.preventDefault();fttTour(-1);return}
+ if(e.key==='Tab'){
+  var f=[].filter.call(fe('tourTip').querySelectorAll('button'),function(b){return !b.hidden}),k=f.indexOf(document.activeElement);
+  e.preventDefault();f[(k+(e.shiftKey?-1:1)+f.length)%f.length].focus();
+ }
+});
+window.addEventListener('resize',fttTourPlace);
+
+/* ----- get ready ----- */
+function fttRenderReady(){
+ var m=FTT.minutes;
+ fe('trLead').textContent=t('ระบบจะเริ่มนับถอยหลัง '+m+' นาทีอย่างต่อเนื่องเมื่อเริ่มทำแบบทดสอบ กรุณาเตรียมตัวให้พร้อม','When you press Start, the '+m+'-minute timer begins and does not pause, even if you leave. Get ready before you start.');
+ fttTiles(fe('trTiles'),[[t('จำนวนข้อ','Questions'),fttTotal(),t('ข้อ','questions')],[t('จำนวนส่วน','Parts'),FTT.parts.length,t('ส่วน','parts')],
+  [t('เวลา','Duration'),m,t('นาที','minutes')]]);
+ fe('trList').innerHTML=[
+  ['armchair',t('สถานที่ที่เงียบ และไม่ถูกรบกวน','Find a quiet spot'),t('ที่ทำต่อเนื่องได้ '+m+' นาทีโดยไม่ถูกรบกวน','Somewhere you can work for '+m+' minutes without interruptions.')],
+  ['plug-zap',t('เสียบสายชาร์จและเช็กอินเทอร์เน็ต','Plug in and check your connection'),t('ใช้อินเทอร์เน็ตที่เสถียร และเสียบสายชาร์จคอมพิวเตอร์ไว้','Use a stable connection and keep your computer charging.')],
+  ['app-window',t('ปิดแท็บและแอพพลิเคชันอื่น','Close other tabs and applications'),t('ปิดการแจ้งเตือนต่าง ๆ เพื่อป้องกันการรบกวนสมาธิ','Turn off notifications for your focus.')],
+  ['rotate-ccw',t('เมื่อประสบปัญหาทางเทคนิค','When encountering technical issues'),t('กดการแจ้งเตือนของแบบทดสอบอีกครั้ง ระบบจะพากลับไปที่ข้อเดิมพร้อมเวลาที่เหลือ','Open the test notification again. You go back to the same question with the time that is left.')]]
+  .map(function(r){return '<li><span class="nic"><i class="ic" data-lucide="'+r[0]+'"></i></span><div><b>'+fesc(r[1])+'</b><p>'+fesc(r[2])+'</p></div></li>'}).join('');
+ icons(fe('screen-ftready'));
+}
+/* POST /api/tests/{id}/attempts — the server sets ends_at: the full duration, cut short only by the closing time */
+function fttStart(ago){
+ var now=Date.now(),close=new Date(FTT.closes).getTime();
+ ftt.id='ATT-'+(ftApp?ftApp.id.replace('APP-',''):'2026-0000');
+ ftt.started=now-ago;ftt.cur=0;ftt.ans={};ftt.sent=null;ftt.auto=false;
+ ftt.deadline=fttSecs?now+fttSecs*1000:close>now?Math.min(ftt.started+FTT.minutes*60000,close):ftt.started+FTT.minutes*60000;
+ var l=ftt.deadline-now;ftt.warned=l<=60000?2:l<=300000?1:0;
+ console.log('POST /api/tests/'+FTT.id+'/attempts',{application_id:ftApp&&ftApp.id,terms_version:FTT.terms_version,started_at:new Date(ftt.started).toISOString(),ends_at:new Date(ftt.deadline).toISOString()});
+}
+fe('trPrac').addEventListener('click',function(){fttPracReset();fttGo('ftprac')});
+fe('trGo').addEventListener('click',function(){if(ftt.state!=='open')return;fttStart(0);fttSetState('progress',true);fttGo('ftexam')});
+
+/* ----- answers received: no score, only what was sent and when the result comes ----- */
+function fttRenderSent(){
+ if(!ftt.sent)return;
+ var n=FTT_BANK.length,a=fttAnswered(ftt),d=ftt.sent,email=fttEmail(),ymd=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()),hm=pad(d.getHours())+':'+pad(d.getMinutes());
+ fe('tsSub').textContent=(ftt.auto?t('หมดเวลาแล้ว ระบบจึงส่งคำตอบที่คุณเลือกไว้ให้อัตโนมัติ ','Time ran out, so we sent the answers you had picked. '):'')+t('คำตอบของคุณถูกบันทึกไว้กับใบสมัครแล้ว ปิดหน้าต่างนี้ได้เลย','Your answers are saved with your application. You can close this window now.');
+ fe('tsResDate').textContent=ftDate(FTT.results_at);
+ fe('tsResTime').textContent=t('เวลา '+ftTime(FTT.results_at)+' น. (ICT)',ftTime(FTT.results_at)+' (ICT)');
+ fe('tsResNote').textContent=t('แจ้งผลทางการแจ้งเตือนในพอร์ทัล และทางอีเมล '+email,'By portal notification, and by email to '+email);
+ ftTrack(fe('tsTrack'),ftStdSteps());
+ fe('tsStamp').textContent=t('ส่งเมื่อ '+ymd+' เวลา '+hm+' น.','Submitted on '+ymd+' at '+hm);
+ fe('tsRows').innerHTML=[[t('เลขอ้างอิง','Reference'),ftt.id],[t('แบบทดสอบ','Test'),t('แบบทดสอบคัดกรอง YEAH Future Talent','YEAH Future Talent Screening Test')],
+  [t('ตอบแล้ว','Answered'),t(a+' จาก '+n+' ข้อ',a+' of '+n)],[t('เวลาที่ใช้','Time used'),fttClock(d-ftt.started)],
+  [t('ส่งโดย','Sent by'),ftt.auto?t('ระบบ เมื่อหมดเวลา','The system, when time ran out'):t('คุณ','You')]]
+  .map(function(r){return '<div class="pd"><span>'+fesc(r[0])+'</span><b>'+fesc(r[1])+'</b></div>'}).join('');
+ fe('tsNext').innerHTML=[
+  ['megaphone',t('ประกาศผลแบบทดสอบ (','Test results (')+ftDate(FTT.results_at)+')',t('เวลา '+ftTime(FTT.results_at)+' น. ทางการแจ้งเตือนในพอร์ทัลและอีเมล','At '+ftTime(FTT.results_at)+' (ICT), in the portal and by email')],
+  ['mic',t('การสัมภาษณ์ (','Interview (')+ftRange(FT.interview[0],FT.interview[1])+')',t('ผู้ที่ผ่านแบบทดสอบจะได้รับอีเมลให้เลือกรอบสัมภาษณ์','If you pass, we will email you to pick an interview slot')],
+  ['flag',t('ประกาศผลสุดท้าย (','Final result (')+ftDate(FT.announce)+')',t('ในพอร์ทัลและทางอีเมล','In the portal and by email')]]
+  .map(function(r){return '<li><span class="nic"><i class="ic" data-lucide="'+r[0]+'"></i></span><div><b>'+fesc(r[1])+'</b><p>'+fesc(r[2])+'</p></div></li>'}).join('');
+ icons(fe('screen-ftsent'));
+}
+
+fe('tpDrop').addEventListener('click',fttInterrupt);
+/* prototype: set the real test's clock to N seconds left, to see the 5-minute and 1-minute states and the auto-submit */
+fe('tpJump').addEventListener('click',function(e){
+ var b=e.target.closest('[data-jump]');if(!b||ftt.state!=='progress')return;
+ var sec=+b.getAttribute('data-jump');ftt.deadline=Date.now()+sec*1000;ftt.warned=sec<=60?2:sec<=300?1:0;fttTimer();
+});
+/* one clock for the practice, the test, the notification's time left and the closing countdown */
+setInterval(function(){
+ var scr=fttScr();
+ if(scr==='ftprac'&&fttPrac.running){fttPrac.left--;fttTimer();if(fttPrac.left<=0)fttPracDone(true)}
+ if(ftt.state==='progress'){
+  var l=fttLeftMs();
+  if(scr==='ftexam'){
+   fttTimer();
+   if(l<=300000&&ftt.warned<1){ftt.warned=1;toast(t('เหลือเวลา 5 นาที','5 minutes left'),'timer')}
+   if(l<=60000&&ftt.warned<2){ftt.warned=2;toast(t('เหลือเวลา 1 นาที ระบบจะส่งคำตอบเมื่อหมดเวลา','1 minute left. Your answers are sent when time runs out.'),'timer')}
+  }
+  if(l<=0){if(scr==='ftexam')closeModals();fttSend(true)}
+  else{var p=document.querySelector('#fttNotif p');if(p)p.textContent=fttNotifLine()}
+ }
+},1000);
+/* prototype: jump from the waiting list to test day */
+fe('fttOpenNow').addEventListener('click',function(){
+ FT.screening=new Date(Date.now()-60000).toISOString();
+ fttSetState('open');ftRenderDone();
+ toast(t('แบบทดสอบเปิดแล้ว ดูที่การแจ้งเตือน','The test is open. Check the notification bell.'),'bell');
+ setTimeout(function(){setBell(true)},450);
+});
+function fttRoute(qs,screen){
+ var st=qs.get('ft_test'),onTest=['ftinfo','ftprac','ftready','ftexam','ftsent'].indexOf(screen)>-1;
+ if(qs.get('tour')==='0')fttTourOff=true;
+ if(+qs.get('ft_secs')>0)fttSecs=+qs.get('ft_secs');
+ if(!st&&onTest)st=screen==='ftexam'?'progress':screen==='ftsent'?'sent':'open';
+ if(['open','progress','sent'].indexOf(st)<0)return;
+ ftSampleApp();
+ FT.screening=new Date(Date.now()-60000).toISOString();
+ ftt.agreed=st!=='open'||screen==='ftprac'||screen==='ftready';
+ if(st!=='open')fttStart(fttSecs?0:7*60000);
+ if(st==='sent'){ftt.ans[FTT_BANK[0].id]=2;ftt.sent=new Date()}
+ fttSetState(st);ftRenderDone();
+ if(onTest){fttRender();if(screen==='ftprac')fttPracEnter()}
+}
+
+/* init — ?screen=login|register|hub|ftdetail|ftapply|ftdone|ftinfo|ftprac|ftready|ftexam|ftsent deep-links a single screen,
+   used by the frames preview; &mode=email opens registration as the manual "Sign up" form (empty, with password fields);
+   the Future Talent switches (&ft_state=, …) are listed above FT, the screening test's (&ft_test=, …) above FTT */
 var qs=new URLSearchParams(location.search),qScreen=qs.get('screen');
 setAuthMode(qs.get('mode')==='email'?'email':'google');
 ftSetup(qs);
 applyLang();renderTier(0);renderPrograms();icons();update();countUp();
-if(['login','register','hub','ftdetail','ftapply','ftdone'].indexOf(qScreen)>-1)showScreen(qScreen);
+if(['login','register','hub','ftdetail','ftapply','ftdone','ftinfo','ftprac','ftready','ftexam','ftsent'].indexOf(qScreen)>-1)showScreen(qScreen);
 ftRoute(qs,qScreen);
+fttRoute(qs,qScreen);
 /* &tier=general|explorer|builder|leader|catalyst (or 0–4) opens the hub previewing that tier and its card */
 var qTier=qs.get('tier'),tierKeys=['general','explorer','builder','leader','catalyst'];
 if(qTier!==null){var ti=tierKeys.indexOf(qTier);if(ti<0&&/^[0-4]$/.test(qTier))ti=+qTier;if(ti>-1)setMyTier(ti)}
+/* &bell=1 opens the notifications panel (the frames viewer uses it for the test-launched tab) */
+if(qs.get('bell')==='1')setTimeout(function(){setBell(true)},300);
 if(qs.get('share')==='1'&&qScreen==='hub'){openModal('share');renderShareQr()}
 /* &launch=1 auto-plays the key-unlock transition once. The beat before it fires lets the
    login screen paint first, so the frames preview shows what you are transitioning FROM. */

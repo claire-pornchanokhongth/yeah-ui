@@ -37,7 +37,7 @@ html[data-lang="th"] .lbl{letter-spacing:.04em}
 .req{color:var(--yeah-pink)}
 .screen{display:none}
 html[data-screen="login"] #s-login,html[data-screen="register"] #s-register,html[data-screen="hub"] #s-hub,
-html[data-screen="ftdetail"] #s-ftdetail,html[data-screen="ftapply"] #s-ftapply,html[data-screen="ftdone"] #s-ftdone,html[data-screen="fttest"] #s-fttest{display:block}
+html[data-screen="ftdetail"] #s-ftdetail,html[data-screen="ftapply"] #s-ftapply,html[data-screen="ftdone"] #s-ftdone,html[data-screen="fttest"] #s-fttest,html[data-screen="ftresult"] #s-ftresult{display:block}
 /* ===== buttons ===== */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:var(--tap);padding:0 22px;border-radius:999px;border:none;font-family:var(--font-display-alt);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:transform .14s var(--ease),opacity .14s}
 .btn .ic{width:17px;height:17px}
@@ -543,6 +543,16 @@ html[data-lang="th"] .btn{letter-spacing:.01em}
 .ft-chip.wait{background:#FEF3C7;color:#B45309}
 .ft-chip.draft{background:#F1F5F9;color:#475569}
 .ft-chip.assess{background:#F3E8FF;color:#6B21A8}
+/* announcement stage: the banner swaps to the results art (same 390×586 box); the result page shows the same size of art with one button under it */
+.ftr-art{position:relative;display:block;aspect-ratio:390/586;background:#F8067B}
+.ftr-art object{display:block;width:100%;height:100%;pointer-events:none}
+.ftr-back{position:absolute;top:14px;left:14px;z-index:2;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(10,6,12,.32);color:#fff;
+ backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.ftr-back .ic{width:22px;height:22px}
+.ftr-back:focus-visible{outline:2.5px solid var(--yeah-yellow);outline-offset:2px}
+.ftr-actions{position:absolute;left:var(--pad);right:var(--pad);bottom:28px;display:flex;flex-direction:column;gap:10px}
+.ftr-dev{padding:0 var(--pad) 36px}
+#s-ftresult [hidden]{display:none!important}
 /* program page: the banner's header, the details, then ยกเลิก / สมัครเลย in the flow above the site footer */
 .ftd-hero{position:relative;overflow:hidden;color:#fff;
  background:radial-gradient(circle 300px at 100% 0,#FCB846,rgba(251,106,92,.7) 45%,rgba(248,6,123,0)),radial-gradient(circle 230px at 0 72%,rgba(251,79,104,.55),rgba(248,6,123,0)),#F8067B}
@@ -726,6 +736,8 @@ html[data-screen="ftapply"] .toast{bottom:calc(18px + env(safe-area-inset-bottom
 html[data-lang="th"] .ft-badge{letter-spacing:.02em}
 .ft-badge .ic{width:13px;height:13px}
 .ft-badge-wait,.st-ftwait{background:#FEF3C7;color:#B45309}
+.st-ftok{background:#DCFCE7;color:#15803D}
+.st-ftno{background:#F1F5F9;color:#475569}
 .ft-ok h1{font-size:25px;font-weight:600;margin:12px 0 8px}
 .ft-ok>p{font-size:13.5px;color:var(--muted)}
 .ft-queue{display:inline-flex;align-items:baseline;gap:6px;margin-top:14px;padding:8px 14px;border-radius:999px;background:rgba(40,16,36,.06);font-size:12.5px}
@@ -1532,7 +1544,7 @@ html[data-lang="th"] .ft-badge{letter-spacing:.02em}
    <button type="button" class="btn btn-grad btn-full" id="ftHome"><span data-en="Back to dashboard" data-th="กลับสู่หน้าหลัก">กลับสู่หน้าหลัก</span></button>
    <button type="button" class="btn btn-ghost btn-full" id="ftStatus"><span data-en="View application status" data-th="ดูสถานะใบสมัคร">ดูสถานะใบสมัคร</span></button>
   </div>
-  <p class="ft-test" id="fttDev"><i class="ic" data-lucide="flask-conical"></i><span data-en="Prototype only:" data-th="เฉพาะต้นแบบ:">เฉพาะต้นแบบ:</span><button type="button" id="fttOpenNow" data-en="open the screening test now" data-th="เปิดแบบทดสอบคัดกรองตอนนี้">เปิดแบบทดสอบคัดกรองตอนนี้</button></p>
+  <p class="ft-test" id="fttDev"><i class="ic" data-lucide="flask-conical"></i><span data-en="Prototype only:" data-th="เฉพาะต้นแบบ:">เฉพาะต้นแบบ:</span><button type="button" id="fttOpenNow" data-en="open the screening test now" data-th="เปิดแบบทดสอบคัดกรองตอนนี้">เปิดแบบทดสอบคัดกรองตอนนี้</button> · <button type="button" id="ftrAnnounce" data-en="go to the announcement stage" data-th="ไปที่ช่วงประกาศผล">ไปที่ช่วงประกาศผล</button></p>
  </div>
 </main>
 
@@ -1548,6 +1560,23 @@ html[data-lang="th"] .ft-badge{letter-spacing:.02em}
    <p class="ftt-when" id="fttOnlyWhen"></p>
    <button type="button" class="btn btn-grad btn-full" id="fttOnlyHome"><span data-en="Back to dashboard" data-th="กลับสู่หน้าหลัก">กลับสู่หน้าหลัก</span></button>
   </section>
+ </div>
+</main>
+
+<!-- ============ 04 FUTURE TALENT · RESULT (tap the announcement banner or its notification) ============
+     Same page for both outcomes; the artwork (selected / not selected) carries the message and the lettering. -->
+<main class="screen" id="s-ftresult" data-program-id="PRG-FT-C1" aria-labelledby="ftrT">
+ <h1 class="sr" id="ftrT"></h1>
+ <div class="ftr-art">
+  <button type="button" class="ftr-back" id="ftrBack" data-aria-th="กลับ" data-aria-en="Back" aria-label="กลับ"><i class="ic" data-lucide="chevron-left"></i></button>
+  <object id="ftrArt" data="uploads/yeah_future_talent_selected_mobile.svg" type="image/svg+xml" tabindex="-1" aria-hidden="true"></object>
+  <div class="ftr-actions">
+  <button type="button" class="btn btn-grad btn-full" id="ftrProgram" hidden><span data-en="See the program page" data-th="ดูหน้าโปรแกรม">ดูหน้าโปรแกรม</span><i class="ic" data-lucide="arrow-right"></i></button>
+  <button type="button" class="btn btn-ghost btn-full" id="ftrHome"><span data-en="Back to dashboard" data-th="กลับสู่หน้าหลัก">กลับสู่หน้าหลัก</span></button>
+  </div>
+ </div>
+ <div class="ftr-dev">
+  <p class="ft-test" id="ftrDev"><i class="ic" data-lucide="flask-conical"></i><span data-en="Prototype only:" data-th="เฉพาะต้นแบบ:">เฉพาะต้นแบบ:</span><button type="button" data-ftr-flip data-en="switch outcome" data-th="สลับผลการคัดเลือก">สลับผลการคัดเลือก</button></p>
  </div>
 </main>
 
@@ -2633,6 +2662,7 @@ function ftAlert(on){
 }
 /* once the test is open the pill over the banner goes to the "desktop only" page (the same place as its notification); the rest of the banner still opens the program page */
 fe('ftBanner').addEventListener('click',function(e){
+ if(ftResult){ftShowResult();return}
  if(fttOpen&&e.target.closest('#ftBannerChip')){showScreen('fttest');fttRenderOnly();return}
  ftShowDetail();
 });
@@ -3064,7 +3094,7 @@ function ftMarkApplied(){
   '<p class="role">bootcamp · <span data-th="ส่งเมื่อ '+day+' '+mo[0]+'" data-en="applied '+day+' '+mo[1]+'">'+t('ส่งเมื่อ '+day+' '+mo[0],'applied '+day+' '+mo[1])+'</span></p>'+
   '<span class="st st-ftwait"><i class="ic" data-lucide="hourglass"></i>Waiting list</span>'+
   '<div class="track"><i class="on"></i><i class="on"></i><i></i>'+(a.track==='fast'?'':'<i></i>')+'</div></div><i class="ic" data-lucide="chevron-right" style="color:#C4C4C4"></i>';
- r.addEventListener('click',function(){showScreen('ftdone');ftRenderDone()});
+ r.addEventListener('click',function(){if(ftResult){ftShowResult();return}showScreen('ftdone');ftRenderDone()});
  list.insertBefore(r,list.firstChild);
  var c=document.querySelector('#mtabs button[data-tab="history"] .cnt');if(c)c.textContent=+c.textContent+1;
  var fast=a.track==='fast',nb=fast?['ทีม YEAH จะพิจารณาและประกาศผล '+ftDate(FT.fast_announce,'th'),'YEAH reviews it directly. Results on '+ftDate(FT.fast_announce,'en')+'.']
@@ -3079,11 +3109,11 @@ function ftMarkApplied(){
 }
 /* the banner artwork follows the page language (the Thai and English files carry their own lettering) */
 function ftBannerArt(){
- var o=document.querySelector('#ftBanner object'),u='uploads/yeah_future_talent_banner_mobile'+(LANG==='en'?'_en':'%282%29')+'.svg';
+ var o=document.querySelector('#ftBanner object'),u=ftResult?'uploads/yeah_future_talent_results_announcement_mobile.svg':'uploads/yeah_future_talent_banner_mobile'+(LANG==='en'?'_en':'%282%29')+'.svg';
  if(o.getAttribute('data')!==u)o.setAttribute('data',u);
 }
 function ftBannerChip(){
- var c=fe('ftBannerChip'),s=fttOpen?['assess','calendar',t('แบบทดสอบเปิดแล้ว','Test open')]:ftApp?['wait','hourglass',t('สมัครแล้ว · รอพิจารณา','Applied · waiting list')]:ftDraft?['draft','pencil',t('สมัครต่อจากร่าง','Continue your draft')]:null;
+ var c=fe('ftBannerChip'),s=ftResult?null:fttOpen?['assess','calendar',t('แบบทดสอบเปิดแล้ว','Test open')]:ftApp?['wait','hourglass',t('สมัครแล้ว · รอพิจารณา','Applied · waiting list')]:ftDraft?['draft','pencil',t('สมัครต่อจากร่าง','Continue your draft')]:null;
  c.hidden=!s;if(!s)return;
  c.className='ft-chip '+s[0];c.innerHTML='<i class="ic" data-lucide="'+s[1]+'"></i>'+fesc(s[2]);icons(c);
 }
@@ -3132,6 +3162,46 @@ fe('fttOpenNow').addEventListener('click',function(){
  toast(t('แบบทดสอบเปิดแล้ว ดูที่การแจ้งเตือน','The test is open. Check the notifications.'),'bell');
  setTimeout(function(){showScreen('hub');openNotif()},700);
 });
+/* ----- 04 announcement: the banner and the notification both lead to the result page ----- */
+var ftResult=null; /* null | 'selected' | 'not_selected' — in production this comes from the application's final status */
+function ftResultNotif(){
+ var n=fe('ftResNotif');
+ if(!ftResult){if(n)n.remove();return}
+ var isNew=!n;
+ if(isNew){
+  n=document.createElement('div');n.id='ftResNotif';n.className='nrow ftt-notif unread';n.setAttribute('role','button');n.tabIndex=0;
+  n.addEventListener('click',function(){n.classList.remove('unread');closeNotif();ftShowResult()});
+  n.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();n.click()}});
+ }
+ n.innerHTML='<span class="nic"><i class="ic" data-lucide="megaphone"></i></span><div class="ntx"><div class="nhd"><b>'+fesc(t('ประกาศผลการคัดเลือก YEAH Future Talent รุ่นที่ 1','YEAH Future Talent Cohort 1 results are out'))+'</b><time>'+fesc(t('เมื่อสักครู่','now'))+'</time></div>'+
+  '<p>'+fesc(t('แตะเพื่อดูผลการคัดเลือกของคุณ','Tap to see your result.'))+'</p></div>';
+ icons(n);
+ if(isNew){
+  var nl=document.querySelector('#npage .nlist');nl.insertBefore(n,nl.firstChild);
+  notifBtn.classList.remove('read');fe('markRead').disabled=false;
+ }
+}
+function ftRenderResult(){
+ var ok=ftResult==='selected';
+ var o=fe('ftrArt'),u='uploads/yeah_future_talent_'+(ok?'selected':'not_selected')+'_mobile.svg';
+ if(o.getAttribute('data')!==u)o.setAttribute('data',u);
+ fe('ftrT').textContent=ok?t('ยินดีด้วย คุณได้รับคัดเลือกเข้าร่วม YEAH Future Talent','Congratulations! You were selected for YEAH Future Talent')
+  :t('ไม่เป็นไรนะ คุณได้ลองทำเต็มที่แล้ว ขอให้คุณประสบความสำเร็จในเส้นทางของคุณ','It is okay, you gave it your best. We hope to grow with you in the future.');
+ fe('ftrProgram').hidden=!ok;
+}
+function ftShowResult(){ftRenderResult();showScreen('ftresult');fe('ftrBack').focus({preventScroll:true})}
+function ftAnnounce(r){
+ if(!ftApp){var over=ftFull();ftApp={id:'APP-2026-0417',submitted_at:new Date(),overfill:over,queue:over?FT.taken-FT.capacity+1:FT.taken+1,track:FT.track,
+  name:(fv('first_name')+' '+fv('last_name')).trim(),email:fv('email'),skill:'product_design',skill_other:null,files:FT.evidence_required?['transcript-2569.pdf','portfolio-thaifarm-ai.pdf']:[]};FT.taken++;ftMarkApplied()}
+ ftResult=r;fttOpen=false;fttNotifMobile();ftBannerChip();ftBannerArt();ftResultNotif();
+ var row=document.querySelector('#ftHistRow .st');if(row){row.className='st '+(r==='selected'?'st-ftok':'st-ftno');row.innerHTML='<i class="ic" data-lucide="'+(r==='selected'?'party-popper':'heart')+'"></i>'+(r==='selected'?'Selected':'Not selected');icons(row)}
+}
+fe('ftrBack').addEventListener('click',function(){showScreen('hub');goTab('status')});
+fe('ftrHome').addEventListener('click',function(){showScreen('hub');goTab('status')});
+fe('ftrProgram').addEventListener('click',function(){toast(t('หน้าโปรแกรมยังไม่พร้อม','The program page is not ready yet'))});
+/* dev shortcut: the hub in the announcement stage, result defaults to selected (switch it on the result page) */
+fe('ftrAnnounce').addEventListener('click',function(){ftAnnounce('selected');showScreen('hub');goTab('status')});
+document.querySelector('[data-ftr-flip]').addEventListener('click',function(){ftResult=ftResult==='selected'?'not_selected':'selected';ftRenderResult()});
 /* dev hook into the paused screens (interview, result) */
 /* one clock for both countdowns; a zero crossing re-renders into the closed / open state */
 setInterval(function(){
@@ -3149,7 +3219,8 @@ function ftRenderAll(){
  ftForm.querySelectorAll('.has-err').forEach(function(w){ftShow(w.getAttribute('data-ff'))});
  ftRenderFiles();ftSync();
  if(ftApp)ftRenderDone();
- fttNotifMobile();
+ fttNotifMobile();ftResultNotif();
+ if(document.documentElement.getAttribute('data-screen')==='ftresult')ftRenderResult();
  if(document.documentElement.getAttribute('data-screen')==='fttest')fttRenderOnly();
 }
 function ftSetup(qs){
@@ -3182,7 +3253,7 @@ var qs=new URLSearchParams(location.search),qScreen=qs.get('screen'),qTab=qs.get
 setAuthMode(qs.get('mode')==='email'?'email':'google');
 ftSetup(qs);
 applyLang();goStep(1);renderTier(0);renderPrograms();icons();countUp();
-if(['login','register','hub','ftdetail','ftapply','ftdone','fttest'].indexOf(qScreen)>-1)showScreen(qScreen);
+if(['login','register','hub','ftdetail','ftapply','ftdone','fttest','ftresult'].indexOf(qScreen)>-1)showScreen(qScreen);
 if(qTab)goTab(qTab);
 ftRoute(qs,qScreen);
 /* &ft_test=open (or &screen=fttest) sets up a sample application with the test open */
@@ -3192,6 +3263,9 @@ if(qs.get('ft_test')==='open'||qScreen==='fttest'){
  FT.screening=new Date(Date.now()-60000).toISOString();fttOpen=true;fttNotifMobile();fe('fttDev').hidden=true;ftBannerChip();ftRenderDone();
  if(qScreen==='fttest')fttRenderOnly();
 }
+/* &ft_result=selected|not_selected sets up a sample application whose result is out (&screen=ftresult opens the result page) */
+var qRes=qs.get('ft_result')||(qScreen==='ftresult'?'selected':null);
+if(qRes==='selected'||qRes==='not_selected'){ftAnnounce(qRes);if(qScreen==='ftresult')ftShowResult()}
 /* &tier=general|explorer|builder|leader|catalyst (or 0–4) previews that tier and its card */
 var qTier=qs.get('tier'),tierKeys=['general','explorer','builder','leader','catalyst'];
 if(qTier!==null){var ti=tierKeys.indexOf(qTier);if(ti<0&&/^[0-4]$/.test(qTier))ti=+qTier;if(ti>-1)setMyTier(ti)}
